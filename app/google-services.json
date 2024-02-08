@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "639190160106",
+    "project_id": "cadeapp-d4fe5",
+    "storage_bucket": "cadeapp-d4fe5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639190160106:android:2dd6814539673a09c93d93",
+        "android_client_info": {
+          "package_name": "com.example.cadeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639190160106-1hr4mfsk2gcnuhssknjcp3m0fpsj60ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAHUl7EUxcEN3gkgSbAvStUWFcxYWMcuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639190160106-1hr4mfsk2gcnuhssknjcp3m0fpsj60ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

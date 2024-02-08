@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/backopcion" />
+    <corners android:radius="8dp" /> <!-- Ajusta el radio según tus preferencias -->
+</shape>

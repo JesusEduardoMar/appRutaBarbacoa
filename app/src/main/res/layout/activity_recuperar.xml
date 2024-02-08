@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecuperarActivity">
+
+
+  <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:scaleType="centerCrop"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHeight_percent=".25"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0" />
+
+  <TextView
+      android:id="@+id/text_titulo"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:textSize="30dp"
+      android:textStyle="bold"
+      app:layout_constraintVertical_bias=".3"
+      app:layout_constraintHorizontal_bias=".5"
+      android:text="Ayuda con la contraseña"
+      app:layout_constraintWidth_percent=".8"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/text_instr"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:textStyle="bold"
+      android:text="Escribe tu dirección de correo electrónico asociado a tu cuenta de Delicio."
+      app:layout_constraintVertical_bias=".1"
+      app:layout_constraintHorizontal_bias=".5"
+      app:layout_constraintWidth_percent=".8"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/text_titulo" />
+
+  <EditText
+      android:id="@+id/correo_recup"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:background="@drawable/edittext_bg"
+      android:hint="Correo"
+      android:paddingLeft="20dp"
+      android:paddingTop="15dp"
+      android:paddingBottom="15dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias=".5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/text_instr"
+      app:layout_constraintVertical_bias="0.03"
+      app:layout_constraintWidth_percent=".8" />
+
+  <Button
+      android:id="@+id/recup_password"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:background="@drawable/btn_background"
+      android:text="Recuperar contraseña"
+      android:textColor="@color/white"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      app:layout_constraintVertical_bias="0.3"
+      app:layout_constraintWidth_percent=".8"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/correo_recup" />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
