@@ -31,6 +31,11 @@
             android:name=".DetailFreixenetActivity"
             android:exported="false" />
         <activity
+            android:name=".DetailEventosActivity"
+            android:exported="false"/>
+        <activity android:name=".VerTodosLosLugaresActivity"
+            android:exported="false"/>
+        <activity
             android:name=".cardDemasEntradas"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -53,7 +58,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAaed27n1NZMdCoO9Z9gSExS8NZ0qygPxY" />
+            android:value="AIzaSyArwdNx5xA2mAwdQA14dZSLeGnCKyBt-_I" />
 
         <activity
             android:name=".DetailActivity"

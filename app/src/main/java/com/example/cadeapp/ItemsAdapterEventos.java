@@ -13,44 +13,43 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.cadeapp.R;
 
 import java.util.ArrayList;
 
-public class ItemsAdapterEventos extends  RecyclerView.Adapter<ItemsAdapterEventos.ViewHolder> {
-    ArrayList<ItemsDomainEventos> items2;
+public class ItemsAdapterEventos extends RecyclerView.Adapter<ItemsAdapterEventos.ViewHolder> {
+    private ArrayList<ItemsDomainEventos> items;
+    private Context context;
 
-    Context context;
-
-    public ItemsAdapterEventos(ArrayList<ItemsDomainEventos> items2, Context context) {
-        this.items2 = items2;
+    public ItemsAdapterEventos(ArrayList<ItemsDomainEventos> items, Context context) {
+        this.items = items;
         this.context = context;
-
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate= LayoutInflater.from(context).inflate(R.layout.item_viewholder,parent,false);
-        return new ViewHolder(inflate);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_viewholder, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ItemsDomainEventos itemsDomainEventos = items2.get(position);
-        holder.titleTxt.setText(itemsDomainEventos.getNombre_evento());
-        holder.addressTxt.setText(itemsDomainEventos.getUbicacion_evento());
+        ItemsDomainEventos item = items.get(position);
+        holder.titleTxt.setText(item.getNombre_evento());
+        holder.addressTxt.setText(item.getUbicacion_evento());
+        //holder.dateTxt.setText(item.getFecha_evento());
 
-        Glide.with(context).load(itemsDomainEventos.getUrl()).into(holder.pic);
+        Glide.with(context).load(item.getUrl()).into(holder.pic);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,itemsDomainEventos.getNombre_evento(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, DetailFreixenetActivity.class);
-                intent.putExtra("titleTxt", itemsDomainEventos.getNombre_evento());
-                intent.putExtra("addressTxt", itemsDomainEventos.getUbicacion_evento());
-                intent.putExtra("imageUrl", itemsDomainEventos.getUrl());
+                // Mostrar un Toast con el nombre del evento
+                Toast.makeText(context, item.getNombre_evento(), Toast.LENGTH_SHORT).show();
 
+                // Abrir la actividad de detalle del evento
+                Intent intent = new Intent(context, DetailEventosActivity.class);
+                intent.putExtra("idEvento", item.getIdEvento()); // Pasa el ID del evento a la actividad de detalle
                 context.startActivity(intent);
             }
         });
@@ -58,18 +57,20 @@ public class ItemsAdapterEventos extends  RecyclerView.Adapter<ItemsAdapterEvent
 
     @Override
     public int getItemCount() {
-        return items2.size();
+        return items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView titleTxt, addressTxt;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView titleTxt, addressTxt, dateTxt;
         ImageView pic;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTxt=itemView.findViewById(R.id.nombrevinedo);
-            addressTxt=itemView.findViewById(R.id.direccion);
-            pic=itemView.findViewById(R.id.url);
+            titleTxt = itemView.findViewById(R.id.nombrevinedo);
+            addressTxt = itemView.findViewById(R.id.direccion);
+            //dateTxt = itemView.findViewById(R.id.fecha_evento);
+            pic = itemView.findViewById(R.id.url);
+
         }
     }
 }

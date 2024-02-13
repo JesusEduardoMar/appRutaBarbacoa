@@ -1,5 +1,7 @@
 package com.example.cadeapp;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,13 +34,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -50,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private MeowBottomNavigation bottomNavigation;
     TextView txt_Nombre,txt_correo,txt_telefono,txt_Nombre2,txt_correo2;
     Button cerrar;
+
     RelativeLayout  menu, home, calendar, map;
     FirebaseAuth mAuth;
     FirebaseUser user;
@@ -66,12 +73,27 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ItemsDomainVinedos> items;
     ArrayList<ItemsDomainEventos> items2;
     ProgressBar pbProgressMain;
+    private Task<QuerySnapshot> eventosTask;
 
     // Método llamado a la hora de crear la actividad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button button3 = findViewById(R.id.button3);
+        // --> Boton para ver todos los lugares
+        Button verTodos = findViewById(R.id.ver_todos_lugares_button); // ID de tu botón
+        verTodos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lanzar la actividad para ver todos los lugares
+                Intent intent = new Intent(MainActivity.this, VerTodosLosLugaresActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         // --> Inicialización de Firebase y otros elementos de la interfaz de usuario
         mFirestore = FirebaseFirestore.getInstance();
@@ -105,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // --> Configuración de RecyclerView para las barbacoas
+        // --> Configuración de RecyclerView para las barbacoas (sólo 5 lugares)
         recyclerView = findViewById(R.id.viewViñedos);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -113,23 +135,26 @@ public class MainActivity extends AppCompatActivity {
         items = new ArrayList<>();
         itemsAdapterVinedos = new ItemsAdapterVinedos(items, this);
         recyclerView.setAdapter(itemsAdapterVinedos);
-        mFirestore.collection("barbacoas").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                pbProgressMain.setVisibility(View.VISIBLE);
-                if(error != null){
-                    Log.e("Firestore error", error.getMessage());
-                    return;
-                }
-                for(DocumentChange dc : value.getDocumentChanges()){
-                    if(dc.getType() == DocumentChange.Type.ADDED){
-                        items.add(dc.getDocument().toObject(ItemsDomainVinedos.class));
+        mFirestore.collection("barbacoas")
+                .orderBy("nombre_barbacoa") // Reemplaza "random_field" con el nombre de un campo que contenga valores aleatorios
+                .limit(3)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error != null){
+                            Log.e("Firestore error", error.getMessage());
+                            return;
+                        }
+                        items.clear(); // Limpiar la lista actual de lugares
+                        for(DocumentChange dc : value.getDocumentChanges()){
+                            if(dc.getType() == DocumentChange.Type.ADDED){
+                                items.add(dc.getDocument().toObject(ItemsDomainVinedos.class));
+                            }
+                        }
+                        itemsAdapterVinedos.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+                        pbProgressMain.setVisibility(View.GONE);
                     }
-                    itemsAdapterVinedos.notifyDataSetChanged();
-                    pbProgressMain.setVisibility(View.GONE);
-                }
-            }
-        });
+                });
 
         // --> Configuración de la barra de navegación inferior (MeowBottomNavigation)
         bottomNavigation = findViewById(R.id.bottomNavigation);
@@ -259,7 +284,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Se inicializa el selector de fechas
+                                             ////CALENDARIO//////
+// Se inicializa el selector de fechas
         Date today = new Date();
         Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 30);
@@ -267,19 +293,95 @@ public class MainActivity extends AppCompatActivity {
         CalendarPickerView datePicker = findViewById(R.id.calendarView);
         datePicker.init(today, nextYear.getTime()).withSelectedDate(today);
 
+// Recuperar eventos de la base de datos
+        mFirestore.collection("eventos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Asignar la tarea completada a la variable de instancia
+                    eventosTask = task;
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // Obtener información del evento
+                        String nombreEvento = document.getString("nombre_evento");
+                        String fechaEventoString = document.getString("fecha_evento");
+
+                        // Convertir la fecha del evento de String a Date
+                        Date fechaEvento = null;
+                        try {
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("d 'de' MMMM 'de' yyyy, hh:mm:ss a", Locale.getDefault());
+                            fechaEvento = dateFormat.parse(fechaEventoString);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            // Manejar el error de parseo si es necesario
+                        }
+
+                        if (fechaEvento != null) {
+                            // Marcar la fecha del evento en el calendario
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(fechaEvento);
+                            datePicker.selectDate(cal.getTime());
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "Error al obtener eventos: ", task.getException());
+                }
+            }
+        });
+
+// Definir el listener para la selección de fechas
         datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
-            // Configuración del listener para la selección de fechas
             public void onDateSelected(Date date) {
-                String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(date);
-                Toast.makeText(MainActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
+                // Convertir la fecha seleccionada a un formato legible
+                DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+                String fechaSeleccionada = dateFormat.format(date);
+
+                // Verificar si hay un evento en la fecha seleccionada
+                String informacionEvento = "";
+                if (eventosTask != null && eventosTask.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : eventosTask.getResult()) {
+                        String nombreEvento = document.getString("nombre_evento");
+                        String fechaEventoString = document.getString("fecha_evento");
+
+                        // Convertir la fecha del evento de String a Date
+                        Date fechaEvento = null;
+                        try {
+                            SimpleDateFormat dateFormat2 = new SimpleDateFormat("d 'de' MMMM 'de' yyyy, hh:mm:ss a", Locale.getDefault());
+                            fechaEvento = dateFormat2.parse(fechaEventoString);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            // Manejar el error de parseo si es necesario
+                        }
+
+                        if (fechaEvento != null) {
+                            Calendar calEvento = Calendar.getInstance();
+                            calEvento.setTime(fechaEvento);
+                            Calendar calSeleccionada = Calendar.getInstance();
+                            calSeleccionada.setTime(date);
+
+                            if (calEvento.get(Calendar.YEAR) == calSeleccionada.get(Calendar.YEAR) &&
+                                    calEvento.get(Calendar.MONTH) == calSeleccionada.get(Calendar.MONTH) &&
+                                    calEvento.get(Calendar.DAY_OF_MONTH) == calSeleccionada.get(Calendar.DAY_OF_MONTH)) {
+                                // Se encontró un evento en la fecha seleccionada
+                                informacionEvento = nombreEvento;
+                                break; // No es necesario continuar buscando más eventos
+                            }
+                        }
+                    }
+                }
+
+                // Mostrar la información del evento en el área designada
+                button3.setText("Nombre del evento para la fecha seleccionada: " + informacionEvento);
             }
 
             @Override
-            // ** Por el momento no se utiliza
             public void onDateUnselected(Date date) {
+                // No es necesario implementar este método para tu caso
             }
         });
+                                              ////FIN CALENDARIO//////
+
 
         // --> Muestra el fragmento del mapa
         Fragment fragment = new Map_Fragment();
