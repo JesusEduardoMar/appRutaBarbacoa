@@ -761,7 +761,7 @@
         android:layout_height="wrap_content"
         app:mbn_circleColor="#db7100"
         android:background="#4682b4"
-        app:mbn_backgroundBottomColor="#1e0080"
+        app:mbn_backgroundBottomColor="@color/blue2"
         app:mbn_countBackgroundColor="#853455"
         app:mbn_countTextColor="#ffffff"
         app:mbn_defaultIconColor="#FFFFFF"
