@@ -18,6 +18,7 @@ public class cardCatadeVinos extends AppCompatActivity {
         setContentView(R.layout.activity_card_catade_vinos);
 
         flecha1 = findViewById(R.id.flechaatras);
+        flecha1.setColorFilter(null);
 
         flecha1.setOnClickListener(new View.OnClickListener() {
             @Override

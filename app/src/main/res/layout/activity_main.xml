@@ -123,7 +123,7 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintVertical_bias="0.5"
-                                app:srcCompat="@drawable/evento" />
+                                app:srcCompat="@drawable/contact" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
@@ -131,7 +131,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:text="Mis eventos"
+                            android:text="Contáctanos"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="13sp"
@@ -164,7 +164,7 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/apoyo" />
+                                app:srcCompat="@drawable/faq" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
@@ -172,7 +172,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:text="Ayuda"
+                            android:text="Preguntas Frecuentes"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="13sp"
