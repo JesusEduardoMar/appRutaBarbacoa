@@ -3,7 +3,7 @@
     <style name="Base.Theme.Winestastic" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimaryDark">#853455</item>
+        <item name="colorPrimaryDark">#F21E0080</item>
     </style>
 
     <style name="Theme.Winestastic" parent="Base.Theme.Winestastic" />

@@ -96,6 +96,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/cardviewcontact"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -351,9 +352,9 @@
             style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -382,7 +383,7 @@
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -399,11 +400,11 @@
                         android:orientation="horizontal">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cardInicio1"
                             android:layout_width="0dp"
                             android:layout_height="70dp"
                             android:layout_marginStart="32dp"
                             android:layout_marginEnd="8dp"
-                            android:id="@+id/cardInicio1"
                             android:layout_weight="0.5"
                             android:background="@drawable/cat_background">
 
@@ -434,11 +435,11 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cardInicio2"
                             android:layout_width="0dp"
                             android:layout_height="70dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="32dp"
-                            android:id="@+id/cardInicio2"
                             android:layout_weight="0.5"
                             android:background="@drawable/cat_background">
 
@@ -474,11 +475,11 @@
                         android:orientation="horizontal">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cardInicio3"
                             android:layout_width="0dp"
                             android:layout_height="70dp"
                             android:layout_marginStart="32dp"
                             android:layout_marginEnd="8dp"
-                            android:id="@+id/cardInicio3"
                             android:layout_weight="0.5"
                             android:background="@drawable/cat_background">
 
@@ -507,11 +508,11 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cardInicio4"
                             android:layout_width="0dp"
                             android:layout_height="70dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="32dp"
-                            android:id="@+id/cardInicio4"
                             android:layout_weight="0.5"
                             android:background="@drawable/cat_background">
 
@@ -546,20 +547,19 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/grey_background"
-                    android:layout_marginTop="20dp"
                     android:layout_marginStart="32dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
+                    android:background="@drawable/grey_background"
                     android:padding="5dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:textSize="25dp"
                         android:text="Eventos"
-                        />
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -574,21 +574,21 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/grey_background"
-                    android:layout_marginTop="20dp"
                     android:layout_marginStart="32dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
+                    android:background="@drawable/grey_background"
                     android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:text="Conoce los Mejores Lugares de Barbacoa en Cadereyta"
-                        android:singleLine="false"
+                        android:layout_marginBottom="1dp"
                         android:gravity="center_horizontal"
-                        android:layout_marginBottom="1dp"/>
+                        android:singleLine="false"
+                        android:text="Conoce los Mejores Lugares de Barbacoa en Cadereyta"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
@@ -607,20 +607,20 @@
                     android:id="@+id/ver_todos_lugares_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
                     android:layout_below="@id/viewViñedos"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
                     android:background="@drawable/boton_redondeado"
-                    android:text="Ver más"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
+                    android:gravity="center"
                     android:paddingStart="24dp"
                     android:paddingTop="12dp"
                     android:paddingEnd="24dp"
                     android:paddingBottom="12dp"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal" />
+                    android:text="Ver más"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </ScrollView>

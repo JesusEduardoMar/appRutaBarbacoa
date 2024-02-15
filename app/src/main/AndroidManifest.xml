@@ -19,8 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Winestastic"
-        tools:targetApi="31"
-        android:windowSoftInputMode="adjustNothing">
+        android:windowSoftInputMode="adjustNothing"
+        tools:targetApi="31">
+        <activity
+            android:name=".contact"
+            android:exported="false" />
         <activity
             android:name=".DetailCoteActivity"
             android:exported="false" />
@@ -32,9 +35,10 @@
             android:exported="false" />
         <activity
             android:name=".DetailEventosActivity"
-            android:exported="false"/>
-        <activity android:name=".VerTodosLosLugaresActivity"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".VerTodosLosLugaresActivity"
+            android:exported="false" />
         <activity
             android:name=".cardDemasEntradas"
             android:exported="false"
