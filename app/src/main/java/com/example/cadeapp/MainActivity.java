@@ -399,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
         cardviewchatbot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, chatbot.class);
+                Intent intent = new Intent(MainActivity.this, FaqActivity.class);
                 startActivity(intent);
                 finish();
             }

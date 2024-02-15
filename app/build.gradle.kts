@@ -61,4 +61,7 @@ dependencies {
 
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
 
+    implementation ("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
+    implementation ("com.google.android.material:material:1.2.0")
+
 }
