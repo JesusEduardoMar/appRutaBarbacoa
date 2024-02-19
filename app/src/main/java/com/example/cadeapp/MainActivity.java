@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore mFirestore;
     private GoogleSignInClient mGoogleSignInClient;
     LinearLayout cardviewchatbot;
+    LinearLayout cardviewcontact1;
     ConstraintLayout card1;
     ConstraintLayout card2;
     ConstraintLayout card3;
@@ -79,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+
         setContentView(R.layout.activity_main);
 
         Button button3 = findViewById(R.id.button3);
@@ -171,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         cardviewchatbot = findViewById(R.id.cardviewchat);
+        cardviewcontact1 = findViewById(R.id.cardviewcontact);
         bottomNavigation.show(2,true);
 
         //-------------Servicios Google----------------
@@ -399,7 +404,25 @@ public class MainActivity extends AppCompatActivity {
         cardviewchatbot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, chatbot.class);
+                Intent intent = new Intent(MainActivity.this, FaqActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        cardviewcontact1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, contact.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        cardviewcontact1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, contact.class);
                 startActivity(intent);
                 finish();
             }

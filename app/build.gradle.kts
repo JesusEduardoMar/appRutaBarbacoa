@@ -31,11 +31,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
 
-    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-firestore:24.9.0")
@@ -58,9 +61,8 @@ dependencies {
     implementation ("androidx.cardview:cardview:1.0.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
-
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
-
-
+    implementation ("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
+    implementation ("com.google.android.material:material:1.2.0")
 
 }
