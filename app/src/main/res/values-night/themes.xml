@@ -5,4 +5,6 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="colorPrimaryDark">#F21E0080</item>
     </style>
+
+    <style name="Theme.Winestastic" parent="Base.Theme.Winestastic" />
 </resources>
