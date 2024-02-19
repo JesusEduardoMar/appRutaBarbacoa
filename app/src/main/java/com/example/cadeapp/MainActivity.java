@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+
         setContentView(R.layout.activity_main);
 
         Button button3 = findViewById(R.id.button3);
@@ -401,7 +404,16 @@ public class MainActivity extends AppCompatActivity {
         cardviewchatbot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, chatbot.class);
+                Intent intent = new Intent(MainActivity.this, FaqActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        cardviewcontact1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, contact.class);
                 startActivity(intent);
                 finish();
             }
