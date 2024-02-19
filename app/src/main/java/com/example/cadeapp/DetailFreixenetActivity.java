@@ -1,10 +1,7 @@
 package com.example.cadeapp;
 
 import android.content.Intent;
-import android.graphics.text.LineBreaker;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailFreixenetActivity extends AppCompatActivity {
+
     private TextView titleText, addressText, textDescription, horarioTextView, comentariosText;
     private ImageView vinedoImg;
     private int contador;
@@ -55,14 +53,11 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         //Aquí encontramos las referencias a los elementos de la interfaz de usuario
         titleText = findViewById(R.id.titleText);
         textDescription = findViewById(R.id.textDescription);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
-        }
         addressText = findViewById(R.id.addressText);
         vinedoImg = findViewById(R.id.vinedoImg);
-        //boton01 = findViewById(R.id.botonRestar);
-        //boton02 = findViewById(R.id.botonSumar);
-        //cajaDeTexto = findViewById(R.id.textcont);
+        boton01 = findViewById(R.id.botonRestar);
+        boton02 = findViewById(R.id.botonSumar);
+        cajaDeTexto = findViewById(R.id.textcont);
         comentariosText = findViewById(R.id.comentariosText);
         horarioTextView = findViewById(R.id.horarioTextView);
 
@@ -99,7 +94,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         obtenerInformacionBarbacoa();
 
         // Configuramos los listeners para los botones de incremento y decremento
-        // configurarListenersBotones();
+        configurarListenersBotones();
     }
     // Método para obtener y mostrar las opiniones que hay
     private void obtenerYMostrarOpiniones() {
@@ -236,7 +231,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
             Log.e("DetailFreixenetActivity", "El nombre de la barbacoa es nulo en la intención.");
         }
     }
-/*
+
     // Método para configurar los listeners de los botones de incrementar y decrementar
     private void configurarListenersBotones() {
         // Listener para el botón de restar
@@ -259,7 +254,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
 
         // Muestra el valor inicial en el TextView
         cajaDeTexto.setText(Integer.toString(contador));
-    }*/
+    }
 
     // Método para mostrar los comentarios de la respectiva barbacoa
     private void mostrarComentariosBarbacoa() {
@@ -308,5 +303,3 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         return "";
     }
 }
-
-

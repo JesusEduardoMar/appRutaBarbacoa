@@ -7,21 +7,11 @@
     android:visibility="visible"
     tools:context=".VerTodosLosLugaresActivity">
 
-    <SearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:queryHint="Buscar lugares de barbacoa por nombre"
-        android:iconifiedByDefault="false"/>
-
-
     <ProgressBar
         android:id="@+id/progress_main"
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_view"
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
@@ -29,13 +19,12 @@
         android:id="@+id/recycler_view_ver_lugares"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/progress_main"
+        android:layout_marginBottom="70dp"
         android:clipToPadding="false"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:layout_centerInParent="true"/>
 
-    <!-- Botón para ver todos los lugares" -->
     <Button
         android:id="@+id/ver_todos_lugares_button"
         android:layout_width="wrap_content"

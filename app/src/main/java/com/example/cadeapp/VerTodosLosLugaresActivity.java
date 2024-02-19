@@ -1,4 +1,3 @@
-
 package com.example.cadeapp;
 
 import androidx.annotation.NonNull;
@@ -10,9 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -50,39 +47,6 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
         itemsAdapterVinedos = new ItemsAdapterVinedos(items, this);
         recyclerView.setAdapter(itemsAdapterVinedos);
 
-        //SearchView
-        SearchView searchView = findViewById(R.id.search_view);
-
-        // Configuramos el listener para el cambio de texto en el SearchView
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Este método se llama cuando se presiona "Enter" o se envía una consulta
-
-                // Realizar la búsqueda con el texto ingresado
-                performSearch(query);
-
-                // Devolver true para indicar que la búsqueda fue manejada
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                // Este método se llama cuando cambia el texto en el SearchView
-
-                // Si el texto está vacío, mostrar todos los lugares nuevamente
-                if (newText.isEmpty()) {
-                    showAllPlaces();
-                } else {
-                    // Realizar la búsqueda en tiempo real mientras el usuario escribe
-                    performSearch(newText);
-                }
-
-                // Devolver false para permitir que el SearchView maneje los cambios de texto
-                return false;
-            }
-        });
-
         mFirestore.collection("barbacoas").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -100,29 +64,6 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    // Aquí realixzamos un método para la búsqueda por texto ingresado
-    private void performSearch(String query) {
-        if(items == null)
-        {
-            return;
-        }
-        // Filtrar los lugares por nombre basado en el texto de búsqueda
-        ArrayList<ItemsDomainVinedos> filteredList = new ArrayList<>();
-        for (ItemsDomainVinedos item : items) {
-            if (item.getNombre_barbacoa() != null &&item.getNombre_barbacoa().toLowerCase().contains(query.toLowerCase())) {
-                filteredList.add(item);
-            }
-        }
-
-        // Actualizamos el RecyclerView con los resultados  obtenidos
-        itemsAdapterVinedos.setFilter(filteredList);
-    }
-
-    // Aquí mostramos todos los lugares de nuevo
-    private void showAllPlaces() {
-        itemsAdapterVinedos.setFilter(items);
     }
 }
-
