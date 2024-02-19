@@ -1,38 +1,33 @@
 package com.example.cadeapp;
 
-import android.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.cadeapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RecuperarActivity extends AppCompatActivity {
 
-    TextView txt_titulo, txt_instruc;
-    EditText recup_correo;
-    Button btn_recup;
 
+    TextInputEditText recup_correo;
+    Button btn_recup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperar);
 
-        txt_instruc = findViewById(R.id.text_instr);
-        txt_titulo = findViewById(R.id.text_titulo);
         recup_correo = findViewById(R.id.correo_recup);
         btn_recup = findViewById(R.id.recup_password);
 
@@ -101,7 +96,5 @@ public class RecuperarActivity extends AppCompatActivity {
     private void mostrarMensaje(String mensaje){
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
-
-
 
 }

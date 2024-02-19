@@ -1,23 +1,23 @@
 package com.example.cadeapp;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import com.example.cadeapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,37 +25,44 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.regex.Matcher;
 
-
-public class RegistroFragment extends Fragment {
+public class RegistrarActivity extends AppCompatActivity {
 
     //Declaramos las variables
-    EditText nombre,correo,telefono,password,confirmpass;
+    TextInputEditText nombre,correo,telefono,password,confirmpass;
+
+    TextInputLayout avisopass,avisocorreo;
     Button btnregistro;
     String nameuser,correouser,telefonouser,passworduser,confirmaruser;
+    String regexPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
+
 
     //Instancias de los servicios firebase
     FirebaseAuth mAuth;
     FirebaseFirestore mFirestore;
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_registro, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_registrar);
 
         //Inicializamos las variables y los servicios de firebase
-        nombre = root.findViewById(R.id.reg_nombre);
-        correo = root.findViewById(R.id.reg_correo);
-        telefono = root.findViewById(R.id.reg_telefono);
-        password = root.findViewById(R.id.reg_password);
-        confirmpass = root.findViewById(R.id.reg_confirpass);
-        btnregistro = root.findViewById(R.id.btn_registro);
+
+        nombre = findViewById(R.id.reg_nombre);
+        correo = findViewById(R.id.reg_correo);
+        avisocorreo = findViewById(R.id.txtlayoutCorreo);
+        telefono = findViewById(R.id.reg_telefono);
+        password = findViewById(R.id.reg_password);
+        avisopass = findViewById(R.id.txtlayoutPass);
+        confirmpass = findViewById(R.id.reg_confirpass);
+        btnregistro = findViewById(R.id.btn_registro);
         mFirestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
 
-        //Boton para reistrar usuarios
         btnregistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,18 +73,23 @@ public class RegistroFragment extends Fragment {
                 confirmaruser = confirmpass.getText().toString().trim();
 
                 if(!nameuser.isEmpty() && !correouser.isEmpty() && !telefonouser.isEmpty() && !passworduser.isEmpty() && !confirmaruser.isEmpty()){
-                    if(passworduser.equals(confirmaruser)){
-                        if(Patterns.PHONE.matcher(telefonouser).matches()){
-                            if(Patterns.EMAIL_ADDRESS.matcher(correouser).matches()){
-                                realizarConsulta(correouser,telefonouser);
-                            }else{
-                                mostrarMensaje("El correo es invalido");
+                    if(passworduser.matches(regexPassword)){
+                        if(passworduser.equals(confirmaruser)){
+                            if(Patterns.PHONE.matcher(telefonouser).matches()){
+                                if(Patterns.EMAIL_ADDRESS.matcher(correouser).matches()){
+                                    realizarConsulta(correouser,telefonouser);
+                                }else{
+                                    mostrarMensaje("El correo es invalido");
+
+                                }
+                            }else {
+                                mostrarMensaje("El numero de telefono debe contar con 10 digitos");
                             }
-                        }else {
-                            mostrarMensaje("El numero de telefono debe contar con 10 digitos");
+                        }else{
+                            mostrarMensaje("Las contraseñas deben coincidir");
                         }
                     }else{
-                       mostrarMensaje("Las contraseñas deben coincidir");
+                        mostrarMensaje("Contraseña invalida");
                     }
                 }else{
                     mostrarMensaje("Los campos no debe de estar vacios");
@@ -85,27 +97,59 @@ public class RegistroFragment extends Fragment {
             }
         });
 
-        return root;
+
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                validarPassword();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
     }
+
+    private void validarPassword(){
+        String validarpass = password.getText().toString().trim();
+
+        if(!validarpass.matches(regexPassword)){
+            avisopass.setHelperText("La contraseña requiere 8 caracteres (mayúsculas, minúsculas y numeros)");
+        }
+        else{
+            avisopass.setHelperText("Contraseña fuerte");
+        }
+    }
+
+    private void validarCorreo(){
+
+    }
+
 
 
     //Metodo para registrar los usuarios dentro de firebase
     //El metodo debe resibir los parametros nameuser, correouser, telefonouser y passworduser del onclicklistener del boton registrar usuarios
     private void realizarConsulta(String correouser, String telefonouser) {
 
-       //Realizamos una consulta a firebase para saber si el telefono no esta ligado con algun usuario
+        //Realizamos una consulta a firebase para saber si el telefono no esta ligado con algun usuario
         mFirestore.collection("usuarios").whereEqualTo("telefono", telefonouser).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     if(task.getResult().isEmpty()){
                         //Si el numero no esta registrado, creamos el usuario
                         registroUsuarios(nameuser,correouser,telefonouser,passworduser);
                     }else{
-                        Toast.makeText(getActivity(), "El número de teléfono ya está en uso", Toast.LENGTH_SHORT).show();
+                        mostrarMensaje("El número de teléfono ya está en uso");
                     }
                 }else{
-                    Toast.makeText(getActivity(), "Error al hacer la consulta", Toast.LENGTH_SHORT).show();
+                    mostrarMensaje("Error al hacer la consulta");
                 }
             }
         });
@@ -126,33 +170,40 @@ public class RegistroFragment extends Fragment {
 
                     //Registramos el usuario en firestore
                     mFirestore.collection("usuarios").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
                         public void onSuccess(Void unused) {
                             // Redirige solo cuando la creación de la cuenta sea exitosa
-                            Toast.makeText(getActivity(), "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                            mostrarMensaje("Usuario registrado con éxito");
                             redireccionarMain();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Error al guardar datos", Toast.LENGTH_SHORT).show();
+                             mostrarMensaje("Error al guardar datos");
                         }
                     });
                 } else {
                     // Si la creación de la cuenta falla, muestra un mensaje de error
-                    Toast.makeText(getActivity(), "Ya se creó una cuenta con este correo", Toast.LENGTH_SHORT).show();
+                    mostrarMensaje("Ya se creó una cuenta con este correo");
                 }
             }
         });
     }
 
     private void mostrarMensaje(String mensaje){
-        Toast.makeText(getActivity(), mensaje, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
     private void redireccionarMain(){
-        getActivity().finish();
-        startActivity(new Intent(getActivity(), MainActivity.class));
+        finish();
+        startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
+    }
+
+    public void onBackPressed(){
+        super.onBackPressed();
+
+        Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
