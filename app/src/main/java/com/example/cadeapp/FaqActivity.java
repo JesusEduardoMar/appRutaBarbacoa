@@ -5,6 +5,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+
+//import com.example.cadeapp.databinding.ActivityScrollingBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +19,35 @@ public class FaqActivity extends AppCompatActivity {
     List<Versions> versionsList;
 
 
+    //private ActivityScrollingBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
+
+        /*
+
+
+        binding = ActivityScrollingBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
+        CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
+        toolBarLayout.setTitle(getTitle());
+
+        FloatingActionButton fab = binding.fab;
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+         */
+
         recyclerView = findViewById(R.id.recyclerView);
 
         initData();
@@ -44,7 +73,7 @@ public class FaqActivity extends AppCompatActivity {
         recyclerView.setAdapter(versionsAdapter);
     }
 
-    private void initData() {
+    private void initData(){
 
         versionsList = new ArrayList<>();
 
@@ -56,6 +85,6 @@ public class FaqActivity extends AppCompatActivity {
         versionsList.add(new Versions("¿Cómo puedo pagar mi reservación?", "Puedes pagar tu reservación con tarjeta de crédito, débito o PayPal. El pago se realiza a través de la app de forma segura y sencilla."));
         versionsList.add(new Versions("¿Cómo puedo cancelar o modificar mi reserva?", "Si necesitas cancelar o modificar tu reserva, puedes hacerlo a través de la app. Simplemente haz clic en el botón \"Cancelar\" o \"Modificar\" que aparece junto a la reserva que deseas modificar."));
 
-
     }
+
 }
