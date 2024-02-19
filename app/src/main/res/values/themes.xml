@@ -18,7 +18,7 @@
 
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimaryDark">#F21E0080</item>
         <item name="colorPrimary">#4CAF50</item>
-        <item name="colorPrimaryDark">#853455</item>
     </style>
 </resources>

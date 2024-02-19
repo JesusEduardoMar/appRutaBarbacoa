@@ -419,6 +419,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        cardviewcontact1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, contact.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         // --> Configuración de listeners para los botones de tarjetas de información (hasta arriba)
         card1.setOnClickListener(new View.OnClickListener() {
             @Override
