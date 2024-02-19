@@ -416,14 +416,14 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/vino" />
+                                app:srcCompat="@drawable/marcador1" />
 
                             <TextView
                                 android:id="@+id/cata_vinostext"
                                 android:layout_width="50dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
-                                android:text="Cata de vinos"
+                                android:text="Preparación de Barbacoa"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
                                 android:textSize="12sp"
@@ -761,7 +761,7 @@
         android:layout_height="wrap_content"
         app:mbn_circleColor="#db7100"
         android:background="#4682b4"
-        app:mbn_backgroundBottomColor="#1e0080"
+        app:mbn_backgroundBottomColor="@color/blue2"
         app:mbn_countBackgroundColor="#853455"
         app:mbn_countTextColor="#ffffff"
         app:mbn_defaultIconColor="#FFFFFF"
