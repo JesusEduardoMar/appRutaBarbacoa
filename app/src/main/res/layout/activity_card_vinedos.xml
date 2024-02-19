@@ -26,7 +26,8 @@
                 android:id="@+id/picDetail"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-
+                android:src="@drawable/puertadellobo2"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -108,13 +109,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout5"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout5" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/picDetail" />
+
 
             <TextView
                 android:id="@+id/textView2"
@@ -126,15 +121,25 @@
                 android:textColor="@color/yellow"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
 
             <TextView
                 android:id="@+id/summary"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="test"
+                android:padding="5dp"
+                android:text="La historia de la barbacoa en México es tan rica y variada como los sabores y las técnicas que se utilizan para preparar este plato icónico. La barbacoa, que se remonta a las culturas prehispánicas, ha evolucionado a lo largo de los siglos, adoptando influencias indígenas, europeas y africanas para convertirse en una parte integral de la cocina mexicana.
+
+Se cree que los orígenes de la barbacoa en México se remontan a las prácticas culinarias de las antiguas culturas mesoamericanas, como los aztecas y los mayas. Estas civilizaciones tenían métodos de cocción subterránea, donde la carne se cocinaba lentamente bajo tierra utilizando piedras calientes. Este método permitía que la carne se cocinara de manera uniforme y se mantuviera tierna y jugosa.
+
+
+Con la llegada de los españoles a México en el siglo XVI, la cocina mexicana experimentó una fusión de ingredientes y técnicas culinarias. Los españoles introdujeron nuevas especias, hierbas y métodos de cocción, que se mezclaron con las tradiciones indígenas para crear platos únicos y deliciosos.
+
+"
+                android:justificationMode="inter_word"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -152,23 +157,16 @@
                 app:layout_constraintStart_toStartOf="@+id/summary"
                 app:layout_constraintTop_toBottomOf="@+id/summary" />
 
-            <TextView
-                android:id="@+id/infoImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="test"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@+id/textView11"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/imagesRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/infoImage"
-                app:layout_constraintTop_toBottomOf="@+id/infoImage" />
+                app:layout_constraintStart_toStartOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
