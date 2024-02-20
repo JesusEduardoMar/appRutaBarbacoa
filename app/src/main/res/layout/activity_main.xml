@@ -447,19 +447,19 @@
                                 android:id="@+id/vinedos"
                                 android:layout_width="80dp"
                                 android:layout_height="70dp"
-                                android:layout_marginEnd="8dp"
+                                android:padding="4dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/vinedos" />
+                                app:srcCompat="@drawable/historyofbarba" />
 
                             <TextView
                                 android:id="@+id/vinedostext"
-                                android:layout_width="wrap_content"
+                                android:layout_width="60dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:text="Viñedos"
+                                android:layout_marginStart="10dp"
+                                android:text="Historia de la barbacoa"
                                 android:textColor="#000000"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
