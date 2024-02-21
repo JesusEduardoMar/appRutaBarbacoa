@@ -9,14 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cadeapp.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class cardCatadeVinos extends AppCompatActivity {
+public class cardPreparacionbarba extends AppCompatActivity {
 
     ImageView flecha1;
 
@@ -28,7 +27,7 @@ public class cardCatadeVinos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_catade_vinos);
+        setContentView(R.layout.activity_card_preparacionbarba);
 
         flecha1 = findViewById(R.id.flechaatras1);
         flecha1.setColorFilter(null);
@@ -36,7 +35,7 @@ public class cardCatadeVinos extends AppCompatActivity {
         flecha1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(cardCatadeVinos.this, MainActivity.class);
+                Intent intent = new Intent(cardPreparacionbarba.this, VerTodosLosLugaresActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -78,7 +77,7 @@ public class cardCatadeVinos extends AppCompatActivity {
     public void onBackPressed(){
         super.onBackPressed();
 
-        Intent intent = new Intent(cardCatadeVinos.this, VerTodosLosLugaresActivity.class);
+        Intent intent = new Intent(cardPreparacionbarba.this, VerTodosLosLugaresActivity.class);
         startActivity(intent);
         finish();
     }

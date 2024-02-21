@@ -2,31 +2,21 @@ package com.example.cadeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.example.cadeapp.R;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class cardVinedos extends AppCompatActivity {
+public class cardHistoriabarbacoa extends AppCompatActivity {
 
     ImageView flecha2;
 
@@ -40,14 +30,14 @@ public class cardVinedos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_vinedos);
+        setContentView(R.layout.activity_card_historiabarbacoa);
 
         flecha2 = findViewById(R.id.flechaatras2);
 
         flecha2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(cardVinedos.this, MainActivity.class);
+                Intent intent = new Intent(cardHistoriabarbacoa.this, VerTodosLosLugaresActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -88,7 +78,7 @@ public class cardVinedos extends AppCompatActivity {
     public void onBackPressed(){
         super.onBackPressed();
 
-        Intent intent = new Intent(cardVinedos.this, VerTodosLosLugaresActivity.class);
+        Intent intent = new Intent(cardHistoriabarbacoa.this, VerTodosLosLugaresActivity.class);
         startActivity(intent);
         finish();
     }
