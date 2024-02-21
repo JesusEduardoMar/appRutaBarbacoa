@@ -744,7 +744,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="Embárcate en una fascinante travesía para explorar los múltiples y encantadores viñedos que se extienden a lo largo del pintoresco estado de Querétaro."
+                android:text="Descubre el sabor auténtico de Cadereyta de Montes, el paraíso de las barbacoas y el pulque.
+No te pierdas esta oportunidad de vivir una experiencia inolvidable...
+"
+                android:justificationMode="inter_word"
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 android:textStyle="bold" />

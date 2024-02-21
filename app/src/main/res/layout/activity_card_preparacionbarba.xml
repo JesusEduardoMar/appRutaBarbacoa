@@ -110,14 +110,15 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:padding="5dp"
-                android:text="La historia de la barbacoa en México es tan rica y variada como los sabores y las técnicas que se utilizan para preparar este plato icónico. La barbacoa, que se remonta a las culturas prehispánicas, ha evolucionado a lo largo de los siglos, adoptando influencias indígenas, europeas y africanas para convertirse en una parte integral de la cocina mexicana.
-
-Se cree que los orígenes de la barbacoa en México se remontan a las prácticas culinarias de las antiguas culturas mesoamericanas, como los aztecas y los mayas. Estas civilizaciones tenían métodos de cocción subterránea, donde la carne se cocinaba lentamente bajo tierra utilizando piedras calientes. Este método permitía que la carne se cocinara de manera uniforme y se mantuviera tierna y jugosa.
-
-
-Con la llegada de los españoles a México en el siglo XVI, la cocina mexicana experimentó una fusión de ingredientes y técnicas culinarias. Los españoles introdujeron nuevas especias, hierbas y métodos de cocción, que se mezclaron con las tradiciones indígenas para crear platos únicos y deliciosos.
-
-"
+                android:text="Selecciona la carne:\n\nLa barbacoa tradicionalmente se hace con carne de borrego o cordero, aunque también se puede utilizar carne de res. Es importante elegir cortes como la cabeza, la pierna o el pecho del animal.\n\n
+Limpia la carne:\n\nLava bien la carne bajo agua corriente para quitar cualquier suciedad superficial. Algunas personas prefieren marinar la carne con una mezcla de jugo de limón, sal, ajo y otras especias durante varias horas o incluso toda la noche.\n\n
+Prepara el hoyo o pozo:\n\nLa barbacoa se cocina en un hoyo o pozo profundo, que se calienta con leña y piedras. El hoyo debe ser lo suficientemente grande como para acomodar toda la carne que se va a cocinar.\n\n
+Calienta las piedras:\n\nEnciende un fuego dentro del hoyo y coloca piedras grandes sobre las brasas. Deja que las piedras se calienten durante varias horas hasta que estén al rojo vivo.\n\n
+Envuelve la carne:\n\nEnvuelve la carne en hojas de maguey o en papel de aluminio, asegurándote de sellar bien los bordes para retener los jugos.\n\n
+Coloca la carne en el hoyo:\n\nUna vez que las piedras estén calientes, coloca la carne envuelta en hojas de maguey sobre las piedras. Cubre la carne con más hojas de maguey o papel de aluminio y luego cubre todo con tierra para sellar el hoyo.\n\n
+Cocina lentamente:\n\nDeja que la carne se cocine lentamente durante varias horas (generalmente de 6 a 12 horas), dependiendo del tamaño y tipo de carne, así como de la temperatura del hoyo. Durante este tiempo, la carne se cocina lentamente en el vapor generado por las piedras calientes y la tierra.\n\n
+Verifica la cocción:\n\nPara verificar si la barbacoa está lista, puedes destapar una parte del hoyo y probar la carne con un tenedor. Debe estar tierna y fácil de desmenuzar.\n\n
+Sirve:\n\nUna vez que la barbacoa esté lista, retira cuidadosamente la tierra y las hojas de maguey. Corta la carne en trozos más pequeños y sírvela con tortillas calientes, cebolla picada, cilantro, limón y salsa picante al gusto.\n\n¡Disfruta de tu deliciosa barbacoa estilo Cadereyta!"
                 android:justificationMode="inter_word"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
