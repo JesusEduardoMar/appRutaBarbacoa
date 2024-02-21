@@ -85,13 +85,10 @@ public class cardVinedos extends AppCompatActivity {
                     }
                 });
     }
-
-
-
     public void onBackPressed(){
         super.onBackPressed();
 
-        Intent intent = new Intent(cardVinedos.this, MainActivity.class);
+        Intent intent = new Intent(cardVinedos.this, VerTodosLosLugaresActivity.class);
         startActivity(intent);
         finish();
     }

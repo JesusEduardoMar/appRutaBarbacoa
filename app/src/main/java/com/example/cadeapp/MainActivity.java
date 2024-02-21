@@ -64,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     LinearLayout cardviewchatbot;
     LinearLayout cardviewcontact1;
-    ConstraintLayout card1;
-    ConstraintLayout card2;
     ConstraintLayout card3;
     ConstraintLayout card4;
     RecyclerView recyclerView;
@@ -86,18 +84,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button button3 = findViewById(R.id.button3);
-        // --> Boton para ver todos los lugares
-        Button verTodos = findViewById(R.id.ver_todos_lugares_button); // ID de tu botón
-        verTodos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Lanzar la actividad para ver todos los lugares
-                Intent intent = new Intent(MainActivity.this, VerTodosLosLugaresActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
 
         // --> Inicialización de Firebase y otros elementos de la interfaz de usuario
         mFirestore = FirebaseFirestore.getInstance();
@@ -186,8 +172,6 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         //Configuracion para el uso de inicio de sesion con google
 
-        card1 = findViewById(R.id.cardInicio1);
-        card2 = findViewById(R.id.cardInicio2);
         card3 = findViewById(R.id.cardInicio3);
         card4 = findViewById(R.id.cardInicio4);
 
@@ -311,21 +295,24 @@ public class MainActivity extends AppCompatActivity {
                         String nombreEvento = document.getString("nombre_evento");
                         String fechaEventoString = document.getString("fecha_evento");
 
-                        // Convertir la fecha del evento de String a Date
-                        Date fechaEvento = null;
-                        try {
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("d 'de' MMMM 'de' yyyy, hh:mm:ss a", Locale.getDefault());
-                            fechaEvento = dateFormat.parse(fechaEventoString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                            // Manejar el error de parseo si es necesario
-                        }
-
-                        if (fechaEvento != null) {
-                            // Marcar la fecha del evento en el calendario
-                            Calendar cal = Calendar.getInstance();
-                            cal.setTime(fechaEvento);
-                            datePicker.selectDate(cal.getTime());
+                        // Verificar si la fecha del evento es nula
+                        if (fechaEventoString != null) {
+                            // Convertir la fecha del evento de String a Date
+                            try {
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("d 'de' MMMM 'de' yyyy, hh:mm:ss a", Locale.getDefault());
+                                Date fechaEvento = dateFormat.parse(fechaEventoString);
+                                if (fechaEvento != null) {
+                                    // Marcar la fecha del evento en el calendario
+                                    Calendar cal = Calendar.getInstance();
+                                    cal.setTime(fechaEvento);
+                                    datePicker.selectDate(cal.getTime());
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                // Manejar el error de parseo si es necesario
+                            }
+                        } else {
+                            // Manejar el caso en el que fechaEventoString es null
                         }
                     }
                 } else {
@@ -429,30 +416,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // --> Configuración de listeners para los botones de tarjetas de información (hasta arriba)
-        card1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, cardCatadeVinos.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        card2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, cardVinedos.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
+        // Ahora te lleva a Visualizar todos los lugares de Barbacoa que hay
         card3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, cardVinos.class);
+                Intent intent = new Intent(MainActivity.this, VerTodosLosLugaresActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
+        // Visualizar todos los lugares de Pulque que hay
         card4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

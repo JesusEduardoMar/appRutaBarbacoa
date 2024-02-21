@@ -34,7 +34,7 @@ public class cardCatadeVinos extends AppCompatActivity {
     public void onBackPressed(){
         super.onBackPressed();
 
-        Intent intent = new Intent(cardCatadeVinos.this, MainActivity.class);
+        Intent intent = new Intent(cardCatadeVinos.this, VerTodosLosLugaresActivity.class);
         startActivity(intent);
         finish();
     }
