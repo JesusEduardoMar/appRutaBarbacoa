@@ -340,6 +340,29 @@
     </RelativeLayout>
 
 
+
+    <RelativeLayout
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tituloprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="30dp"
+            android:text="Profile"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+
     <RelativeLayout
         android:id="@+id/home"
         android:layout_width="match_parent"
@@ -412,7 +435,7 @@
                                 android:id="@+id/cata_vinos"
                                 android:layout_width="80dp"
                                 android:layout_height="70dp"
-                                android:layout_marginEnd="8dp"
+                                android:padding="4dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -423,11 +446,10 @@
                                 android:id="@+id/cata_vinostext"
                                 android:layout_width="50dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
                                 android:text="Preparación de Barbacoa"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
-                                android:textSize="12sp"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -447,19 +469,19 @@
                                 android:id="@+id/vinedos"
                                 android:layout_width="80dp"
                                 android:layout_height="70dp"
-                                android:layout_marginEnd="8dp"
+                                android:padding="4dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/vinedos" />
+                                app:srcCompat="@drawable/historyofbarba" />
 
                             <TextView
                                 android:id="@+id/vinedostext"
-                                android:layout_width="wrap_content"
+                                android:layout_width="60dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:text="Viñedos"
+                                android:layout_marginStart="10dp"
+                                android:text="Historia de la barbacoa"
                                 android:textColor="#000000"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -644,12 +666,12 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/titulocalendar"
+            android:id="@+id/titulonotify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="30dp"
-            android:text="CALENDARIO"
+            android:text="Notificaciones"
             android:textColor="#FFFFFF"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -657,7 +679,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/titulocalendar"
+            android:layout_below="@+id/titulonotify"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
@@ -671,7 +693,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titulocalendar"
+            app:layout_constraintTop_toBottomOf="@+id/titulonotify"
             app:layout_goneMarginBottom="24dp">
 
             <com.squareup.timessquare.CalendarPickerView
