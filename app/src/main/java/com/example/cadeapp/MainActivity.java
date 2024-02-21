@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txt_Nombre,txt_correo,txt_telefono,txt_Nombre2,txt_correo2;
     Button cerrar;
 
-    RelativeLayout  menu, home, calendar, map;
+    RelativeLayout  menu, profile, home, calendar, map;
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseFirestore mFirestore;
@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation = findViewById(R.id.bottomNavigation);
         cerrar = findViewById(R.id.cerrar_sesion);
         menu = findViewById(R.id.menu);
+        profile = findViewById(R.id.profile);
         home = findViewById(R.id.home);
         calendar = findViewById(R.id.calendar);
         map = findViewById(R.id.map);
@@ -162,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         cardviewchatbot = findViewById(R.id.cardviewchat);
         cardviewcontact1 = findViewById(R.id.cardviewcontact);
-        bottomNavigation.show(2,true);
+        bottomNavigation.show(3,true);
 
         //-------------Servicios Google----------------
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -176,10 +177,11 @@ public class MainActivity extends AppCompatActivity {
         card4 = findViewById(R.id.cardInicio4);
 
         // Añadir los íconos a la barra de navegación inferior
-        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.menuanvorgesa));
-        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.baseline_home_24));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.baseline_calendar_month_24));
-        bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.baseline_public_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.configuracion));
+        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.baseline_person_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.baseline_home_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.campana));
+        bottomNavigation.add(new MeowBottomNavigation.Model(5, R.drawable.baseline_place_24));
 
         // Configuración de los listeners para la barra de navegación inferior
         bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
@@ -188,24 +190,35 @@ public class MainActivity extends AppCompatActivity {
                 switch (model.getId()){
                     case 1:
                         menu.setVisibility(View.VISIBLE);
+                        profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
                         calendar.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                     case 2:
                         menu.setVisibility(View.GONE);
-                        home.setVisibility(View.VISIBLE);
+                        profile.setVisibility(View.VISIBLE);
+                        home.setVisibility(View.GONE);
                         calendar.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                     case 3:
                         menu.setVisibility(View.GONE);
-                        home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.VISIBLE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.VISIBLE);
+                        calendar.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                     case 4:
                         menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.VISIBLE);
+                        map.setVisibility(View.GONE);
+                        break;
+                    case 5:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
                         calendar.setVisibility(View.GONE);
                         map.setVisibility(View.VISIBLE);
@@ -222,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (model.getId()){
                     case 1:
                         menu.setVisibility(View.VISIBLE);
+                        profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
                         calendar.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
@@ -236,7 +250,8 @@ public class MainActivity extends AppCompatActivity {
                 switch (model.getId()){
                     case 2:
                         menu.setVisibility(View.GONE);
-                        home.setVisibility(View.VISIBLE);
+                        profile.setVisibility(View.VISIBLE);
+                        home.setVisibility(View.GONE);
                         calendar.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
@@ -250,8 +265,9 @@ public class MainActivity extends AppCompatActivity {
                 switch (model.getId()){
                     case 3:
                         menu.setVisibility(View.GONE);
-                        home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.VISIBLE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.VISIBLE);
+                        calendar.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                 }
@@ -264,6 +280,23 @@ public class MainActivity extends AppCompatActivity {
                 switch (model.getId()){
                     case 4:
                         menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.VISIBLE);
+                        map.setVisibility(View.GONE);
+                        break;
+                }
+                return null;
+            }
+        });
+
+        bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                switch (model.getId()){
+                    case 5:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
                         calendar.setVisibility(View.GONE);
                         map.setVisibility(View.VISIBLE);

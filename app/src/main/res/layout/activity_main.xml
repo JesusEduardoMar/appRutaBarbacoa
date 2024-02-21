@@ -340,6 +340,29 @@
     </RelativeLayout>
 
 
+
+    <RelativeLayout
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tituloprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="30dp"
+            android:text="Profile"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+
     <RelativeLayout
         android:id="@+id/home"
         android:layout_width="match_parent"
@@ -412,7 +435,7 @@
                                 android:id="@+id/cata_vinos"
                                 android:layout_width="80dp"
                                 android:layout_height="70dp"
-                                android:layout_marginEnd="8dp"
+                                android:padding="4dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -423,11 +446,10 @@
                                 android:id="@+id/cata_vinostext"
                                 android:layout_width="50dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
                                 android:text="Preparación de Barbacoa"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
-                                android:textSize="12sp"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -447,25 +469,26 @@
                                 android:id="@+id/vinedos"
                                 android:layout_width="80dp"
                                 android:layout_height="70dp"
-                                android:layout_marginEnd="8dp"
+                                android:padding="4dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/vinedos" />
+                                app:srcCompat="@drawable/historyofbarba" />
 
                             <TextView
                                 android:id="@+id/vinedostext"
-                                android:layout_width="wrap_content"
+                                android:layout_width="60dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:text="Viñedos"
+                                android:layout_marginStart="10dp"
+                                android:text="Historia de la barbacoa"
                                 android:textColor="#000000"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </LinearLayout>-->
 
                      <LinearLayout
@@ -605,25 +628,7 @@
                      android:clipToPadding="false"
                      android:paddingStart="24dp"
                      android:paddingEnd="24dp" />
-
-                 <!-- <Button
-                      android:id="@+id/ver_todos_lugares_button"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_below="@id/viewViñedos"
-                      android:layout_gravity="center_horizontal"
-                      android:layout_marginStart="32dp"
-                      android:layout_marginTop="16dp"
-                      android:layout_marginEnd="32dp"
-                      android:background="@drawable/boton_redondeado"
-                      android:gravity="center"
-                      android:paddingStart="24dp"
-                      android:paddingTop="12dp"
-                      android:paddingEnd="24dp"
-                      android:paddingBottom="12dp"
-                      android:text="Ver más"
-                      android:textColor="#000000"
-                      android:textSize="16sp" />-->
+                
 
              </LinearLayout>
          </ScrollView>
@@ -638,132 +643,146 @@
      </RelativeLayout>
 
 
-     <RelativeLayout
-         android:id="@+id/calendar"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_above="@id/bottomNavigation"
-         android:background="#853455"
-         android:visibility="gone">
 
-         <TextView
-             android:id="@+id/titulocalendar"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_centerHorizontal="true"
-             android:padding="30dp"
-             android:text="CALENDARIO"
-             android:textColor="#FFFFFF"
-             android:textSize="25sp"
-             android:textStyle="bold" />
+  
+    <RelativeLayout
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation"
+        android:background="#853455"
+        android:visibility="gone">
 
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_below="@+id/titulocalendar"
-             android:layout_alignParentStart="true"
-             android:layout_alignParentEnd="true"
-             android:layout_alignParentBottom="true"
-             android:layout_marginStart="24dp"
-             android:layout_marginTop="24dp"
-             android:layout_marginEnd="24dp"
-             android:layout_marginBottom="24dp"
-             android:background="@drawable/white_background"
-             android:elevation="3dp"
-             android:orientation="vertical"
-             app:layout_constraintBottom_toBottomOf="parent"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toBottomOf="@+id/titulocalendar"
-             app:layout_goneMarginBottom="24dp">
+        <TextView
+            android:id="@+id/titulonotify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="30dp"
+            android:text="Notificaciones"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-             <com.squareup.timessquare.CalendarPickerView
-                 android:id="@+id/calendarView"
-                 android:layout_width="match_parent"
-                 android:layout_height="400dp"
-                 android:layout_centerHorizontal="true"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titulonotify"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/white_background"
+            android:elevation="3dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titulonotify"
+            app:layout_goneMarginBottom="24dp">
 
-                 android:layout_centerVertical="true"
-                 android:layout_marginTop="30dp" />
+            <com.squareup.timessquare.CalendarPickerView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_centerHorizontal="true"
 
-
-             <Button
-                 android:id="@+id/button3"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_marginStart="24dp"
-                 android:layout_marginTop="24dp"
-                 android:layout_marginEnd="24dp"
-                 android:background="@drawable/btn_background"
-                 android:backgroundTint="#853455"
-                 android:text="Aquí irá info del viñedo"
-                 android:textColor="#FFFF" />
+                android:layout_centerVertical="true"
+                android:layout_marginTop="30dp" />
 
 
-         </LinearLayout>
-
-     </RelativeLayout>
-
-
-     <RelativeLayout
-         android:id="@+id/map"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_above="@id/bottomNavigation"
-         android:background="@drawable/vino"
-         android:visibility="gone">
-
-
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_margin="20dp"
-             android:background="@drawable/grey_background"
-             android:orientation="vertical">
-
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:padding="20dp"
-                 android:text="Google Maps"
-                 android:textColor="@color/white"
-                 android:textSize="20dp"
-                 android:textStyle="bold" />
-
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:padding="20dp"
-                 android:text="Embárcate en una fascinante travesía para explorar los múltiples y encantadores viñedos que se extienden a lo largo del pintoresco estado de Querétaro."
-                 android:textColor="@color/white"
-                 android:textSize="15dp"
-                 android:textStyle="bold" />
-
-             <FrameLayout
-                 android:id="@+id/frame_layout"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent" />
-
-         </LinearLayout>
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/btn_background"
+                android:backgroundTint="#853455"
+                android:text="Aquí irá info del viñedo"
+                android:textColor="#FFFF" />
 
 
-     </RelativeLayout>
+        </LinearLayout>
 
-     <com.etebarian.meowbottomnavigation.MeowBottomNavigation
-         android:id="@+id/bottomNavigation"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         app:mbn_circleColor="#db7100"
-         android:background="#4682b4"
-         app:mbn_backgroundBottomColor="@color/blue2"
-         app:mbn_countBackgroundColor="#853455"
-         app:mbn_countTextColor="#ffffff"
-         app:mbn_defaultIconColor="#FFFFFF"
-         app:mbn_rippleColor="#853455"
-         app:mbn_selectedIconColor="#FFFFFF"
-         app:mbn_shadowColor="#1f212121"
-         android:layout_alignParentBottom="true"
-         />
+    </RelativeLayout>
 
- </RelativeLayout>
+  
+  
+  
+
+    <RelativeLayout
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation"
+        android:background="@drawable/vino"
+        android:visibility="gone">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:background="@drawable/grey_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="Google Maps"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="Embárcate en una fascinante travesía para explorar los múltiples y encantadores viñedos que se extienden a lo largo del pintoresco estado de Querétaro."
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mbn_circleColor="#db7100"
+        android:background="#4682b4"
+        app:mbn_backgroundBottomColor="@color/blue2"
+        app:mbn_countBackgroundColor="#853455"
+        app:mbn_countTextColor="#ffffff"
+        app:mbn_defaultIconColor="#FFFFFF"
+        app:mbn_rippleColor="#853455"
+        app:mbn_selectedIconColor="#FFFFFF"
+        app:mbn_shadowColor="#1f212121"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>
 
