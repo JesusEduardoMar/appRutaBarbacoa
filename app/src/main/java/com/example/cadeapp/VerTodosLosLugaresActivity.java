@@ -1,17 +1,19 @@
-
 package com.example.cadeapp;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 
 import com.google.firebase.firestore.DocumentChange;
@@ -29,6 +31,9 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
     private FirebaseFirestore mFirestore;
     private ArrayList<ItemsDomainVinedos> items;
     private ItemsAdapterVinedos itemsAdapterVinedos;
+    private ConstraintLayout card1;
+    private ConstraintLayout card2;
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,33 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
         items = new ArrayList<>();
         itemsAdapterVinedos = new ItemsAdapterVinedos(items, this);
         recyclerView.setAdapter(itemsAdapterVinedos);
+
+        // Inicializar los ConstraintLayouts y el ScrollView
+        card1 = findViewById(R.id.cardInicio1);
+        card2 = findViewById(R.id.cardInicio2);
+        scrollView = findViewById(R.id.scrollView);
+// Configurar un listener de desplazamiento para el ScrollView
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scrollView.getScrollY();
+
+                // Determinar cuánto desplazamiento necesitas para que los ConstraintLayouts desaparezcan completamente
+                int fadeOutOffset = 200; // Ajusta este valor según sea necesario
+
+                // Calcular el alpha basado en el desplazamiento
+                float alpha = Math.max(0f, 1f - (float) scrollY / fadeOutOffset);
+
+                // Animar el alpha de los ConstraintLayouts
+                ObjectAnimator animator1 = ObjectAnimator.ofFloat(card1, "alpha", alpha);
+                animator1.setDuration(0); // Duración cero para que la animación sea instantánea
+                animator1.start();
+
+                ObjectAnimator animator2 = ObjectAnimator.ofFloat(card2, "alpha", alpha);
+                animator2.setDuration(0); // Duración cero para que la animación sea instantánea
+                animator2.start();
+            }
+        });
 
         //SearchView
         SearchView searchView = findViewById(R.id.search_view);
@@ -80,6 +112,29 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
 
                 // Devolver false para permitir que el SearchView maneje los cambios de texto
                 return false;
+            }
+        });
+
+
+        // Ahora aquí están los listeners para card1 y card2 (historia de la barbacoa y preparación de barbacoa)
+        card1 = findViewById(R.id.cardInicio1);
+        card2 = findViewById(R.id.cardInicio2);
+
+        card1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardPreparacionbarba.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        card2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardHistoriabarbacoa.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -123,6 +178,15 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
     // Aquí mostramos todos los lugares de nuevo
     private void showAllPlaces() {
         itemsAdapterVinedos.setFilter(items);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // Volvemos a la MainActivity
+        Intent intent = new Intent(VerTodosLosLugaresActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 

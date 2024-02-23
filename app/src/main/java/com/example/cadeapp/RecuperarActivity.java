@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -15,12 +17,18 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RecuperarActivity extends AppCompatActivity {
 
 
-    TextInputEditText recup_correo;
+    TextInputEditText recup_correo, recup_pass, recup_confirmar;
+
+    TextInputLayout avisoCorreo, avisopass, avisoconfirmar;
     Button btn_recup;
 
     @Override
@@ -31,6 +39,7 @@ public class RecuperarActivity extends AppCompatActivity {
         recup_correo = findViewById(R.id.correo_recup);
         btn_recup = findViewById(R.id.recup_password);
 
+        avisoCorreo = findViewById(R.id.txtlayoutCorreo);
 
         btn_recup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +62,7 @@ public class RecuperarActivity extends AppCompatActivity {
     private void validarUsuario(){
         String correo = recup_correo.getText().toString().trim();
         if(correo.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(correo).matches()){
-            mostrarMensaje("Correo invalido");
+            mostrarAlerta("Correo invalido");
             return;
         }
         enviarPassword(correo);
@@ -70,7 +79,7 @@ public class RecuperarActivity extends AppCompatActivity {
                             mostrarAlerta("Revisa tu correo, por favor");
                         }
                         else{
-                            mostrarMensaje("correo invalido");
+                            mostrarAlerta("correo invalido");
                         }
                     }
                 });
@@ -91,10 +100,6 @@ public class RecuperarActivity extends AppCompatActivity {
             }
         });
         builder.show();
-    }
-
-    private void mostrarMensaje(String mensaje){
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
 }

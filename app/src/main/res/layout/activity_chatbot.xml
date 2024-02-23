@@ -21,7 +21,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/logo_app"
+        android:src="@drawable/logo_appp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/view"
@@ -42,7 +42,7 @@
         android:padding="10dp"
         android:layout_below="@+id/logito"
         android:textColor="@color/white"
-        android:text="DELICIO" />
+        android:text="CadeAPP" />
 
     <TextView
         android:id="@+id/textView3"
