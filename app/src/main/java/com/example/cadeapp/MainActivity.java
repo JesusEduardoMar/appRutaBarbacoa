@@ -1,103 +1,90 @@
-    package com.example.cadeapp;
+package com.example.cadeapp;
 
-    import static android.content.ContentValues.TAG;
+import static android.content.ContentValues.TAG;
 
-    import androidx.annotation.NonNull;
-    import androidx.annotation.Nullable;
-    import androidx.appcompat.app.AppCompatActivity;
-    import androidx.constraintlayout.widget.ConstraintLayout;
-    import androidx.fragment.app.Fragment;
-    import androidx.recyclerview.widget.LinearLayoutManager;
-    import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-    import android.content.Intent;
-    import android.os.Bundle;
-    import android.util.Log;
-    import android.view.View;
-    import android.widget.Button;
-    import android.widget.LinearLayout;
-    import android.widget.ProgressBar;
-    import android.widget.RelativeLayout;
-    import android.widget.TextView;
-    import android.widget.Toast;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-    import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-    import com.google.android.gms.auth.api.signin.GoogleSignIn;
-    import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-    import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-    import com.google.android.gms.tasks.OnCompleteListener;
-    import com.google.android.gms.tasks.Task;
-    import com.google.firebase.auth.FirebaseAuth;
-    import com.google.firebase.auth.FirebaseUser;
-    import com.google.firebase.firestore.DocumentChange;
-    import com.google.firebase.firestore.DocumentSnapshot;
-    import com.google.firebase.firestore.EventListener;
-    import com.google.firebase.firestore.FirebaseFirestore;
-    import com.google.firebase.firestore.FirebaseFirestoreException;
-    import com.google.firebase.firestore.QueryDocumentSnapshot;
-    import com.google.firebase.firestore.QuerySnapshot;
-    import com.squareup.timessquare.CalendarPickerView;
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.timessquare.CalendarPickerView;
 
-    import java.text.DateFormat;
-    import java.text.ParseException;
-    import java.text.SimpleDateFormat;
-    import java.util.ArrayList;
-    import java.util.Calendar;
-    import java.util.Date;
-    import java.util.Locale;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
-    import kotlin.Unit;
-    import kotlin.jvm.functions.Function1;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import java.lang.Exception;
 
-    public class MainActivity extends AppCompatActivity {
-        // Variables
-        private RecyclerView.Adapter adapterEventos,adapterVinedos;
-        private RecyclerView recyclerViewEventos, recyclerViewVinedos;
-        private MeowBottomNavigation bottomNavigation;
-        TextView txt_Nombre,txt_correo,txt_telefono,txt_Nombre2,txt_correo2;
-        Button cerrar;
+public class MainActivity extends AppCompatActivity {
+    // Variables
+    private RecyclerView.Adapter adapterEventos,adapterVinedos;
+    private RecyclerView recyclerViewEventos, recyclerViewVinedos;
+    private MeowBottomNavigation bottomNavigation;
+    TextView txt_Nombre,txt_correo,txt_telefono,txt_Nombre2,txt_correo2;
+    Button cerrar;
 
-        RelativeLayout  menu, home, calendar, map;
-        FirebaseAuth mAuth;
-        FirebaseUser user;
-        FirebaseFirestore mFirestore;
-        private GoogleSignInClient mGoogleSignInClient;
-        LinearLayout cardviewchatbot;
-        LinearLayout cardviewcontact1;
-        ConstraintLayout card1;
-        ConstraintLayout card2;
-        ConstraintLayout card3;
-        ConstraintLayout card4;
-        RecyclerView recyclerView;
-        ItemsAdapterVinedos itemsAdapterVinedos;
-        ItemsAdapterEventos itemsAdapterEventos;
-        ArrayList<ItemsDomainVinedos> items;
-        ArrayList<ItemsDomainEventos> items2;
-        ProgressBar pbProgressMain;
-        private Task<QuerySnapshot> eventosTask;
+    RelativeLayout  menu, profile, home, calendar, map;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
+    FirebaseFirestore mFirestore;
+    private GoogleSignInClient mGoogleSignInClient;
+    LinearLayout cardviewchatbot;
+    LinearLayout cardviewcontact1;
+    ConstraintLayout card3;
+    ConstraintLayout card4;
+    RecyclerView recyclerView;
+    ItemsAdapterVinedos itemsAdapterVinedos;
+    ItemsAdapterEventos itemsAdapterEventos;
+    ArrayList<ItemsDomainVinedos> items;
+    ArrayList<ItemsDomainEventos> items2;
+    ProgressBar pbProgressMain;
+    private Task<QuerySnapshot> eventosTask;
 
-        // Método llamado a la hora de crear la actividad
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+    // Método llamado a la hora de crear la actividad
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-            Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 
-            setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
-            Button button3 = findViewById(R.id.button3);
-            // --> Boton para ver todos los lugares
-            Button verTodos = findViewById(R.id.ver_todos_lugares_button); // ID de tu botón
-            verTodos.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Lanzar la actividad para ver todos los lugares
-                    Intent intent = new Intent(MainActivity.this, VerTodosLosLugaresActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-
+        Button button3 = findViewById(R.id.button3);
 
             // --> Inicialización de Firebase y otros elementos de la interfaz de usuario
             mFirestore = FirebaseFirestore.getInstance();
@@ -160,175 +147,209 @@
                         }
                     });
 
-            // --> Configuración de la barra de navegación inferior (MeowBottomNavigation)
-            bottomNavigation = findViewById(R.id.bottomNavigation);
-            cerrar = findViewById(R.id.cerrar_sesion);
-            menu = findViewById(R.id.menu);
-            home = findViewById(R.id.home);
-            calendar = findViewById(R.id.calendar);
-            map = findViewById(R.id.map);
-            txt_Nombre = findViewById(R.id.Mostrarnombre);
-            txt_Nombre2 = findViewById(R.id.nombre2);
-            txt_correo2 = findViewById(R.id.correo2);
-            txt_correo = findViewById(R.id.Mostrarcorreo);
-            txt_telefono = findViewById(R.id.Mostrartelefono);
-            mAuth = FirebaseAuth.getInstance();
-            user = mAuth.getCurrentUser();
-            cardviewchatbot = findViewById(R.id.cardviewchat);
-            cardviewcontact1 = findViewById(R.id.cardviewcontact);
-            bottomNavigation.show(2,true);
+        // --> Configuración de la barra de navegación inferior (MeowBottomNavigation)
+        bottomNavigation = findViewById(R.id.bottomNavigation);
+        cerrar = findViewById(R.id.cerrar_sesion);
+        menu = findViewById(R.id.menu);
+        profile = findViewById(R.id.profile);
+        home = findViewById(R.id.home);
+        calendar = findViewById(R.id.calendar);
+        map = findViewById(R.id.map);
+        txt_Nombre = findViewById(R.id.Mostrarnombre);
+        txt_Nombre2 = findViewById(R.id.nombre2);
+        txt_correo2 = findViewById(R.id.correo2);
+        txt_correo = findViewById(R.id.Mostrarcorreo);
+        txt_telefono = findViewById(R.id.Mostrartelefono);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        cardviewchatbot = findViewById(R.id.cardviewchat);
+        cardviewcontact1 = findViewById(R.id.cardviewcontact);
+        bottomNavigation.show(3,true);
 
-            //-------------Servicios Google----------------
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build();
-            mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-            //Configuracion para el uso de inicio de sesion con google
+        //-------------Servicios Google----------------
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        //Configuracion para el uso de inicio de sesion con google
 
-            card1 = findViewById(R.id.cardInicio1);
-            card2 = findViewById(R.id.cardInicio2);
-            card3 = findViewById(R.id.cardInicio3);
-            card4 = findViewById(R.id.cardInicio4);
+        card3 = findViewById(R.id.cardInicio3);
+        card4 = findViewById(R.id.cardInicio4);
 
-            // Añadir los íconos a la barra de navegación inferior
-            bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.menuanvorgesa));
-            bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.baseline_home_24));
-            bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.baseline_calendar_month_24));
-            bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.baseline_public_24));
+        // Añadir los íconos a la barra de navegación inferior
+        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.configuracion));
+        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.baseline_person_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.baseline_home_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.campana));
+        bottomNavigation.add(new MeowBottomNavigation.Model(5, R.drawable.baseline_place_24));
 
-            // Configuración de los listeners para la barra de navegación inferior
-            bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-                @Override
-                public Unit invoke(MeowBottomNavigation.Model model) {
-                    switch (model.getId()){
-                        case 1:
-                            menu.setVisibility(View.VISIBLE);
-                            home.setVisibility(View.GONE);
-                            calendar.setVisibility(View.GONE);
-                            map.setVisibility(View.GONE);
-                            break;
-                        case 2:
-                            menu.setVisibility(View.GONE);
-                            home.setVisibility(View.VISIBLE);
-                            calendar.setVisibility(View.GONE);
-                            map.setVisibility(View.GONE);
-                            break;
-                        case 3:
-                            menu.setVisibility(View.GONE);
-                            home.setVisibility(View.GONE);
-                            calendar.setVisibility(View.VISIBLE);
-                            map.setVisibility(View.GONE);
-                            break;
-                        case 4:
-                            menu.setVisibility(View.GONE);
-                            home.setVisibility(View.GONE);
-                            calendar.setVisibility(View.GONE);
-                            map.setVisibility(View.VISIBLE);
-                            break;
-                    }
-                    return null;
+        // Configuración de los listeners para la barra de navegación inferior
+        bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                switch (model.getId()){
+                    case 1:
+                        menu.setVisibility(View.VISIBLE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.GONE);
+                        map.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.VISIBLE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.GONE);
+                        map.setVisibility(View.GONE);
+                        break;
+                    case 3:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.VISIBLE);
+                        calendar.setVisibility(View.GONE);
+                        map.setVisibility(View.GONE);
+                        break;
+                    case 4:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.VISIBLE);
+                        map.setVisibility(View.GONE);
+                        break;
+                    case 5:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.GONE);
+                        map.setVisibility(View.VISIBLE);
+                        break;
                 }
-            });
+                return null;
+            }
+        });
 
-            // --> Configuración de listeners adicionales para la barra de navegación inferior
-            bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-                @Override
-                public Unit invoke(MeowBottomNavigation.Model model) {
-                    switch (model.getId()){
-                        case 1:
-                            menu.setVisibility(View.VISIBLE);
-                            home.setVisibility(View.GONE);
-                            calendar.setVisibility(View.GONE);
-                            map.setVisibility(View.GONE);
-                            break;
-                    }
-                    return null;
+        // --> Configuración de listeners adicionales para la barra de navegación inferior
+        bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                switch (model.getId()){
+                    case 1:
+                        menu.setVisibility(View.VISIBLE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.GONE);
+                        map.setVisibility(View.GONE);
+                        break;
                 }
-            });
-            bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-                @Override
-                public Unit invoke(MeowBottomNavigation.Model model) {
-                    switch (model.getId()){
-                        case 2:
-                            menu.setVisibility(View.GONE);
-                            home.setVisibility(View.VISIBLE);
-                            calendar.setVisibility(View.GONE);
-                            map.setVisibility(View.GONE);
-                            break;
-                    }
-                    return null;
+                return null;
+            }
+        });
+        bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                switch (model.getId()){
+                    case 2:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.VISIBLE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.GONE);
+                        map.setVisibility(View.GONE);
+                        break;
                 }
-            });
-            bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-                @Override
-                public Unit invoke(MeowBottomNavigation.Model model) {
-                    switch (model.getId()){
-                        case 3:
-                            menu.setVisibility(View.GONE);
-                            home.setVisibility(View.GONE);
-                            calendar.setVisibility(View.VISIBLE);
-                            map.setVisibility(View.GONE);
-                            break;
-                    }
-                    return null;
+                return null;
+            }
+        });
+        bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                switch (model.getId()){
+                    case 3:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.VISIBLE);
+                        calendar.setVisibility(View.GONE);
+                        map.setVisibility(View.GONE);
+                        break;
                 }
-            });
-            bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-                @Override
-                public Unit invoke(MeowBottomNavigation.Model model) {
-                    switch (model.getId()){
-                        case 4:
-                            menu.setVisibility(View.GONE);
-                            home.setVisibility(View.GONE);
-                            calendar.setVisibility(View.GONE);
-                            map.setVisibility(View.VISIBLE);
-                            break;
-                    }
-                    return null;
+                return null;
+            }
+        });
+        bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                switch (model.getId()){
+                    case 4:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.VISIBLE);
+                        map.setVisibility(View.GONE);
+                        break;
                 }
-            });
+                return null;
+            }
+        });
 
-                                                 ////CALENDARIO//////
-    // Se inicializa el selector de fechas
-            Date today = new Date();
-            Calendar nextYear = Calendar.getInstance();
-            nextYear.add(Calendar.YEAR, 30);
+        bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+            @Override
+            public Unit invoke(MeowBottomNavigation.Model model) {
+                switch (model.getId()){
+                    case 5:
+                        menu.setVisibility(View.GONE);
+                        profile.setVisibility(View.GONE);
+                        home.setVisibility(View.GONE);
+                        calendar.setVisibility(View.GONE);
+                        map.setVisibility(View.VISIBLE);
+                        break;
+                }
+                return null;
+            }
+        });
 
-            CalendarPickerView datePicker = findViewById(R.id.calendarView);
-            datePicker.init(today, nextYear.getTime()).withSelectedDate(today);
+                                             ////CALENDARIO//////
+// Se inicializa el selector de fechas
+        Date today = new Date();
+        Calendar nextYear = Calendar.getInstance();
+        nextYear.add(Calendar.YEAR, 30);
 
-    // Recuperar eventos de la base de datos
-            mFirestore.collection("eventos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        // Asignar la tarea completada a la variable de instancia
-                        eventosTask = task;
+        CalendarPickerView datePicker = findViewById(R.id.calendarView);
+        datePicker.init(today, nextYear.getTime()).withSelectedDate(today);
 
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Obtener información del evento
-                            String nombreEvento = document.getString("nombre_evento");
-                            String fechaEventoString = document.getString("fecha_evento");
+// Recuperar eventos de la base de datos
+        mFirestore.collection("eventos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Asignar la tarea completada a la variable de instancia
+                    eventosTask = task;
 
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // Obtener información del evento
+                        String nombreEvento = document.getString("nombre_evento");
+                        String fechaEventoString = document.getString("fecha_evento");
+
+                        // Verificar si la fecha del evento es nula
+                        if (fechaEventoString != null) {
                             // Convertir la fecha del evento de String a Date
-                            Date fechaEvento = null;
                             try {
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("d 'de' MMMM 'de' yyyy, hh:mm:ss a", Locale.getDefault());
-                                fechaEvento = dateFormat.parse(fechaEventoString);
+                                Date fechaEvento = dateFormat.parse(fechaEventoString);
+                                if (fechaEvento != null) {
+                                    // Marcar la fecha del evento en el calendario
+                                    Calendar cal = Calendar.getInstance();
+                                    cal.setTime(fechaEvento);
+                                    datePicker.selectDate(cal.getTime());
+                                }
                             } catch (ParseException e) {
                                 e.printStackTrace();
                                 // Manejar el error de parseo si es necesario
                             }
-
-                            if (fechaEvento != null) {
-                                // Marcar la fecha del evento en el calendario
-                                Calendar cal = Calendar.getInstance();
-                                cal.setTime(fechaEvento);
-                                datePicker.selectDate(cal.getTime());
-                            }
+                        } else {
+                            // Manejar el caso en el que fechaEventoString es null
                         }
-                    } else {
+                    } 
+                } else {
                         Log.d(TAG, "Error al obtener eventos: ", task.getException());
                     }
                 }
@@ -427,24 +448,7 @@
                     finish();
                 }
             });
-
-            // --> Configuración de listeners para los botones de tarjetas de información (hasta arriba)
-            card1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, cardCatadeVinos.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-            card2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, cardVinedos.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
+      
             card3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
