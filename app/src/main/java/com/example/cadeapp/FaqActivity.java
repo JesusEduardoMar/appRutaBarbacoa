@@ -1,71 +1,39 @@
 package com.example.cadeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import androidx.appcompat.widget.Toolbar;
 
-//import com.example.cadeapp.databinding.ActivityScrollingBinding;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FaqActivity extends AppCompatActivity {
-
-    RecyclerView recyclerView;
+public class FaqActivity extends ScrollingActivity {
     List<Versions> versionsList;
 
 
-    //private ActivityScrollingBinding binding;
+    protected RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        title = "Preguntas frecuentes";
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_faq);
-
-        /*
-
-
-        binding = ActivityScrollingBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        Toolbar toolbar = binding.toolbar;
-        setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
-        toolBarLayout.setTitle(getTitle());
-
-        FloatingActionButton fab = binding.fab;
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-         */
 
         recyclerView = findViewById(R.id.recyclerView);
 
         initData();
         setRecyclerView();
-
-
-        //setSupportActionBar(findViewById(R.id.toolbar));
-        //supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        //supportActionBar?.setDisplayShowHomeEnabled(true);
-        //toolbar_layout.title = "Preguntas frecuentes";
-    }
-
-    public void onBackPressed(){
-        super.onBackPressed();
-
-        Intent intent = new Intent(FaqActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     private void setRecyclerView() {

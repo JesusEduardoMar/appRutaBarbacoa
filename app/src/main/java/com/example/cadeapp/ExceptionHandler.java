@@ -19,6 +19,7 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(Thread thread, Throwable ex){
         Log.e("MyExceptionHandler", "Caught exception:", ex);
 
+
         // Handle critical errors gracefully (e.g., network issues, data persistence)
         if (isCriticalError(ex)) {
             handleCriticalError(ex);
