@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -36,7 +37,7 @@ public class RegistrarActivity extends AppCompatActivity {
     TextInputLayout avisopass,avisocorreo;
     Button btnregistro;
     String nameuser,correouser,telefonouser,passworduser,confirmaruser;
-    String regexPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
+    String regexPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=_-])(?=\\S+$).{4,}$";
 
 
     //Instancias de los servicios firebase
@@ -128,10 +129,6 @@ public class RegistrarActivity extends AppCompatActivity {
         }
     }
 
-    private void validarCorreo(){
-
-    }
-
 
 
     //Metodo para registrar los usuarios dentro de firebase
@@ -155,11 +152,13 @@ public class RegistrarActivity extends AppCompatActivity {
         });
     }
 
+    // Registrar usuarios en Firebase y Firestore
     private void registroUsuarios(String nameuser, String correouser, String telefonouser, String passworduser){
         mAuth.createUserWithEmailAndPassword(correouser, passworduser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
                     //Obtenemos el id del usuario
                     String id = mAuth.getCurrentUser().getUid();
                     Map<String, Object> map = new HashMap<>();
@@ -168,17 +167,17 @@ public class RegistrarActivity extends AppCompatActivity {
                     map.put("correo", correouser);
                     map.put("telefono", telefonouser);
 
-                    //Registramos el usuario en firestore
+                    //Registramos el usuario en Firestore
                     mFirestore.collection("usuarios").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                         public void onSuccess(Void unused) {
                             // Redirige solo cuando la creación de la cuenta sea exitosa
                             mostrarMensaje("Usuario registrado con éxito");
-                            redireccionarMain();
+                            redireccionarMain(); // Mover aquí la redirección
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                             mostrarMensaje("Error al guardar datos");
+                            mostrarMensaje("Error al guardar datos");
                         }
                     });
                 } else {
@@ -194,13 +193,13 @@ public class RegistrarActivity extends AppCompatActivity {
     }
 
     private void redireccionarMain(){
-        finish();
-        startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
+        finish(); // Finaliza la actividad actual
+        Intent intent = new Intent(RegistrarActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void onBackPressed(){
         super.onBackPressed();
-
         Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();

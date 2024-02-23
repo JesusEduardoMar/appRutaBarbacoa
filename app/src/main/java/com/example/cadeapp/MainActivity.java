@@ -86,66 +86,66 @@ public class MainActivity extends AppCompatActivity {
 
         Button button3 = findViewById(R.id.button3);
 
-        // --> Inicialización de Firebase y otros elementos de la interfaz de usuario
-        mFirestore = FirebaseFirestore.getInstance();
-        pbProgressMain = findViewById(R.id.progress_main);
+            // --> Inicialización de Firebase y otros elementos de la interfaz de usuario
+            mFirestore = FirebaseFirestore.getInstance();
+            pbProgressMain = findViewById(R.id.progress_main);
 
-        // --> Configuración de RecyclerView para eventos
-        recyclerView = findViewById(R.id.viewEventos);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            // --> Configuración de RecyclerView para eventos
+            recyclerView = findViewById(R.id.viewEventos);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        items2 = new ArrayList<>();
-        itemsAdapterEventos = new ItemsAdapterEventos(items2, this);
-        recyclerView.setAdapter(itemsAdapterEventos);
-        mFirestore.collection("eventos").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                pbProgressMain.setVisibility(View.VISIBLE);
-                if(error != null){
-                    Log.e("Firestore error", error.getMessage());
-                    return;
-                }
-                for(DocumentChange dc : value.getDocumentChanges()){
-                    if(dc.getType() == DocumentChange.Type.ADDED){
-                        items2.add(dc.getDocument().toObject(ItemsDomainEventos.class));
+            items2 = new ArrayList<>();
+            itemsAdapterEventos = new ItemsAdapterEventos(items2, this);
+            recyclerView.setAdapter(itemsAdapterEventos);
+            mFirestore.collection("eventos").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    pbProgressMain.setVisibility(View.VISIBLE);
+                    if(error != null){
+                        Log.e("Firestore error", error.getMessage());
+                        return;
                     }
-
-                    itemsAdapterEventos.notifyDataSetChanged();
-                    pbProgressMain.setVisibility(View.GONE);
-                }
-
-            }
-        });
-
-        // --> Configuración de RecyclerView para las barbacoas (sólo 5 lugares)
-        recyclerView = findViewById(R.id.viewViñedos);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        items = new ArrayList<>();
-        itemsAdapterVinedos = new ItemsAdapterVinedos(items, this);
-        recyclerView.setAdapter(itemsAdapterVinedos);
-        mFirestore.collection("barbacoas")
-                .orderBy("nombre_barbacoa") // Reemplaza "random_field" con el nombre de un campo que contenga valores aleatorios
-                .limit(3)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if(error != null){
-                            Log.e("Firestore error", error.getMessage());
-                            return;
+                    for(DocumentChange dc : value.getDocumentChanges()){
+                        if(dc.getType() == DocumentChange.Type.ADDED){
+                            items2.add(dc.getDocument().toObject(ItemsDomainEventos.class));
                         }
-                        items.clear(); // Limpiar la lista actual de lugares
-                        for(DocumentChange dc : value.getDocumentChanges()){
-                            if(dc.getType() == DocumentChange.Type.ADDED){
-                                items.add(dc.getDocument().toObject(ItemsDomainVinedos.class));
-                            }
-                        }
-                        itemsAdapterVinedos.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+
+                        itemsAdapterEventos.notifyDataSetChanged();
                         pbProgressMain.setVisibility(View.GONE);
                     }
-                });
+
+                }
+            });
+
+            // --> Configuración de RecyclerView para las barbacoas (sólo 5 lugares)
+            recyclerView = findViewById(R.id.viewViñedos);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+            items = new ArrayList<>();
+            itemsAdapterVinedos = new ItemsAdapterVinedos(items, this);
+            recyclerView.setAdapter(itemsAdapterVinedos);
+            mFirestore.collection("barbacoas")
+                    .orderBy("nombre_barbacoa") // Reemplaza "random_field" con el nombre de un campo que contenga valores aleatorios
+                    .limit(3)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if(error != null){
+                                Log.e("Firestore error", error.getMessage());
+                                return;
+                            }
+                            items.clear(); // Limpiar la lista actual de lugares
+                            for(DocumentChange dc : value.getDocumentChanges()){
+                                if(dc.getType() == DocumentChange.Type.ADDED){
+                                    items.add(dc.getDocument().toObject(ItemsDomainVinedos.class));
+                                }
+                            }
+                            itemsAdapterVinedos.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+                            pbProgressMain.setVisibility(View.GONE);
+                        }
+                    });
 
         // --> Configuración de la barra de navegación inferior (MeowBottomNavigation)
         bottomNavigation = findViewById(R.id.bottomNavigation);
@@ -348,180 +348,191 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             // Manejar el caso en el que fechaEventoString es null
                         }
-                    }
+                    } 
                 } else {
-                    Log.d(TAG, "Error al obtener eventos: ", task.getException());
+                        Log.d(TAG, "Error al obtener eventos: ", task.getException());
+                    }
                 }
-            }
-        });
+            });
 
-// Definir el listener para la selección de fechas
-        datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(Date date) {
-                // Convertir la fecha seleccionada a un formato legible
-                DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-                String fechaSeleccionada = dateFormat.format(date);
+    // Definir el listener para la selección de fechas
+            datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
+                @Override
+                public void onDateSelected(Date date) {
+                    // Convertir la fecha seleccionada a un formato legible
+                    DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+                    String fechaSeleccionada = dateFormat.format(date);
 
-                // Verificar si hay un evento en la fecha seleccionada
-                String informacionEvento = "";
-                if (eventosTask != null && eventosTask.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : eventosTask.getResult()) {
-                        String nombreEvento = document.getString("nombre_evento");
-                        String fechaEventoString = document.getString("fecha_evento");
+                    // Verificar si hay un evento en la fecha seleccionada
+                    String informacionEvento = "";
+                    if (eventosTask != null && eventosTask.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : eventosTask.getResult()) {
+                            String nombreEvento = document.getString("nombre_evento");
+                            String fechaEventoString = document.getString("fecha_evento");
 
-                        // Convertir la fecha del evento de String a Date
-                        Date fechaEvento = null;
-                        try {
-                            SimpleDateFormat dateFormat2 = new SimpleDateFormat("d 'de' MMMM 'de' yyyy, hh:mm:ss a", Locale.getDefault());
-                            fechaEvento = dateFormat2.parse(fechaEventoString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                            // Manejar el error de parseo si es necesario
-                        }
+                            // Convertir la fecha del evento de String a Date
+                            Date fechaEvento = null;
+                            try {
+                                SimpleDateFormat dateFormat2 = new SimpleDateFormat("d 'de' MMMM 'de' yyyy, hh:mm:ss a", Locale.getDefault());
+                                fechaEvento = dateFormat2.parse(fechaEventoString);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                // Manejar el error de parseo si es necesario
+                            }
 
-                        if (fechaEvento != null) {
-                            Calendar calEvento = Calendar.getInstance();
-                            calEvento.setTime(fechaEvento);
-                            Calendar calSeleccionada = Calendar.getInstance();
-                            calSeleccionada.setTime(date);
+                            if (fechaEvento != null) {
+                                Calendar calEvento = Calendar.getInstance();
+                                calEvento.setTime(fechaEvento);
+                                Calendar calSeleccionada = Calendar.getInstance();
+                                calSeleccionada.setTime(date);
 
-                            if (calEvento.get(Calendar.YEAR) == calSeleccionada.get(Calendar.YEAR) &&
-                                    calEvento.get(Calendar.MONTH) == calSeleccionada.get(Calendar.MONTH) &&
-                                    calEvento.get(Calendar.DAY_OF_MONTH) == calSeleccionada.get(Calendar.DAY_OF_MONTH)) {
-                                // Se encontró un evento en la fecha seleccionada
-                                informacionEvento = nombreEvento;
-                                break; // No es necesario continuar buscando más eventos
+                                if (calEvento.get(Calendar.YEAR) == calSeleccionada.get(Calendar.YEAR) &&
+                                        calEvento.get(Calendar.MONTH) == calSeleccionada.get(Calendar.MONTH) &&
+                                        calEvento.get(Calendar.DAY_OF_MONTH) == calSeleccionada.get(Calendar.DAY_OF_MONTH)) {
+                                    // Se encontró un evento en la fecha seleccionada
+                                    informacionEvento = nombreEvento;
+                                    break; // No es necesario continuar buscando más eventos
+                                }
                             }
                         }
                     }
+
+                    // Mostrar la información del evento en el área designada
+                    button3.setText("Nombre del evento para la fecha seleccionada: " + informacionEvento);
                 }
 
-                // Mostrar la información del evento en el área designada
-                button3.setText("Nombre del evento para la fecha seleccionada: " + informacionEvento);
-            }
-
-            @Override
-            public void onDateUnselected(Date date) {
-                // No es necesario implementar este método para tu caso
-            }
-        });
-                                              ////FIN CALENDARIO//////
+                @Override
+                public void onDateUnselected(Date date) {
+                    // No es necesario implementar este método para tu caso
+                }
+            });
+                                                  ////FIN CALENDARIO//////
 
 
-        // --> Muestra el fragmento del mapa
-        Fragment fragment = new Map_Fragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
+            // --> Muestra el fragmento del mapa
+            Fragment fragment = new Map_Fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
 
-        // --> Configuración de listener para el botón de cerrar sesión
-        cerrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logout();
-            }
-        });
+            // --> Configuración de listener para el botón de cerrar sesión
+            cerrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    logout();
+                }
+            });
 
-        // --> Configuración de listener para el botón del chatbot
-        cardviewchatbot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("MainActivity", "onClick() called");
-                Intent intent = new Intent(MainActivity.this, FaqActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+            // --> Configuración de listener para el botón del chatbot
+            cardviewchatbot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, FaqActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
 
-        cardviewcontact1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, contact.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+            cardviewcontact1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, contact.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
 
-        // --> Configuración de listeners para los botones de tarjetas de información (hasta arriba)
-
-        // Ahora te lleva a Visualizar todos los lugares de Barbacoa que hay
-        card3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, VerTodosLosLugaresActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        // Visualizar todos los lugares de Pulque que hay
-        card4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, cardDemasEntradas.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-    }
-
-    // --> Método llamado al iniciar la actividad
-    protected void onStart(){
-        super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user == null){
-            irLogin();
-        }else{
-            cargardatos();
+            cardviewcontact1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, contact.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+      
+            card3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, cardVinos.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            card4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, cardDemasEntradas.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
-    }
 
-    // --> Método para cargar los datos del usuario desde Firestore
-    private void cargardatos(){
-        mFirestore.collection("usuarios").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    if(document.exists()){
-                        String nombre = document.getString("nombre");
-                        String correo = document.getString("correo");
-                        String telefono = document.getString("telefono");
+        // --> Método llamado al iniciar la actividad
+        protected void onStart() {
+            super.onStart();
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                if (user.isEmailVerified()) {
+                    // Si el usuario está autenticado y su correo está verificado
+                    cargardatos();
+                } else {
+                    // Si el usuario está autenticado pero su correo no está verificado
+                    logout();
+                }
+            } else {
+                // Si el usuario no está autenticado
+                irLogin();
+            }
+        }
 
-                        txt_Nombre.setText(nombre);
-                        txt_correo.setText(correo);
-                        txt_telefono.setText(telefono);
-                        txt_Nombre2.setText(nombre);
-                        txt_correo2.setText(correo);
+        // --> Método para cargar los datos del usuario desde Firestore
+        private void cargardatos(){
+            mFirestore.collection("usuarios").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot document = task.getResult();
+                        if(document.exists()){
+                            String nombre = document.getString("nombre");
+                            String correo = document.getString("correo");
+                            String telefono = document.getString("telefono");
+
+                            txt_Nombre.setText(nombre);
+                            txt_correo.setText(correo);
+                            txt_telefono.setText(telefono);
+                            txt_Nombre2.setText(nombre);
+                            txt_correo2.setText(correo);
+                        }
                     }
                 }
-            }
-        });
-    }
+            });
+        }
 
-    // --> Método para cerrar sesión
-    private void logout(){
-        mAuth.signOut();
+        // --> Método para cerrar sesión
+        private void logout(){
+            mAuth.signOut();
 
-        mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    irLogin();
-                }else {
-                    mostrarMensaje("No se logro cerrar sesion");
+            mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        irLogin();
+                    }else {
+                        mostrarMensaje("No se logro cerrar sesion");
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
 
-    // --> Método para ir a la pantalla de inicio de sesión
-    private void irLogin(){
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
+        // --> Método para ir a la pantalla de inicio de sesión
+        private void irLogin(){
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
-    // --> Método para mostrar mensajes de Toast
-    private void mostrarMensaje(String mensaje){
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        // --> Método para mostrar mensajes de Toast
+        private void mostrarMensaje(String mensaje){
+            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        }
     }
-}
