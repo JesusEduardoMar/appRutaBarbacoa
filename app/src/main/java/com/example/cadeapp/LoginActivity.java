@@ -280,8 +280,8 @@ public class LoginActivity extends AppCompatActivity {
 
     //redireccionamiento a la activitymain
     private void redireccionarMain(){
-        finish();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 
 
