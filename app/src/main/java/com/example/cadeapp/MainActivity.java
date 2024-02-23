@@ -449,23 +449,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
       
-            card3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, cardVinos.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-            card4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, cardDemasEntradas.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-        }
+           // --> Configuración de listeners para los botones de tarjetas de información (hasta arriba)
+
+        // Ahora te lleva a Visualizar todos los lugares de Barbacoa que hay
+        card3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, VerTodosLosLugaresActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        // Visualizar todos los lugares de Pulque que hay
+        card4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, cardDemasEntradas.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
 
         // --> Método llamado al iniciar la actividad
         protected void onStart() {
