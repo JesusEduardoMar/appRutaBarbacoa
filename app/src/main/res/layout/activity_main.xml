@@ -7,6 +7,7 @@
     tools:context=".MainActivity" >
 
 
+    <!-- INICIO DE PANTALLA DE CONFIGURACION (SETTINGS) -->
     <RelativeLayout
         android:id="@+id/menu"
         android:layout_width="match_parent"
@@ -14,73 +15,307 @@
         android:layout_above="@id/bottomNavigation"
         android:visibility="gone">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/settings_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Configuración"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Primer Rectángulo para Contáctanos -->
+            <LinearLayout
+                android:id="@+id/cardviewcontact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/grey_background"
+                android:elevation="5dp"
+                android:orientation="vertical">
+
+                <!-- Icono y Texto de Contáctanos -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/oval_background">
+
+                    <ImageView
+                        android:id="@+id/imageView12"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/contact" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textView61"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Contáctanos"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Segundo Rectángulo para Preguntas Frecuentes -->
+            <LinearLayout
+                android:id="@+id/cardviewchat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardviewcontact"
+                android:layout_margin="10dp"
+                android:background="@drawable/grey_background"
+                android:elevation="5dp"
+                android:orientation="vertical">
+
+                <!-- Icono y Texto de Preguntas Frecuentes -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/oval_background">
+
+                    <ImageView
+                        android:id="@+id/imageView14"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/faq" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textView63"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Preguntas Frecuentes"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Tercer Rectángulo para Información -->
+            <LinearLayout
+                android:id="@+id/cardviewaviso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardviewchat"
+                android:layout_margin="10dp"
+                android:background="@drawable/grey_background"
+                android:elevation="5dp"
+                android:orientation="vertical">
+
+                <!-- Icono y Texto de Información -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/oval_background">
+
+                    <ImageView
+                        android:id="@+id/imageView121"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/informacion" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textView611"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Información"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Cuarto Rectángulo para Aviso de Privacidad -->
+            <LinearLayout
+                android:id="@+id/cardviewinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardviewaviso"
+                android:layout_margin="10dp"
+                android:background="@drawable/grey_background"
+                android:elevation="5dp"
+                android:orientation="vertical">
+
+                <!-- Icono y Texto de Aviso de Privacidad -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/oval_background">
+
+                    <ImageView
+                        android:id="@+id/imageView122"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/seguridad" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textView612"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Aviso de Privacidad"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- FIN DE PANTALLA DE CONFIGURACION (SETTINGS) -->
+
+
+
+    <!-- INICIO DE PANTALLA DE PERFIL (PROFILE) -->
+
+
+    <RelativeLayout
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomNavigation"
+        android:background="@drawable/com_facebook_auth_dialog_background"
+        android:visibility="gone">
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <View
                 android:id="@+id/view"
                 android:layout_width="wrap_content"
-                android:layout_height="360dp"
+                android:layout_height="200dp"
                 android:background="@drawable/top_backgroundperson"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/cade"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/cadeapp" />
+
+            <!--<ImageView
                 android:id="@+id/imageView11"
-                android:layout_width="418dp"
-                android:layout_height="291dp"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/circles" />
+                app:srcCompat="@drawable/circles" />-->
 
             <ImageView
                 android:id="@+id/imageView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/view"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/view"
-                app:layout_constraintTop_toTopOf="@+id/view"
-                app:layout_constraintVertical_bias="0.18"
-                app:srcCompat="@drawable/usuario" />
+                app:layout_constraintEnd_toEndOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintBottom_toBottomOf="@+id/view"
+                app:layout_constraintVertical_bias="0.5"
+                app:srcCompat="@drawable/usuario1" />
+
+            <TextView
+                android:id="@+id/bienvenido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BIENVENIDO"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="-100dp"
+                android:layout_marginTop="20dp" />
 
             <TextView
                 android:id="@+id/nombre2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
                 android:text="Aquí va el nombre del usuario"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="@+id/imageView9"
-                app:layout_constraintStart_toStartOf="@+id/imageView9"
-                app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:maxLines="2"
+                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toBottomOf="@+id/bienvenido"
+                app:layout_constraintWidth_default="wrap"
+                android:layout_marginStart="-170dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/correo2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
                 android:text="Usuariosinnombre@gmail.com"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/nombre2"
-                app:layout_constraintStart_toStartOf="@+id/nombre2"
-                app:layout_constraintTop_toBottomOf="@+id/nombre2" />
+                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toBottomOf="@+id/nombre2"
+                android:layout_marginStart="-170dp"
+                android:layout_marginTop="8dp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/white_background"
-                android:elevation="3dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="170dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="130dp"
+                android:background="@drawable/white_background1"
+                android:elevation="20dp"
                 android:orientation="vertical"
                 android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -89,113 +324,27 @@
                 app:layout_constraintTop_toBottomOf="@+id/correo2"
                 app:layout_goneMarginBottom="24dp">
 
-
+                <!-- Campo de Username -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
 
-                    <LinearLayout
-                        android:id="@+id/cardviewcontact"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_weight="0.333"
-                        android:background="@drawable/grey_background"
-                        android:elevation="5dp"
-                        android:orientation="vertical">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_margin="12dp"
-                            android:background="@drawable/oval_background">
-
-                            <ImageView
-                                android:id="@+id/imageView12"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.5"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.5"
-                                app:srcCompat="@drawable/contact" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/textView61"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:text="Contáctanos"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/cardviewchat"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_weight="0.333"
-                        android:background="@drawable/grey_background"
-                        android:elevation="5dp"
-                        android:orientation="vertical">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_margin="12dp"
-                            android:background="@drawable/oval_background">
-
-                            <ImageView
-                                android:id="@+id/imageView14"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/faq" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/textView63"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:text="Preguntas Frecuentes"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
+                <TextView
                         android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Username :"
-                        android:textSize="18sp" />
+                        android:text="Username:"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:drawableLeft="@drawable/baseline_person_24"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:paddingLeft="8dp"
+                        android:paddingStart="8dp" />
 
                     <TextView
                         android:id="@+id/Mostrarnombre"
@@ -204,24 +353,18 @@
                         android:layout_weight="1"
                         android:text="Usuario sin nombre"
                         android:textAlignment="textEnd"
-                        android:textSize="16sp" />
+                        android:layout_marginTop="20dp"
+                        android:textSize="16sp"
+                        android:gravity="end"/>
+
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/view7"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:background="#73064C" />
-
+                <!-- Campo de Correo -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
 
                     <TextView
                         android:id="@+id/textView71"
@@ -229,7 +372,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Correo :"
-                        android:textSize="18sp" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:drawableLeft="@drawable/baseline_settings_24"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:paddingStart="8dp"/>
 
                     <TextView
                         android:id="@+id/Mostrarcorreo"
@@ -238,24 +387,16 @@
                         android:layout_weight="1"
                         android:text="Usuariosinnombre@gmail.com"
                         android:textAlignment="textEnd"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:gravity="end"/>
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/view6"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:background="#73064C" />
-
+                <!-- Campo de Teléfono -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
 
                     <TextView
                         android:id="@+id/textView72"
@@ -263,7 +404,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Teléfono :"
-                        android:textSize="18sp" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:drawableLeft="@drawable/baseline_home_24"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:paddingStart="8dp"/>
 
                     <TextView
                         android:id="@+id/Mostrartelefono"
@@ -272,103 +419,102 @@
                         android:layout_weight="1"
                         android:text="+52 442 3291 145"
                         android:textAlignment="textEnd"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:gravity="end"/>
                 </LinearLayout>
-
-                <View
-                    android:id="@+id/view5"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:background="#73064C" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:orientation="horizontal">
-
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
 
                     <Button
                         android:id="@+id/button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/btn_background"
-                        android:backgroundTint="#853455"
                         android:text="Cambiar contraseña"
-                        android:textColor="#FFFF" />
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:background="#73064C" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:orientation="horizontal">
+                        android:textColor="#000000"
+                        android:background="@drawable/btn_bienvenida1"
+                        android:textAllCaps="false"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"/>
 
                     <Button
                         android:id="@+id/cerrar_sesion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/btn_background"
-                        android:backgroundTint="#853455"
                         android:text="Cerrar sesión"
+                        android:textColor="#000000"
+                        android:background="@drawable/btn_bienvenida1"
+                        android:textAllCaps="false"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <!--AHORA AQUÍ ESTÁ EL CALENDARIO (adentro del perfil) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/white_background1"
+                    android:elevation="13dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Eventos en Cadereyta"
+                        android:textSize="20sp"
+                        android:textColor="#000000"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <com.squareup.timessquare.CalendarPickerView
+                        android:id="@+id/calendarView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp" />
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:background="@drawable/white_background1"
+                        android:backgroundTint="#4682b4"
+                        android:text="Aquí irá info del evento"
                         android:textColor="#FFFF" />
 
                 </LinearLayout>
-
+                            <!--FIN DEL CALENDARIO-->
 
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </ScrollView>
     </RelativeLayout>
 
 
 
-    <RelativeLayout
-        android:id="@+id/profile"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottomNavigation"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tituloprofile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:padding="30dp"
-            android:text="Profile"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
+    <!--FIN DE PANTALLA DE PERFIL (PROFILE)-->
 
 
-
+    <!--INICIO DE PANTALLA DE HOME-->
     <RelativeLayout
         android:id="@+id/home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
+        android:background="@drawable/borroso"
         android:visibility="visible">
+
 
         <ProgressBar
             android:id="@+id/progress_main"
@@ -412,9 +558,9 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <!--<LinearLayout
                         android:layout_width="match_parent"
@@ -491,160 +637,156 @@
 
                     </LinearLayout>-->
 
-                     <LinearLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:layout_marginTop="16dp"
-                         android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal">
 
-                         <androidx.constraintlayout.widget.ConstraintLayout
-                             android:id="@+id/cardInicio3"
-                             android:layout_width="0dp"
-                             android:layout_height="70dp"
-                             android:layout_marginStart="32dp"
-                             android:layout_marginEnd="8dp"
-                             android:layout_weight="0.5"
-                             android:background="@drawable/cat_background">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cardInicio3"
+                            android:layout_width="0dp"
+                            android:layout_height="70dp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/cat_background">
 
-                             <ImageView
-                                 android:id="@+id/barril"
-                                 android:layout_width="80dp"
-                                 android:layout_height="70dp"
-                                 android:layout_marginEnd="8dp"
-                                 app:layout_constraintBottom_toBottomOf="parent"
-                                 app:layout_constraintEnd_toEndOf="parent"
-                                 app:layout_constraintTop_toTopOf="parent"
-                                 app:layout_constraintVertical_bias="0.0"
-                                 app:srcCompat="@drawable/barbacoa" />
+                            <ImageView
+                                android:id="@+id/barril"
+                                android:layout_width="80dp"
+                                android:layout_height="70dp"
+                                android:layout_marginEnd="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0"
+                                app:srcCompat="@drawable/barbacoa" />
 
-                             <TextView
-                                 android:id="@+id/barriltext"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginStart="16dp"
-                                 android:text="Barbacoa"
-                                 android:textColor="#000000"
-                                 android:textSize="15sp"
-                                 android:textStyle="bold"
-                                 app:layout_constraintBottom_toBottomOf="parent"
-                                 app:layout_constraintStart_toStartOf="parent"
-                                 app:layout_constraintTop_toTopOf="parent" />
-                         </androidx.constraintlayout.widget.ConstraintLayout>
+                            <TextView
+                                android:id="@+id/barriltext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:text="Barbacoa"
+                                android:textColor="#000000"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                         <androidx.constraintlayout.widget.ConstraintLayout
-                             android:id="@+id/cardInicio4"
-                             android:layout_width="0dp"
-                             android:layout_height="70dp"
-                             android:layout_marginStart="8dp"
-                             android:layout_marginEnd="32dp"
-                             android:layout_weight="0.5"
-                             android:background="@drawable/cat_background">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cardInicio4"
+                            android:layout_width="0dp"
+                            android:layout_height="70dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="32dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/cat_background">
 
-                             <ImageView
-                                 android:id="@+id/vinoqueso"
-                                 android:layout_width="80dp"
-                                 android:layout_height="70dp"
-                                 android:layout_marginEnd="8dp"
-                                 app:layout_constraintBottom_toBottomOf="parent"
-                                 app:layout_constraintEnd_toEndOf="parent"
-                                 app:layout_constraintTop_toTopOf="parent"
-                                 app:layout_constraintVertical_bias="0.0"
-                                 app:srcCompat="@drawable/pulque" />
+                            <ImageView
+                                android:id="@+id/vinoqueso"
+                                android:layout_width="80dp"
+                                android:layout_height="70dp"
+                                android:layout_marginEnd="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0"
+                                app:srcCompat="@drawable/pulque" />
 
-                             <TextView
-                                 android:id="@+id/vinoquesotext"
-                                 android:layout_width="55dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginStart="10dp"
-                                 android:text="Pulque"
-                                 android:textAlignment="center"
-                                 android:textColor="#000000"
-                                 android:textSize="15sp"
-                                 android:textStyle="bold"
-                                 app:layout_constraintBottom_toBottomOf="parent"
-                                 app:layout_constraintStart_toStartOf="parent"
-                                 app:layout_constraintTop_toTopOf="parent" />
-                         </androidx.constraintlayout.widget.ConstraintLayout>
-                     </LinearLayout>
-                 </LinearLayout>
+                            <TextView
+                                android:id="@+id/vinoquesotext"
+                                android:layout_width="55dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="Pulque"
+                                android:textAlignment="center"
+                                android:textColor="#000000"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
-                 <LinearLayout
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginStart="32dp"
-                     android:layout_marginTop="20dp"
-                     android:layout_marginEnd="10dp"
-                     android:background="@drawable/grey_background"
-                     android:padding="5dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/grey_background"
+                    android:padding="5dp">
 
-                     <TextView
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:text="Descubre los Próximos Eventos en Cadereyta"
-                         android:textColor="@color/white"
-                         android:gravity="center_horizontal"
-                         android:singleLine="false"
-                         android:textSize="20dp"
-                         android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="false"
+                        android:text="Descubre los Próximos Eventos en Cadereyta"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
-                 </LinearLayout>
+                </LinearLayout>
 
-                 <androidx.recyclerview.widget.RecyclerView
-                     android:id="@+id/viewEventos"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:clipToPadding="false"
-                     android:paddingStart="24dp"
-                     android:paddingEnd="24dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/viewEventos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp" />
 
-                 <LinearLayout
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginStart="32dp"
-                     android:layout_marginTop="20dp"
-                     android:layout_marginEnd="10dp"
-                     android:background="@drawable/grey_background"
-                     android:padding="5dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/grey_background"
+                    android:padding="5dp">
 
-                     <TextView
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_marginBottom="1dp"
-                         android:gravity="center_horizontal"
-                         android:singleLine="false"
-                         android:text="Descubre el Top 10 de los Mejores Lugares de Barbacoa en Cadereyta"
-                         android:textColor="@color/white"
-                         android:textSize="20dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:gravity="center_horizontal"
+                        android:singleLine="false"
+                        android:text="Descubre el Top 10 de los Mejores Lugares de Barbacoa en Cadereyta"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
 
-                 </LinearLayout>
-
-
-                 <androidx.recyclerview.widget.RecyclerView
-                     android:id="@+id/viewViñedos"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:layout_marginTop="20dp"
-                     android:layout_marginBottom="70dp"
-                     android:clipToPadding="false"
-                     android:paddingStart="24dp"
-                     android:paddingEnd="24dp" />
-                
-
-             </LinearLayout>
-         </ScrollView>
-
-         <androidx.coordinatorlayout.widget.CoordinatorLayout
-             android:layout_width="match_parent"
-             android:layout_height="100dp">
+                </LinearLayout>
 
 
-         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/viewViñedos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="70dp"
+                    android:clipToPadding="false"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp" />
 
-     </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"></androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
+    <!--FIN DE PANTALLA DE HOME-->
 
 
-
-  
+    <!--INICIO DE PANTALLA DE NOTIFICACIONES (ya no es el calendario, se movió al perfil)-->
     <RelativeLayout
         android:id="@+id/calendar"
         android:layout_width="match_parent"
@@ -664,7 +806,7 @@
             android:textSize="25sp"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/titulonotify"
@@ -706,15 +848,10 @@
                 android:text="Aquí irá info del viñedo"
                 android:textColor="#FFFF" />
 
-
-        </LinearLayout>
-
+        </LinearLayout>-->
     </RelativeLayout>
 
-  
-  
-  
-
+    <!--FIN DE PANTALLA DE NOTIFICACIONES (ya no es el calendario, se movió al perfil)-->
     <RelativeLayout
         android:id="@+id/map"
         android:layout_width="match_parent"
