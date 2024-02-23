@@ -20,7 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Winestastic"
         android:windowSoftInputMode="adjustNothing"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name=".ScrollingActivity"
+            android:exported="false"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".RecuperarActivity"
             android:exported="false" />
@@ -39,6 +44,7 @@
             android:name=".FaqActivity"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".contact"
@@ -49,12 +55,12 @@
             android:name=".DetailFreixenetActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".DetailEventosActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".VerTodosLosLugaresActivity"
             android:exported="false"
