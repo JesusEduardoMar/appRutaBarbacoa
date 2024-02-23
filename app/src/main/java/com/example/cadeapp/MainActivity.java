@@ -48,6 +48,7 @@ import java.util.Locale;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
+import java.lang.Exception;
 
 public class MainActivity extends AppCompatActivity {
     // Variables
@@ -424,16 +425,8 @@ public class MainActivity extends AppCompatActivity {
         cardviewchatbot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("MainActivity", "onClick() called");
                 Intent intent = new Intent(MainActivity.this, FaqActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        cardviewcontact1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, contact.class);
                 startActivity(intent);
                 finish();
             }
