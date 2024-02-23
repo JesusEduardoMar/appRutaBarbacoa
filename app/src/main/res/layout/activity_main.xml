@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/blurpreparacion"
     tools:context=".MainActivity" >
 
 
@@ -512,7 +513,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
-        android:background="@drawable/borroso"
         android:visibility="visible">
 
 
@@ -562,231 +562,164 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!--<LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal">
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="16dp"
+                         android:orientation="horizontal">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardInicio1"
-                            android:layout_width="0dp"
-                            android:layout_height="70dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_weight="0.5"
-                            android:background="@drawable/cat_background">
+                         <androidx.constraintlayout.widget.ConstraintLayout
+                             android:id="@+id/cardInicio3"
+                             android:layout_width="0dp"
+                             android:layout_height="70dp"
+                             android:layout_marginStart="32dp"
+                             android:layout_marginEnd="8dp"
+                             android:layout_weight="0.5"
+                             android:background="@drawable/cat_background">
 
-                            <ImageView
-                                android:id="@+id/cata_vinos"
-                                android:layout_width="80dp"
-                                android:layout_height="70dp"
-                                android:padding="4dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/marcador1" />
+                             <ImageView
+                                 android:id="@+id/barril"
+                                 android:layout_width="80dp"
+                                 android:layout_height="70dp"
+                                 android:layout_marginEnd="8dp"
+                                 app:layout_constraintBottom_toBottomOf="parent"
+                                 app:layout_constraintEnd_toEndOf="parent"
+                                 app:layout_constraintTop_toTopOf="parent"
+                                 app:layout_constraintVertical_bias="0.0"
+                                 app:srcCompat="@drawable/barbacoa" />
 
-                            <TextView
-                                android:id="@+id/cata_vinostext"
-                                android:layout_width="50dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:text="Preparación de Barbacoa"
-                                android:textAlignment="center"
-                                android:textColor="#000000"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                             <TextView
+                                 android:id="@+id/barriltext"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginStart="16dp"
+                                 android:text="Barbacoa"
+                                 android:textColor="#000000"
+                                 android:textSize="15sp"
+                                 android:textStyle="bold"
+                                 app:layout_constraintBottom_toBottomOf="parent"
+                                 app:layout_constraintStart_toStartOf="parent"
+                                 app:layout_constraintTop_toTopOf="parent" />
+                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardInicio2"
-                            android:layout_width="0dp"
-                            android:layout_height="70dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="32dp"
-                            android:layout_weight="0.5"
-                            android:background="@drawable/cat_background">
+                         <androidx.constraintlayout.widget.ConstraintLayout
+                             android:id="@+id/cardInicio4"
+                             android:layout_width="0dp"
+                             android:layout_height="70dp"
+                             android:layout_marginStart="8dp"
+                             android:layout_marginEnd="32dp"
+                             android:layout_weight="0.5"
+                             android:background="@drawable/cat_background">
 
-                            <ImageView
-                                android:id="@+id/vinedos"
-                                android:layout_width="80dp"
-                                android:layout_height="70dp"
-                                android:padding="4dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/historyofbarba" />
+                             <ImageView
+                                 android:id="@+id/vinoqueso"
+                                 android:layout_width="80dp"
+                                 android:layout_height="70dp"
+                                 android:layout_marginEnd="8dp"
+                                 app:layout_constraintBottom_toBottomOf="parent"
+                                 app:layout_constraintEnd_toEndOf="parent"
+                                 app:layout_constraintTop_toTopOf="parent"
+                                 app:layout_constraintVertical_bias="0.0"
+                                 app:srcCompat="@drawable/pulque" />
 
-                            <TextView
-                                android:id="@+id/vinedostext"
-                                android:layout_width="60dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:text="Historia de la barbacoa"
-                                android:textColor="#000000"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                             <TextView
+                                 android:id="@+id/vinoquesotext"
+                                 android:layout_width="55dp"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginStart="10dp"
+                                 android:text="Pulque"
+                                 android:textAlignment="center"
+                                 android:textColor="#000000"
+                                 android:textSize="15sp"
+                                 android:textStyle="bold"
+                                 app:layout_constraintBottom_toBottomOf="parent"
+                                 app:layout_constraintStart_toStartOf="parent"
+                                 app:layout_constraintTop_toTopOf="parent" />
+                         </androidx.constraintlayout.widget.ConstraintLayout>
+                     </LinearLayout>
+                 </LinearLayout>
 
-                    </LinearLayout>-->
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="32dp"
+                     android:layout_marginTop="20dp"
+                     android:layout_marginEnd="10dp"
+                     android:background="@drawable/grey_background"
+                     android:padding="5dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal">
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:text="Descubre los Próximos Eventos en Cadereyta"
+                         android:textColor="@color/white"
+                         android:gravity="center_horizontal"
+                         android:singleLine="false"
+                         android:textSize="20dp"
+                         android:textStyle="bold" />
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardInicio3"
-                            android:layout_width="0dp"
-                            android:layout_height="70dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_weight="0.5"
-                            android:background="@drawable/cat_background">
+                 </LinearLayout>
 
-                            <ImageView
-                                android:id="@+id/barril"
-                                android:layout_width="80dp"
-                                android:layout_height="70dp"
-                                android:layout_marginEnd="8dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/barbacoa" />
+                 <androidx.recyclerview.widget.RecyclerView
+                     android:id="@+id/viewEventos"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:clipToPadding="false"
+                     android:paddingStart="24dp"
+                     android:paddingEnd="24dp" />
 
-                            <TextView
-                                android:id="@+id/barriltext"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:text="Barbacoa"
-                                android:textColor="#000000"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="32dp"
+                     android:layout_marginTop="20dp"
+                     android:layout_marginEnd="10dp"
+                     android:background="@drawable/grey_background"
+                     android:padding="5dp">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardInicio4"
-                            android:layout_width="0dp"
-                            android:layout_height="70dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="32dp"
-                            android:layout_weight="0.5"
-                            android:background="@drawable/cat_background">
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginBottom="1dp"
+                         android:gravity="center_horizontal"
+                         android:singleLine="false"
+                         android:text="Descubre el Top 10 de los Mejores Lugares de Barbacoa en Cadereyta"
+                         android:textColor="@color/white"
+                         android:textSize="20dp" />
 
-                            <ImageView
-                                android:id="@+id/vinoqueso"
-                                android:layout_width="80dp"
-                                android:layout_height="70dp"
-                                android:layout_marginEnd="8dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/pulque" />
-
-                            <TextView
-                                android:id="@+id/vinoquesotext"
-                                android:layout_width="55dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:text="Pulque"
-                                android:textAlignment="center"
-                                android:textColor="#000000"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/grey_background"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:singleLine="false"
-                        android:text="Descubre los Próximos Eventos en Cadereyta"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/viewEventos"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="24dp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/grey_background"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="1dp"
-                        android:gravity="center_horizontal"
-                        android:singleLine="false"
-                        android:text="Descubre el Top 10 de los Mejores Lugares de Barbacoa en Cadereyta"
-                        android:textColor="@color/white"
-                        android:textSize="20dp" />
-
-                </LinearLayout>
+                 </LinearLayout>
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/viewViñedos"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="70dp"
-                    android:clipToPadding="false"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="24dp" />
+                 <androidx.recyclerview.widget.RecyclerView
+                     android:id="@+id/viewViñedos"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_marginTop="20dp"
+                     android:layout_marginBottom="70dp"
+                     android:clipToPadding="false"
+                     android:paddingStart="24dp"
+                     android:paddingEnd="24dp" />
+                
+
+             </LinearLayout>
+         </ScrollView>
+
+         <androidx.coordinatorlayout.widget.CoordinatorLayout
+             android:layout_width="match_parent"
+             android:layout_height="100dp">
 
 
-            </LinearLayout>
-        </ScrollView>
+         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"></androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </RelativeLayout>
+     </RelativeLayout>
+
+
+
     <!--FIN DE PANTALLA DE HOME-->
 
 
     <!--INICIO DE PANTALLA DE NOTIFICACIONES (ya no es el calendario, se movió al perfil)-->
+
     <RelativeLayout
         android:id="@+id/calendar"
         android:layout_width="match_parent"
@@ -857,7 +790,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
-        android:background="@drawable/vino"
         android:visibility="gone">
 
 
@@ -881,7 +813,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="Embárcate en una fascinante travesía para explorar los múltiples y encantadores viñedos que se extienden a lo largo del pintoresco estado de Querétaro."
+                android:text="Descubre el sabor auténtico de Cadereyta de Montes, el paraíso de las barbacoas y el pulque.
+No te pierdas esta oportunidad de vivir una experiencia inolvidable...
+"
+                android:justificationMode="inter_word"
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 android:textStyle="bold" />

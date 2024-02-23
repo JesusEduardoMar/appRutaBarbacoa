@@ -1,6 +1,5 @@
 package com.example.cadeapp;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.SearchView;
@@ -125,7 +123,7 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
         card1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardCatadeVinos.class);
+                Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardPreparacionbarba.class);
                 startActivity(intent);
                 finish();
             }
@@ -134,7 +132,7 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
         card2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardVinedos.class);
+                Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardHistoriabarbacoa.class);
                 startActivity(intent);
                 finish();
             }
