@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b8daba"
+    android:background="#e6bcc2"
     tools:context=".DetailEventosActivity"
     android:padding="5dp"
     android:windowSoftInputMode="adjustPan">
@@ -187,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="3dp"
-                android:text="Fotos del lugar"
+                android:text="Fotos del evento"
                 android:textColor="@color/black"
                 android:textSize="22dp"
                 android:textStyle="bold"/>
@@ -199,7 +199,7 @@
                 android:clipToPadding="false"
                 android:paddingStart="20dp"
                 android:paddingEnd="24dp"
-                android:background="#b8daba" />
+                android:background="#e6bcc2" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -207,7 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxHeight="300dp"
-                android:background="#89b98c"
+                android:background="#c78790"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_marginTop="10dp"/>
 
@@ -250,7 +250,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxHeight="300dp"
-                    android:background="#89b98c"
+                    android:background="#c78790"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     />
 

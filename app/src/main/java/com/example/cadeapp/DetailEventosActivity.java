@@ -1,6 +1,8 @@
 package com.example.cadeapp;
 
 import android.content.Intent;
+import android.graphics.text.LineBreaker;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +45,12 @@ public class DetailEventosActivity extends AppCompatActivity {
     private OpinionAdapter comentarioAdapter;
     private List<Opinion> opinionesList;
 
+    // Para cargar las imagenes, este es de Kevan
+    private RecyclerView imagesRecycler1;
+    private ItemsAdapterHistoria itemsAdapterHistoria;
+    private List<String> items;
+    //////
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +62,9 @@ public class DetailEventosActivity extends AppCompatActivity {
         //Aquí encontramos las referencias a los elementos de la interfaz de usuario
         titleText = findViewById(R.id.titleText);
         textDescription = findViewById(R.id.textDescription);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+        }
         addressText = findViewById(R.id.addressText);
         eventoImg = findViewById(R.id.vinedoImg);
         //boton01 = findViewById(R.id.botonRestar);
@@ -69,13 +80,28 @@ public class DetailEventosActivity extends AppCompatActivity {
         RatingBar ratingBarOpinion = findViewById(R.id.ratingBarOpinion);
         Button botonEnviarOpinion = findViewById(R.id.botonEnviarOpinion);
 
-        // Obtenemos el ID del evento actual
-        idEvento = obtenerIdEvento();
+        //Para cargar las imagenes en el recycler view(Kevan)
+        imagesRecycler1 = findViewById(R.id.imagesRecycler);
+        imagesRecycler1.setHasFixedSize(true);
+        imagesRecycler1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        items = new ArrayList<>();
+        itemsAdapterHistoria = new ItemsAdapterHistoria(items, this);
+        imagesRecycler1.setAdapter(itemsAdapterHistoria);
+
 
         // Inicializamos la lista de opiniones y también su adaptador
         opinionesList = new ArrayList<>();
         comentarioAdapter = new OpinionAdapter(opinionesList);
         recyclerViewComentarios.setAdapter(comentarioAdapter);
+
+        // Obtenemos el ID del evento actual
+        idEvento = obtenerIdEvento();
+
+        cargarImagenesDesdeFirestore(idEvento);
+
+        // Obtenemos el ID del evento actual
+        idEvento = obtenerIdEvento();
 
         // Obtenemos el ID del usuario ya autenticado
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -98,6 +124,25 @@ public class DetailEventosActivity extends AppCompatActivity {
         // Configuramos los listeners para los botones de incremento y decremento
         //configurarListenersBotones();
     }
+    // Cargar las imagenes en el recyclerview desde firestore
+    private void cargarImagenesDesdeFirestore(String lugarId) {
+        mFirestore.collection("imagesall")
+                .whereEqualTo("idEvento", lugarId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Obtener la URL de la imagen de cada documento y agregarla a la lista
+                            String imageUrl = document.getString("url");
+                            items.add(imageUrl);
+                        }
+                        // Notificar al adaptador sobre el cambio en los datos
+                        itemsAdapterHistoria.notifyDataSetChanged();
+                    }
+                    else {
+                    }
+                });
+    }
 
     // Método para obtener y mostrar las opiniones que hay
     private void obtenerYMostrarOpiniones() {
@@ -117,7 +162,7 @@ public class DetailEventosActivity extends AppCompatActivity {
                             float calificacion = document.getDouble("calificacion").floatValue();
 
                             // Crea un nuevo objeto Opinion con los datos del documento
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idEvento);
+                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento);
 
                             // Agrega la nueva opinión a la lista
                             listaOpiniones.add(nuevaOpinion);
@@ -159,7 +204,7 @@ public class DetailEventosActivity extends AppCompatActivity {
                                 String nombreUsuario = documentSnapshot.getString("nombre");
 
                                 // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idEvento);
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento);
 
                                 // Agregamos la nueva opinión a la colección de opiniones en Firestore
                                 mFirestore.collection("opiniones")
@@ -273,7 +318,7 @@ public class DetailEventosActivity extends AppCompatActivity {
                             float calificacion = document.getDouble("calificacion").floatValue();
 
                             // Creamos un nuevo objeto Opinion
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idEvento);
+                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento);
 
                             // Agregamos la nueva opinión a la lista
                             opinionesList.add(nuevaOpinion);

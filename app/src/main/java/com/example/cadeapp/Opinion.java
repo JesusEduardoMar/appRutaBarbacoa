@@ -8,16 +8,19 @@ public class Opinion {
     private float calificacion;
     private Object timestamp;
     private String idBarbacoa;
+    private String idEvento;
 
     // Constructor vacío requerido para Firestore
     public Opinion() {
     }
 
-    public Opinion(String nombreUsuario, String comentario, float calificacion, String idBarbacoa) {
+    // Constructor para comentarios de barbacoas o eventos
+    public Opinion(String nombreUsuario, String comentario, float calificacion, String idBarbacoa, String idEvento) {
         this.nombreUsuario = nombreUsuario;
         this.comentario = comentario;
         this.calificacion = calificacion;
         this.idBarbacoa = idBarbacoa;
+        this.idEvento = idEvento;
         this.timestamp = FieldValue.serverTimestamp();
     }
 
@@ -55,6 +58,14 @@ public class Opinion {
         this.idBarbacoa = idBarbacoa;
     }
 
+    public String getIdEvento() {
+        return idEvento;
+    }
+
+    public void setIdEvento(String idEvento) {
+        this.idEvento = idEvento;
+    }
+
     public Object getTimestamp() {
         return timestamp;
     }
@@ -63,4 +74,3 @@ public class Opinion {
         this.timestamp = timestamp;
     }
 }
-
