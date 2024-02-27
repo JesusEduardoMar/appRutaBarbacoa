@@ -6,4 +6,7 @@
     <color name="grey">#D3D3D3</color>
     <color name="backopcion">#000000</color>
     <color name="blue2">#F21E0080</color>
+
+    <color name="verde1">#BFFFC2</color>
+    <color name="verde2">#007A05</color>
 </resources>

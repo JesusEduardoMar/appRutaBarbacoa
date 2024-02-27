@@ -14,9 +14,10 @@
     <color name="darkblue">#21233d</color>
     <color name="backopcion">#FFFFFF</color>
     <color name="red">#FF0000</color>
-    <color name="Verde1">#BFFFC2</color>
+    <color name="verde1">#BFFFC2</color>
     <color name="verde2">#007A05</color>
     <color name="naranja2">#FF5722</color>
+    <color name="pink">#FF5992</color>
     <color name="naranja">#F49270</color>
     <color name="naranja3">#2CF49270</color>
 </resources>

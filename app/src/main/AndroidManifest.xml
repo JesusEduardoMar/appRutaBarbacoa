@@ -50,7 +50,8 @@
             android:name=".contact"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".DetailFreixenetActivity"
             android:exported="false"
