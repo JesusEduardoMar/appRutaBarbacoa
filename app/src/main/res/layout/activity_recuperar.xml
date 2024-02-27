@@ -5,33 +5,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_intefaz"
+    android:background="@drawable/backgroundrecup"
     tools:context=".RecuperarActivity">
-
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
       <LinearLayout
           android:id="@+id/linearLayout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:gravity="center"
           android:orientation="vertical"
           android:padding="15dp"
-          android:gravity="center"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent">
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.0">
 
 
         <ImageView
@@ -42,8 +31,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="590dp"
-            android:background="@drawable/btn_bienvenida1"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
           <View
@@ -70,12 +58,12 @@
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textAlignment="center"
               android:layout_marginStart="20dp"
               android:layout_marginEnd="20dp"
               android:text="@string/escribe_tu_direccion"
+              android:textAlignment="center"
               android:textColor="@color/black"
-              android:textStyle="bold"/>
+              android:textStyle="bold" />
 
           <View
               android:id="@+id/view2"
@@ -92,8 +80,8 @@
               android:layout_marginBottom="20dp"
               android:hint="@string/correoUsuario"
               android:textColorHint="@color/black"
-              app:endIconTint="@color/black"
               app:endIconMode="clear_text"
+              app:endIconTint="@color/black"
               app:startIconDrawable="@drawable/emailicon">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -115,9 +103,9 @@
               android:layout_height="50dp"
               android:layout_marginStart="15dp"
               android:layout_marginEnd="15dp"
-              android:textColor="@color/white"
               android:background="@drawable/btn_background"
               android:text="@string/recuperar_contrase_a"
+              android:textColor="@color/white"
               android:textSize="20sp"
               android:textStyle="bold" />
 
@@ -129,6 +117,5 @@
 
         </LinearLayout>
       </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-  </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
