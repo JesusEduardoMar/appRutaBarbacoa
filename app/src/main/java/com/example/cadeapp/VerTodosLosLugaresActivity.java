@@ -3,6 +3,7 @@ package com.example.cadeapp;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +34,8 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
     private ItemsAdapterVinedos itemsAdapterVinedos;
     private ConstraintLayout card1;
     private ConstraintLayout card2;
-    private ScrollView scrollView;
+    //private ScrollView scrollView;
+    private NestedScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -56,9 +56,9 @@ public class DetailEventosActivity extends AppCompatActivity {
         textDescription = findViewById(R.id.textDescription);
         addressText = findViewById(R.id.addressText);
         eventoImg = findViewById(R.id.vinedoImg);
-        boton01 = findViewById(R.id.botonRestar);
-        boton02 = findViewById(R.id.botonSumar);
-        cajaDeTexto = findViewById(R.id.textcont);
+        //boton01 = findViewById(R.id.botonRestar);
+        //boton02 = findViewById(R.id.botonSumar);
+        //cajaDeTexto = findViewById(R.id.textcont);
         comentariosText = findViewById(R.id.comentariosText);
         horarioTextView = findViewById(R.id.horarioTextView);
 
@@ -96,7 +96,7 @@ public class DetailEventosActivity extends AppCompatActivity {
         obtenerInformacionEvento();
 
         // Configuramos los listeners para los botones de incremento y decremento
-        configurarListenersBotones();
+        //configurarListenersBotones();
     }
 
     // Método para obtener y mostrar las opiniones que hay
@@ -231,7 +231,7 @@ public class DetailEventosActivity extends AppCompatActivity {
     }
 
     // Método para configurar los listeners de los botones de incrementar y decrementar
-    private void configurarListenersBotones() {
+    /*private void configurarListenersBotones() {
         // Listener para el botón de restar
         boton01.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,7 +252,7 @@ public class DetailEventosActivity extends AppCompatActivity {
 
         // Muestra el valor inicial en el TextView
         cajaDeTexto.setText(Integer.toString(contador));
-    }
+    }*/
 
     // Método para mostrar los comentarios del respectivo evento
     private void mostrarComentariosEvento() {
@@ -277,6 +277,14 @@ public class DetailEventosActivity extends AppCompatActivity {
 
                             // Agregamos la nueva opinión a la lista
                             opinionesList.add(nuevaOpinion);
+                        }
+                        // Verificamos si la lista de opiniones está vacía
+                        if (opinionesList.isEmpty()) {
+                            // Si la lista está vacía, mostramos el mensaje de ninguna opinión
+                            findViewById(R.id.noOpinionMessage).setVisibility(View.VISIBLE);
+                        } else {
+                            // Si hay opiniones, ocultamos el mensaje
+                            findViewById(R.id.noOpinionMessage).setVisibility(View.GONE);
                         }
 
                         // Notificamos al adaptador sobre los cambios en la lista

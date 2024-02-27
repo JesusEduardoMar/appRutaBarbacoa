@@ -127,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
             itemsAdapterVinedos = new ItemsAdapterVinedos(items, this);
             recyclerView.setAdapter(itemsAdapterVinedos);
             mFirestore.collection("barbacoas")
-                    .orderBy("nombre_barbacoa") // Reemplaza "random_field" con el nombre de un campo que contenga valores aleatorios
-                    .limit(3)
+                    .orderBy("nombre_barbacoa") // Filtramos por nombre
+                    //.limit(3)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -136,13 +136,23 @@ public class MainActivity extends AppCompatActivity {
                                 Log.e("Firestore error", error.getMessage());
                                 return;
                             }
-                            items.clear(); // Limpiar la lista actual de lugares
-                            for(DocumentChange dc : value.getDocumentChanges()){
-                                if(dc.getType() == DocumentChange.Type.ADDED){
-                                    items.add(dc.getDocument().toObject(ItemsDomainVinedos.class));
+                            //items.clear(); // Limpiar la lista actual de lugares
+                            for (DocumentChange dc : value.getDocumentChanges()) {
+                                switch (dc.getType()) {
+                                    case ADDED:
+                                        items.add(dc.getNewIndex(), dc.getDocument().toObject(ItemsDomainVinedos.class));
+                                        itemsAdapterVinedos.notifyItemInserted(dc.getNewIndex());// Notificar al adaptador que hemos insertado datos
+                                        break;
+                                    case MODIFIED:
+                                        items.set(dc.getOldIndex(), dc.getDocument().toObject(ItemsDomainVinedos.class));
+                                        itemsAdapterVinedos.notifyItemChanged(dc.getOldIndex());// Notificar al adaptador que los datos han cambiado
+                                        break;
+                                    case REMOVED:
+                                        items.remove(dc.getOldIndex());
+                                        itemsAdapterVinedos.notifyItemRemoved(dc.getOldIndex());// Notificar al adaptador que los datos han sido eliminados
+                                        break;
                                 }
                             }
-                            itemsAdapterVinedos.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
                             pbProgressMain.setVisibility(View.GONE);
                         }
                     });
