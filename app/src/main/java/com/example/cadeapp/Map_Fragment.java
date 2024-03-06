@@ -1,12 +1,15 @@
 package com.example.cadeapp;
 
-import static android.content.ContentValues.TAG;
-
-import android.app.AlertDialog;
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import static android.content.ContentValues.TAG;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -21,6 +24,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.cadeapp.R;
@@ -52,6 +57,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map_, container, false);
+
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.MY_MAP);
         supportMapFragment.getMapAsync(this);
         placesSpinner = view.findViewById(R.id.spinner);
@@ -118,6 +124,12 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     public void onMapReady(GoogleMap googleMap) {
         // Se llama cuando el mapa está listo para ser utilizado
 
+      LatLng jardin = new LatLng(20.694695, -99.814685);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(jardin));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin,13));
+                googleMap.addMarker(new MarkerOptions().position(jardin).title("Cadereyta")
+                        .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja )));
+      
         // Asignamos la instancia del mapa recibida a la variable mMap
         mMap = googleMap;
 
@@ -213,5 +225,14 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
             }
         }
     }
-}
 
+    private BitmapDescriptor bitmapDescriptor(Context context, int vectorResId){
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0,0,vectorDrawable.getIntrinsicWidth(),vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap=Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas=new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+}
