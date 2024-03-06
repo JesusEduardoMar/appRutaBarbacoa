@@ -27,10 +27,12 @@ public class Map_Fragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
 
-                LatLng mapRedonda = new LatLng(20.639977, -99.907046);
+                LatLng jardin = new LatLng(20.694695, -99.814685);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(jardin));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin,13));
+
+                /*LatLng mapRedonda = new LatLng(20.639977, -99.907046);
                 googleMap.addMarker(new MarkerOptions().position(mapRedonda).title("Viñedo laRedonda"));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(mapRedonda));
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mapRedonda,12));
 
                 LatLng mapFreixenet = new LatLng(20.697373, -99.877498);
                 googleMap.addMarker(new MarkerOptions().position(mapFreixenet).title("Viñedo Freixenet"));
@@ -39,7 +41,7 @@ public class Map_Fragment extends Fragment {
                 googleMap.addMarker(new MarkerOptions().position(mapLobo).title("Viñedo Puerta del Lobo"));
 
                 LatLng mapCote = new LatLng(20.696159, -99.880337);
-                googleMap.addMarker(new MarkerOptions().position(mapCote).title("Viñedo De Cote"));
+                googleMap.addMarker(new MarkerOptions().position(mapCote).title("Viñedo De Cote"));*/
 
 
 
