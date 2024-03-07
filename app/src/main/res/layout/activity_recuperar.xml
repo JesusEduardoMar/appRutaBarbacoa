@@ -46,7 +46,7 @@
               android:layout_marginStart="25dp"
               android:layout_marginEnd="25dp"
               android:text="@string/ayuda_con_la_contrase_a"
-              android:textColor="@color/black"
+              android:textColor="@color/text_color"
               android:textSize="28sp"
               android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
               android:layout_marginEnd="20dp"
               android:text="@string/escribe_tu_direccion"
               android:textAlignment="center"
-              android:textColor="@color/black"
+              android:textColor="@color/text_color"
               android:textStyle="bold" />
 
           <View
@@ -76,21 +76,23 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginStart="15dp"
+              android:textColor="@color/text_color"
               android:layout_marginEnd="20dp"
               android:layout_marginBottom="20dp"
               android:hint="@string/correoUsuario"
-              android:textColorHint="@color/black"
+              android:textColorHint="@color/text_color"
               app:boxStrokeColor="@color/blue2"
               app:endIconMode="clear_text"
-              app:endIconTint="@color/black"
-              app:hintTextColor="@color/black"
+              app:endIconTint="@color/text_color"
+              app:hintTextColor="@color/text_color"
               app:startIconDrawable="@drawable/emailicon"
-              app:startIconTint="@color/black">
+              app:startIconTint="@color/text_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/correo_recup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
                 android:inputType="textEmailAddress" />
 
           </com.google.android.material.textfield.TextInputLayout>
