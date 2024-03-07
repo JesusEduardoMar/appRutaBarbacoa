@@ -160,7 +160,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                             float calificacion = document.getDouble("calificacion").floatValue();
 
                             // Crea un nuevo objeto Opinion con los datos del documento
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa);
+                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
 
                             // Agrega la nueva opinión a la lista
                             listaOpiniones.add(nuevaOpinion);
@@ -199,7 +199,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                                 String nombreUsuario = documentSnapshot.getString("nombre");
 
                                 // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa);
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
 
                                 // Agregamos la nueva opinión a la colección de opiniones en Firestore
                                 mFirestore.collection("opiniones")
@@ -321,7 +321,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                             float calificacion = document.getDouble("calificacion").floatValue();
 
                             // Creamos un nuevo objeto Opinion
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa);
+                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
 
                             // Agregamos la nueva opinión a la lista
                             opinionesList.add(nuevaOpinion);
