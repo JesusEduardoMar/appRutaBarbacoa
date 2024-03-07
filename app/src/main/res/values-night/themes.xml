@@ -7,6 +7,7 @@
 
         <item name="colorPrimaryDark">#F21E0080</item>
         <item name="colorPrimary">#4CAF50</item>
+        <item name="hintTextColor">#000000</item>
     </style>
     <style name="NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>

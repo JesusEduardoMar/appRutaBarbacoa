@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_login"
+    android:background="@drawable/back_prueba"
     tools:context=".LoginActivity">
 
     <ProgressBar
@@ -12,9 +12,9 @@
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,15 +31,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0">
 
+
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
             android:src="@drawable/logo_appp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="590dp"
+            android:layout_height="wrap_content"
 
             android:gravity="center"
             android:orientation="vertical"
@@ -48,7 +50,7 @@
             <View
                 android:id="@+id/view13"
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="40dp" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -56,22 +58,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/iniciar"
                 android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.7"
-                android:text="@string/por_favor_ingresa_tus_datos"
-                android:textColor="@color/black"
+                android:textSize="40sp"
                 android:textStyle="bold" />
 
             <View
                 android:id="@+id/view3"
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="50dp" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -83,14 +76,18 @@
                 android:layout_marginBottom="15dp"
                 android:hint="@string/correoUsuario"
                 android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue2"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
-                app:startIconDrawable="@drawable/emailicon">
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/emailicon"
+                app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/lblcorreo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,8 +99,11 @@
                 android:layout_marginEnd="15dp"
                 android:hint="@string/passwordUsuario"
                 android:textColorHint="@color/black"
+                app:startIconTint="@color/black"
+                app:boxStrokeColor="@color/blue2"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/black"
+                app:hintTextColor="@color/black"
                 app:helperTextEnabled="true"
                 app:startIconDrawable="@drawable/passwordicon">
 
@@ -111,19 +111,27 @@
                     android:id="@+id/lblpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/txtrecuperar"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:text="@string/Olvidarpassword"
-                android:textAlignment="textEnd"
-                android:textColor="@color/black" />
+                android:gravity="end">
+
+
+                <TextView
+                    android:id="@+id/txtrecuperar"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/Olvidarpassword"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black" />
+            </LinearLayout>
 
             <View
                 android:id="@+id/view8"
@@ -175,13 +183,13 @@
             <View
                 android:id="@+id/view10"
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="40dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/login_gmail"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/blue2"
                 android:clickable="true"
                 android:contentDescription="@string/gmail"
                 android:src="@drawable/logo_gmail" />
@@ -189,8 +197,10 @@
             <View
                 android:id="@+id/view12"
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="50dp" />
 
         </LinearLayout>
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
