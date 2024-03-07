@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:windowSoftInputMode="adjustResize"
-    android:background="@drawable/backgroundregistro"
+    android:background="@drawable/back_prueba"
     tools:context=".RegistrarActivity">
 
     <LinearLayout
@@ -74,12 +74,13 @@
                 android:layout_marginBottom="15dp"
                 android:hint="@string/nombre"
                 android:textColorHint="@color/black"
-                app:boxStrokeColor="@color/wine"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:helperTextEnabled="true"
-                app:hintTextColor="@color/wine"
-                app:startIconDrawable="@drawable/nombreicon">
+                app:hintTextColor="@color/black"
+                app:boxStrokeColor="@color/blue2"
+                app:startIconDrawable="@drawable/nombreicon"
+                app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reg_nombre"
@@ -96,10 +97,13 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="15dp"
                 android:hint="@string/correoUsuario"
+                app:boxStrokeColor="@color/blue2"
                 android:textColorHint="@color/black"
                 app:endIconMode="clear_text"
+                app:hintTextColor="@color/black"
                 app:endIconTint="@color/black"
-                app:startIconDrawable="@drawable/emailicon">
+                app:startIconDrawable="@drawable/emailicon"
+                app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reg_correo"
@@ -120,9 +124,12 @@
                 android:textColorHint="@color/black"
                 app:counterEnabled="true"
                 app:counterMaxLength="10"
+                app:hintTextColor="@color/black"
+                app:boxStrokeColor="@color/blue2"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
-                app:startIconDrawable="@drawable/phoneicon">
+                app:startIconDrawable="@drawable/phoneicon"
+                app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reg_telefono"
@@ -145,8 +152,11 @@
                 android:textColorHint="@color/black"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/black"
+                app:boxStrokeColor="@color/blue2"
                 app:helperTextEnabled="true"
-                app:startIconDrawable="@drawable/passwordicon">
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/passwordicon"
+                app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reg_password"
@@ -166,7 +176,10 @@
                 android:textColorHint="@color/black"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/black"
-                app:startIconDrawable="@drawable/passwordicon">
+                app:hintTextColor="@color/black"
+                app:boxStrokeColor="@color/blue2"
+                app:startIconDrawable="@drawable/passwordicon"
+                app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reg_confirpass"
