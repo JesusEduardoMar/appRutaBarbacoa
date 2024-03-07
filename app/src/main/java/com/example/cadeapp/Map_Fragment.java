@@ -54,6 +54,10 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     private Spinner placesSpinner;
     private List<String> placesList;
 
+    private List<Marker> markerList = new ArrayList<>(); // Lista para almacenar los marcadores
+    //mantenemos una lista de los marcadores creados y buscamos el marcador correspondiente en esa lista.
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map_, container, false);
@@ -78,6 +82,17 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                     GeoPoint location = documentSnapshot.getGeoPoint("marcador");
                                     if (location != null) {
                                         moveCameraToLocation(location.getLatitude(), location.getLongitude());
+                                        String title = documentSnapshot.getString("nombre_barbacoa");
+
+                                        // Buscar el marcador correspondiente en la lista
+                                        // Cuando seleccionamos un elemento, iteramos sobre markerlist para encontrar el marcador con el mismo titulo
+                                        // al llamar a onMarkerClick simula el comportamiento de hacer click en el marcador
+                                        for (Marker marker : markerList) {
+                                            if (marker.getTitle().equals(title)) {
+                                                onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
+                                                break;
+                                            }
+                                        }
                                     }
                                 }
                             })
@@ -145,10 +160,19 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                 if (location != null) { // Verificamos si el GeoPoint de firestore no es nulo
                                     String title = document.getString("nombre_barbacoa");
 
+                                    // cada que creamos un marcador tmb lo agregamos a la lista
+                                    Marker marker = mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                            .title(title)
+                                            .snippet("¿Cómo llegar?")
+                                            .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja)));
+                                    markerList.add(marker); // Agregar el marcador a la lista
+
+                                    /*
                                     // Agregamos un market (marcador) al mapa
                                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                                     mMap.addMarker(new MarkerOptions().position(latLng).title(title).snippet("¿Cómo llegar?")
-                                            .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja )));
+                                            .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja )));*/
                                 } else {
                                     // Manejamos el caso cuando el GeoPoint es nulo
                                     Log.e(TAG, "El campo 'ubicacion' es nulo para el documento: " + document.getId());
