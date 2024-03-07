@@ -817,8 +817,9 @@
 
                 <TextView
                     android:id="@+id/barba"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:drawableStart="@drawable/oveja"
                     android:drawablePadding="5dp"
                     android:padding="20dp"
@@ -829,7 +830,7 @@
 
                 <TextView
                     android:id="@+id/pulques"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/pulqueicon"
