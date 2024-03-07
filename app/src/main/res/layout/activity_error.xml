@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/white"
+    android:background="@drawable/barbacoa_background"
     tools:context=".ErrorActivity">
 
     <ImageView
@@ -14,7 +14,7 @@
         android:layout_marginTop="148dp"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_error_24"
-        app:tint="@color/darkgrey"/>
+        app:tint="@color/naranja4"/>
 
     <TextView
         android:id="@+id/errorTitle"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="28dp"
         android:layout_marginBottom="140dp"
-        android:background="@drawable/btn_background"
+        android:background="@color/naranja4"
         android:text="@string/return_home"
         android:textColor="@color/white"
         android:textStyle="bold"
