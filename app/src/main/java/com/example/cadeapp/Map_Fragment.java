@@ -128,7 +128,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(jardin));
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin,13));
                 googleMap.addMarker(new MarkerOptions().position(jardin).title("Cadereyta")
-                        .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja )));
+                        .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.pulqueicon )));
       
         // Asignamos la instancia del mapa recibida a la variable mMap
         mMap = googleMap;
@@ -147,7 +147,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
                                     // Agregamos un market (marcador) al mapa
                                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                    mMap.addMarker(new MarkerOptions().position(latLng).title(title).snippet("¿Cómo llegar?"));
+                                    mMap.addMarker(new MarkerOptions().position(latLng).title(title).snippet("¿Cómo llegar?")
+                                            .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja )));
                                 } else {
                                     // Manejamos el caso cuando el GeoPoint es nulo
                                     Log.e(TAG, "El campo 'ubicacion' es nulo para el documento: " + document.getId());
@@ -226,6 +227,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         }
     }
 
+    // metodo para cambiar el icono de los markers
     private BitmapDescriptor bitmapDescriptor(Context context, int vectorResId){
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
         vectorDrawable.setBounds(0,0,vectorDrawable.getIntrinsicWidth(),vectorDrawable.getIntrinsicHeight());
