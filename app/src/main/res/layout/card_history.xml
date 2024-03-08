@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="1dp"
+    android:paddingHorizontal="10dp">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Historia de la barbacoa"
+        android:textColor="@color/yellow"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="5dp"
+        android:text="La historia de la barbacoa en México es tan rica y variada como los sabores y las técnicas que se utilizan para preparar este plato icónico. La barbacoa, que se remonta a las culturas prehispánicas, ha evolucionado a lo largo de los siglos, adoptando influencias indígenas, europeas y africanas para convertirse en una parte integral de la cocina mexicana.
+
+Se cree que los orígenes de la barbacoa en México se remontan a las prácticas culinarias de las antiguas culturas mesoamericanas, como los aztecas y los mayas. Estas civilizaciones tenían métodos de cocción subterránea, donde la carne se cocinaba lentamente bajo tierra utilizando piedras calientes. Este método permitía que la carne se cocinara de manera uniforme y se mantuviera tierna y jugosa.
+
+
+Con la llegada de los españoles a México en el siglo XVI, la cocina mexicana experimentó una fusión de ingredientes y técnicas culinarias. Los españoles introdujeron nuevas especias, hierbas y métodos de cocción, que se mezclaron con las tradiciones indígenas para crear platos únicos y deliciosos.
+
+"
+        android:justificationMode="inter_word"
+        android:textSize="18dp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Imágenes"
+        android:textColor="@color/yellow"
+        android:textSize="16dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imagesRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false"
+        android:paddingStart="5dp"
+        android:paddingEnd="24dp" />
+
+</LinearLayout>

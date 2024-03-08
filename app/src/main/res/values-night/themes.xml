@@ -8,6 +8,11 @@
         <item name="colorPrimaryDark">#F21E0080</item>
         <item name="colorPrimary">#4CAF50</item>
     </style>
+
+    <style name="Theme.Orange" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorPrimaryDark">@color/naranja4</item>
+        <item name="colorPrimary">@color/naranja4</item>
+    </style>
     <style name="NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

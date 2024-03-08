@@ -13,8 +13,7 @@
         android:layout_height="250dp"
         android:background="@drawable/top_backgroundperson"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/BottomCornerRounded"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/imageView"
