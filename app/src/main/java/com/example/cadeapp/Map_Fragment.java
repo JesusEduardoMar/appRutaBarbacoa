@@ -1,16 +1,14 @@
 package com.example.cadeapp;
 
-import android.Manifest;
+import static android.content.ContentValues.TAG;
+
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.pm.PackageManager;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import static android.content.ContentValues.TAG;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,16 +17,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.cadeapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -51,8 +45,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     private static final float DEFAULT_ZOOM = 18f;
     private GoogleMap mMap;
     private FirebaseFirestore db;
-    private Spinner placesSpinner;
     private List<String> placesList;
+    private TextView textViewPlaces;
 
     private List<Marker> markerList = new ArrayList<>(); // Lista para almacenar los marcadores
     //mantenemos una lista de los marcadores creados y buscamos el marcador correspondiente en esa lista.
@@ -62,61 +56,75 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map_, container, false);
 
+        // Inicializar FirebaseFirestore
+        db = FirebaseFirestore.getInstance();
+
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.MY_MAP);
         supportMapFragment.getMapAsync(this);
-        placesSpinner = view.findViewById(R.id.spinner);
-        db = FirebaseFirestore.getInstance(); // Firestore
+        textViewPlaces = view.findViewById(R.id.barba); // TextView
+
         placesList = new ArrayList<>(); // Inicialización de la lista
 
-        // Configuramos el listener del Spinner
-        placesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        // Configuramos el OnClickListener del TextView
+        textViewPlaces.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                if (position != 0) { // Verificamo si no se ha seleccionado el título
-                    // Obtenemos las coordenadas del lugar seleccionado desde la bd
-                    db.collection("barbacoas")
-                            .whereEqualTo("nombre_barbacoa", placesList.get(position))
-                            .get()
-                            .addOnSuccessListener(queryDocumentSnapshots -> {
-                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                    GeoPoint location = documentSnapshot.getGeoPoint("marcador");
-                                    if (location != null) {
-                                        moveCameraToLocation(location.getLatitude(), location.getLongitude());
-                                        String title = documentSnapshot.getString("nombre_barbacoa");
+            public void onClick(View view) {
+                getAndShowAllPlaces(); // Obtener y mostrar todos los lugares antes de mostrar el diálogo
+            }
+        });
+        return view;
+    }
+    // Mostramos un diálogo con los lugares que hay
+    private void showPlacesListDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("¿A dónde quieres ir?");
+        // Creamos un adaptador para la lista de lugares
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, placesList);
+        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+            // Método para cuando se hace clicki en un lugar de la lista
+            @Override
+            public void onClick(DialogInterface dialogInterface, int position) {
+                // Obtenemos el lugar seleccionado en la lista
+                String selectedPlace = placesList.get(position);
+                // Obtener las coordenadas del lugar seleccionado desde la base de datos y luego mover la cámara a esa ubicación
+                db.collection("barbacoas")
+                        .whereEqualTo("nombre_barbacoa", selectedPlace)
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                GeoPoint location = documentSnapshot.getGeoPoint("marcador");
+                                if (location != null) {
+                                    moveCameraToLocation(location.getLatitude(), location.getLongitude());
+                                    String title = documentSnapshot.getString("nombre_barbacoa");
 
-                                        // Buscar el marcador correspondiente en la lista
-                                        // Cuando seleccionamos un elemento, iteramos sobre markerlist para encontrar el marcador con el mismo titulo
-                                        // al llamar a onMarkerClick simula el comportamiento de hacer click en el marcador
-                                        for (Marker marker : markerList) {
-                                            if (marker.getTitle().equals(title)) {
-                                                onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
-                                                break;
-                                            }
+                                    // Buscar el marcador correspondiente en la lista
+                                    // Cuando seleccionamos un elemento, iteramos sobre markerlist para encontrar el marcador con el mismo titulo
+                                    // al llamar a onMarkerClick simula el comportamiento de hacer click en el marcador
+                                    for (Marker marker : markerList) {
+                                        if (marker.getTitle().equals(title)) {
+                                            onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
+                                            break;
                                         }
                                     }
                                 }
-                            })
-                            .addOnFailureListener(e -> {
-                                // Por si hay algún error
-                            });
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            //Por si existe algún error
+                        });
             }
         });
-
-        // Obtenemos y mostramos la lista completa de lugares de Firestore
-        getAndShowAllPlaces();
-
-        return view;
+        // Mostramos el diálogo con los lugares
+        builder.show();
     }
+
     private void moveCameraToLocation(double latitude, double longitude) {
         LatLng location = new LatLng(latitude, longitude);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
     }
+
     private void getAndShowAllPlaces() {
-        // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el Spinner
+        // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
         db.collection("barbacoas")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -126,29 +134,24 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                             String placeName = document.getString("nombre_barbacoa");
                             placesList.add(placeName);
                         }
-                        // Actualizamos el adaptador del Spinner con la lista completa de lugares obtenidos de Firestore
-                        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, placesList);
-                        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        placesSpinner.setAdapter(spinnerAdapter);
+                        // Luego de obtener los lugares, mostramos el diálogo con la lista
+                        showPlacesListDialog();
                     } else {
-                        Log.e(TAG, "Error al obtener la lista de lugares desde Firestore", task.getException());
+                        Log.e(TAG, "Error al obtener lugares desde Firestore", task.getException());
                     }
                 });
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // Se llama cuando el mapa está listo para ser utilizado
-
-      LatLng jardin = new LatLng(20.694695, -99.814685);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(jardin));
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin,13));
-                googleMap.addMarker(new MarkerOptions().position(jardin).title("Cadereyta")
-                        .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.pulqueicon )));
-      
-        // Asignamos la instancia del mapa recibida a la variable mMap
+        LatLng jardin = new LatLng(20.694695, -99.814685);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(jardin));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin,13));
+        googleMap.addMarker(new MarkerOptions().position(jardin).title("Cadereyta")
+                .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.pulqueicon )));
         mMap = googleMap;
 
-        // Obtenemos la latitud y la longitud desde Firestore
+        // Obtenemos la latitud y la longitud desde Firestore y agregamos marcadores al mapa
         db.collection("barbacoas")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -157,7 +160,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                             try {
                                 // Obtener datos de Firestore
                                 GeoPoint location = document.getGeoPoint("marcador");
-                                if (location != null) { // Verificamos si el GeoPoint de firestore no es nulo
+                                if (location != null) {
                                     String title = document.getString("nombre_barbacoa");
 
                                     // cada que creamos un marcador tmb lo agregamos a la lista
@@ -174,21 +177,18 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                     mMap.addMarker(new MarkerOptions().position(latLng).title(title).snippet("¿Cómo llegar?")
                                             .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja )));*/
                                 } else {
-                                    // Manejamos el caso cuando el GeoPoint es nulo
                                     Log.e(TAG, "El campo 'ubicacion' es nulo para el documento: " + document.getId());
                                 }
                             } catch (Exception e) {
-                                // Manejamos cualquier excepción al obtener los datos del documento
                                 Log.e(TAG, "Error al obtener datos del documento: " + document.getId(), e);
                             }
                         }
                     } else {
-                        // Manejamos errores al obtener la lista de documentos
                         Log.e(TAG, "Error al obtener marcadores desde Firestore", task.getException());
                     }
                 });
 
-        // Configuramos el listener para los clicks en las markets (marcadores)
+        // Configuramos el listener para los clicks en los marcadores
         mMap.setOnMarkerClickListener(this);
 
         // Configuramos el listener para los clicks en las ventanas de info de los marcadores
@@ -196,37 +196,28 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     @Override
-    // Llamamos a este método cuando se hace click en un marcador
     public boolean onMarkerClick(Marker marker) {
-
-        // Mostramos la ventana de información del marcador
         marker.showInfoWindow();
 
-        // Verificamos si el zoom actual del mapa es menor que el zoom predeterminado
         if (mMap.getCameraPosition().zoom < DEFAULT_ZOOM) {
-            // Animamos la cámara para hacer zoom en la posición del marcador con el zoom predeterminado
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), DEFAULT_ZOOM));
         } else {
-            // Animamos la cámara para moverse a la posición del marcador sin cambiar el zoom
             mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
         }
-
         return true;
     }
+
     @Override
     public void onInfoWindowClick(Marker marker) {
-        // Verificamos si la ubicación está activada
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         boolean isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         if (!isLocationEnabled) {
-            // Si la ubicación no está activada, se muestra un diálogo y pide al usuario que active la ubicación
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("Para obtener direcciones, necesitamos tu ubicación para mejorar la precisión de los resultados.")
                     .setCancelable(false)
                     .setPositiveButton("Activar ubicación", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // Configuración de ubicación
                             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                             startActivity(intent);
                         }
@@ -239,10 +230,9 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
             AlertDialog alert = builder.create();
             alert.show();
         } else {
-            // Si la ubicación está activada, se abre Google Maps
             LatLng location = marker.getPosition();
             String title = marker.getTitle();
-            Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?saddr=mi+ubicacion&daddr=" + title);
+            Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?&daddr=" + title);
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -250,14 +240,12 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
             }
         }
     }
-
-    // metodo para cambiar el icono de los markers
-    private BitmapDescriptor bitmapDescriptor(Context context, int vectorResId){
+    private BitmapDescriptor bitmapDescriptor(Context context, int vectorResId) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
-        vectorDrawable.setBounds(0,0,vectorDrawable.getIntrinsicWidth(),vectorDrawable.getIntrinsicHeight());
-        Bitmap bitmap=Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
-                vectorDrawable.getIntrinsicHeight(),Bitmap.Config.ARGB_8888);
-        Canvas canvas=new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }

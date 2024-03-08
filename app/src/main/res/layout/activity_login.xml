@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/iniciar"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color"
                 android:textSize="40sp"
                 android:textStyle="bold" />
 
@@ -74,20 +74,21 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="15dp"
+                android:textColor="@color/text_color"
                 android:hint="@string/correoUsuario"
-                android:textColorHint="@color/black"
+                android:textColorHint="@color/text_color"
                 app:boxStrokeColor="@color/blue2"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/black"
-                app:hintTextColor="@color/black"
+                app:endIconTint="@color/text_color"
+                app:hintTextColor="@color/text_color"
                 app:startIconDrawable="@drawable/emailicon"
-                app:startIconTint="@color/black">
+                app:startIconTint="@color/text_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/lblcorreo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/text_color" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,13 +98,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:textColor="@color/text_color"
                 android:hint="@string/passwordUsuario"
-                android:textColorHint="@color/black"
-                app:startIconTint="@color/black"
+                android:textColorHint="@color/text_color"
+                app:startIconTint="@color/text_color"
                 app:boxStrokeColor="@color/blue2"
                 app:endIconMode="password_toggle"
-                app:endIconTint="@color/black"
-                app:hintTextColor="@color/black"
+                app:endIconTint="@color/text_color"
+                app:hintTextColor="@color/text_color"
                 app:helperTextEnabled="true"
                 app:startIconDrawable="@drawable/passwordicon">
 
@@ -111,7 +113,7 @@
                     android:id="@+id/lblpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -130,7 +132,7 @@
                     android:layout_marginEnd="15dp"
                     android:text="@string/Olvidarpassword"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/text_color" />
             </LinearLayout>
 
             <View
