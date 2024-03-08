@@ -2,11 +2,13 @@ package com.example.cadeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +18,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class cardHistoriabarbacoa extends AppCompatActivity {
+public class cardHistoriabarbacoa extends ScrollingActivity {
 
     ImageView flecha2;
 
@@ -27,22 +29,22 @@ public class cardHistoriabarbacoa extends AppCompatActivity {
 
     ProgressBar pbProgressMain;
 
+
+    protected RecyclerView recyclerView;
+    protected NestedScrollView nscrollv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        title = "Historia de la barbacoa";
+        lastActivity = VerTodosLosLugaresActivity.class;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_historiabarbacoa);
 
-        flecha2 = findViewById(R.id.flechaatras2);
-
-        flecha2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(cardHistoriabarbacoa.this, VerTodosLosLugaresActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
+        recyclerView = findViewById(R.id.recyclerView);
+        nscrollv = findViewById(R.id.nestedScrollView);
+        LayoutInflater inflater = getLayoutInflater();
+        View myLayout = inflater.inflate(R.layout.card_history, nscrollv, false);
+        nscrollv.removeAllViews();
+        nscrollv.addView(myLayout);
 
         imagesRecycler1 = findViewById(R.id.imagesRecycler);
         imagesRecycler1.setHasFixedSize(true);
@@ -58,6 +60,8 @@ public class cardHistoriabarbacoa extends AppCompatActivity {
         cargarImagenesDesdeFirestore("https://i.blogs.es/b4889c/1/1366_2000.jpg");
 
     }
+
+
 
     private void cargarImagenesDesdeFirestore(String url) {
         mFirestore.collection("imagesall")
@@ -77,12 +81,4 @@ public class cardHistoriabarbacoa extends AppCompatActivity {
                     }
                 });
     }
-    public void onBackPressed(){
-        super.onBackPressed();
-
-        Intent intent = new Intent(cardHistoriabarbacoa.this, VerTodosLosLugaresActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
 }

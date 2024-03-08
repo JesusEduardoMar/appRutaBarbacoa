@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item>
-    <shape android:shape="rectangle">
-        <corners android:bottomRightRadius="30dp" android:bottomLeftRadius="30dp"/>
-       <!--<gradient android:startColor="#853455" android:endColor="#73034C" android:angle="270"/>-->
-        <gradient android:startColor="#F21E0080" android:endColor="#4682b4" android:angle="270"/>
-     </shape>
- </item>
- </selector>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/barbacoa_im"
+        android:layout_width="0dp" />
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#E4FF7700"/>
+        </shape>
+    </item>
+    <item
+        android:width="80dp"
+        android:height="80dp"
+        android:top="10dp"
+        android:right="10dp"
+        android:gravity="right">
+        <bitmap android:src="@drawable/escudo_cadereyta" />
+    </item>
+    <item
+        android:width="80dp"
+        android:height="80dp"
+        android:top="10dp"
+        android:left="10dp"
+        android:gravity="left">
+        <bitmap android:src="@drawable/logo_appp" />
+    </item>
+</layer-list>
