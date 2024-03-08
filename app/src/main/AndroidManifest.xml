@@ -28,10 +28,14 @@
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".RecuperarActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".RegistrarActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".LoginActivity"
             android:exported="false"
@@ -39,7 +43,9 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ErrorActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".FaqActivity"
             android:exported="false"
