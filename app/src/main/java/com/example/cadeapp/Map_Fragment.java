@@ -79,7 +79,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogBasicCustomStyle);
         builder.setTitle("¿A dónde quieres ir?");
         // Creamos un adaptador para la lista de lugares
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, placesList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, placesList);
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             // Método para cuando se hace clicki en un lugar de la lista
             @Override
