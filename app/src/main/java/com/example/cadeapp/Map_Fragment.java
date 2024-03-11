@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,8 +77,17 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
     // Mostramos un diálogo con los lugares que hay
     private void showPlacesListDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("¿A dónde quieres ir?");
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogBasicCustomStyle);
+        // Crear un TextView personalizado para el título
+        TextView title = new TextView(getActivity());
+        title.setText("¿A dónde quieres ir?");
+        title.setGravity(Gravity.CENTER); // Centrar el texto en el TextView
+        title.setTextSize(20); // Tamaño del texto del título (ajusta según sea necesario)
+        title.setPadding(10,55,10,5);
+
+        // Establecer el TextView personalizado como el título del AlertDialog
+        builder.setCustomTitle(title);
+
         // Creamos un adaptador para la lista de lugares
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, placesList);
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
