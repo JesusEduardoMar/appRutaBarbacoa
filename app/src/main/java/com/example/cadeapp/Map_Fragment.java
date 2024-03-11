@@ -76,7 +76,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
     // Mostramos un diálogo con los lugares que hay
     private void showPlacesListDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogBasicCustomStyle);
         builder.setTitle("¿A dónde quieres ir?");
         // Creamos un adaptador para la lista de lugares
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, placesList);
