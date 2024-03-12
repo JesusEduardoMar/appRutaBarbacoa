@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/top_backgroundperson"
+    android:background="@drawable/top_background"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,15 +24,24 @@
             app:toolbarId="@+id/toolbar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?attr/colorPrimary"
-            android:background="@drawable/top_backgroundperson">
+            android:background="@drawable/top_background">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/toolbar_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="?attr/colorPrimary"
                 android:src="@drawable/logo_appp"
+                app:layout_collapseMode="parallax" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/toolbar_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:backgroundTint="?attr/colorPrimary"
+                android:src="@drawable/orange_gradient"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
@@ -40,6 +49,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
                 app:layout_collapseMode="pin"
+                android:backgroundTint="?attr/colorPrimary"
                 app:popupTheme="@style/PopupOverlay" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

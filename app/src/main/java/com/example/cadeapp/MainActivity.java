@@ -431,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            // --> Configuración de listener para el botón del chatbot
+            // --> Configuración de listener para el botón del FAQ
             cardviewchatbot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

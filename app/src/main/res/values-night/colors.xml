@@ -7,6 +7,8 @@
     <color name="backopcion">#000000</color>
     <color name="blue2">#F21E0080</color>
     <color name="text_color">@color/black</color>
+    <color name="flexible_text_color">@color/white</color>
     <color name="verde1">#BFFFC2</color>
     <color name="verde2">#007A05</color>
+    <color name="light_orange_back">?android:attr/colorBackground</color>
 </resources>
