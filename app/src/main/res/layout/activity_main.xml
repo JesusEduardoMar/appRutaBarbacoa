@@ -15,47 +15,45 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
         android:background="@drawable/barbacoa_background"
-        android:visibility="visible">
-
-
+        android:visibility="gone">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/viewsetting"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:id="@+id/viewsetting"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            app:layout_constraintStart_toStartOf="parent">
 
 
             <com.google.android.material.imageview.ShapeableImageView
 
-                app:shapeAppearanceOverlay="@style/PopupOverlay"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@drawable/top_backgroundperson"
+                android:background="@drawable/top_background_shield"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/PopupOverlay" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
                 android:padding="10dp"
                 android:text="Configuración"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="40dp"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/viewsetting"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_below="@+id/viewsetting">
+            android:orientation="vertical">
 
 
             <LinearLayout
@@ -585,7 +583,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
-        android:visibility="gone">
+        android:visibility="visible">
 
 
         <ProgressBar
