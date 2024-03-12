@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser user;
     FirebaseFirestore mFirestore;
     private GoogleSignInClient mGoogleSignInClient;
-    LinearLayout cardviewchatbot;
-    LinearLayout cardviewcontact1;
     ConstraintLayout card3;
     ConstraintLayout card4;
     RecyclerView recyclerView;
@@ -74,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ItemsDomainEventos> items2;
     ProgressBar pbProgressMain;
     private Task<QuerySnapshot> eventosTask;
+    RelativeLayout relativeContact1;
+    RelativeLayout relativeFAQ1;
 
     // Método llamado a la hora de crear la actividad
     @Override
@@ -172,9 +172,9 @@ public class MainActivity extends AppCompatActivity {
         txt_telefono = findViewById(R.id.Mostrartelefono);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        cardviewchatbot = findViewById(R.id.cardviewchat);
-        cardviewcontact1 = findViewById(R.id.cardviewcontact);
         bottomNavigation.show(3,true);
+        relativeContact1 = findViewById(R.id.relativeContact);
+        relativeFAQ1 = findViewById(R.id.relativeFAQ);
 
         //-------------Servicios Google----------------
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -431,17 +431,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            // --> Configuración de listener para el botón del chatbot
-            cardviewchatbot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, FaqActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
 
-            cardviewcontact1.setOnClickListener(new View.OnClickListener() {
+        relativeContact1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, contact.class);
@@ -450,14 +441,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            cardviewcontact1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, contact.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
+        relativeFAQ1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FaqActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
       
            // --> Configuración de listeners para los botones de tarjetas de información (hasta arriba)
 
