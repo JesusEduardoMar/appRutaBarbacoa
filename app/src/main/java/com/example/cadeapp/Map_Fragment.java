@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -85,6 +87,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         title.setGravity(Gravity.CENTER); // Centrar el texto en el TextView
         title.setTextSize(20); // Tamaño del texto del título (ajusta según sea necesario)
         title.setPadding(10,55,10,5);
+        title.setTextColor(Color.parseColor("#FFFFFF"));
 
         // Establecer el TextView personalizado como el título del AlertDialog
         builder.setCustomTitle(title);
