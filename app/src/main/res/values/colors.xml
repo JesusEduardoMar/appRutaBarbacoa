@@ -21,5 +21,10 @@
     <color name="naranja">#F49270</color>
     <color name="naranja3">#2CF49270</color>
     <color name="naranja4">#FF7700</color>
+    <color name="naranja5">#fb8c00</color>
+    <color name="dark_orange">#ff9800</color>
+    <color name="light_orange">#ffac33</color>
+    <color name="light_orange_back">#FFEFD8</color>
+    <color name="flexible_text_color">@color/black</color>
     <color name="text_color">@color/black</color>
 </resources>

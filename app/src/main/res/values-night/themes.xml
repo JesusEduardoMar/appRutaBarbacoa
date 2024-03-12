@@ -9,17 +9,28 @@
         <item name="colorPrimary">#4CAF50</item>
         <item name="hintTextColor">#000000</item>
     </style>
-
-    <style name="Theme.Orange" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorPrimaryDark">@color/naranja4</item>
-        <item name="colorPrimary">@color/naranja4</item>
+    <style name="Theme.Orange"  parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorPrimaryDark">@color/light_orange</item>
+        <item name="colorPrimary">@color/light_orange</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
     <style name="NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
+
+    </style>
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorOnPrimary">@color/black</item>
+    </style>
+
 
     <style name="DialogBasicCustomStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
 
