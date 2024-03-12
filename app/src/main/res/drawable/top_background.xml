@@ -5,23 +5,15 @@
         android:layout_width="0dp" />
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#E4FF7700"/>
+            <solid android:color="#E6FFAC33"/>
         </shape>
     </item>
     <item
-        android:width="80dp"
-        android:height="80dp"
-        android:top="10dp"
-        android:right="10dp"
+        android:width="60dp"
+        android:height="60dp"
+        android:top="40dp"
+        android:right="40dp"
         android:gravity="right">
-        <bitmap android:src="@drawable/escudo_cadereyta" />
-    </item>
-    <item
-        android:width="80dp"
-        android:height="80dp"
-        android:top="10dp"
-        android:left="10dp"
-        android:gravity="left">
         <bitmap android:src="@drawable/logo_appp" />
     </item>
 </layer-list>

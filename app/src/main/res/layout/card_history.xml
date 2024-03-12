@@ -35,8 +35,9 @@ Con la llegada de los españoles a México en el siglo XVI, la cocina mexicana e
 
 "
         android:justificationMode="inter_word"
-        android:textSize="18dp"
-        android:textColor="@color/black" />
+        android:textSize="16dp"
+        android:lineSpacingExtra="10dp"
+        android:textColor="@color/flexible_text_color" />
 
     <TextView
         android:id="@+id/textView11"

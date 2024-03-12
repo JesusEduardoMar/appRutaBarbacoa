@@ -46,6 +46,8 @@ public class ScrollingActivity extends AppCompatActivity {
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
         toolBarLayout.setTitle(title);
 
+        //toolBarLayout.setCollapsedTitleTextColor("");
+        //toolBarLayout.setCollapsedTitleTextColor(R.color.flexible_text_color);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
