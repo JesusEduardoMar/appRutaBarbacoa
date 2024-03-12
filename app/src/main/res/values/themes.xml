@@ -28,6 +28,12 @@
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
         <item name="colorOnSurface">#FFFFFF</item>
         <item name="colorOnPrimary">#FFFFFF</item>
+
+
+        <item name="cornerSizeBottomRight">30dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
     </style>
 
     <style name="DialogBasicCustomStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
