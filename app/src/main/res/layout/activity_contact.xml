@@ -13,7 +13,8 @@
         android:layout_height="250dp"
         android:background="@drawable/top_background_shield"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/PopupOverlay"/>
 
     <ImageView
         android:id="@+id/imageView"
