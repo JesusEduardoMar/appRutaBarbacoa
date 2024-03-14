@@ -12,7 +12,7 @@
     <style name="Theme.Orange"  parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorPrimaryDark">@color/light_orange</item>
         <item name="colorPrimary">@color/light_orange</item>
-
+        <item name="android:windowBackground">@color/light_orange_back</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

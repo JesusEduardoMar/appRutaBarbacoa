@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blurpreparacion"
     tools:context=".MainActivity" >
 
 
@@ -879,11 +878,9 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mbn_circleColor="#db7100"
-        android:background="#4682b4"
-        app:mbn_backgroundBottomColor="@color/blue2"
-        app:mbn_countBackgroundColor="#853455"
-        app:mbn_countTextColor="#ffffff"
+        android:background="@color/light_orange_back"
+        app:mbn_backgroundBottomColor="@color/dark_orange"
+        app:mbn_circleColor="@color/blue1"
         app:mbn_defaultIconColor="#FFFFFF"
         app:mbn_rippleColor="#853455"
         app:mbn_selectedIconColor="#FFFFFF"

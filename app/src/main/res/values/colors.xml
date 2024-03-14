@@ -25,6 +25,8 @@
     <color name="dark_orange">#ff9800</color>
     <color name="light_orange">#ffac33</color>
     <color name="light_orange_back">#FFEFD8</color>
+    <color name="card_background">#FFFFFF</color>
     <color name="flexible_text_color">@color/black</color>
+    <color name="flexible_text_color_inv">@color/white</color>
     <color name="text_color">@color/black</color>
 </resources>

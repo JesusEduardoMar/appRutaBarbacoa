@@ -38,6 +38,7 @@ public class cardPreparacionbarba extends ScrollingActivity {
         lastActivity = VerTodosLosLugaresActivity.class;
         super.onCreate(savedInstanceState);
 
+        // Change Icon of top_background
         toolbar_icon = findViewById(R.id.toolbar_icon);
         toolbar_icon.setImageResource(R.drawable.preparacionbarba);
         toolbar_icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
