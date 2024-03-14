@@ -789,68 +789,47 @@
     <!--INICIO DE PANTALLA DE NOTIFICACIONES (ya no es el calendario, se movió al perfil)-->
 
     <RelativeLayout
-        android:id="@+id/calendar"
+        android:id="@+id/notifications"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
-        android:background="#853455"
+        android:background="@color/backgroundazul"
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/titulonotify"
+            android:id="@+id/notificationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:padding="30dp"
-            android:text="Notificaciones"
+            android:padding="25dp"
+            android:text="¡No te pierdas de las Últimas Actualizaciones!"
             android:textColor="#FFFFFF"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:layout_marginBottom="8dp"/>
 
-        <!--<LinearLayout
+        <LinearLayout
+            android:id="@+id/notificationContainerr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/titulonotify"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/white_background"
-            android:elevation="3dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titulonotify"
-            app:layout_goneMarginBottom="24dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@id/notificationText"
+            android:layout_marginTop="16dp"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="2dp">
 
-            <com.squareup.timessquare.CalendarPickerView
-                android:id="@+id/calendarView"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_centerHorizontal="true"
+            <!-- Aquí se estarian agregando las notificaciones -->
 
-                android:layout_centerVertical="true"
-                android:layout_marginTop="30dp" />
+        </LinearLayout>
 
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:background="@drawable/btn_background"
-                android:backgroundTint="#853455"
-                android:text="Aquí irá info del viñedo"
-                android:textColor="#FFFF" />
-
-        </LinearLayout>-->
     </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/map"
@@ -877,40 +856,6 @@
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
-
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/barba"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/oveja"
-                    android:drawablePadding="5dp"
-                    android:padding="20dp"
-                    android:text="Barbacoas"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/pulques"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/pulqueicon"
-                    android:drawablePadding="5dp"
-                    android:padding="20dp"
-                    android:text="Pulques"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-            </LinearLayout>-->
-
-
             <FrameLayout
                 android:id="@+id/frame_layout"
                 android:layout_width="match_parent"
