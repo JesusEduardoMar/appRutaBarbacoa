@@ -13,4 +13,5 @@
     <color name="verde2">#007A05</color>
     <color name="light_orange_back">#303030</color>
     <color name="card_background">#424242</color>
+    <color name="light_orange">#ffac33</color>
 </resources>

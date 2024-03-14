@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.text.LineBreaker;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -57,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
     private MeowBottomNavigation bottomNavigation;
     TextView txt_Nombre,txt_correo,txt_telefono,txt_Nombre2,txt_correo2;
     Button cerrar;
+    LinearLayout notificationContainer;
 
-    RelativeLayout  menu, profile, home, calendar, map;
+
+    RelativeLayout  menu, profile, home, notifications, map;
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseFirestore mFirestore;
@@ -83,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 
         setContentView(R.layout.activity_main);
+        //notifications = findViewById(R.id.notifications);
+        // Dentro de tu método onCreate después de setContentView(R.layout.activity_main);
+        LinearLayout notificationContainer = findViewById(R.id.notificationContainerr);
 
         Button button3 = findViewById(R.id.button3);
 
@@ -98,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             items2 = new ArrayList<>();
             itemsAdapterEventos = new ItemsAdapterEventos(items2, this);
             recyclerView.setAdapter(itemsAdapterEventos);
+
             mFirestore.collection("eventos").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -106,15 +115,37 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("Firestore error", error.getMessage());
                         return;
                     }
-                    for(DocumentChange dc : value.getDocumentChanges()){
-                        if(dc.getType() == DocumentChange.Type.ADDED){
-                            items2.add(dc.getDocument().toObject(ItemsDomainEventos.class));
+                    for (DocumentChange dc : value.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
+                            ItemsDomainEventos evento = dc.getDocument().toObject(ItemsDomainEventos.class);
+                            items2.add(evento);
+
+                            // Crear una nueva vista de notificación
+                            View notificationView = getLayoutInflater().inflate(R.layout.layout_notification, null);
+                            TextView notificationMessage = notificationView.findViewById(R.id.notificationMessage);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                notificationMessage.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+                            }
+                            String mensaje = "¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ evento.getFecha_evento();
+                            notificationMessage.setText(mensaje);
+
+                            // Ajustar márgenes para la vista de notificación
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                            );
+                            int marginPixels = (int) (12 * getResources().getDisplayMetrics().density);
+                            layoutParams.setMargins(0, 0, 0, marginPixels);
+
+                            // Aplicar los parámetros de diseño a la vista de notificación
+                            notificationView.setLayoutParams(layoutParams);
+
+                            // Agregar la nueva notificación al LinearLayout
+                            notificationContainer.addView(notificationView);
                         }
-
-                        itemsAdapterEventos.notifyDataSetChanged();
-                        pbProgressMain.setVisibility(View.GONE);
                     }
-
+                    itemsAdapterEventos.notifyDataSetChanged();
+                    pbProgressMain.setVisibility(View.GONE);
                 }
             });
 
@@ -142,6 +173,30 @@ public class MainActivity extends AppCompatActivity {
                                     case ADDED:
                                         items.add(dc.getNewIndex(), dc.getDocument().toObject(ItemsDomainVinedos.class));
                                         itemsAdapterVinedos.notifyItemInserted(dc.getNewIndex());// Notificar al adaptador que hemos insertado datos
+
+                                        // Crear una nueva vista de notificación
+                                        View notificationView = getLayoutInflater().inflate(R.layout.layout_notification, null);
+                                        TextView notificationMessage = notificationView.findViewById(R.id.notificationMessage);
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                            notificationMessage.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+                                        }
+                                        String mensaje = dc.getDocument().getString("nombre_barbacoa")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!";
+                                        notificationMessage.setText(mensaje);
+
+                                        // Ajustar márgenes para la vista de notificación
+                                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                        );
+                                        int marginPixels = (int) (12 * getResources().getDisplayMetrics().density);
+                                        layoutParams.setMargins(0, 0, 0, marginPixels);
+
+                                        // Aplicar los parámetros de diseño a la vista de notificación
+                                        notificationView.setLayoutParams(layoutParams);
+
+                                        // Agregar la nueva notificación al LinearLayout
+                                        notificationContainer.addView(notificationView);
+
                                         break;
                                     case MODIFIED:
                                         items.set(dc.getOldIndex(), dc.getDocument().toObject(ItemsDomainVinedos.class));
@@ -150,6 +205,22 @@ public class MainActivity extends AppCompatActivity {
                                     case REMOVED:
                                         items.remove(dc.getOldIndex());
                                         itemsAdapterVinedos.notifyItemRemoved(dc.getOldIndex());// Notificar al adaptador que los datos han sido eliminados
+
+                                        // Crear una nueva vista de notificación y agregarla
+                                        View notificationViewRemoved = getLayoutInflater().inflate(R.layout.layout_notification, null);
+                                        TextView notificationMessageRemoved = notificationViewRemoved.findViewById(R.id.notificationMessage);
+                                        String removedMessage = dc.getDocument().getString("nombre_barbacoa") + " ya no está disponible en Cadereyta :(";
+                                        notificationMessageRemoved.setText(removedMessage);
+                                        // Ajustar márgenes para la vista de notificación
+                                        LinearLayout.LayoutParams layoutParamsRemoved = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                        );
+                                        int marginPixelsRemoved = (int) (12 * getResources().getDisplayMetrics().density);
+                                        layoutParamsRemoved.setMargins(0, 0, 0, marginPixelsRemoved);
+                                        notificationViewRemoved.setLayoutParams(layoutParamsRemoved);
+                                        notificationContainer.addView(notificationViewRemoved);
+
                                         break;
                                 }
                             }
@@ -163,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
         menu = findViewById(R.id.menu);
         profile = findViewById(R.id.profile);
         home = findViewById(R.id.home);
-        calendar = findViewById(R.id.calendar);
+        notifications = findViewById(R.id.notifications);
         map = findViewById(R.id.map);
         txt_Nombre = findViewById(R.id.Mostrarnombre);
         txt_Nombre2 = findViewById(R.id.nombre2);
@@ -203,35 +274,35 @@ public class MainActivity extends AppCompatActivity {
                         menu.setVisibility(View.VISIBLE);
                         profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.GONE);
+                        notifications.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                     case 2:
                         menu.setVisibility(View.GONE);
                         profile.setVisibility(View.VISIBLE);
                         home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.GONE);
+                        notifications.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                     case 3:
                         menu.setVisibility(View.GONE);
                         profile.setVisibility(View.GONE);
                         home.setVisibility(View.VISIBLE);
-                        calendar.setVisibility(View.GONE);
+                        notifications.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                     case 4:
                         menu.setVisibility(View.GONE);
                         profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.VISIBLE);
+                        notifications.setVisibility(View.VISIBLE);
                         map.setVisibility(View.GONE);
                         break;
                     case 5:
                         menu.setVisibility(View.GONE);
                         profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.GONE);
+                        notifications.setVisibility(View.GONE);
                         map.setVisibility(View.VISIBLE);
                         break;
                 }
@@ -248,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
                         menu.setVisibility(View.VISIBLE);
                         profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.GONE);
+                        notifications.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                 }
@@ -263,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
                         menu.setVisibility(View.GONE);
                         profile.setVisibility(View.VISIBLE);
                         home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.GONE);
+                        notifications.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                 }
@@ -278,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                         menu.setVisibility(View.GONE);
                         profile.setVisibility(View.GONE);
                         home.setVisibility(View.VISIBLE);
-                        calendar.setVisibility(View.GONE);
+                        notifications.setVisibility(View.GONE);
                         map.setVisibility(View.GONE);
                         break;
                 }
@@ -293,7 +364,7 @@ public class MainActivity extends AppCompatActivity {
                         menu.setVisibility(View.GONE);
                         profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.VISIBLE);
+                        notifications.setVisibility(View.VISIBLE);
                         map.setVisibility(View.GONE);
                         break;
                 }
@@ -309,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
                         menu.setVisibility(View.GONE);
                         profile.setVisibility(View.GONE);
                         home.setVisibility(View.GONE);
-                        calendar.setVisibility(View.GONE);
+                        notifications.setVisibility(View.GONE);
                         map.setVisibility(View.VISIBLE);
                         break;
                 }
@@ -472,7 +543,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-        // --> Método llamado al iniciar la actividad
+    private void mostrarSnackbar(String mensaje) {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), mensaje, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
+    // --> Método llamado al iniciar la actividad
         protected void onStart() {
             super.onStart();
             FirebaseUser user = mAuth.getCurrentUser();
