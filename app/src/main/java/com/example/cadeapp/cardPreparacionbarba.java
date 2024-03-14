@@ -61,6 +61,8 @@ public class cardPreparacionbarba extends ScrollingActivity {
 
         cargarImagenesDesdeFirestore("https://www.elfinanciero.com.mx/resizer/VRIHCZLbd3-OHxa9hPDSz1T_AUI=/800x0/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/elfinanciero/NHH3F5SOLZGDJNGBVJQRU7ZRBE.jpeg");
         cargarImagenesDesdeFirestore("https://i.blogs.es/b4889c/1/1366_2000.jpg");
+        cargarImagenesDesdeFirestore("https://www.gastrolabweb.com/u/fotografias/m/2021/8/8/f1280x720-17288_148963_5050.jpg");
+        cargarImagenesDesdeFirestore("https://media.timeout.com/images/105476091/1024/576/image.webp");
 
     }
 

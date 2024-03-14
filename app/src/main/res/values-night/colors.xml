@@ -11,4 +11,5 @@
     <color name="verde1">#BFFFC2</color>
     <color name="verde2">#007A05</color>
     <color name="light_orange_back">?android:attr/colorBackground</color>
+    <color name="light_orange">#ffac33</color>
 </resources>
