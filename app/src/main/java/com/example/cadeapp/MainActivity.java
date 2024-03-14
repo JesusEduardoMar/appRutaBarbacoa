@@ -548,23 +548,15 @@ public class MainActivity extends AppCompatActivity {
         snackbar.show();
     }
 
-    // --> Método llamado al iniciar la actividad
-        protected void onStart() {
-            super.onStart();
-            FirebaseUser user = mAuth.getCurrentUser();
-            if (user != null) {
-                if (user.isEmailVerified()) {
-                    // Si el usuario está autenticado y su correo está verificado
-                    cargardatos();
-                } else {
-                    // Si el usuario está autenticado pero su correo no está verificado
-                    logout();
-                }
-            } else {
-                // Si el usuario no está autenticado
-                irLogin();
-            }
+    protected void onStart(){
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user == null){
+            irLogin();
+        }else{
+            cargardatos();
         }
+    }
 
         // --> Método para cargar los datos del usuario desde Firestore
         private void cargardatos(){
