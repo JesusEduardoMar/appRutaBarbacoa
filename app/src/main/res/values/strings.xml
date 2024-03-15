@@ -24,12 +24,12 @@
     <string name="tengo_una_cuenta">Tengo una cuenta</string>
     <string name="por_favor_ingresa_tus_datos">Por Favor ingresa tus datos</string>
     <string name="registrar_datos">Registrar datos</string>
-    <string name="por_favor_registra_tus_dats">Por favor registra tus dats</string>
+    <string name="por_favor_registra_tus_dats">Por favor registra tus datos</string>
     <string name="tel_fono">Teléfono</string>
     <string name="nombre">Nombre</string>
     <string name="confirmar_contrase_a">Confirmar contraseña</string>
     <string name="ayuda_con_la_contrase_a">Ayuda con la contraseña</string>
-    <string name="escribe_tu_direccion">Escribe tu dirección de correo electrónico asociado a tu cuenta de Delicio.</string>
+    <string name="escribe_tu_direccion">Escribe la dirección de correo electrónico asociada a tu cuenta.</string>
     <string name="recuperar_contrase_a">Recuperar contraseña</string>
 
 

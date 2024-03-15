@@ -80,20 +80,20 @@ public class RegistrarActivity extends AppCompatActivity {
                                 if(Patterns.EMAIL_ADDRESS.matcher(correouser).matches()){
                                     realizarConsulta(correouser,telefonouser);
                                 }else{
-                                    mostrarMensaje("El correo es invalido");
+                                    mostrarMensaje("El correo es inválido");
 
                                 }
                             }else {
-                                mostrarMensaje("El numero de telefono debe contar con 10 digitos");
+                                mostrarMensaje("El numero de teléfono debe contar con 10 digitos");
                             }
                         }else{
                             mostrarMensaje("Las contraseñas deben coincidir");
                         }
                     }else{
-                        mostrarMensaje("Contraseña invalida");
+                        mostrarMensaje("Contraseña inválida");
                     }
                 }else{
-                    mostrarMensaje("Los campos no debe de estar vacios");
+                    mostrarMensaje("Los campos no deben de estar vacios");
                 }
             }
         });
@@ -122,7 +122,7 @@ public class RegistrarActivity extends AppCompatActivity {
         String validarpass = password.getText().toString().trim();
 
         if(!validarpass.matches(regexPassword)){
-            avisopass.setHelperText("La contraseña requiere 8 caracteres (mayúsculas, minúsculas y numeros)");
+            avisopass.setHelperText("La contraseña debe tener 8 caracteres (incluyendo mayúsculas, minúsculas, números y símbolos como @#$%^&+=_- ).");
         }
         else{
             avisopass.setHelperText("Contraseña fuerte");
