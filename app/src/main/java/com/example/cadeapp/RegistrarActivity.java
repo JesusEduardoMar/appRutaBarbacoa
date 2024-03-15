@@ -121,11 +121,19 @@ public class RegistrarActivity extends AppCompatActivity {
     private void validarPassword(){
         String validarpass = password.getText().toString().trim();
 
-        if(!validarpass.matches(regexPassword)){
-            avisopass.setHelperText("La contraseña debe tener 8 caracteres (incluyendo mayúsculas, minúsculas, números y símbolos como @#$%^&+=_- ).");
-        }
-        else{
-            avisopass.setHelperText("Contraseña fuerte");
+        if (password.hasFocus()) {
+            if (!validarpass.matches(regexPassword)) {
+                // Mostrar el mensaje de ayuda solo si la contraseña no cumple con los requisitos
+                avisopass.setHelperText("La contraseña debe tener 8 caracteres (incluyendo mayúsculas, minúsculas, números y símbolos como @#$%^&+=_- ).");
+                avisopass.setHelperTextEnabled(true);
+            } else {
+                // Si la contraseña es válida, mostrar el mensaje de contraseña fuerte
+                avisopass.setHelperText("Contraseña fuerte");
+                avisopass.setHelperTextEnabled(true);
+            }
+        } else {
+            // Si el campo de contraseña no está enfocado, no mostrar el mensaje
+            avisopass.setHelperTextEnabled(false);
         }
     }
 
