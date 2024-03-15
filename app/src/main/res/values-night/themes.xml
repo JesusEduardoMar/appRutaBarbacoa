@@ -1,19 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Winestastic" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-
-        <item name="colorPrimaryDark">#F21E0080</item>
-        <item name="colorPrimary">#4CAF50</item>
-        <item name="hintTextColor">#000000</item>
-    </style>
     <style name="Theme.Orange"  parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="colorPrimaryDark">@color/light_orange</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="colorPrimary">@color/light_orange</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="selectableItemBackground">@drawable/selector_backgroundnotifiy_dark</item>
     </style>
     <style name="NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
