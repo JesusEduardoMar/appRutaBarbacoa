@@ -80,20 +80,20 @@ public class RegistrarActivity extends AppCompatActivity {
                                 if(Patterns.EMAIL_ADDRESS.matcher(correouser).matches()){
                                     realizarConsulta(correouser,telefonouser);
                                 }else{
-                                    mostrarMensaje("El correo es invalido");
+                                    mostrarMensaje("El correo es inválido");
 
                                 }
                             }else {
-                                mostrarMensaje("El numero de telefono debe contar con 10 digitos");
+                                mostrarMensaje("El numero de teléfono debe contar con 10 digitos");
                             }
                         }else{
                             mostrarMensaje("Las contraseñas deben coincidir");
                         }
                     }else{
-                        mostrarMensaje("Contraseña invalida");
+                        mostrarMensaje("Contraseña inválida");
                     }
                 }else{
-                    mostrarMensaje("Los campos no debe de estar vacios");
+                    mostrarMensaje("Los campos no deben de estar vacios");
                 }
             }
         });
@@ -121,11 +121,19 @@ public class RegistrarActivity extends AppCompatActivity {
     private void validarPassword(){
         String validarpass = password.getText().toString().trim();
 
-        if(!validarpass.matches(regexPassword)){
-            avisopass.setHelperText("La contraseña requiere 8 caracteres (mayúsculas, minúsculas y numeros)");
-        }
-        else{
-            avisopass.setHelperText("Contraseña fuerte");
+        if (password.hasFocus()) {
+            if (!validarpass.matches(regexPassword)) {
+                // Mostrar el mensaje de ayuda solo si la contraseña no cumple con los requisitos
+                avisopass.setHelperText("La contraseña debe tener 8 caracteres (incluyendo mayúsculas, minúsculas, números y símbolos como @#$%^&+=_- ).");
+                avisopass.setHelperTextEnabled(true);
+            } else {
+                // Si la contraseña es válida, mostrar el mensaje de contraseña fuerte
+                avisopass.setHelperText("Contraseña fuerte");
+                avisopass.setHelperTextEnabled(true);
+            }
+        } else {
+            // Si el campo de contraseña no está enfocado, no mostrar el mensaje
+            avisopass.setHelperTextEnabled(false);
         }
     }
 

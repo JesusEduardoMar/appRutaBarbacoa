@@ -396,7 +396,7 @@
                             android:gravity="center_vertical"
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
-                            android:text="Username:"
+                            android:text="Usuario:"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -458,10 +458,9 @@
 
                         <TextView
                             android:id="@+id/textView72"
-                            android:layout_width="wrap_content"
+                            android:layout_width="140dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_weight="1"
                             android:drawableLeft="@drawable/baseline_call_24"
                             android:drawablePadding="8dp"
                             android:gravity="center_vertical"
@@ -476,7 +475,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_weight="1"
+                            android:layout_marginBottom="5dp"
                             android:gravity="end"
                             android:text="+52 442 3291 145"
                             android:textAlignment="textEnd"
