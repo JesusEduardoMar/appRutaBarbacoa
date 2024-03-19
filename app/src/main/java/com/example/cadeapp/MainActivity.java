@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
@@ -549,20 +550,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // --> Método llamado al iniciar la actividad
-        protected void onStart() {
+        protected void onStart(){
             super.onStart();
             FirebaseUser user = mAuth.getCurrentUser();
-            if (user != null) {
-                if (user.isEmailVerified()) {
-                    // Si el usuario está autenticado y su correo está verificado
-                    cargardatos();
-                } else {
-                    // Si el usuario está autenticado pero su correo no está verificado
-                    logout();
-                }
-            } else {
-                // Si el usuario no está autenticado
+            if(user == null){
                 irLogin();
+            }else{
+                cargardatos();
             }
         }
 

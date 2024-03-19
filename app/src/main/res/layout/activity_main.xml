@@ -283,8 +283,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomNavigation"
-        android:background="@drawable/com_facebook_auth_dialog_background"
-        android:visibility="gone">
+        android:background="@color/light_orange_back"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -369,6 +370,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="130dp"
                     android:background="@drawable/white_background1"
+                    android:backgroundTint="@color/card_background"
                     android:elevation="20dp"
                     android:orientation="vertical"
                     android:padding="8dp"
@@ -381,7 +383,7 @@
                     <!-- Campo de Username -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="5dp"
                         android:orientation="horizontal">
 
@@ -434,7 +436,7 @@
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
                             android:text="Correo :"
-                            android:textColor="@color/black"
+                            android:textColor="@color/flexible_text_color"
                             android:textSize="18sp" />
 
                         <TextView
@@ -446,6 +448,7 @@
                             android:gravity="end"
                             android:text="Usuariosinnombre@gmail.com"
                             android:textAlignment="textEnd"
+                            android:textColor="@color/flexible_text_color"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -469,7 +472,7 @@
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
                             android:text="Teléfono :"
-                            android:textColor="@color/black"
+                            android:textColor="@color/flexible_text_color"
                             android:textSize="18sp" />
 
                         <TextView
@@ -481,6 +484,7 @@
                             android:gravity="end"
                             android:text="+52 442 3291 145"
                             android:textAlignment="textEnd"
+                            android:textColor="@color/flexible_text_color"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -511,6 +515,7 @@
                             android:layout_marginEnd="15dp"
                             android:layout_weight="1"
                             android:background="@drawable/btn_bienvenida1"
+                            android:backgroundTint="@color/light_orange"
                             android:text="Cerrar sesión"
                             android:textAllCaps="false"
                             android:textColor="#FFFFFF"
@@ -527,6 +532,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="24dp"
                         android:background="@drawable/btn_bienvenida1"
+                        android:backgroundTint="@color/light_orange"
                         android:elevation="13dp"
                         android:orientation="vertical">
 
@@ -556,7 +562,7 @@
                             android:layout_marginTop="24dp"
                             android:layout_marginEnd="24dp"
                             android:background="@drawable/white_background1"
-                            android:backgroundTint="#4682b4"
+                            android:backgroundTint="@color/light_orange"
                             android:text="Aquí irá info del evento"
                             android:textColor="#FFFF" />
 
@@ -580,7 +586,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
-        android:visibility="visible">
+        android:visibility="visible"
+        tools:visibility="gone">
 
 
         <ProgressBar
