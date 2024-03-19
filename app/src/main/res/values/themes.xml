@@ -7,6 +7,7 @@
         <item name="android:windowBackground">@color/light_orange_back</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="selectableItemBackground">@drawable/selector_backgroundnotifiy</item>
     </style>
     <style name="NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
@@ -34,8 +35,8 @@
         <item name="android:textColor">@color/white</item>
 
 
-            <item name="android:windowMinWidthMajor">200dp</item>
-            <item name="android:windowMinWidthMinor">150dp</item>
+        <item name="android:windowMinWidthMajor">200dp</item>
+        <item name="android:windowMinWidthMinor">150dp</item>
 
 
 

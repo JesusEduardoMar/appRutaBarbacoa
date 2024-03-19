@@ -17,19 +17,19 @@
     <string name="iniciar">Iniciar sesión</string>
     <string name="btniniciar">iniciar_sesion</string>
     <string name="Olvidarpassword">¿Olvidó su contraseña?</string>
-    <string name="iniciarwith">O inicia sesion con</string>
+    <string name="iniciarwith">O inicia sesión con</string>
     <string name="gmail">gmail</string>
     <string name="bienvenido">Bienvenido</string>
     <string name="crear_cuenta">Crear Cuenta</string>
     <string name="tengo_una_cuenta">Tengo una cuenta</string>
     <string name="por_favor_ingresa_tus_datos">Por Favor ingresa tus datos</string>
     <string name="registrar_datos">Registrar datos</string>
-    <string name="por_favor_registra_tus_dats">Por favor registra tus dats</string>
+    <string name="por_favor_registra_tus_dats">Por favor registra tus datos</string>
     <string name="tel_fono">Teléfono</string>
     <string name="nombre">Nombre</string>
     <string name="confirmar_contrase_a">Confirmar contraseña</string>
     <string name="ayuda_con_la_contrase_a">Ayuda con la contraseña</string>
-    <string name="escribe_tu_direccion">Escribe tu dirección de correo electrónico asociado a tu cuenta de Delicio.</string>
+    <string name="escribe_tu_direccion">Escribe la dirección de correo electrónico asociada a tu cuenta.</string>
     <string name="recuperar_contrase_a">Recuperar contraseña</string>
 
 

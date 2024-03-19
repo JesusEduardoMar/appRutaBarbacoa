@@ -298,7 +298,7 @@
                 <View
                     android:id="@+id/view"
                     android:layout_width="wrap_content"
-                    android:layout_height="230dp"
+                    android:layout_height="250dp"
                     android:background="@drawable/top_background_shield"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -333,9 +333,10 @@
                 <TextView
                     android:id="@+id/nombre2"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
                     android:gravity="center"
                     android:maxLines="2"
                     android:text="Aquí va el nombre del usuario"
@@ -352,7 +353,7 @@
                     android:id="@+id/correo2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="15dp"
                     android:text="Usuariosinnombre@gmail.com"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -389,16 +390,15 @@
 
                         <TextView
                             android:id="@+id/textView7"
-                            android:layout_width="160dp"
+                            android:layout_width="140dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_weight="1"
                             android:drawableLeft="@drawable/baseline_person_24"
                             android:drawablePadding="8dp"
                             android:gravity="center_vertical"
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
-                            android:text="Username:"
+                            android:text="Usuario:"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -407,7 +407,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_weight="1"
+                            android:layout_marginBottom="5dp"
                             android:gravity="end"
                             android:text="Usuario sin nombre"
                             android:textAlignment="textEnd"
@@ -429,7 +429,6 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_weight="1"
                             android:drawableLeft="@drawable/baseline_local_post_office_24"
                             android:drawablePadding="8dp"
                             android:gravity="center_vertical"
@@ -444,7 +443,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_weight="1"
+                            android:layout_marginBottom="5dp"
                             android:gravity="end"
                             android:text="Usuariosinnombre@gmail.com"
                             android:textAlignment="textEnd"
@@ -462,10 +461,9 @@
 
                         <TextView
                             android:id="@+id/textView72"
-                            android:layout_width="wrap_content"
+                            android:layout_width="140dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_weight="1"
                             android:drawableLeft="@drawable/baseline_call_24"
                             android:drawablePadding="8dp"
                             android:gravity="center_vertical"
@@ -480,7 +478,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_weight="1"
+                            android:layout_marginBottom="5dp"
                             android:gravity="end"
                             android:text="+52 442 3291 145"
                             android:textAlignment="textEnd"
@@ -799,7 +797,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
-        android:background="@color/backgroundazul"
         android:visibility="gone">
 
         <TextView
