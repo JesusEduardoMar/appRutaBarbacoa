@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:windowSoftInputMode="adjustResize"
-    android:background="@drawable/back_prueba"
+    android:background="@drawable/backgroundlogin"
     tools:context=".RegistrarActivity">
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/logo_appp"
+        android:src="@drawable/logo_definitivo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
