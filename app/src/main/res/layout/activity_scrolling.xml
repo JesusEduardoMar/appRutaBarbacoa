@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:backgroundTint="?attr/colorPrimary"
-                android:src="@drawable/logo_appp"
+                android:src="@drawable/logo_definitivo"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.AppCompatImageView

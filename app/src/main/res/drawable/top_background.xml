@@ -8,12 +8,4 @@
             <solid android:color="#E6FFAC33"/>
         </shape>
     </item>
-    <item
-        android:width="60dp"
-        android:height="60dp"
-        android:top="40dp"
-        android:right="40dp"
-        android:gravity="right">
-        <bitmap android:src="@drawable/logo_appp" />
-    </item>
 </layer-list>
