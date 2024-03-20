@@ -11,6 +11,7 @@
     <color name="flexible_text_color_inv">@color/black</color>
     <color name="verde1">#BFFFC2</color>
     <color name="verde2">#007A05</color>
+    <color name="verde3">#669C53</color>
     <color name="light_orange_back">#303030</color>
     <color name="card_background">#424242</color>
     <color name="light_orange">#ffac33</color>
