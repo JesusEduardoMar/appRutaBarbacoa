@@ -384,7 +384,7 @@
                     <!-- Campo de Username -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:orientation="horizontal">
 
@@ -399,7 +399,7 @@
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
                             android:text="Usuario:"
-                            android:textColor="@color/black"
+                            android:textColor="@color/flexible_text_color"
                             android:textSize="18sp" />
 
                         <TextView
