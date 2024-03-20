@@ -25,6 +25,6 @@
         android:top="20dp"
         android:left="20dp"
         android:gravity="left">
-        <bitmap android:src="@drawable/logo_appp" />
+        <bitmap android:src="@drawable/logo_definitivo" />
     </item>
 </layer-list>
