@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_prueba"
+    android:background="@drawable/backgroundlogin"
     tools:context=".LoginActivity">
 
     <ProgressBar
@@ -37,7 +37,7 @@
             android:layout_marginTop="30dp"
             android:layout_width="190dp"
             android:layout_height="190dp"
-            android:src="@drawable/logo_appp" />
+            android:src="@drawable/logo_definitivo" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -191,7 +191,7 @@
                 android:id="@+id/login_gmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/blue2"
+                android:backgroundTint="@color/verdelogin"
                 android:clickable="true"
                 android:contentDescription="@string/gmail"
                 android:src="@drawable/logo_gmail" />
