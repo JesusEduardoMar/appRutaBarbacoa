@@ -55,8 +55,8 @@ import java.lang.Exception;
 
 public class MainActivity extends AppCompatActivity {
     // Variables
-    private RecyclerView.Adapter adapterEventos,adapterVinedos;
-    private RecyclerView recyclerViewEventos, recyclerViewVinedos;
+    private RecyclerView.Adapter adapterEventos,adapterVinedos,adapterPulques;
+    private RecyclerView recyclerViewEventos, recyclerViewVinedos, recyclerViewPulques;
     private MeowBottomNavigation bottomNavigation;
     TextView txt_Nombre,txt_correo,txt_telefono,txt_Nombre2,txt_correo2;
     Button cerrar;
@@ -73,8 +73,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ItemsAdapterVinedos itemsAdapterVinedos;
     ItemsAdapterEventos itemsAdapterEventos;
+    ItemsAdapterPulques itemsAdapterPulques;
     ArrayList<ItemsDomainVinedos> items;
     ArrayList<ItemsDomainEventos> items2;
+    ArrayList<ItemsDomainPulques> items3;
     ProgressBar pbProgressMain;
     private Task<QuerySnapshot> eventosTask;
     RelativeLayout relativeContact1;
@@ -227,6 +229,85 @@ public class MainActivity extends AppCompatActivity {
                             pbProgressMain.setVisibility(View.GONE);
                         }
                     });
+
+        // --> Configuración de RecyclerView para los Pulques
+        recyclerView = findViewById(R.id.viewPulques);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        items3 = new ArrayList<>();
+        itemsAdapterPulques = new ItemsAdapterPulques(items3, this);
+        recyclerView.setAdapter(itemsAdapterPulques);
+        mFirestore.collection("pulques")
+                .orderBy("nombre_pulque") // Filtramos por nombre
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error != null){
+                            Log.e("Firestore error", error.getMessage());
+                            return;
+                        }
+                        //items.clear(); // Limpiar la lista actual de lugares
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    items3.add(dc.getNewIndex(), dc.getDocument().toObject(ItemsDomainPulques.class));
+                                    itemsAdapterPulques.notifyItemInserted(dc.getNewIndex());// Notificar al adaptador que hemos insertado datos
+
+                                    // Crear una nueva vista de notificación
+                                    View notificationView = getLayoutInflater().inflate(R.layout.layout_notification, null);
+                                    TextView notificationMessage = notificationView.findViewById(R.id.notificationMessage);
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        notificationMessage.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+                                    }
+                                    String mensaje = dc.getDocument().getString("nombre_barbacoa")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!";
+                                    notificationMessage.setText(mensaje);
+
+                                    // Ajustar márgenes para la vista de notificación
+                                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                                            LinearLayout.LayoutParams.MATCH_PARENT,
+                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                    );
+                                    int marginPixels = (int) (12 * getResources().getDisplayMetrics().density);
+                                    layoutParams.setMargins(0, 0, 0, marginPixels);
+
+                                    // Aplicar los parámetros de diseño a la vista de notificación
+                                    notificationView.setLayoutParams(layoutParams);
+
+                                    // Agregar la nueva notificación al LinearLayout
+                                    notificationContainer.addView(notificationView);
+
+                                    break;
+                                case MODIFIED:
+                                    items3.set(dc.getOldIndex(), dc.getDocument().toObject(ItemsDomainPulques.class));
+                                    itemsAdapterPulques.notifyItemChanged(dc.getOldIndex());// Notificar al adaptador que los datos han cambiado
+                                    break;
+                                case REMOVED:
+                                    items.remove(dc.getOldIndex());
+                                    itemsAdapterPulques.notifyItemRemoved(dc.getOldIndex());// Notificar al adaptador que los datos han sido eliminados
+
+                                    // Crear una nueva vista de notificación y agregarla
+                                    View notificationViewRemoved = getLayoutInflater().inflate(R.layout.layout_notification, null);
+                                    TextView notificationMessageRemoved = notificationViewRemoved.findViewById(R.id.notificationMessage);
+                                    String removedMessage = dc.getDocument().getString("nombre_pulque") + " ya no está disponible en Cadereyta :(";
+                                    notificationMessageRemoved.setText(removedMessage);
+                                    // Ajustar márgenes para la vista de notificación
+                                    LinearLayout.LayoutParams layoutParamsRemoved = new LinearLayout.LayoutParams(
+                                            LinearLayout.LayoutParams.MATCH_PARENT,
+                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                    );
+                                    int marginPixelsRemoved = (int) (12 * getResources().getDisplayMetrics().density);
+                                    layoutParamsRemoved.setMargins(0, 0, 0, marginPixelsRemoved);
+                                    notificationViewRemoved.setLayoutParams(layoutParamsRemoved);
+                                    notificationContainer.addView(notificationViewRemoved);
+
+                                    break;
+                            }
+                        }
+                        pbProgressMain.setVisibility(View.GONE);
+                    }
+                });
+
 
         // --> Configuración de la barra de navegación inferior (MeowBottomNavigation)
         bottomNavigation = findViewById(R.id.bottomNavigation);

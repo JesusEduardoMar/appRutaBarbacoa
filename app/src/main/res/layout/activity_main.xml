@@ -605,22 +605,80 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:background="@color/blue1">
+                    android:background="@color/verde3">
 
                     <TextView
                         android:id="@+id/textView9"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="Un paseo por la ruta más deliciosa de Querétaro"
                         android:textColor="@color/white"
                         android:textSize="18sp"
+                        android:layout_marginStart="110dp"
+                        android:layout_marginEnd="110dp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <ImageView
+                        android:id="@+id/image_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/escudo_cadereyta"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="150dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"/>
+
+
+                    <ImageView
+                        android:id="@+id/image_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/logo_definitivo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginEnd="150dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"/>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/grey_background"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:singleLine="false"
+                        android:text="Descubre los Próximos Eventos en Cadereyta"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/viewEventos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp" />
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -704,34 +762,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/grey_background"
-                    android:padding="5dp">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:singleLine="false"
-                        android:text="Descubre los Próximos Eventos en Cadereyta"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/viewEventos"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="24dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -761,6 +792,35 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="70dp"
+                    android:clipToPadding="false"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/grey_background"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:gravity="center_horizontal"
+                        android:singleLine="false"
+                        android:text="Descubre los Mejores Lugares de Pulque en Cadereyta"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/viewPulques"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:clipToPadding="false"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp" />
