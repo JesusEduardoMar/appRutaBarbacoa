@@ -17,7 +17,7 @@
         android:top="20dp"
         android:right="20dp"
         android:gravity="right">
-        <bitmap android:src="@drawable/escudo_cadereyta" />
+        <bitmap android:src="@drawable/logo_definitivo" />
     </item>
     <item
         android:width="60dp"
@@ -25,6 +25,6 @@
         android:top="20dp"
         android:left="20dp"
         android:gravity="left">
-        <bitmap android:src="@drawable/logo_appp" />
+        <bitmap android:src="@drawable/escudo_cadereyta" />
     </item>
 </layer-list>
