@@ -97,7 +97,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
         comentarioAdapter = new OpinionAdapter(opinionesList);
         recyclerViewComentarios.setAdapter(comentarioAdapter);
 
-        // Obtenemos el ID de la barbacoa actual
+        // Obtenemos el ID del pulque actual
         idPulque = obtenerIdPulque();
 
         cargarImagenesDesdeFirestore(idPulque);
@@ -116,8 +116,8 @@ public class DetailPulqueActivity extends AppCompatActivity {
                 enviarOpinion(editTextComentario, ratingBarOpinion, userId, idPulque);
             }
         });
-        // Obtenemos el nombre de la barbacoa
-        obtenerInformacionBarbacoa();
+        // Obtenemos el nombre del pulque
+        obtenerInformacionPulque();
 
         // Configuramos los listeners para los botones de incremento y decremento
         // configurarListenersBotones();
@@ -175,7 +175,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                 });
     }
     // Método para enviar una opinión
-    private void enviarOpinion(EditText editTextComentario, RatingBar ratingBarOpinion, String userId, String idBarbacoa) {
+    private void enviarOpinion(EditText editTextComentario, RatingBar ratingBarOpinion, String userId, String idPulque) {
         try {
             // Obtenemos los datos de la interfaz de usuario
             String comentario = editTextComentario.getText().toString();
@@ -199,7 +199,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                                 String nombreUsuario = documentSnapshot.getString("nombre");
 
                                 // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idPulque, null);
 
                                 // Agregamos la nueva opinión a la colección de opiniones en Firestore
                                 mFirestore.collection("opiniones")
@@ -232,15 +232,15 @@ public class DetailPulqueActivity extends AppCompatActivity {
             Toast.makeText(DetailPulqueActivity.this, "Error inesperado: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-    // Método para obtener la información de la barbacoa ?
-    private void obtenerInformacionBarbacoa() {
-        // Obtenemos el nombre de la barbacoa desde la intención
+    // Método para obtener la información del Pulque ?
+    private void obtenerInformacionPulque() {
+        // Obtenemos el nombre del pulque desde la intención
         Intent intent = getIntent();
         String name = (intent != null) ? intent.getExtras().getString("titleTxt") : null;
 
         // Verificamos la existencia del nombre
         if (name != null) {
-            // Consultamos en Firestore para obtener información de la barbacoa
+            // Consultamos en Firestore para obtener información del Pulque
             mFirestore.collection("pulques").whereEqualTo("nombre_pulque", name).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -263,18 +263,18 @@ public class DetailPulqueActivity extends AppCompatActivity {
                             // Cargamos la imagen utilizando Glide
                             Glide.with(DetailPulqueActivity.this).load(imageUrl).into(vinedoImg);
 
-                            // Mostramos los comentarios de la barbacoa en la que estamos comentando
-                            mostrarComentariosBarbacoa();
+                            // Mostramos los comentarios del pulque en la que estamos comentando
+                            mostrarComentariosPulque();
                         }
                     } else {
                         // Manejo de errores
-                        Log.e("DetailPulqueActivity", "Error al obtener la información de la barbacoa", task.getException());
+                        Log.e("DetailPulqueActivity", "Error al obtener la información del pulque", task.getException());
                     }
                 }
             });
         } else {
             // Manejo de errores
-            Log.e("DetailPulqueActivity", "El nombre de la barbacoa es nulo en la intención.");
+            Log.e("DetailPulqueActivity", "El nombre del pulque es nulo en la intención.");
         }
     }
 /*
@@ -302,9 +302,9 @@ public class DetailPulqueActivity extends AppCompatActivity {
         cajaDeTexto.setText(Integer.toString(contador));
     }*/
 
-    // Método para mostrar los comentarios de la respectiva barbacoa
-    private void mostrarComentariosBarbacoa() {
-        // Consultamos en Firestore para obtener comentarios relacionados con la barbacoa actual
+    // Método para mostrar los comentarios del respectivo pulque
+    private void mostrarComentariosPulque() {
+        // Consultamos en Firestore para obtener comentarios relacionados con el pulque actual
         mFirestore.collection("opiniones")
                 .whereEqualTo("idPulque", idPulque)
                 .get()
@@ -339,13 +339,13 @@ public class DetailPulqueActivity extends AppCompatActivity {
     private String obtenerIdPulque() {
         Intent intent = getIntent();
         if (intent != null) {
-            // Obtenemos el ID de la barbacoa desde la intención
+            // Obtenemos el ID del pulque desde la intención
             String idPulque = intent.getStringExtra("idPulque");
             if (idPulque != null && !idPulque.isEmpty()) {
                 return idPulque;
             }
         }
-        Toast.makeText(this, "Error: ID de barbacoa no válida", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Error: ID del Pulque no válido", Toast.LENGTH_SHORT).show();
         return "";
     }
 }
