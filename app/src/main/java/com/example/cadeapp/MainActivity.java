@@ -617,7 +617,7 @@ public class MainActivity extends AppCompatActivity {
         card4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, cardDemasEntradas.class);
+                Intent intent = new Intent(MainActivity.this, VerTodosLosPulquesActivity.class);
                 startActivity(intent);
                 finish();
             }

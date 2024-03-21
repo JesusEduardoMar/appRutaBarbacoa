@@ -688,7 +688,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="horizontal">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -747,7 +747,7 @@
 
                             <TextView
                                 android:id="@+id/vinoquesotext"
-                                android:layout_width="55dp"
+                                android:layout_width="65dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:text="Pulque"
@@ -768,7 +768,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="35dp"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/grey_background"
                     android:padding="5dp">
@@ -790,8 +790,8 @@
                     android:id="@+id/viewViñedos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="70dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
                     android:clipToPadding="false"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp" />
@@ -800,7 +800,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/grey_background"
                     android:padding="5dp">
@@ -808,7 +807,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="1dp"
+                        android:layout_marginBottom="8dp"
                         android:gravity="center_horizontal"
                         android:singleLine="false"
                         android:text="Descubre los Mejores Lugares de Pulque en Cadereyta"
@@ -821,6 +820,8 @@
                     android:id="@+id/viewPulques"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
                     android:clipToPadding="false"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp" />
@@ -852,21 +853,61 @@
         android:layout_above="@id/bottomNavigation"
         android:visibility="gone">
 
-        <TextView
-            android:id="@+id/notificationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="2dp"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
-            android:padding="25dp"
-            android:text="¡No te pierdas de las Últimas Actualizaciones!"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:maxLines="2"
-            android:layout_marginBottom="8dp"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/naranja5">
+
+            <TextView
+                android:id="@+id/textView91"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="¡No te pierdas de las Últimas Actualizaciones!"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_marginStart="125dp"
+                android:layout_marginEnd="125dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_l"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/escudo_cadereyta"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+
+            <ImageView
+                android:id="@+id/image_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_definitivo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/notificationContainerr"
@@ -875,7 +916,6 @@
             android:orientation="vertical"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_below="@id/notificationText"
             android:layout_marginTop="16dp"
             android:layout_margin="20dp"
             android:layout_marginBottom="2dp">
@@ -883,6 +923,10 @@
             <!-- Aquí se estarian agregando las notificaciones -->
 
         </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </RelativeLayout>
 
