@@ -49,10 +49,13 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     private GoogleMap mMap;
     private FirebaseFirestore db;
     private List<String> placesList;
+    private List<String> pulqueList;
     private TextView textViewPlaces;
+    private TextView textViewPulques;
 
     private List<Marker> markerList = new ArrayList<>(); // Lista para almacenar los marcadores
     //mantenemos una lista de los marcadores creados y buscamos el marcador correspondiente en esa lista.
+    private List<Marker> markerpList = new ArrayList<>();
 
 
     @Override
@@ -65,14 +68,23 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.MY_MAP);
         supportMapFragment.getMapAsync(this);
         textViewPlaces = view.findViewById(R.id.barba); // TextView
+        textViewPulques = view.findViewById(R.id.pulque); // TextView
 
         placesList = new ArrayList<>(); // Inicialización de la lista
+        pulqueList = new ArrayList<>(); // Inicialización de la lista
 
         // Configuramos el OnClickListener del TextView
         textViewPlaces.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getAndShowAllPlaces(); // Obtener y mostrar todos los lugares antes de mostrar el diálogo
+            }
+        });
+
+        textViewPulques.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getAndShowAllPulques(); // Obtener y mostrar todos los lugares antes de mostrar el diálogo
             }
         });
         return view;
@@ -156,13 +168,84 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                 });
     }
 
+    private void getAndShowAllPulques() {
+        // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
+        db.collection("pulques")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        placesList.clear(); // Limpiamos la lista antes de actualizarla
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String placeName = document.getString("nombre_pulque");
+                            placesList.add(placeName);
+                        }
+                        // Luego de obtener los lugares, mostramos el diálogo con la lista
+                        showPlacesListDialogpulque();
+                    } else {
+                        Log.e(TAG, "Error al obtener lugares desde Firestore", task.getException());
+                    }
+                });
+    }
+
+    private void showPlacesListDialogpulque() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogBasicCustomStyle);
+
+            // Crear un TextView personalizado para el título
+            TextView title = new TextView(getActivity());
+            title.setText("¿A dónde quieres ir?");
+            title.setGravity(Gravity.CENTER); // Centrar el texto en el TextView
+            title.setTextSize(20); // Tamaño del texto del título (ajusta según sea necesario)
+            title.setPadding(10,55,10,5);
+            title.setTextColor(Color.parseColor("#FFFFFF"));
+
+            // Establecer el TextView personalizado como el título del AlertDialog
+            builder.setCustomTitle(title);
+
+            // Creamos un adaptador para la lista de lugares
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, placesList);
+            builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+                // Método para cuando se hace clicki en un lugar de la lista
+                @Override
+                public void onClick(DialogInterface dialogInterface, int position) {
+                    // Obtenemos el lugar seleccionado en la lista
+                    String selectedPlace = placesList.get(position);
+                    // Obtener las coordenadas del lugar seleccionado desde la base de datos y luego mover la cámara a esa ubicación
+                    db.collection("pulques")
+                            .whereEqualTo("nombre_pulque", selectedPlace)
+                            .get()
+                            .addOnSuccessListener(queryDocumentSnapshots -> {
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                    GeoPoint location = documentSnapshot.getGeoPoint("marcador");
+                                    if (location != null) {
+                                        moveCameraToLocation(location.getLatitude(), location.getLongitude());
+                                        String title = documentSnapshot.getString("nombre_pulque");
+
+                                        // Buscar el marcador correspondiente en la lista
+                                        // Cuando seleccionamos un elemento, iteramos sobre markerlist para encontrar el marcador con el mismo titulo
+                                        // al llamar a onMarkerClick simula el comportamiento de hacer click en el marcador
+                                        for (Marker marker : markerpList) {
+                                            if (marker.getTitle().equals(title)) {
+                                                onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                //Por si existe algún error
+                            });
+                }
+            });
+            // Mostramos el diálogo con los lugares
+            builder.show();
+        }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         LatLng jardin = new LatLng(20.694695, -99.814685);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(jardin));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin,13));
-        googleMap.addMarker(new MarkerOptions().position(jardin).title("Cadereyta")
-                .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.pulqueicon )));
         mMap = googleMap;
 
         // Obtenemos la latitud y la longitud desde Firestore y agregamos marcadores al mapa
@@ -184,12 +267,37 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                             .snippet("¿Cómo llegar?")
                                             .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja)));
                                     markerList.add(marker); // Agregar el marcador a la lista
+                                } else {
+                                    Log.e(TAG, "El campo 'ubicacion' es nulo para el documento: " + document.getId());
+                                }
+                            } catch (Exception e) {
+                                Log.e(TAG, "Error al obtener datos del documento: " + document.getId(), e);
+                            }
+                        }
+                    } else {
+                        Log.e(TAG, "Error al obtener marcadores desde Firestore", task.getException());
+                    }
+                });
 
-                                    /*
-                                    // Agregamos un market (marcador) al mapa
-                                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                    mMap.addMarker(new MarkerOptions().position(latLng).title(title).snippet("¿Cómo llegar?")
-                                            .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja )));*/
+        // Obtenemos la latitud y la longitud desde Firestore y agregamos marcadores al mapa
+        db.collection("pulques")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            try {
+                                // Obtener datos de Firestore
+                                GeoPoint location = document.getGeoPoint("marcador");
+                                if (location != null) {
+                                    String title = document.getString("nombre_pulque");
+
+                                    // cada que creamos un marcador tmb lo agregamos a la lista
+                                    Marker marker = mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                            .title(title)
+                                            .snippet("¿Cómo llegar?")
+                                            .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.pulque1)));
+                                    markerpList.add(marker); // Agregar el marcador a la lista
                                 } else {
                                     Log.e(TAG, "El campo 'ubicacion' es nulo para el documento: " + document.getId());
                                 }

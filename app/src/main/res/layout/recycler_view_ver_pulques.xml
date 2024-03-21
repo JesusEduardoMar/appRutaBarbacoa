@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomNavigation"
         android:visibility="visible"
-        tools:context=".VerTodosLosLugaresActivity">
+        tools:context=".VerTodosLosPulquesActivity">
 
 
         <!-- LinearLayout con las dos ConstraintLayouts -->
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Conoce todos los lugares de Barbacoa en Cadereyta"
+                android:text="Conoce todos los lugares de Pulque en Cadereyta"
                 android:textColor="@color/white"
                 android:gravity="center_horizontal"
                 android:singleLine="false"
@@ -117,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
-            android:queryHint="Buscar lugares de barbacoa por nombre"
+            android:queryHint="Buscar lugares de pulque por nombre"
             android:iconifiedByDefault="false"
             android:textColor="#000000"
             android:queryBackground="@null"/>
@@ -132,7 +132,7 @@
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_ver_lugares"
+            android:id="@+id/recycler_view_ver_pulques"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/progress_main"
