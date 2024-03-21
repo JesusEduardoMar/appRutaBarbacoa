@@ -202,7 +202,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
             builder.setCustomTitle(title);
 
             // Creamos un adaptador para la lista de lugares
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.simple_list_item, placesList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.simple_list_pulque, placesList);
             builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
                 // Método para cuando se hace clicki en un lugar de la lista
                 @Override
