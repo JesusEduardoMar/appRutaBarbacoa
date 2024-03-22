@@ -127,7 +127,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                     // Cuando seleccionamos un elemento, iteramos sobre markerlist para encontrar el marcador con el mismo titulo
                                     // al llamar a onMarkerClick simula el comportamiento de hacer click en el marcador
                                     for (Marker marker : markerList) {
-                                        if (marker.getTitle().equals(title)) {
+                                        if (marker.getTitle().trim().equalsIgnoreCase(title.trim())) {
                                             onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
                                             break;
                                         }
@@ -224,7 +224,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                         // Cuando seleccionamos un elemento, iteramos sobre markerlist para encontrar el marcador con el mismo titulo
                                         // al llamar a onMarkerClick simula el comportamiento de hacer click en el marcador
                                         for (Marker marker : markerpList) {
-                                            if (marker.getTitle().equals(title)) {
+                                            if (marker.getTitle().trim().equalsIgnoreCase(title.trim())) {
                                                 onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
                                                 break;
                                             }
@@ -354,7 +354,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         } else {
             LatLng location = marker.getPosition();
             String title = marker.getTitle();
-            Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?&daddr=" + title);
+            Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?&daddr=" + location.latitude + ','+location.longitude);
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
