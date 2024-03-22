@@ -10,16 +10,15 @@
         </shape>
     </item>
     <item
-        android:width="40dp"
-        android:height="40dp"
-        android:top="3dp"
+        android:width="60dp"
+        android:height="60dp"
         android:left="20dp"
         android:gravity="left">
-        <bitmap android:src="@drawable/escudo_cadereyta" />
+        <bitmap android:src="@drawable/estademoda" />
     </item>
     <item
-        android:width="40dp"
-        android:height="40dp"
+        android:width="50dp"
+        android:height="50dp"
         android:top="3dp"
         android:right="20dp"
         android:gravity="right">
