@@ -86,8 +86,7 @@
                     android:textColor="@color/flexible_text_color"
                     android:textIsSelectable="true"
                     android:textStyle="bold"
-                    android:clickable="true"
-                    android:onClick="call"
+                    android:autoLink="phone"
                     android:text="+52 (000) 000 - 0000" />
                 </LinearLayout>
 
@@ -126,7 +125,8 @@
                         android:textSize="16dp"
                         android:textIsSelectable="true"
                         android:clickable="true"
-                        android:text="support@example.com" />
+                        android:text="support@example.com"
+                        android:autoLink="email"/>
 
                 </LinearLayout>
 
@@ -146,40 +146,51 @@
             <LinearLayout
                 android:id="@+id/social_media_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
-                android:weightSum="4">
+                android:gravity="center">
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/facebook_ic"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/oval_background"
+                    android:backgroundTint="#3B5998"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/facebook_ic"
-                    app:tint="@color/white"
-                    android:background="@drawable/roundedfondo"
-                    tools:visibility="visible" />
+                    tools:visibility="visible"
+                    app:srcCompat="@drawable/ic_facebook" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/x_ic"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/x_twitter_ic"
+                    android:padding="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/oval_background"
+                    android:backgroundTint="#00ACEE"
                     android:visibility="gone"
-                    app:tint="@color/flexible_text_color" />
+                    tools:visibility="visible"
+                    app:srcCompat="@drawable/ic_x_twitter" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/instagram_ic"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/instagram_ic"
+                    android:padding="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/oval_background"
+                    android:backgroundTint="#FC136B"
                     android:visibility="gone"
-                    app:tint="@color/flexible_text_color" />
+                    tools:visibility="visible"
+                    app:srcCompat="@drawable/ic_instagram" />
+
             </LinearLayout>
 
 
