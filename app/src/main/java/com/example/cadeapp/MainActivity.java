@@ -255,12 +255,12 @@ public class MainActivity extends AppCompatActivity {
                                     itemsAdapterPulques.notifyItemInserted(dc.getNewIndex());// Notificar al adaptador que hemos insertado datos
 
                                     // Crear una nueva vista de notificación
-                                    View notificationView = getLayoutInflater().inflate(R.layout.layout_notification, null);
+                                    View notificationView = getLayoutInflater().inflate(R.layout.layout_notificationp, null);
                                     TextView notificationMessage = notificationView.findViewById(R.id.notificationMessage);
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                         notificationMessage.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
                                     }
-                                    String mensaje = dc.getDocument().getString("nombre_barbacoa")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!";
+                                    String mensaje = dc.getDocument().getString("nombre_pulque")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!";
                                     notificationMessage.setText(mensaje);
 
                                     // Ajustar márgenes para la vista de notificación
@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                                     itemsAdapterPulques.notifyItemRemoved(dc.getOldIndex());// Notificar al adaptador que los datos han sido eliminados
 
                                     // Crear una nueva vista de notificación y agregarla
-                                    View notificationViewRemoved = getLayoutInflater().inflate(R.layout.layout_notification, null);
+                                    View notificationViewRemoved = getLayoutInflater().inflate(R.layout.layout_notificationp, null);
                                     TextView notificationMessageRemoved = notificationViewRemoved.findViewById(R.id.notificationMessage);
                                     String removedMessage = dc.getDocument().getString("nombre_pulque") + " ya no está disponible en Cadereyta :(";
                                     notificationMessageRemoved.setText(removedMessage);
