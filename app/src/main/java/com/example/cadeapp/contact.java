@@ -141,10 +141,8 @@ public class contact extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        super.onBackPressed();
-
-        Intent intent = new Intent(contact.this, MainActivity.class);
-        startActivity(intent);
+        // Establecer el resultado como RESULT_OK
+        setResult(RESULT_OK);
         finish();
     }
 

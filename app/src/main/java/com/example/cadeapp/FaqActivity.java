@@ -36,6 +36,12 @@ public class FaqActivity extends ScrollingActivity {
         setRecyclerView();
     }
 
+    public void onBackPressed(){
+        // Establecer el resultado como RESULT_OK
+        setResult(RESULT_OK);
+        finish();
+    }
+
     private void setRecyclerView() {
         VersionsAdapter versionsAdapter = new VersionsAdapter(versionsList);
         recyclerView.setAdapter(versionsAdapter);
