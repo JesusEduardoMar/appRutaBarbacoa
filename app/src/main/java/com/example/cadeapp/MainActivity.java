@@ -598,7 +598,7 @@ public class MainActivity extends AppCompatActivity {
         relativeFAQ1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Iniciar la actividad "contact" con startActivityForResult
+                // Iniciar la actividad "FAQ" con startActivityForResult
                 Intent intent = new Intent(MainActivity.this, FaqActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_CONTACT);
             }
@@ -692,7 +692,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
         }
 
-        //Manejar el resultado de la actividad (contact)
+        //Manejar el resultado de la actividad (contact y FAQ)
         //Se utiliza en Android para recibir resultados de actividades secundarias que han sido iniciadas mediante startActivityForResult()
         @Override
         protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
