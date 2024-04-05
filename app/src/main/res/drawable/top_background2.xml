@@ -12,11 +12,9 @@
         </shape>
     </item>
     <item
-        android:width="60dp"
-        android:height="60dp"
-        android:top="40dp"
-        android:right="20dp"
-        android:gravity="right">
+        android:width="150dp"
+        android:height="150dp"
+        android:gravity="center">
         <bitmap android:src="@drawable/escudo_cadereyta" />
     </item>
 

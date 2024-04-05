@@ -85,7 +85,7 @@ public class contact extends ScrollingActivity {
                         String email = document.getString("email");
                         facebook_link = document.getString("facebook");
                         x_twitter_link = document.getString("x");
-                        instagram_link = document.getString("instagram_link");
+                        instagram_link = document.getString("instagram");
 
                         // Show on layout
                         phone_text.setText(phone);
@@ -100,7 +100,7 @@ public class contact extends ScrollingActivity {
                                 startActivity(intent);
                             }
                         });
-                        // OnClickListener for facebook button
+                        // OnClickListener for x button
                         x_im.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -108,7 +108,7 @@ public class contact extends ScrollingActivity {
                                 startActivity(intent);
                             }
                         });
-                        // OnClickListener for facebook button
+                        // OnClickListener for instagram button
                         instagram_im.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

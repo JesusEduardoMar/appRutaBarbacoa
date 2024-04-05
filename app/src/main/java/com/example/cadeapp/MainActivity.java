@@ -699,6 +699,8 @@ public class MainActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
 
             if (requestCode == REQUEST_CODE_CONTACT && resultCode == RESULT_OK) {
+                // Establecer el ícono del menú como activo en el Meow Bottom Navigation
+                bottomNavigation.show(1, true);
                 // Mostrar la vista del menú
                 menu.setVisibility(View.VISIBLE);
                 profile.setVisibility(View.GONE);
