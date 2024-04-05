@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     private Task<QuerySnapshot> eventosTask;
     RelativeLayout relativeContact1;
     RelativeLayout relativeFAQ1;
+    private static final int REQUEST_CODE_CONTACT = 101; //Constante utilizada para regresar a menu desde contact
 
     // Método llamado a la hora de crear la actividad
     @Override
@@ -587,18 +588,18 @@ public class MainActivity extends AppCompatActivity {
         relativeContact1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // Iniciar la actividad "contact" con startActivityForResult
                     Intent intent = new Intent(MainActivity.this, contact.class);
-                    startActivity(intent);
-                    finish();
+                    startActivityForResult(intent, REQUEST_CODE_CONTACT);
                 }
             });
 
         relativeFAQ1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Iniciar la actividad "FAQ" con startActivityForResult
                 Intent intent = new Intent(MainActivity.this, FaqActivity.class);
-                startActivity(intent);
-                finish();
+                startActivityForResult(intent, REQUEST_CODE_CONTACT);
             }
         });
       
@@ -713,4 +714,23 @@ public class MainActivity extends AppCompatActivity {
         private void mostrarMensaje(String mensaje){
             Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
         }
-    }
+
+        //Manejar el resultado de la actividad (contact y FAQ)
+        //Se utiliza en Android para recibir resultados de actividades secundarias que han sido iniciadas mediante startActivityForResult()
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == REQUEST_CODE_CONTACT && resultCode == RESULT_OK) {
+                // Establecer el ícono del menú como activo en el Meow Bottom Navigation
+                bottomNavigation.show(1, true);
+                // Mostrar la vista del menú
+                menu.setVisibility(View.VISIBLE);
+                profile.setVisibility(View.GONE);
+                home.setVisibility(View.GONE);
+                notifications.setVisibility(View.GONE);
+                map.setVisibility(View.GONE);
+            }
+        }
+
+}

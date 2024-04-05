@@ -5,6 +5,7 @@ import static com.google.android.material.internal.ContextUtils.getActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,19 +30,35 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class contact extends AppCompatActivity {
+public class contact extends ScrollingActivity {
 
     protected TextView phone_text, email_text, social_m_legend;
     protected ImageView facebook_im, x_im, instagram_im;
     protected LinearLayout social_media_list;
     protected int social_media_weight;
     protected String facebook_link, x_twitter_link, instagram_link;
+    private ImageView toolbar_icon;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        title = "Contáctanos";
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
+        //setContentView(R.layout.activity_contact);
+
+        // Change Icon of top_background
+        toolbar_icon = findViewById(R.id.toolbar_icon);
+        toolbar_icon.setImageResource(R.drawable.top_background2);
+        toolbar_icon.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        //incrustar activity contact
+        NestedScrollView nscrollv;
+        nscrollv = findViewById(R.id.nestedScrollView);
+        LayoutInflater inflater = getLayoutInflater();
+        View myLayout = inflater.inflate(R.layout.activity_contact, nscrollv, false);
+        nscrollv.removeAllViews();
+        nscrollv.addView(myLayout);
+
         // Cambiar el color de la barra de estado
         cambiarColorBarraEstado(getResources().getColor(R.color.black));
 
@@ -67,7 +85,7 @@ public class contact extends AppCompatActivity {
                         String email = document.getString("email");
                         facebook_link = document.getString("facebook");
                         x_twitter_link = document.getString("x");
-                        instagram_link = document.getString("instagram_link");
+                        instagram_link = document.getString("instagram");
 
                         // Show on layout
                         phone_text.setText(phone);
@@ -82,7 +100,7 @@ public class contact extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
-                        // OnClickListener for facebook button
+                        // OnClickListener for x button
                         x_im.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -90,7 +108,7 @@ public class contact extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
-                        // OnClickListener for facebook button
+                        // OnClickListener for instagram button
                         instagram_im.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -141,10 +159,8 @@ public class contact extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        super.onBackPressed();
-
-        Intent intent = new Intent(contact.this, MainActivity.class);
-        startActivity(intent);
+        // Establecer el resultado como RESULT_OK
+        setResult(RESULT_OK);
         finish();
     }
 

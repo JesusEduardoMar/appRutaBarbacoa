@@ -15,10 +15,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -141,7 +143,19 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
             }
         });
         // Mostramos el diálogo con los lugares
-        builder.show();
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        // Agregar margen inferior al contenido del AlertDialog
+        Window window = alertDialog.getWindow();
+        if (window != null) {
+            View content = window.findViewById(android.R.id.content);
+            if (content != null) {
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) content.getLayoutParams();
+                params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 360, getResources().getDisplayMetrics());
+                params.setMargins(0, 0, 0, 20); // Establecer el margen inferior deseado
+                content.setLayoutParams(params);
+            }
+        }
     }
 
     private void moveCameraToLocation(double latitude, double longitude) {
@@ -237,8 +251,20 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                             });
                 }
             });
-            // Mostramos el diálogo con los lugares
-            builder.show();
+        // Mostramos el diálogo con los lugares
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        // Agregar margen inferior al contenido del AlertDialog
+        Window window = alertDialog.getWindow();
+        if (window != null) {
+            View content = window.findViewById(android.R.id.content);
+            if (content != null) {
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) content.getLayoutParams();
+                params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 360, getResources().getDisplayMetrics());
+                params.setMargins(0, 0, 0, 20); // Establecer el margen inferior deseado
+                content.setLayoutParams(params);
+            }
+        }
         }
 
     @Override
