@@ -66,7 +66,7 @@ public class DetailEventosActivity extends AppCompatActivity {
             textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
         addressText = findViewById(R.id.addressText);
-        eventoImg = findViewById(R.id.vinedoImg);
+        //eventoImg = findViewById(R.id.vinedoImg);
         //boton01 = findViewById(R.id.botonRestar);
         //boton02 = findViewById(R.id.botonSumar);
         //cajaDeTexto = findViewById(R.id.textcont);
@@ -261,7 +261,7 @@ public class DetailEventosActivity extends AppCompatActivity {
                         horarioTextView.setText(horario); // Asignar la fecha del evento directamente al TextView
 
                         // Cargamos la imagen utilizando Glide
-                        Glide.with(DetailEventosActivity.this).load(imageUrl).into(eventoImg);
+                        //Glide.with(DetailEventosActivity.this).load(imageUrl).into(eventoImg);
 
                         // Mostramos los comentarios del evento en el que estamos comentando
                         mostrarComentariosEvento();
