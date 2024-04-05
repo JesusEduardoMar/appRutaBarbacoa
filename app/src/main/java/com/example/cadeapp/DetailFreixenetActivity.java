@@ -1,5 +1,10 @@
 package com.example.cadeapp;
 
+import static com.google.firebase.firestore.AggregateField.average;
+import static com.google.firebase.firestore.AggregateField.count;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
@@ -24,7 +29,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -33,7 +41,8 @@ import java.util.List;
 
 public class DetailFreixenetActivity extends AppCompatActivity {
     private TextView titleText, addressText, textDescription, horarioTextView, comentariosText;
-    private ImageView vinedoImg;
+    private TextView calificacionScore, calificacionTotal;
+    private RatingBar calificacionBar;
     private int contador;
     private Button boton01, boton02;
     private TextView cajaDeTexto;
@@ -48,6 +57,9 @@ public class DetailFreixenetActivity extends AppCompatActivity {
     private RecyclerView imagesRecycler1;
     private ItemsAdapterHistoria itemsAdapterHistoria;
     private List<String> items;
+
+    private int totalCalificaciones;
+    private float promedioCalificaciones;
     //////
 
     @Override
@@ -65,7 +77,6 @@ public class DetailFreixenetActivity extends AppCompatActivity {
             textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
         addressText = findViewById(R.id.addressText);
-        vinedoImg = findViewById(R.id.vinedoImg);
         //boton01 = findViewById(R.id.botonRestar);
         //boton02 = findViewById(R.id.botonSumar);
         //cajaDeTexto = findViewById(R.id.textcont);
@@ -81,6 +92,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         EditText editTextComentario = findViewById(R.id.editTextComentario);
         RatingBar ratingBarOpinion = findViewById(R.id.ratingBarOpinion);
         Button botonEnviarOpinion = findViewById(R.id.botonEnviarOpinion);
+        Button botonMostrarComentarios = findViewById(R.id.verMasComentariosButton);
 
 
         //Para cargar las imagenes en el recycler view(Kevan)
@@ -96,6 +108,11 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         opinionesList = new ArrayList<>();
         comentarioAdapter = new OpinionAdapter(opinionesList);
         recyclerViewComentarios.setAdapter(comentarioAdapter);
+
+        // Calificación general
+        calificacionScore = findViewById(R.id.calificacionLugarScore);
+        calificacionTotal = findViewById(R.id.calificacionLugarTotal);
+        calificacionBar = findViewById(R.id.calificacionLugarBar);
 
         // Obtenemos el ID de la barbacoa actual
         idBarbacoa = obtenerIdBarbacoa();
@@ -121,7 +138,16 @@ public class DetailFreixenetActivity extends AppCompatActivity {
 
         // Configuramos los listeners para los botones de incremento y decremento
         // configurarListenersBotones();
+
+        botonMostrarComentarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCommentsDialog();
+            }
+        });
     }
+
+
     // Cargar las imagenes en el recyclerview desde firestore
     private void cargarImagenesDesdeFirestore(String lugarId) {
         mFirestore.collection("imagesall")
@@ -159,12 +185,22 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                             String comentario = document.getString("comentario");
                             float calificacion = document.getDouble("calificacion").floatValue();
 
+                            totalCalificaciones += 1;
+                            promedioCalificaciones += calificacion;
+
                             // Crea un nuevo objeto Opinion con los datos del documento
                             Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
 
                             // Agrega la nueva opinión a la lista
                             listaOpiniones.add(nuevaOpinion);
                         }
+
+                        // Obtener y mostrar promedio general
+                        promedioCalificaciones = promedioCalificaciones / totalCalificaciones;
+                        String promedio = String.format("%.1f", promedioCalificaciones);
+                        calificacionScore.setText(promedio);
+                        calificacionBar.setRating(promedioCalificaciones);
+                        calificacionTotal.setText(totalCalificaciones + " opiniones");
 
                         // Notifica al adaptador que los datos han cambiado
                         comentarioAdapter.notifyDataSetChanged();
@@ -259,10 +295,6 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                             textDescription.setText(info);
                             addressText.setText(ubicacion);
                             horarioTextView.setText(horario);
-
-                            // Cargamos la imagen utilizando Glide
-                            Glide.with(DetailFreixenetActivity.this).load(imageUrl).into(vinedoImg);
-
                             // Mostramos los comentarios de la barbacoa en la que estamos comentando
                             mostrarComentariosBarbacoa();
                         }
@@ -304,21 +336,22 @@ public class DetailFreixenetActivity extends AppCompatActivity {
 
     // Método para mostrar los comentarios de la respectiva barbacoa
     private void mostrarComentariosBarbacoa() {
-        // Consultamos en Firestore para obtener comentarios relacionados con la barbacoa actual
+
+        // Consulta en Firestore para obtener comentarios relacionados con la barbacoa actual
         mFirestore.collection("opiniones")
-                .whereEqualTo("idBarbacoa", idBarbacoa)
-                .get()
-                .addOnCompleteListener(task -> {
+                .whereEqualTo("idBarbacoa", idBarbacoa).limit(3)
+                .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Limpiamos la lista antes de añadir las nuevas opiniones
                         opinionesList.clear();
-
                         // Iteramos sobre los documentos obtenidos en la consulta
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Extraemos los campos del documento
                             String comentario = document.getString("comentario");
                             String nombreUsuario = document.getString("nombreUsuario");
                             float calificacion = document.getDouble("calificacion").floatValue();
+                            totalCalificaciones += 1;
+                            promedioCalificaciones += calificacion;
 
                             // Creamos un nuevo objeto Opinion
                             Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
@@ -326,6 +359,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                             // Agregamos la nueva opinión a la lista
                             opinionesList.add(nuevaOpinion);
                         }
+                        promedioCalificaciones = promedioCalificaciones / totalCalificaciones;
 
                         // Notificamos al adaptador sobre los cambios en la lista
                         comentarioAdapter.notifyDataSetChanged();
@@ -334,7 +368,9 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                         Log.e("DetailFreixenetActivity", "Error al obtener comentarios", task.getException());
                     }
                 });
+
     }
+
     // Método para obtener el ID de la barbacoa actual
     private String obtenerIdBarbacoa() {
         Intent intent = getIntent();
@@ -348,6 +384,42 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         Toast.makeText(this, "Error: ID de barbacoa no válida", Toast.LENGTH_SHORT).show();
         return "";
     }
+
+    // Mostrar todos los comentarios
+    private void showCommentsDialog(){
+        mFirestore.collection("opiniones")
+                .whereEqualTo("idBarbacoa", idBarbacoa)
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Limpiamos la lista antes de añadir las nuevas opiniones
+                        opinionesList.clear();
+                        // Iteramos sobre los documentos obtenidos en la consulta
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Extraemos los campos del documento
+                            String comentario = document.getString("comentario");
+                            String nombreUsuario = document.getString("nombreUsuario");
+                            float calificacion = document.getDouble("calificacion").floatValue();
+                            totalCalificaciones += 1;
+                            promedioCalificaciones += calificacion;
+
+                            // Creamos un nuevo objeto Opinion
+                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
+
+                            // Agregamos la nueva opinión a la lista
+                            opinionesList.add(nuevaOpinion);
+                        }
+                        promedioCalificaciones = promedioCalificaciones / totalCalificaciones;
+
+                        // Notificamos al adaptador sobre los cambios en la lista
+                        comentarioAdapter.notifyDataSetChanged();
+                    } else {
+                        // Manejo de errores
+                        Log.e("DetailFreixenetActivity", "Error al obtener comentarios", task.getException());
+                    }
+                });
+    }
+
+
 }
 
 

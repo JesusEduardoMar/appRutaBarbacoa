@@ -65,7 +65,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
             textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
         addressText = findViewById(R.id.addressText);
-        vinedoImg = findViewById(R.id.vinedoImg);
+        //vinedoImg = findViewById(R.id.vinedoImg);
         //boton01 = findViewById(R.id.botonRestar);
         //boton02 = findViewById(R.id.botonSumar);
         //cajaDeTexto = findViewById(R.id.textcont);
@@ -261,7 +261,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                             horarioTextView.setText(horario);
 
                             // Cargamos la imagen utilizando Glide
-                            Glide.with(DetailPulqueActivity.this).load(imageUrl).into(vinedoImg);
+                            //Glide.with(DetailPulqueActivity.this).load(imageUrl).into(vinedoImg);
 
                             // Mostramos los comentarios del pulque en la que estamos comentando
                             mostrarComentariosPulque();
