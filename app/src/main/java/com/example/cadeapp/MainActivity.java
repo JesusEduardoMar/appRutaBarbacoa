@@ -93,8 +93,44 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         //notifications = findViewById(R.id.notifications);
-        // Dentro de tu método onCreate después de setContentView(R.layout.activity_main);
         LinearLayout notificationContainer = findViewById(R.id.notificationContainerr);
+        LinearLayout notificationContainerNuevas = findViewById(R.id.notificationContainerNuevas);
+        LinearLayout notificationContainerUltimos7Dias = findViewById(R.id.notificationContainerUltimos7Dias);
+        LinearLayout notificationContainerUltimos30Dias = findViewById(R.id.notificationContainerUltimos30Dias);
+
+        Date currentDate = new Date();
+
+        Calendar calendarToday = Calendar.getInstance();
+        calendarToday.setTime(currentDate);
+        calendarToday.set(Calendar.HOUR_OF_DAY, 0); // Hora del día a las 00:00
+        calendarToday.set(Calendar.MINUTE, 0); // Mminutos a 0
+        calendarToday.set(Calendar.SECOND, 0); // Segundos a 0
+        calendarToday.set(Calendar.MILLISECOND, 0); // Milisegundos a 0
+
+        // Guardamos la fecha de inicio del día actual
+        Date todayStartTime = calendarToday.getTime();
+
+        // Obtenemos el tiempo en milisegundos por si las dudas
+        long todayStartTimeInMillis = calendarToday.getTimeInMillis();
+
+        // Obtenemos la fecha de ayer
+        Calendar calendarYesterday = Calendar.getInstance();
+        calendarYesterday.setTime(currentDate);
+        calendarYesterday.add(Calendar.DAY_OF_YEAR, -1);
+        Date yesterday = calendarYesterday.getTime();
+
+        // Obtenemos la fecha de hace 7 días
+        Calendar calendar7DaysAgo = Calendar.getInstance();
+        calendar7DaysAgo.setTime(currentDate);
+        calendar7DaysAgo.add(Calendar.DAY_OF_YEAR, -7);
+        Date date7DaysAgo = calendar7DaysAgo.getTime();
+
+        // Obtenemos la fecha de hace 30 días
+        Calendar calendar30DaysAgo = Calendar.getInstance();
+        calendar30DaysAgo.setTime(currentDate);
+        calendar30DaysAgo.add(Calendar.DAY_OF_YEAR, -30);
+        Date date30DaysAgo = calendar30DaysAgo.getTime();
+
 
         Button button3 = findViewById(R.id.button3);
 
@@ -121,31 +157,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                     for (DocumentChange dc : value.getDocumentChanges()) {
                         if (dc.getType() == DocumentChange.Type.ADDED) {
+                            Date notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
+
                             ItemsDomainEventos evento = dc.getDocument().toObject(ItemsDomainEventos.class);
                             items2.add(evento);
 
-                            // Crear una nueva vista de notificación
-                            View notificationView = getLayoutInflater().inflate(R.layout.layout_notification, null);
-                            TextView notificationMessage = notificationView.findViewById(R.id.notificationMessage);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                notificationMessage.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+                            // Comparamos la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
+                            if (notificationDate.after(todayStartTime)) {
+                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ evento.getFecha_evento(), notificationContainerNuevas, R.layout.layout_notificatione);
+                            } else if (notificationDate.after(date7DaysAgo)) {
+                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ evento.getFecha_evento(), notificationContainerUltimos7Dias, R.layout.layout_notificatione);
+                            } else if (notificationDate.after(date30DaysAgo)) {
+                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ evento.getFecha_evento(), notificationContainerUltimos30Dias, R.layout.layout_notificatione);
                             }
-                            String mensaje = "¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ evento.getFecha_evento();
-                            notificationMessage.setText(mensaje);
-
-                            // Ajustar márgenes para la vista de notificación
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
-                            );
-                            int marginPixels = (int) (12 * getResources().getDisplayMetrics().density);
-                            layoutParams.setMargins(0, 0, 0, marginPixels);
-
-                            // Aplicar los parámetros de diseño a la vista de notificación
-                            notificationView.setLayoutParams(layoutParams);
-
-                            // Agregar la nueva notificación al LinearLayout
-                            notificationContainer.addView(notificationView);
                         }
                     }
                     itemsAdapterEventos.notifyDataSetChanged();
@@ -175,33 +199,25 @@ public class MainActivity extends AppCompatActivity {
                             for (DocumentChange dc : value.getDocumentChanges()) {
                                 switch (dc.getType()) {
                                     case ADDED:
+                                        // Agregar el elemento al RecyclerView
                                         items.add(dc.getNewIndex(), dc.getDocument().toObject(ItemsDomainVinedos.class));
                                         itemsAdapterVinedos.notifyItemInserted(dc.getNewIndex());// Notificar al adaptador que hemos insertado datos
 
-                                        // Crear una nueva vista de notificación
-                                        View notificationView = getLayoutInflater().inflate(R.layout.layout_notification, null);
-                                        TextView notificationMessage = notificationView.findViewById(R.id.notificationMessage);
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                            notificationMessage.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+                                        // Procesamos las notificaciones
+                                        Date notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
+                                        ItemsDomainVinedos evento = dc.getDocument().toObject(ItemsDomainVinedos.class);
+                                        //items.add(evento);
+
+                                        // Comparamos la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
+                                        if (notificationDate.after(todayStartTime)) {
+                                            addNotification(dc.getDocument().getString("nombre_barbacoa")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!", notificationContainerNuevas, R.layout.layout_notification);
+                                        } else if (notificationDate.after(date7DaysAgo)) {
+                                            addNotification(dc.getDocument().getString("nombre_barbacoa")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!", notificationContainerUltimos7Dias, R.layout.layout_notification);
+                                        } else if (notificationDate.after(date30DaysAgo)) {
+                                            addNotification(dc.getDocument().getString("nombre_barbacoa")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!", notificationContainerUltimos30Dias, R.layout.layout_notification);
                                         }
-                                        String mensaje = dc.getDocument().getString("nombre_barbacoa")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!";
-                                        notificationMessage.setText(mensaje);
-
-                                        // Ajustar márgenes para la vista de notificación
-                                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                                LinearLayout.LayoutParams.WRAP_CONTENT
-                                        );
-                                        int marginPixels = (int) (12 * getResources().getDisplayMetrics().density);
-                                        layoutParams.setMargins(0, 0, 0, marginPixels);
-
-                                        // Aplicar los parámetros de diseño a la vista de notificación
-                                        notificationView.setLayoutParams(layoutParams);
-
-                                        // Agregar la nueva notificación al LinearLayout
-                                        notificationContainer.addView(notificationView);
-
                                         break;
+
                                     case MODIFIED:
                                         items.set(dc.getOldIndex(), dc.getDocument().toObject(ItemsDomainVinedos.class));
                                         itemsAdapterVinedos.notifyItemChanged(dc.getOldIndex());// Notificar al adaptador que los datos han cambiado
@@ -209,22 +225,17 @@ public class MainActivity extends AppCompatActivity {
                                     case REMOVED:
                                         items.remove(dc.getOldIndex());
                                         itemsAdapterVinedos.notifyItemRemoved(dc.getOldIndex());// Notificar al adaptador que los datos han sido eliminados
+                                        // Procesar notificaciones
+                                        notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
 
-                                        // Crear una nueva vista de notificación y agregarla
-                                        View notificationViewRemoved = getLayoutInflater().inflate(R.layout.layout_notification, null);
-                                        TextView notificationMessageRemoved = notificationViewRemoved.findViewById(R.id.notificationMessage);
-                                        String removedMessage = dc.getDocument().getString("nombre_barbacoa") + " ya no está disponible en Cadereyta :(";
-                                        notificationMessageRemoved.setText(removedMessage);
-                                        // Ajustar márgenes para la vista de notificación
-                                        LinearLayout.LayoutParams layoutParamsRemoved = new LinearLayout.LayoutParams(
-                                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                                LinearLayout.LayoutParams.WRAP_CONTENT
-                                        );
-                                        int marginPixelsRemoved = (int) (12 * getResources().getDisplayMetrics().density);
-                                        layoutParamsRemoved.setMargins(0, 0, 0, marginPixelsRemoved);
-                                        notificationViewRemoved.setLayoutParams(layoutParamsRemoved);
-                                        notificationContainer.addView(notificationViewRemoved);
-
+                                        // Comparar la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
+                                        if (notificationDate.after(todayStartTime)) {
+                                            addNotification(dc.getDocument().getString("nombre_barbacoa")+ " ya no está disponible en Cadereyta :(", notificationContainerNuevas, R.layout.layout_notification);
+                                        } else if (notificationDate.after(date7DaysAgo)) {
+                                            addNotification(dc.getDocument().getString("nombre_barbacoa")+ " ya no está disponible en Cadereyta :(", notificationContainerUltimos7Dias, R.layout.layout_notification);
+                                        } else if (notificationDate.after(date30DaysAgo)) {
+                                            addNotification(dc.getDocument().getString("nombre_barbacoa")+ " ya no está disponible en Cadereyta :(", notificationContainerUltimos30Dias, R.layout.layout_notification);
+                                        }
                                         break;
                                 }
                             }
@@ -253,56 +264,44 @@ public class MainActivity extends AppCompatActivity {
                         for (DocumentChange dc : value.getDocumentChanges()) {
                             switch (dc.getType()) {
                                 case ADDED:
+                                    // Agregamos el elemento al RecyclerView
                                     items3.add(dc.getNewIndex(), dc.getDocument().toObject(ItemsDomainPulques.class));
                                     itemsAdapterPulques.notifyItemInserted(dc.getNewIndex());// Notificar al adaptador que hemos insertado datos
 
-                                    // Crear una nueva vista de notificación
-                                    View notificationView = getLayoutInflater().inflate(R.layout.layout_notificationp, null);
-                                    TextView notificationMessage = notificationView.findViewById(R.id.notificationMessage);
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                        notificationMessage.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+                                    // Procesamos las notificaciones
+                                    Date notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
+                                    ItemsDomainPulques pulque = dc.getDocument().toObject(ItemsDomainPulques.class);
+                                    //items3.add(pulque);
+
+                                    // Comparamos la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
+                                    if (notificationDate.after(todayStartTime)) {
+                                        addNotification(dc.getDocument().getString("nombre_pulque")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!", notificationContainerNuevas, R.layout.layout_notificationp);
+                                    } else if (notificationDate.after(date7DaysAgo)) {
+                                        addNotification(dc.getDocument().getString("nombre_pulque")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!", notificationContainerUltimos7Dias, R.layout.layout_notificationp);
+                                    } else if (notificationDate.after(date30DaysAgo)) {
+                                        addNotification(dc.getDocument().getString("nombre_pulque")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!", notificationContainerUltimos30Dias, R.layout.layout_notificationp);
                                     }
-                                    String mensaje = dc.getDocument().getString("nombre_pulque")+ " está disponible en Cadereyta, ¡Ven a Conocerlo!";
-                                    notificationMessage.setText(mensaje);
-
-                                    // Ajustar márgenes para la vista de notificación
-                                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                                            LinearLayout.LayoutParams.MATCH_PARENT,
-                                            LinearLayout.LayoutParams.WRAP_CONTENT
-                                    );
-                                    int marginPixels = (int) (12 * getResources().getDisplayMetrics().density);
-                                    layoutParams.setMargins(0, 0, 0, marginPixels);
-
-                                    // Aplicar los parámetros de diseño a la vista de notificación
-                                    notificationView.setLayoutParams(layoutParams);
-
-                                    // Agregar la nueva notificación al LinearLayout
-                                    notificationContainer.addView(notificationView);
-
                                     break;
+
                                 case MODIFIED:
                                     items3.set(dc.getOldIndex(), dc.getDocument().toObject(ItemsDomainPulques.class));
                                     itemsAdapterPulques.notifyItemChanged(dc.getOldIndex());// Notificar al adaptador que los datos han cambiado
                                     break;
                                 case REMOVED:
-                                    items.remove(dc.getOldIndex());
+                                    items3.remove(dc.getOldIndex());
                                     itemsAdapterPulques.notifyItemRemoved(dc.getOldIndex());// Notificar al adaptador que los datos han sido eliminados
 
-                                    // Crear una nueva vista de notificación y agregarla
-                                    View notificationViewRemoved = getLayoutInflater().inflate(R.layout.layout_notificationp, null);
-                                    TextView notificationMessageRemoved = notificationViewRemoved.findViewById(R.id.notificationMessage);
-                                    String removedMessage = dc.getDocument().getString("nombre_pulque") + " ya no está disponible en Cadereyta :(";
-                                    notificationMessageRemoved.setText(removedMessage);
-                                    // Ajustar márgenes para la vista de notificación
-                                    LinearLayout.LayoutParams layoutParamsRemoved = new LinearLayout.LayoutParams(
-                                            LinearLayout.LayoutParams.MATCH_PARENT,
-                                            LinearLayout.LayoutParams.WRAP_CONTENT
-                                    );
-                                    int marginPixelsRemoved = (int) (12 * getResources().getDisplayMetrics().density);
-                                    layoutParamsRemoved.setMargins(0, 0, 0, marginPixelsRemoved);
-                                    notificationViewRemoved.setLayoutParams(layoutParamsRemoved);
-                                    notificationContainer.addView(notificationViewRemoved);
+                                    // Procesar notificaciones
+                                    notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
 
+                                    // Comparar la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
+                                    if (notificationDate.after(todayStartTime)) {
+                                        addNotification(dc.getDocument().getString("nombre_pulque")+ " ya no está disponible en Cadereyta :(", notificationContainerNuevas, R.layout.layout_notificationp);
+                                    } else if (notificationDate.after(date7DaysAgo)) {
+                                        addNotification(dc.getDocument().getString("nombre_pulque")+ " ya no está disponible en Cadereyta :(", notificationContainerUltimos7Dias, R.layout.layout_notificationp);
+                                    } else if (notificationDate.after(date30DaysAgo)) {
+                                        addNotification(dc.getDocument().getString("nombre_pulque")+ " ya no está disponible en Cadereyta :(", notificationContainerUltimos30Dias, R.layout.layout_notificationp);
+                                    }
                                     break;
                             }
                         }
@@ -624,6 +623,30 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    // --> addNotification: Aquí configuramos las NOTIFICACIONES
+    private void addNotification(String mensaje, LinearLayout notificationContainer, int layoutResId) {
+        View notificationView = getLayoutInflater().inflate(layoutResId, null);
+        TextView notificationMessage = notificationView.findViewById(R.id.notificationMessage);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationMessage.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+        }
+        notificationMessage.setText(mensaje);
+
+        // Ajustar márgenes para la vista de notificación
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        int marginPixels = (int) (12 * getResources().getDisplayMetrics().density);
+        layoutParams.setMargins(0, 0, 0, marginPixels);
+
+        // Aplicar los parámetros de diseño a la vista de notificación
+        notificationView.setLayoutParams(layoutParams);
+
+        // Agregar la nueva notificación al contenedor especificado
+        notificationContainer.addView(notificationView);
     }
 
     private void mostrarSnackbar(String mensaje) {

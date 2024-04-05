@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e6bcc2"
     tools:context=".DetailEventosActivity"
-    android:padding="5dp"
+    android:padding="0dp"
     android:windowSoftInputMode="adjustPan">
 
     <ScrollView
@@ -23,148 +22,107 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imagesRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingStart="20dp"
+                android:paddingEnd="24dp" />
+
             <!-- Título -->
             <TextView
                 android:id="@+id/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Freixenet"
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textColor="@color/flexible_text_color"
+                android:textSize="25sp"
                 android:textStyle="bold"
-                android:layout_marginStart="90dp"
-                android:layout_marginEnd="90dp"
+                android:layout_marginHorizontal="90dp"
+                android:layout_marginVertical="20dp"
                 android:maxLines="2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 android:gravity="center"
                 android:layout_marginTop="8dp"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="#7E9A9A9A" />
 
             <!-- Dirección y marcador -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                android:gravity="center_vertical"
+                android:layout_margin="20dp">
 
                 <ImageView
                     android:id="@+id/imgUbicacion"
-                    android:layout_width="25dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="20dp"
                     android:src="@drawable/marcador" />
 
                 <TextView
                     android:id="@+id/addressText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:text="Carretera San Juan del Río - Cadereyta Km. 40.5"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_marginBottom="20dp"/>
+                    android:textColor="@color/flexible_text_color"
+                    android:textSize="16sp"/>
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--  Imágen y horario -->
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
-
-                <ImageView
-                    android:id="@+id/vinedoImg"
-                    android:layout_width="425dp"
-                    android:layout_height="280dp"
-                    android:src="@drawable/freixenett"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.428"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!--<View
-                    android:id="@+id/view2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="65dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="#70000000"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imgUbicacion"
-                    android:layout_width="25dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:src="@drawable/marcador"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/titleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Freixenet"
-                    android:textColor="@color/white"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="10dp"
-                    app:layout_constraintStart_toStartOf="@+id/imgUbicacion"
-                    app:layout_constraintTop_toTopOf="@+id/view2" />
-
-                <TextView
-                    android:id="@+id/addressText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="-8dp"
-                    android:text="Carretera San Juan del Río - Cadereyta Km. 40.5"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imgUbicacion"
-                    app:layout_constraintStart_toEndOf="@+id/imgUbicacion"
-                    app:layout_constraintTop_toTopOf="@+id/imgUbicacion"
-                    app:layout_constraintTop_toBottomOf="@+id/titleText"/>-->
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!--  Imágen y horario -->
-
-            <ImageView
-                android:id="@+id/imgHorario"
-                android:layout_width="45dp"
-                android:layout_height="55dp"
-                android:layout_marginStart="30dp"
-                android:src="@drawable/horario" />
-
-            <TextView
-                android:id="@+id/horarioTextView"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-40dp"
-                android:text="Horario: "
-                android:textSize="16sp"
-                android:maxLines="2"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBarOpinion"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="85dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="12dp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:id="@+id/imgHorario"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/horario" />
 
+                <TextView
+                    android:id="@+id/horarioTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Horario: "
+                    android:textSize="16sp"
+                    android:maxLines="2"
+                    android:textColor="@color/flexible_text_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBarOpinion"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </LinearLayout>
             <!--  Imágen y horario -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="#7E9A9A9A" />
 
             <TextView
                 android:id="@+id/descripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:text="Acerca de"
-                android:textColor="@color/black"
+                android:textColor="@color/flexible_text_color"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
 
@@ -177,55 +135,56 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="25dp"
                 android:text="Freixenet en Querétaro ofrece un encanto vinícola único. Descubre el arte de elaborar cavas de calidad internacional en un entorno pintoresco. Experiencia inolvidable de catas y belleza natural."
-                android:textColor="@color/black"
+                android:textColor="@color/flexible_text_color"
                 android:textSize="16sp"
                 android:gravity="start|top|end" />
 
-            <TextView
-                android:id="@+id/imagenes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="3dp"
-                android:text="Fotos del evento"
-                android:textColor="@color/black"
-                android:textSize="22dp"
-                android:textStyle="bold"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/imagesRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingStart="20dp"
-                android:paddingEnd="24dp"
-                android:background="#e6bcc2" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewImages"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxHeight="300dp"
-                android:background="#c78790"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/comentariosText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_margin="20dp"
                 android:text="Opiniones sobre el lugar"
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textColor="@color/flexible_text_color"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/calificacionLugarScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/flexible_text_color"
+                android:text="0.0"
+                android:layout_gravity="center_horizontal"
+                android:textSize="50sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="90dp"
-                android:layout_marginBottom="11dp"/>
+                android:layout_marginTop="10dp"/>
+
+            <RatingBar
+                android:id="@+id/calificacionLugarBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="0"
+                android:scaleX="0.6"
+                android:scaleY="0.6"
+                android:progressTint="@color/dark_orange"
+                android:stepSize="1"/>
+
+
+            <TextView
+                android:id="@+id/calificacionLugarTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/flexible_text_color"
+                android:text="0 opiniones"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"/>
+
 
             <TextView
                 android:id="@+id/noOpinionMessage"
@@ -240,17 +199,15 @@
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginBottom="20dp">
-
+                android:layout_height="wrap_content">
 
                 <!-- RecyclerView para los comentarios -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewComentarios"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxHeight="300dp"
-                    android:background="#c78790"
+                    android:layout_marginHorizontal="20dp"
+                    android:maxHeight="400dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     />
 
@@ -262,10 +219,30 @@
                 android:layout_height="wrap_content"
                 android:text="Ver más comentarios"
                 android:textAllCaps="false"
-                app:layout_constraintTop_toBottomOf="@id/scrollView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="12dp"/>
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:background="@null"
+                android:textColor="@color/dark_orange"
+                android:layout_gravity="end"
+                android:layout_margin="20dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="#7E9A9A9A" />
+
+
+
+            <TextView
+                android:id="@+id/textCalificar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Califícanos"
+                android:textColor="@color/flexible_text_color"
+                android:textSize="25sp"
+                android:layout_margin="20dp"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/editTextNombreUsuario"
@@ -275,6 +252,18 @@
                 android:inputType="text"
                 android:visibility="gone" />
 
+            <RatingBar
+                android:id="@+id/ratingBarOpinion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:isIndicator="false"
+                android:progressTint="@color/light_orange"
+                android:numStars="5"
+                android:stepSize="1"
+                android:rating="0" />
+
+
             <EditText
                 android:id="@+id/editTextComentario"
                 android:layout_width="match_parent"
@@ -282,53 +271,23 @@
                 android:hint="Comparte detalles sobre tu experiencia en este lugar"
                 android:inputType="textMultiLine"
                 android:minLines="3"
-                android:gravity="top"
-                android:background="@drawable/backgroundcomentario"
+                android:background="@drawable/edittext_bg"
                 android:padding="12dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"/>
+                android:layout_marginHorizontal="20dp"/>
 
-            <RatingBar
-                android:id="@+id/ratingBarOpinion"
-                android:layout_width="240dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="4dp"
-                android:isIndicator="false"
-                android:numStars="5"
-                android:progressBackgroundTint="#000000"
-                android:progressTint="#fad201"
-                android:rating="4.5"
-                android:scaleX="0.9"
-                android:scaleY="0.9"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textCalificar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="85dp"
-                android:text="Califícanos"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/ratingBarOpinion"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/ratingBarOpinion"
-                app:layout_constraintTop_toTopOf="@+id/ratingBarOpinion"
-                android:layout_marginBottom="15dp"/>
 
             <Button
                 android:id="@+id/botonEnviarOpinion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Enviar Opinión"
-                android:background="@drawable/botonredondeadoenviar"
-                android:elevation="4dp"
-                android:textColor="@android:color/white"
-                android:layout_marginStart="130dp"
-                android:layout_marginBottom="20dp" />
+                android:text="Enviar opinión"
+                android:background="@null"
+                android:textAllCaps="false"
+                android:textSize="20dp"
+                android:textColor="@color/dark_orange"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="right"/>
 
 
         </LinearLayout>

@@ -924,7 +924,76 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+                <LinearLayout
+                    android:id="@+id/notificationContainerNuevas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_margin="20dp"
+                    android:layout_marginBottom="2dp">
+
+                    <TextView
+                        android:id="@+id/textViewNuevas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nuevas"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/notificationContainerUltimos7Dias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_margin="20dp"
+                    android:layout_marginBottom="2dp">
+
+                    <TextView
+                        android:id="@+id/textViewUltimos7Dias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Últimos 7 días"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/notificationContainerUltimos30Dias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_margin="20dp"
+                    android:layout_marginBottom="2dp">
+
+                    <TextView
+                        android:id="@+id/textViewUltimos30Dias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Últimos 30 días"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
             android:id="@+id/notificationContainerr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
