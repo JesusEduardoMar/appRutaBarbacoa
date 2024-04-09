@@ -34,9 +34,6 @@ import java.util.List;
 public class DetailEventosActivity extends AppCompatActivity {
 
     private TextView titleText, addressText, textDescription, horarioTextView, comentariosText;
-    private ImageView eventoImg;
-    private int contador;
-    private Button boton01, boton02;
     private TextView cajaDeTexto;
     private FirebaseFirestore mFirestore;
     private String idEvento;
@@ -66,10 +63,6 @@ public class DetailEventosActivity extends AppCompatActivity {
             textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
         addressText = findViewById(R.id.addressText);
-        //eventoImg = findViewById(R.id.vinedoImg);
-        //boton01 = findViewById(R.id.botonRestar);
-        //boton02 = findViewById(R.id.botonSumar);
-        //cajaDeTexto = findViewById(R.id.textcont);
         comentariosText = findViewById(R.id.comentariosText);
         horarioTextView = findViewById(R.id.horarioTextView);
 
@@ -100,9 +93,6 @@ public class DetailEventosActivity extends AppCompatActivity {
 
         cargarImagenesDesdeFirestore(idEvento);
 
-        // Obtenemos el ID del evento actual
-        idEvento = obtenerIdEvento();
-
         // Obtenemos el ID del usuario ya autenticado
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = (user != null) ? user.getUid() : null;
@@ -120,9 +110,6 @@ public class DetailEventosActivity extends AppCompatActivity {
 
         // Obtenemos la información del evento
         obtenerInformacionEvento();
-
-        // Configuramos los listeners para los botones de incremento y decremento
-        //configurarListenersBotones();
     }
     // Cargar las imagenes en el recyclerview desde firestore
     private void cargarImagenesDesdeFirestore(String lugarId) {
@@ -274,30 +261,6 @@ public class DetailEventosActivity extends AppCompatActivity {
             }
         });
     }
-
-    // Método para configurar los listeners de los botones de incrementar y decrementar
-    /*private void configurarListenersBotones() {
-        // Listener para el botón de restar
-        boton01.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contador--;
-                cajaDeTexto.setText(Integer.toString(contador));
-            }
-        });
-
-        // Listener para el botón de sumar
-        boton02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contador++;
-                cajaDeTexto.setText(Integer.toString(contador));
-            }
-        });
-
-        // Muestra el valor inicial en el TextView
-        cajaDeTexto.setText(Integer.toString(contador));
-    }*/
 
     // Método para mostrar los comentarios del respectivo evento
     private void mostrarComentariosEvento() {

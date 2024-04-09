@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,9 +78,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
             textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
         addressText = findViewById(R.id.addressText);
-        //boton01 = findViewById(R.id.botonRestar);
-        //boton02 = findViewById(R.id.botonSumar);
-        //cajaDeTexto = findViewById(R.id.textcont);
+
         comentariosText = findViewById(R.id.comentariosText);
         horarioTextView = findViewById(R.id.horarioTextView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -142,11 +141,16 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         botonMostrarComentarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCommentsDialog();
+                showCommentsActivity();
             }
         });
-    }
 
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
     // Cargar las imagenes en el recyclerview desde firestore
     private void cargarImagenesDesdeFirestore(String lugarId) {
@@ -309,30 +313,6 @@ public class DetailFreixenetActivity extends AppCompatActivity {
             Log.e("DetailFreixenetActivity", "El nombre de la barbacoa es nulo en la intención.");
         }
     }
-/*
-    // Método para configurar los listeners de los botones de incrementar y decrementar
-    private void configurarListenersBotones() {
-        // Listener para el botón de restar
-        boton01.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contador--;
-                cajaDeTexto.setText(Integer.toString(contador));
-            }
-        });
-
-        // Listener para el botón de sumar
-        boton02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contador++;
-                cajaDeTexto.setText(Integer.toString(contador));
-            }
-        });
-
-        // Muestra el valor inicial en el TextView
-        cajaDeTexto.setText(Integer.toString(contador));
-    }*/
 
     // Método para mostrar los comentarios de la respectiva barbacoa
     private void mostrarComentariosBarbacoa() {
@@ -385,41 +365,22 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         return "";
     }
 
-    // Mostrar todos los comentarios
-    private void showCommentsDialog(){
-        mFirestore.collection("opiniones")
-                .whereEqualTo("idBarbacoa", idBarbacoa)
-                .get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Limpiamos la lista antes de añadir las nuevas opiniones
-                        opinionesList.clear();
-                        // Iteramos sobre los documentos obtenidos en la consulta
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Extraemos los campos del documento
-                            String comentario = document.getString("comentario");
-                            String nombreUsuario = document.getString("nombreUsuario");
-                            float calificacion = document.getDouble("calificacion").floatValue();
-                            totalCalificaciones += 1;
-                            promedioCalificaciones += calificacion;
 
-                            // Creamos un nuevo objeto Opinion
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
+    private void showCommentsActivity() {
 
-                            // Agregamos la nueva opinión a la lista
-                            opinionesList.add(nuevaOpinion);
-                        }
-                        promedioCalificaciones = promedioCalificaciones / totalCalificaciones;
-
-                        // Notificamos al adaptador sobre los cambios en la lista
-                        comentarioAdapter.notifyDataSetChanged();
-                    } else {
-                        // Manejo de errores
-                        Log.e("DetailFreixenetActivity", "Error al obtener comentarios", task.getException());
-                    }
-                });
+        Intent intent = new Intent(this, Reviews.class);
+        intent.putExtra("idBarbacoa", idBarbacoa);
+        intent.putExtra("titleTxt", titleText.getText());
+        intent.putExtra("totalCalificaciones", totalCalificaciones);
+        intent.putExtra("promedioCalificaciones", promedioCalificaciones);
+        this.startActivity(intent);
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }
 
 
