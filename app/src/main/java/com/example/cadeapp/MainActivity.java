@@ -10,11 +10,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -623,6 +627,18 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Lee el extra del Intent para ver si se debe mostrar un ID específico
+        int selectedItemId = getIntent().getIntExtra("selectedItemId", -1);
+        if (selectedItemId != -1) {
+            // Se cambió el estado debido al extra del Intent
+            bottomNavigation.show(selectedItemId, true);
+            // Limpiar el extra del Intent
+            getIntent().removeExtra("selectedItemId");
+        } else {
+            // Estado predeterminado
+            bottomNavigation.show(3, true);
+        }
     }
 
     // --> addNotification: Aquí configuramos las NOTIFICACIONES
@@ -732,5 +748,42 @@ public class MainActivity extends AppCompatActivity {
                 map.setVisibility(View.GONE);
             }
         }
+
+/*
+        @Override
+        public void onBackPressed(){
+        new AlertDialog.Builder(this)
+                .setMessage("Pulsa de nuevo para salir")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("NO", null)
+                .show();
+        }*/
+
+
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Pulse de nuevo para salir", Toast.LENGTH_SHORT).show();
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 
 }
