@@ -27,6 +27,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Reviews extends AppCompatActivity {
@@ -71,9 +72,6 @@ public class Reviews extends AppCompatActivity {
         // Obtenemos el ID del evento actual
         idBarbacoa = obtenerIdBarbacoa();
 
-        // Obtenemos y mostramos las opiniones que hay
-        obtenerYMostrarOpiniones();
-
         // Obtenemos la información del evento
         try {
             obtenerInformacionBarbacoa();
@@ -86,50 +84,6 @@ public class Reviews extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-    // Método para obtener y mostrar las opiniones que hay
-    private void obtenerYMostrarOpiniones() {
-        mFirestore.collection("opiniones")
-                .whereEqualTo("idBarbacoa", idBarbacoa)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Usamos una lista para almacenar objetos Opinion
-                        List<Opinion> listaOpiniones = new ArrayList<>();
-
-                        // Iteramos sobre los documentos de la consulta
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Extrae campos del documento
-                            String nombreUsuario = document.getString("nombreUsuario");
-                            String comentario = document.getString("comentario");
-                            float calificacion = document.getDouble("calificacion").floatValue();
-
-                            totalCalificaciones += 1;
-                            promedioCalificaciones += calificacion;
-
-                            // Crea un nuevo objeto Opinion con los datos del documento
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
-
-                            // Agrega la nueva opinión a la lista
-                            listaOpiniones.add(nuevaOpinion);
-                        }
-
-                        // Obtener y mostrar promedio general
-                        promedioCalificaciones = promedioCalificaciones / totalCalificaciones;
-                        String promedio = String.format("%.1f", promedioCalificaciones);
-                        calificacionScore.setText(promedio);
-                        calificacionBar.setRating(promedioCalificaciones);
-                        calificacionTotal.setText(totalCalificaciones + " opiniones");
-
-                        // Notifica al adaptador que los datos han cambiado
-                        comentarioAdapter.notifyDataSetChanged();
-                    } else {
-                        // Manejo de error en caso de fallo en la consulta
-                        Log.e("DetailFreixenetActivity", "Error al obtener las opiniones", task.getException());
-                    }
-                });
-    }
-
 
     // Método para obtener la información de la barbacoa ?
     private void obtenerInformacionBarbacoa() throws Exception {
@@ -147,36 +101,23 @@ public class Reviews extends AppCompatActivity {
         // Obtenemos el nombre de la barbacoa desde la intención
         String name = (intent != null) ? intent.getExtras().getString("titleTxt") : null;
         // Obtenemos el nombre de la barbacoa desde la intención
-        totalCalificaciones = (intent != null) ? intent.getExtras().getInt("promedioCalificaciones") : null;
+        totalCalificaciones = (intent != null) ? intent.getExtras().getInt("totalCalificaciones") : null;
         // Obtenemos el nombre de la barbacoa desde la intención
         promedioCalificaciones = (intent != null) ? intent.getExtras().getFloat("promedioCalificaciones") : null;
 
         // Verificamos la existencia del nombre
         if (name != null) {
-            // Consultamos en Firestore para obtener información de la barbacoa
-            mFirestore.collection("barbacoas").whereEqualTo("nombre_barbacoa", name).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        // Iteramos sobre los resultados de la consulta
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Configuramos los elementos de la interfaz de usuario con la información obtenida
-                            titleText.setText(name);
+            // Configuramos los elementos de la interfaz de usuario con la información obtenida
+            titleText.setText(name);
 
-                            String promedio = String.format("%.1f", promedioCalificaciones);
-                            calificacionScore.setText(promedio);
-                            calificacionBar.setRating(promedioCalificaciones);
-                            calificacionTotal.setText(totalCalificaciones + " opiniones");
+            String promedio = String.format("%.1f", promedioCalificaciones);
+            calificacionScore.setText(promedio);
+            calificacionBar.setRating(promedioCalificaciones);
+            calificacionTotal.setText(totalCalificaciones + "");
 
-                            // Mostramos los comentarios de la barbacoa en la que estamos comentando
-                            mostrarComentariosBarbacoa();
-                        }
-                    } else {
-                        // Manejo de errores
-                        Log.e("DetailFreixenetActivity", "Error al obtener la información de la barbacoa", task.getException());
-                    }
-                }
-            });
+            // Mostramos los comentarios de la barbacoa en la que estamos comentando
+            mostrarComentarios();
+
         } else {
             // Manejo de errores
             Log.e("DetailFreixenetActivity", "El nombre de la barbacoa es nulo en la intención.");
@@ -185,7 +126,7 @@ public class Reviews extends AppCompatActivity {
 
 
     // Método para mostrar los comentarios de la respectiva barbacoa
-    private void mostrarComentariosBarbacoa() {
+    private void mostrarComentarios() {
 
         // Consulta en Firestore para obtener comentarios relacionados con la barbacoa actual
         mFirestore.collection("opiniones")
@@ -194,22 +135,21 @@ public class Reviews extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Limpiamos la lista antes de añadir las nuevas opiniones
                         opinionesList.clear();
+
                         // Iteramos sobre los documentos obtenidos en la consulta
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Extraemos los campos del documento
                             String comentario = document.getString("comentario");
                             String nombreUsuario = document.getString("nombreUsuario");
                             float calificacion = document.getDouble("calificacion").floatValue();
-                            totalCalificaciones += 1;
-                            promedioCalificaciones += calificacion;
+                            Date fecha = document.getDate("timestamp");
 
                             // Creamos un nuevo objeto Opinion
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
+                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null, fecha);
 
                             // Agregamos la nueva opinión a la lista
                             opinionesList.add(nuevaOpinion);
                         }
-                        promedioCalificaciones = promedioCalificaciones / totalCalificaciones;
 
                         // Notificamos al adaptador sobre los cambios en la lista
                         comentarioAdapter.notifyDataSetChanged();

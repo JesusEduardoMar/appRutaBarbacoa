@@ -2,6 +2,8 @@ package com.example.cadeapp;
 
 import com.google.firebase.firestore.FieldValue;
 
+import java.util.Date;
+
 public class Opinion {
     private String nombreUsuario;
     private String comentario;
@@ -9,6 +11,7 @@ public class Opinion {
     private Object timestamp;
     private String idBarbacoa;
     private String idEvento;
+    private Date fecha;
 
     // Constructor vacío requerido para Firestore
     public Opinion() {
@@ -22,6 +25,17 @@ public class Opinion {
         this.idBarbacoa = idBarbacoa;
         this.idEvento = idEvento;
         this.timestamp = FieldValue.serverTimestamp();
+    }
+
+    // Constructor para comentarios de barbacoas o eventos
+    public Opinion(String nombreUsuario, String comentario, float calificacion, String idBarbacoa, String idEvento, Date fecha) {
+        this.nombreUsuario = nombreUsuario;
+        this.comentario = comentario;
+        this.calificacion = calificacion;
+        this.idBarbacoa = idBarbacoa;
+        this.idEvento = idEvento;
+        this.timestamp = FieldValue.serverTimestamp();
+        this.fecha = fecha;
     }
 
     // Getter and setter methods for the fields
@@ -72,5 +86,13 @@ public class Opinion {
 
     public void setTimestamp(Object timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 }

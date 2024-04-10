@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,12 +30,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DetailEventosActivity extends AppCompatActivity {
 
-    private TextView titleText, addressText, textDescription, horarioTextView, comentariosText;
-    private TextView cajaDeTexto;
+    private TextView titleText, addressText, textDescription, horarioTextView;
+    private TextView calificacionScore, calificacionTotal;
+    private RatingBar calificacionBar;
     private FirebaseFirestore mFirestore;
     private String idEvento;
 
@@ -46,12 +49,14 @@ public class DetailEventosActivity extends AppCompatActivity {
     private RecyclerView imagesRecycler1;
     private ItemsAdapterHistoria itemsAdapterHistoria;
     private List<String> items;
+    private int totalCalificaciones;
+    private float promedioCalificaciones;
     //////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detaileventos);
+        setContentView(R.layout.activity_detailfreixenet);
 
         // Inicializamos Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -63,8 +68,11 @@ public class DetailEventosActivity extends AppCompatActivity {
             textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
         addressText = findViewById(R.id.addressText);
-        comentariosText = findViewById(R.id.comentariosText);
+
         horarioTextView = findViewById(R.id.horarioTextView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+        }
 
         recyclerViewComentarios = findViewById(R.id.recyclerViewComentarios);
         recyclerViewComentarios.setLayoutManager(new LinearLayoutManager(this));
@@ -72,6 +80,8 @@ public class DetailEventosActivity extends AppCompatActivity {
         EditText editTextComentario = findViewById(R.id.editTextComentario);
         RatingBar ratingBarOpinion = findViewById(R.id.ratingBarOpinion);
         Button botonEnviarOpinion = findViewById(R.id.botonEnviarOpinion);
+        Button botonMostrarComentarios = findViewById(R.id.verMasComentariosButton);
+
 
         //Para cargar las imagenes en el recycler view(Kevan)
         imagesRecycler1 = findViewById(R.id.imagesRecycler);
@@ -82,11 +92,15 @@ public class DetailEventosActivity extends AppCompatActivity {
         itemsAdapterHistoria = new ItemsAdapterHistoria(items, this);
         imagesRecycler1.setAdapter(itemsAdapterHistoria);
 
-
         // Inicializamos la lista de opiniones y también su adaptador
         opinionesList = new ArrayList<>();
         comentarioAdapter = new OpinionAdapter(opinionesList);
         recyclerViewComentarios.setAdapter(comentarioAdapter);
+
+        // Calificación general
+        calificacionScore = findViewById(R.id.calificacionLugarScore);
+        calificacionTotal = findViewById(R.id.calificacionLugarTotal);
+        calificacionBar = findViewById(R.id.calificacionLugarBar);
 
         // Obtenemos el ID del evento actual
         idEvento = obtenerIdEvento();
@@ -107,10 +121,23 @@ public class DetailEventosActivity extends AppCompatActivity {
                 enviarOpinion(editTextComentario, ratingBarOpinion, userId, idEvento);
             }
         });
-
-        // Obtenemos la información del evento
+        // Obtenemos el nombre del evento
         obtenerInformacionEvento();
+
+        botonMostrarComentarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCommentsActivity();
+            }
+        });
+
+        // Mostrar el botón para regresar y eliminar title
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
     // Cargar las imagenes en el recyclerview desde firestore
     private void cargarImagenesDesdeFirestore(String lugarId) {
         mFirestore.collection("imagesall")
@@ -125,8 +152,7 @@ public class DetailEventosActivity extends AppCompatActivity {
                         }
                         // Notificar al adaptador sobre el cambio en los datos
                         itemsAdapterHistoria.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                     }
                 });
     }
@@ -138,8 +164,11 @@ public class DetailEventosActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Usamos una lista para almacenar objetos Opinion
-                        List<Opinion> listaOpiniones = new ArrayList<>();
+                        // Reiniciamos la lista de opiniones
+                        opinionesList.clear();
+                        // Reiniciamos los valores del total y promedio de opiniones
+                        totalCalificaciones = 0;
+                        promedioCalificaciones = 0;
 
                         // Iteramos sobre los documentos de la consulta
                         for (QueryDocumentSnapshot document : task.getResult()) {
@@ -147,21 +176,37 @@ public class DetailEventosActivity extends AppCompatActivity {
                             String nombreUsuario = document.getString("nombreUsuario");
                             String comentario = document.getString("comentario");
                             float calificacion = document.getDouble("calificacion").floatValue();
+                            Date fecha = document.getDate("timestamp");
 
-                            // Crea un nuevo objeto Opinion con los datos del documento
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento);
+                            totalCalificaciones += 1;
+                            promedioCalificaciones += calificacion;
 
-                            // Agrega la nueva opinión a la lista
-                            listaOpiniones.add(nuevaOpinion);
+                            // Condición para solo mostrar primeros 3 comentarios
+                            if(totalCalificaciones <= 3) {
+                                // Crea un nuevo objeto Opinion con los datos del documento
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento, fecha);
+
+                                // Agrega la nueva opinión a la lista
+                                opinionesList.add(nuevaOpinion);
+
+                            }
                         }
 
+                        // Obtener y mostrar promedio general
+                        promedioCalificaciones = promedioCalificaciones / totalCalificaciones;
+                        String promedio = String.format("%.1f", promedioCalificaciones);
+                        calificacionScore.setText(promedio);
+                        calificacionBar.setRating(promedioCalificaciones);
+                        calificacionTotal.setText(totalCalificaciones + "");
+
+                        // Verificar si la caja de comentarios está vacía
+                        verificarComentariosVacios();
+
                         // Notifica al adaptador que los datos han cambiado
-                        opinionesList.clear();
-                        opinionesList.addAll(listaOpiniones);
                         comentarioAdapter.notifyDataSetChanged();
                     } else {
                         // Manejo de error en caso de fallo en la consulta
-                        Log.e("DetailEventosActivity", "Error al obtener las opiniones", task.getException());
+                        Log.e("DetailFreixenetActivity", "Error al obtener las opiniones", task.getException());
                     }
                 });
     }
@@ -227,81 +272,68 @@ public class DetailEventosActivity extends AppCompatActivity {
 
     // Método para obtener la información del evento
     private void obtenerInformacionEvento() {
-        // Consultamos en Firestore para obtener información del evento actual
-        mFirestore.collection("eventos").document(idEvento).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        // Extraemos los campos del documento
-                        String nombre = document.getString("nombre_evento");
-                        String info = document.getString("info_evento");
-                        String ubicacion = document.getString("ubicacion_evento");
-                        String horario = document.getString("fecha_evento"); // Obtener la fecha del evento como String directamente
-                        String imageUrl = document.getString("url");
+        // Obtenemos el nombre del evento desde la intención
+        Intent intent = getIntent();
+        String name = (intent != null) ? intent.getExtras().getString("titleTxt") : null;
 
-                        // Configuramos los elementos de la interfaz de usuario con la información obtenida
-                        titleText.setText(nombre);
-                        textDescription.setText(info);
-                        addressText.setText(ubicacion);
-                        horarioTextView.setText(horario); // Asignar la fecha del evento directamente al TextView
-
-                        // Cargamos la imagen utilizando Glide
-                        //Glide.with(DetailEventosActivity.this).load(imageUrl).into(eventoImg);
-
-                        // Mostramos los comentarios del evento en el que estamos comentando
-                        mostrarComentariosEvento();
-                    } else {
-                        Log.d("DetailEventosActivity", "No such document");
-                    }
-                } else {
-                    Log.d("DetailEventosActivity", "get failed with ", task.getException());
-                }
-            }
-        });
-    }
-
-    // Método para mostrar los comentarios del respectivo evento
-    private void mostrarComentariosEvento() {
-        // Consultamos en Firestore para obtener comentarios relacionados con el evento actual
-        mFirestore.collection("opiniones")
-                .whereEqualTo("idEvento", idEvento)
-                .get()
-                .addOnCompleteListener(task -> {
+        // Verificamos la existencia del nombre
+        if (name != null) {
+            // Consultamos en Firestore para obtener información del evento
+            mFirestore.collection("eventos").whereEqualTo("nombre_evento", name).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
-                        // Limpiamos la lista antes de añadir las nuevas opiniones
-                        opinionesList.clear();
-
-                        // Iteramos sobre los documentos obtenidos en la consulta
+                        // Iteramos sobre los resultados de la consulta
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Extraemos los campos del documento
-                            String comentario = document.getString("comentario");
-                            String nombreUsuario = document.getString("nombreUsuario");
-                            float calificacion = document.getDouble("calificacion").floatValue();
+                            String nombre = document.getString("nombre_evento");
+                            String info = document.getString("info_evento");
+                            String ubicacion = document.getString("ubicacion_evento");
+                            String horario = document.getString("horario_evento");
+                            String imageUrl = document.getString("url");
 
-                            // Creamos un nuevo objeto Opinion
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento);
+                            // Configuramos los elementos de la interfaz de usuario con la información obtenida
+                            titleText.setText(nombre);
+                            textDescription.setText(info);
+                            addressText.setText(ubicacion);
+                            horarioTextView.setText(horario);
 
-                            // Agregamos la nueva opinión a la lista
-                            opinionesList.add(nuevaOpinion);
                         }
-                        // Verificamos si la lista de opiniones está vacía
-                        if (opinionesList.isEmpty()) {
-                            // Si la lista está vacía, mostramos el mensaje de ninguna opinión
-                            findViewById(R.id.noOpinionMessage).setVisibility(View.VISIBLE);
-                        } else {
-                            // Si hay opiniones, ocultamos el mensaje
-                            findViewById(R.id.noOpinionMessage).setVisibility(View.GONE);
-                        }
-
-                        // Notificamos al adaptador sobre los cambios en la lista
-                        comentarioAdapter.notifyDataSetChanged();
                     } else {
                         // Manejo de errores
-                        Log.e("DetailEventosActivity", "Error al obtener comentarios", task.getException());
+                        Log.e("DetailFreixenetActivity", "Error al obtener la información del evento", task.getException());
                     }
-                });
+                }
+            });
+        } else {
+            // Manejo de errores
+            Log.e("DetailFreixenetActivity", "El nombre del evento es nulo en la intención.");
+        }
+    }
+
+    // Método para verificar si la caja de comentarios está vacía
+    private void verificarComentariosVacios() {
+
+        // Verificamos si la lista de opiniones está vacía
+        if (opinionesList.isEmpty()) {
+            // Si la lista está vacía, mostramos el mensaje de ninguna opinión
+            findViewById(R.id.noOpinionMessage).setVisibility(View.VISIBLE);
+
+            // Ocultar vistas que muestran puntaje
+            findViewById(R.id.calificacionLugarScore).setVisibility(View.GONE);
+            findViewById(R.id.calificacionLugarBar).setVisibility(View.GONE);
+            findViewById(R.id.calificacionLugarTotal).setVisibility(View.GONE);
+            findViewById(R.id.verMasComentariosButton).setVisibility(View.GONE);
+        } else {
+            // Si hay opiniones, ocultamos el mensaje
+            findViewById(R.id.noOpinionMessage).setVisibility(View.GONE);
+
+            // Mostrar Score
+            findViewById(R.id.calificacionLugarScore).setVisibility(View.VISIBLE);
+            findViewById(R.id.calificacionLugarBar).setVisibility(View.VISIBLE);
+            findViewById(R.id.calificacionLugarTotal).setVisibility(View.VISIBLE);
+            findViewById(R.id.verMasComentariosButton).setVisibility(View.VISIBLE);
+        }
     }
 
     // Método para obtener el ID del evento actual
@@ -317,4 +349,16 @@ public class DetailEventosActivity extends AppCompatActivity {
         Toast.makeText(this, "Error: ID de evento no válido", Toast.LENGTH_SHORT).show();
         return "";
     }
+
+
+    private void showCommentsActivity() {
+
+        Intent intent = new Intent(this, Reviews.class);
+        intent.putExtra("idEvento", idEvento);
+        intent.putExtra("titleTxt", titleText.getText());
+        intent.putExtra("totalCalificaciones", totalCalificaciones);
+        intent.putExtra("promedioCalificaciones", promedioCalificaciones);
+        this.startActivity(intent);
+    }
+
 }

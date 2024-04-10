@@ -38,18 +38,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DetailFreixenetActivity extends AppCompatActivity {
-    private TextView titleText, addressText, textDescription, horarioTextView, comentariosText;
+    private TextView titleText, addressText, textDescription, horarioTextView;
     private TextView calificacionScore, calificacionTotal;
     private RatingBar calificacionBar;
-    private int contador;
-    private Button boton01, boton02;
-    private TextView cajaDeTexto;
     private FirebaseFirestore mFirestore;
     private String idBarbacoa;
-
     private RecyclerView recyclerViewComentarios;
     private OpinionAdapter comentarioAdapter;
     private List<Opinion> opinionesList;
@@ -58,7 +55,6 @@ public class DetailFreixenetActivity extends AppCompatActivity {
     private RecyclerView imagesRecycler1;
     private ItemsAdapterHistoria itemsAdapterHistoria;
     private List<String> items;
-
     private int totalCalificaciones;
     private float promedioCalificaciones;
     //////
@@ -79,7 +75,6 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         }
         addressText = findViewById(R.id.addressText);
 
-        comentariosText = findViewById(R.id.comentariosText);
         horarioTextView = findViewById(R.id.horarioTextView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
@@ -135,9 +130,6 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         // Obtenemos el nombre de la barbacoa
         obtenerInformacionBarbacoa();
 
-        // Configuramos los listeners para los botones de incremento y decremento
-        // configurarListenersBotones();
-
         botonMostrarComentarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +137,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
             }
         });
 
-
+        // Mostrar el botón para regresar y eliminar title
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -166,8 +158,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                         }
                         // Notificar al adaptador sobre el cambio en los datos
                         itemsAdapterHistoria.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                     }
                 });
     }
@@ -179,8 +170,11 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Usamos una lista para almacenar objetos Opinion
-                        List<Opinion> listaOpiniones = new ArrayList<>();
+                        // Reiniciamos la lista de opiniones
+                        opinionesList.clear();
+                        // Reiniciamos los valores del total y promedio de opiniones
+                        totalCalificaciones = 0;
+                        promedioCalificaciones = 0;
 
                         // Iteramos sobre los documentos de la consulta
                         for (QueryDocumentSnapshot document : task.getResult()) {
@@ -188,15 +182,20 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                             String nombreUsuario = document.getString("nombreUsuario");
                             String comentario = document.getString("comentario");
                             float calificacion = document.getDouble("calificacion").floatValue();
+                            Date fecha = document.getDate("timestamp");
 
                             totalCalificaciones += 1;
                             promedioCalificaciones += calificacion;
 
-                            // Crea un nuevo objeto Opinion con los datos del documento
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
+                            // Condición para solo mostrar primeros 3 comentarios
+                            if(totalCalificaciones <= 3) {
+                                // Crea un nuevo objeto Opinion con los datos del documento
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null, fecha);
 
-                            // Agrega la nueva opinión a la lista
-                            listaOpiniones.add(nuevaOpinion);
+                                // Agrega la nueva opinión a la lista
+                                opinionesList.add(nuevaOpinion);
+
+                            }
                         }
 
                         // Obtener y mostrar promedio general
@@ -204,7 +203,10 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                         String promedio = String.format("%.1f", promedioCalificaciones);
                         calificacionScore.setText(promedio);
                         calificacionBar.setRating(promedioCalificaciones);
-                        calificacionTotal.setText(totalCalificaciones + " opiniones");
+                        calificacionTotal.setText(totalCalificaciones + "");
+
+                        // Verificar si la caja de comentarios está vacía
+                        verificarComentariosVacios();
 
                         // Notifica al adaptador que los datos han cambiado
                         comentarioAdapter.notifyDataSetChanged();
@@ -214,6 +216,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                     }
                 });
     }
+
     // Método para enviar una opinión
     private void enviarOpinion(EditText editTextComentario, RatingBar ratingBarOpinion, String userId, String idBarbacoa) {
         try {
@@ -272,6 +275,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
             Toast.makeText(DetailFreixenetActivity.this, "Error inesperado: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
     // Método para obtener la información de la barbacoa ?
     private void obtenerInformacionBarbacoa() {
         // Obtenemos el nombre de la barbacoa desde la intención
@@ -299,8 +303,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                             textDescription.setText(info);
                             addressText.setText(ubicacion);
                             horarioTextView.setText(horario);
-                            // Mostramos los comentarios de la barbacoa en la que estamos comentando
-                            mostrarComentariosBarbacoa();
+
                         }
                     } else {
                         // Manejo de errores
@@ -314,41 +317,29 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         }
     }
 
-    // Método para mostrar los comentarios de la respectiva barbacoa
-    private void mostrarComentariosBarbacoa() {
+    // Método para verificar si la caja de comentarios está vacía
+    private void verificarComentariosVacios() {
 
-        // Consulta en Firestore para obtener comentarios relacionados con la barbacoa actual
-        mFirestore.collection("opiniones")
-                .whereEqualTo("idBarbacoa", idBarbacoa).limit(3)
-                .get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Limpiamos la lista antes de añadir las nuevas opiniones
-                        opinionesList.clear();
-                        // Iteramos sobre los documentos obtenidos en la consulta
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Extraemos los campos del documento
-                            String comentario = document.getString("comentario");
-                            String nombreUsuario = document.getString("nombreUsuario");
-                            float calificacion = document.getDouble("calificacion").floatValue();
-                            totalCalificaciones += 1;
-                            promedioCalificaciones += calificacion;
+        // Verificamos si la lista de opiniones está vacía
+        if (opinionesList.isEmpty()) {
+            // Si la lista está vacía, mostramos el mensaje de ninguna opinión
+            findViewById(R.id.noOpinionMessage).setVisibility(View.VISIBLE);
 
-                            // Creamos un nuevo objeto Opinion
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
+            // Ocultar vistas que muestran puntaje
+            findViewById(R.id.calificacionLugarScore).setVisibility(View.GONE);
+            findViewById(R.id.calificacionLugarBar).setVisibility(View.GONE);
+            findViewById(R.id.calificacionLugarTotal).setVisibility(View.GONE);
+            findViewById(R.id.verMasComentariosButton).setVisibility(View.GONE);
+        } else {
+            // Si hay opiniones, ocultamos el mensaje
+            findViewById(R.id.noOpinionMessage).setVisibility(View.GONE);
 
-                            // Agregamos la nueva opinión a la lista
-                            opinionesList.add(nuevaOpinion);
-                        }
-                        promedioCalificaciones = promedioCalificaciones / totalCalificaciones;
-
-                        // Notificamos al adaptador sobre los cambios en la lista
-                        comentarioAdapter.notifyDataSetChanged();
-                    } else {
-                        // Manejo de errores
-                        Log.e("DetailFreixenetActivity", "Error al obtener comentarios", task.getException());
-                    }
-                });
-
+            // Mostrar Score
+            findViewById(R.id.calificacionLugarScore).setVisibility(View.VISIBLE);
+            findViewById(R.id.calificacionLugarBar).setVisibility(View.VISIBLE);
+            findViewById(R.id.calificacionLugarTotal).setVisibility(View.VISIBLE);
+            findViewById(R.id.verMasComentariosButton).setVisibility(View.VISIBLE);
+        }
     }
 
     // Método para obtener el ID de la barbacoa actual
@@ -376,11 +367,6 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
 }
 
 
