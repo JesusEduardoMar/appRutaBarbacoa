@@ -43,7 +43,13 @@ public class Reviews extends AppCompatActivity {
     private float promedioCalificaciones;
     private RecyclerView recyclerViewComentarios;
     private FirebaseFirestore mFirestore;
-    private String idBarbacoa;
+    private String idReferencia, tipoReferencia;
+
+    // Nombre de campo adecuado para cada item o referencia
+    static String BARBACOA = "idBarbacoa";
+    static String PULQUE = "idPulque";
+    static String EVENTO = "idEvento";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +76,7 @@ public class Reviews extends AppCompatActivity {
         recyclerViewComentarios.setAdapter(comentarioAdapter);
 
         // Obtenemos el ID del evento actual
-        idBarbacoa = obtenerIdBarbacoa();
+        idReferencia = obtenerIdReferencia();
 
         // Obtenemos la información del evento
         try {
@@ -91,8 +97,8 @@ public class Reviews extends AppCompatActivity {
 
         if (intent != null) {
             // Obtenemos el ID de la barbacoa desde la intención
-            idBarbacoa = intent.getStringExtra("idBarbacoa");
-            if (idBarbacoa == null || idBarbacoa.isEmpty()) {
+            idReferencia = intent.getStringExtra(tipoReferencia);
+            if (idReferencia == null || idReferencia.isEmpty()) {
                 Toast.makeText(this, "Error: ID de barbacoa no válida", Toast.LENGTH_SHORT).show();
                 throw new Exception("Id de barbacoa inválido");
             }
@@ -128,9 +134,9 @@ public class Reviews extends AppCompatActivity {
     // Método para mostrar los comentarios de la respectiva barbacoa
     private void mostrarComentarios() {
 
-        // Consulta en Firestore para obtener comentarios relacionados con la barbacoa actual
+        // Consulta en Firestore para obtener comentarios relacionados con la referencia actual
         mFirestore.collection("opiniones")
-                .whereEqualTo("idBarbacoa", idBarbacoa)
+                .whereEqualTo(tipoReferencia, idReferencia)
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Limpiamos la lista antes de añadir las nuevas opiniones
@@ -144,9 +150,21 @@ public class Reviews extends AppCompatActivity {
                             float calificacion = document.getDouble("calificacion").floatValue();
                             Date fecha = document.getDate("timestamp");
 
-                            // Creamos un nuevo objeto Opinion
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null, fecha);
-
+                            // Creamos un nuevo objeto Opinion para la referencia adecuada
+                            Opinion nuevaOpinion = null;
+                            if(tipoReferencia.equals(BARBACOA)) {
+                                nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idReferencia, null, null, fecha);
+                            }
+                            else if(tipoReferencia.equals(EVENTO)) {
+                                nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idReferencia, null, fecha);
+                            }
+                            else if(tipoReferencia.equals(PULQUE)) {
+                                nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, null, idReferencia, fecha);
+                            }
+                            else{
+                                // Manejo de errores
+                                Log.e( "Comentario -> " + tipoReferencia, "Error al obtener comentarios", task.getException());
+                            }
                             // Agregamos la nueva opinión a la lista
                             opinionesList.add(nuevaOpinion);
                         }
@@ -162,13 +180,18 @@ public class Reviews extends AppCompatActivity {
     }
 
     // Método para obtener el ID de la barbacoa actual
-    private String obtenerIdBarbacoa() {
+    private String obtenerIdReferencia() {
         Intent intent = getIntent();
         if (intent != null) {
-            // Obtenemos el ID de la barbacoa desde la intención
-            String idBarbacoa = intent.getStringExtra("idBarbacoa");
-            if (idBarbacoa != null && !idBarbacoa.isEmpty()) {
-                return idBarbacoa;
+            // Obtenemos que la referencia del comentario (Barbacoa, pulque o evento)
+            tipoReferencia = intent.getStringExtra("tipoReferencia");
+            if(tipoReferencia != null){
+                // Obtenemos el ID de la barbacoa desde la intención
+                String idReferencia = intent.getStringExtra(tipoReferencia);
+                if (idReferencia != null && !idReferencia.isEmpty()) {
+                    return idReferencia;
+                }
+
             }
         }
         Toast.makeText(this, "Error: ID de barbacoa no válida", Toast.LENGTH_SHORT).show();

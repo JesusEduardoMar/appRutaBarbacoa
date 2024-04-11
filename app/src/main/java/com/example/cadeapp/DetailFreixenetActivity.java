@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.AggregateQuery;
 import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -190,7 +191,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                             // Condición para solo mostrar primeros 3 comentarios
                             if(totalCalificaciones <= 3) {
                                 // Crea un nuevo objeto Opinion con los datos del documento
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null, fecha);
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null, null, fecha);
 
                                 // Agrega la nueva opinión a la lista
                                 opinionesList.add(nuevaOpinion);
@@ -242,7 +243,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                                 String nombreUsuario = documentSnapshot.getString("nombre");
 
                                 // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null);
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null, null);
 
                                 // Agregamos la nueva opinión a la colección de opiniones en Firestore
                                 mFirestore.collection("opiniones")
@@ -285,26 +286,25 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         // Verificamos la existencia del nombre
         if (name != null) {
             // Consultamos en Firestore para obtener información de la barbacoa
-            mFirestore.collection("barbacoas").whereEqualTo("nombre_barbacoa", name).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            mFirestore.collection("barbacoas").document(idBarbacoa).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
-                        // Iteramos sobre los resultados de la consulta
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Extraemos los campos del documento
-                            String nombre = document.getString("nombre_barbacoa");
-                            String info = document.getString("info_barbacoa");
-                            String ubicacion = document.getString("ubicacion_barbacoa");
-                            String horario = document.getString("horario_barbacoa");
-                            String imageUrl = document.getString("url");
+                        DocumentSnapshot document = task.getResult();
+                        // Extraemos los campos del documento
+                        String nombre = document.getString("nombre_barbacoa");
+                        String info = document.getString("info_barbacoa");
+                        String ubicacion = document.getString("ubicacion_barbacoa");
+                        String horario = document.getString("horario_barbacoa");
+                        String imageUrl = document.getString("url");
 
-                            // Configuramos los elementos de la interfaz de usuario con la información obtenida
-                            titleText.setText(nombre);
-                            textDescription.setText(info);
-                            addressText.setText(ubicacion);
-                            horarioTextView.setText(horario);
-
-                        }
+                        // Configuramos los elementos de la interfaz de usuario con la información obtenida
+                        Log.d("MyExceptionHandler -> nombre", nombre);
+                        Log.d("MyExceptionHandler -> name", name);
+                        titleText.setText(nombre);
+                        textDescription.setText(info);
+                        addressText.setText(ubicacion);
+                        horarioTextView.setText(horario);
                     } else {
                         // Manejo de errores
                         Log.e("DetailFreixenetActivity", "Error al obtener la información de la barbacoa", task.getException());
@@ -360,6 +360,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
     private void showCommentsActivity() {
 
         Intent intent = new Intent(this, Reviews.class);
+        intent.putExtra("tipoReferencia", Reviews.BARBACOA);
         intent.putExtra("idBarbacoa", idBarbacoa);
         intent.putExtra("titleTxt", titleText.getText());
         intent.putExtra("totalCalificaciones", totalCalificaciones);

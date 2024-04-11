@@ -56,7 +56,7 @@ public class DetailEventosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detailfreixenet);
+        setContentView(R.layout.activity_detaileventos);
 
         // Inicializamos Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -184,7 +184,7 @@ public class DetailEventosActivity extends AppCompatActivity {
                             // Condición para solo mostrar primeros 3 comentarios
                             if(totalCalificaciones <= 3) {
                                 // Crea un nuevo objeto Opinion con los datos del documento
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento, fecha);
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento, null, fecha);
 
                                 // Agrega la nueva opinión a la lista
                                 opinionesList.add(nuevaOpinion);
@@ -236,7 +236,7 @@ public class DetailEventosActivity extends AppCompatActivity {
                                 String nombreUsuario = documentSnapshot.getString("nombre");
 
                                 // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento);
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento, null);
 
                                 // Agregamos la nueva opinión a la colección de opiniones en Firestore
                                 mFirestore.collection("opiniones")
@@ -272,33 +272,28 @@ public class DetailEventosActivity extends AppCompatActivity {
 
     // Método para obtener la información del evento
     private void obtenerInformacionEvento() {
-        // Obtenemos el nombre del evento desde la intención
-        Intent intent = getIntent();
-        String name = (intent != null) ? intent.getExtras().getString("titleTxt") : null;
-
-        // Verificamos la existencia del nombre
-        if (name != null) {
+        // Verificamos la existencia del id
+        if (idEvento != null) {
             // Consultamos en Firestore para obtener información del evento
-            mFirestore.collection("eventos").whereEqualTo("nombre_evento", name).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            mFirestore.collection("eventos").document(idEvento).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
-                        // Iteramos sobre los resultados de la consulta
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Extraemos los campos del documento
-                            String nombre = document.getString("nombre_evento");
-                            String info = document.getString("info_evento");
-                            String ubicacion = document.getString("ubicacion_evento");
-                            String horario = document.getString("horario_evento");
-                            String imageUrl = document.getString("url");
+                        DocumentSnapshot document = task.getResult();
+                        // Extraemos los campos del documento
+                        String nombre = document.getString("nombre_evento");
+                        String info = document.getString("info_evento");
+                        String ubicacion = document.getString("ubicacion_evento");
+                        String horario = document.getString("fecha_evento");
+                        String imageUrl = document.getString("url");
 
-                            // Configuramos los elementos de la interfaz de usuario con la información obtenida
-                            titleText.setText(nombre);
-                            textDescription.setText(info);
-                            addressText.setText(ubicacion);
-                            horarioTextView.setText(horario);
 
-                        }
+                        // Configuramos los elementos de la interfaz de usuario con la información obtenida
+                        titleText.setText(nombre);
+                        textDescription.setText(info);
+                        addressText.setText(ubicacion);
+                        horarioTextView.setText(horario);
+
                     } else {
                         // Manejo de errores
                         Log.e("DetailFreixenetActivity", "Error al obtener la información del evento", task.getException());
@@ -354,6 +349,7 @@ public class DetailEventosActivity extends AppCompatActivity {
     private void showCommentsActivity() {
 
         Intent intent = new Intent(this, Reviews.class);
+        intent.putExtra("tipoReferencia", Reviews.EVENTO);
         intent.putExtra("idEvento", idEvento);
         intent.putExtra("titleTxt", titleText.getText());
         intent.putExtra("totalCalificaciones", totalCalificaciones);
