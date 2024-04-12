@@ -71,7 +71,7 @@
                     android:id="@+id/relativeContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="30dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/contact"
@@ -121,7 +121,7 @@
                     android:id="@+id/relativeFAQ"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="20dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/faq"
@@ -170,7 +170,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="20dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/informacion"
@@ -219,8 +219,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/privacity"
@@ -612,7 +612,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:background="@color/verde3">
+                    android:background="@color/naranja5">
 
                     <TextView
                         android:id="@+id/textView9"
@@ -871,73 +871,73 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@color/naranja5">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:background="@color/naranja5">
 
-            <TextView
-                android:id="@+id/textView91"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="¡No te pierdas de las Últimas Actualizaciones!"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginStart="125dp"
-                android:layout_marginEnd="125dp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/textView91"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="125dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="125dp"
+                        android:gravity="center"
+                        android:text="¡No te pierdas de las Últimas Actualizaciones!"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/image_l"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/escudo_cadereyta"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="150dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
-
-
-            <ImageView
-                android:id="@+id/image_r"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo_definitivo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="150dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
+                    <ImageView
+                        android:id="@+id/image_l"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="150dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/escudo_cadereyta"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/image_r"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="150dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/logo_definitivo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
                     android:id="@+id/notificationContainerNuevas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="16dp"
                     android:layout_margin="20dp"
-                    android:layout_marginBottom="2dp">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textViewNuevas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="Nuevas"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
+                        android:textColor="@color/naranja5"
                         android:textSize="18sp"
-                        android:layout_marginBottom="8dp"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -945,22 +945,22 @@
                     android:id="@+id/notificationContainerUltimos7Dias"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="16dp"
                     android:layout_margin="20dp"
-                    android:layout_marginBottom="2dp">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textViewUltimos7Dias"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="Últimos 7 días"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
+                        android:textColor="@color/naranja5"
                         android:textSize="18sp"
-                        android:layout_marginBottom="8dp"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -968,39 +968,39 @@
                     android:id="@+id/notificationContainerUltimos30Dias"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="16dp"
                     android:layout_margin="20dp"
-                    android:layout_marginBottom="2dp">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textViewUltimos30Dias"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="Últimos 30 días"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
+                        android:textColor="@color/naranja5"
                         android:textSize="18sp"
-                        android:layout_marginBottom="8dp"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <LinearLayout
-            android:id="@+id/notificationContainerr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="2dp">
+                    android:id="@+id/notificationContainerr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="vertical">
 
-            <!-- Aquí se estarian agregando las notificaciones -->
+                    <!-- Aquí se estarian agregando las notificaciones -->
 
-        </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
