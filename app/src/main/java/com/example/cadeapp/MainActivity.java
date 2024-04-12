@@ -575,9 +575,32 @@ public class MainActivity extends AppCompatActivity {
             });
                                                   ////FIN CALENDARIO//////
 
+        // Lee el extra del Intent para ver si se debe mostrar un ID específico
+        int selectedItemId = getIntent().getIntExtra("selectedItemId", -1);
+        String markerTitle = null;
+        if (selectedItemId != -1) {
+            // Extraer datos del markerTitle
+            markerTitle = getIntent().getStringExtra("markerTitle");
+
+            // Se cambió el estado debido al extra del Intent
+            bottomNavigation.show(selectedItemId, true);
+
+            // Limpiar el extra del Intent
+            getIntent().removeExtra("selectedItemId");
+            getIntent().removeExtra("markerTitle");
+        } else {
+            // Estado predeterminado
+            bottomNavigation.show(3, true);
+        }
 
             // --> Muestra el fragmento del mapa
             Fragment fragment = new Map_Fragment();
+
+            // Bundle para mandar argumentos al Map_Fragment
+            Bundle bundle = new Bundle();
+            bundle.putString("markerTitle", markerTitle);
+            fragment.setArguments(bundle);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
 
             // --> Configuración de listener para el botón de cerrar sesión
@@ -628,17 +651,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Lee el extra del Intent para ver si se debe mostrar un ID específico
-        int selectedItemId = getIntent().getIntExtra("selectedItemId", -1);
-        if (selectedItemId != -1) {
-            // Se cambió el estado debido al extra del Intent
-            bottomNavigation.show(selectedItemId, true);
-            // Limpiar el extra del Intent
-            getIntent().removeExtra("selectedItemId");
-        } else {
-            // Estado predeterminado
-            bottomNavigation.show(3, true);
-        }
     }
 
     // --> addNotification: Aquí configuramos las NOTIFICACIONES
