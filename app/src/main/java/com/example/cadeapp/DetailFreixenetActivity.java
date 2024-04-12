@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,10 +61,14 @@ public class DetailFreixenetActivity extends AppCompatActivity {
     private float promedioCalificaciones;
     //////
 
+    LinearLayout ubicacionD2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailfreixenet);
+
+        ubicacionD2 = findViewById(R.id.ubicacionD);
 
         // Inicializamos Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -137,6 +142,20 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                 showCommentsActivity();
             }
         });
+
+        ubicacionD2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailFreixenetActivity.this, MainActivity.class);
+                intent.putExtra("selectedItemId", 5); // Selecciona el ítem con el ID 5
+                intent.putExtra("markerTitle", titleText.getText());
+                //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
 
         // Mostrar el botón para regresar y eliminar title
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -369,5 +388,3 @@ public class DetailFreixenetActivity extends AppCompatActivity {
     }
 
 }
-
-

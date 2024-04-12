@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,11 +53,14 @@ public class DetailPulqueActivity extends AppCompatActivity {
     private int totalCalificaciones;
     private float promedioCalificaciones;
     //////
+    LinearLayout ubicacionD1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailpulque);
+
+        ubicacionD1 = findViewById(R.id.ubicacionD);
 
         // Inicializamos Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -123,7 +127,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
         });
         // Obtenemos el nombre del pulque
         obtenerInformacionPulque();
-
+      
         botonMostrarComentarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +140,20 @@ public class DetailPulqueActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      
+
+        ubicacionD1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailPulqueActivity.this, MainActivity.class);
+                intent.putExtra("selectedItemId", 5); // Selecciona el ítem con el ID 5
+                //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     // Cargar las imagenes en el recyclerview desde firestore
@@ -343,8 +361,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
         Toast.makeText(this, "Error: ID de pulque no válido", Toast.LENGTH_SHORT).show();
         return "";
     }
-
-
+  
     private void showCommentsActivity() {
 
         Intent intent = new Intent(this, Reviews.class);
@@ -356,4 +373,3 @@ public class DetailPulqueActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 }
-
