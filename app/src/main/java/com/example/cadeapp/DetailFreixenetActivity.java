@@ -155,7 +155,6 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
 
         // Mostrar el botón para regresar y eliminar title
         Toolbar toolbar = findViewById(R.id.toolbar);
