@@ -44,6 +44,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.timessquare.CalendarCellDecorator;
+import com.squareup.timessquare.CalendarCellView;
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.text.DateFormat;
@@ -51,6 +53,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -474,107 +477,113 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-                                             ////CALENDARIO//////
-// Se inicializa el selector de fechas
-        Date today = new Date();
+                    ////CALENDARIO//////
+
+        // Inicializamos el selector de fechas
+        Date today = new Date(); //fecha actual
         Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 30);
 
         CalendarPickerView datePicker = findViewById(R.id.calendarView);
         datePicker.init(today, nextYear.getTime()).withSelectedDate(today);
 
-// Recuperar eventos de la base de datos
+        // Recuperación de eventos de la base de datos
         mFirestore.collection("eventos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    // Asignar la tarea completada a la variable de instancia
+                    // Asignamos la tarea completada a la variable de instancia
                     eventosTask = task;
-
+                    // Iteramos sobre la colección Eventos
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        // Obtener información del evento
+                        // Obtenemos la información del evento (nombre y fecha)
                         String nombreEvento = document.getString("nombre_evento");
                         String fechaEventoString = document.getString("fecha_evento");
 
-                        // Verificar si la fecha del evento es nula
+                        // Verificamos si la fecha del evento es nula
                         if (fechaEventoString != null) {
-                            // Convertir la fecha del evento de String a Date
+                            // Convertimos la fecha del evento de un tipo String a Date
                             try {
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("d 'de' MMMM 'de' yyyy, hh:mm:ss a", Locale.getDefault());
+                                // Creamos un SimpleDateFormat con el patrón de fecha --> ejemplo: Sábado, 18 de mayo de 2024, 12:00 PM
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd 'de' MMMMM 'de' yyyy, hh:mm", Locale.getDefault());
+                                // Convertimos el string de la fecha del evento a Date utilizando el formato especificado
                                 Date fechaEvento = dateFormat.parse(fechaEventoString);
                                 if (fechaEvento != null) {
-                                    // Marcar la fecha del evento en el calendario
+                                    // Marcamos la fecha del evento en el calendario
                                     Calendar cal = Calendar.getInstance();
                                     cal.setTime(fechaEvento);
                                     datePicker.selectDate(cal.getTime());
                                 }
                             } catch (ParseException e) {
                                 e.printStackTrace();
-                                // Manejar el error de parseo si es necesario
+                                // Manejamos error de parseo si es necesario
                             }
                         } else {
-                            // Manejar el caso en el que fechaEventoString es null
+                            // Manejamos el caso en el que fechaEventoString es vacío
                         }
-                    } 
+                    }
                 } else {
-                        Log.d(TAG, "Error al obtener eventos: ", task.getException());
-                    }
+                    Log.d(TAG, "Error al obtener eventos: ", task.getException());
                 }
-            });
+            }
+        });
+        // Definimos el listener para la Selección de fechas, busca si hay un evento en la fecha y mostramos su info
+        datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(Date date) {
+                // Convertimos la fecha seleccionada a un formato que se pueda leer
+                DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+                String fechaSeleccionada = dateFormat.format(date);
 
-    // Definir el listener para la selección de fechas
-            datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
-                @Override
-                public void onDateSelected(Date date) {
-                    // Convertir la fecha seleccionada a un formato legible
-                    DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-                    String fechaSeleccionada = dateFormat.format(date);
+                // Verificamos si hay un evento en la fecha seleccionada
+                String informacionEvento = " ";
+                if (eventosTask != null && eventosTask.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : eventosTask.getResult()) {
+                        String nombreEvento = document.getString("nombre_evento");
+                        String fechaEventoString = document.getString("fecha_evento");
 
-                    // Verificar si hay un evento en la fecha seleccionada
-                    String informacionEvento = "";
-                    if (eventosTask != null && eventosTask.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : eventosTask.getResult()) {
-                            String nombreEvento = document.getString("nombre_evento");
-                            String fechaEventoString = document.getString("fecha_evento");
+                        // Convertimos la fecha del evento de un tipo String a Date
+                        Date fechaEvento = null;
+                        try {
+                            // Creamos un SimpleDateFormat con el patrón de fecha --> ejemplo: Sábado, 18 de mayo de 2024, 12:00 PM
+                            SimpleDateFormat dateFormat2 = new SimpleDateFormat("EEEE, dd 'de' MMMMM 'de' yyyy, hh:mm", Locale.getDefault());
+                            // Convertimos el string de la fecha del evento a Date utilizando el formato especificado
+                            fechaEvento = dateFormat2.parse(fechaEventoString);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            // Manejamos el error de parseo por si las dudas
+                        }
 
-                            // Convertir la fecha del evento de String a Date
-                            Date fechaEvento = null;
-                            try {
-                                SimpleDateFormat dateFormat2 = new SimpleDateFormat("d 'de' MMMM 'de' yyyy, hh:mm:ss a", Locale.getDefault());
-                                fechaEvento = dateFormat2.parse(fechaEventoString);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                                // Manejar el error de parseo si es necesario
-                            }
+                        if (fechaEvento != null) {
+                            // Convertimos la fecha del evento a un objeto Calendar
+                            Calendar calEvento = Calendar.getInstance();
+                            calEvento.setTime(fechaEvento);
+                            Calendar calSeleccionada = Calendar.getInstance();
+                            calSeleccionada.setTime(date);
 
-                            if (fechaEvento != null) {
-                                Calendar calEvento = Calendar.getInstance();
-                                calEvento.setTime(fechaEvento);
-                                Calendar calSeleccionada = Calendar.getInstance();
-                                calSeleccionada.setTime(date);
-
-                                if (calEvento.get(Calendar.YEAR) == calSeleccionada.get(Calendar.YEAR) &&
-                                        calEvento.get(Calendar.MONTH) == calSeleccionada.get(Calendar.MONTH) &&
-                                        calEvento.get(Calendar.DAY_OF_MONTH) == calSeleccionada.get(Calendar.DAY_OF_MONTH)) {
-                                    // Se encontró un evento en la fecha seleccionada
-                                    informacionEvento = nombreEvento;
-                                    break; // No es necesario continuar buscando más eventos
-                                }
+                            if (calEvento.get(Calendar.YEAR) == calSeleccionada.get(Calendar.YEAR) &&
+                                    calEvento.get(Calendar.MONTH) == calSeleccionada.get(Calendar.MONTH) &&
+                                    calEvento.get(Calendar.DAY_OF_MONTH) == calSeleccionada.get(Calendar.DAY_OF_MONTH)) {
+                                // Se encontró un evento en la fecha seleccionada
+                                informacionEvento = nombreEvento;
+                                break; // No es necesario continuar buscando más eventos
                             }
                         }
                     }
-
-                    // Mostrar la información del evento en el área designada
-                    button3.setText("Nombre del evento para la fecha seleccionada: " + informacionEvento);
                 }
+                // Mostrar la información del evento en el área designada
+                button3.setText("Nombre del evento para la fecha seleccionada: " + informacionEvento);
+            }
+            @Override
+            public void onDateUnselected(Date date) {
+            }
+        });
 
-                @Override
-                public void onDateUnselected(Date date) {
-                    // No es necesario implementar este método para tu caso
-                }
-            });
-                                                  ////FIN CALENDARIO//////
+        // Decorador para cambiar el color de fondo de las celdas con eventos (EventDecorator)
+        datePicker.setDecorators(Collections.singletonList(new EventDecorator()));
 
+        ////FIN CALENDARIO//////
+      
         // Lee el extra del Intent para ver si se debe mostrar un ID específico
         int selectedItemId = getIntent().getIntExtra("selectedItemId", -1);
         String markerTitle = null;
@@ -651,6 +660,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    // --> EventDecorator: Aquí cambiamos el color del una fecha del CALENDARIO para ver si hay un evento
+    private class EventDecorator implements CalendarCellDecorator {
+        @Override
+        public void decorate(CalendarCellView cellView, Date date) {
+            // Verificamos si la fecha tiene un evento asociado
+            boolean tieneEvento = tieneEventoEnFecha(date);
+            if (tieneEvento) {
+                // Cambiamos el color de fondo de la celda si tiene un evento
+                cellView.setBackgroundColor(Color.YELLOW); // Ponemos de color la celda
+            } else {
+                // Si no hay ningún evento asociado, establecemos el color de fondo como transparente
+                cellView.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
+        // Checamos si hay un evento asociado a una fecha
+        private boolean tieneEventoEnFecha(Date date) {
+            // Creamos un objeto Calendar y establecemos su tiempo para que coincida con la fecha dada
+            Calendar cal1 = Calendar.getInstance();//cal1 representa la fecha asociada a la celda del calendario actual que se está decorando
+            cal1.setTime(date);
+
+            if (eventosTask != null && eventosTask.isSuccessful()) {
+                // Iteramoa sobre los resultados de Firestore
+                for (QueryDocumentSnapshot document : eventosTask.getResult()) {
+                    String fechaEventoString = document.getString("fecha_evento");
+                    if (fechaEventoString != null) {
+                        try {
+                            // Creamos un SimpleDateFormat con el patrón de fecha --> ejemplo: Sábado, 18 de mayo de 2024, 12:00 PM
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd 'de' MMMMM 'de' yyyy, hh:mm", Locale.getDefault());
+                            // Convertimos el string de la fecha del evento a Date utilizando el formato especificado
+                            Date fechaEvento = dateFormat.parse(fechaEventoString);
+
+                            // Convertimos la fecha del evento a un objeto Calendar
+                            Calendar cal2 = Calendar.getInstance();
+                            cal2.setTime(fechaEvento);
+
+                            // Comparamos los campos de año, mes y día de cal1 (fecha de la celda del calendario) con los campos correspondientes de cal2 (fecha del evento)
+                            // Si son iguales, significa que hay un evento asociado a la fecha dada
+                            if (cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                                    cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
+                                    cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH)) {
+                                // Si hay un evento en la fecha, devuelve verdadero
+                                return true;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            // Aquí manejamos el error de parseo si es necesario
+                        }
+                    }
+                }
+            }
+            // Si no hay eventos en la fecha dada, devuelve false
+            return false;
+        }
     }
 
     // --> addNotification: Aquí configuramos las NOTIFICACIONES
