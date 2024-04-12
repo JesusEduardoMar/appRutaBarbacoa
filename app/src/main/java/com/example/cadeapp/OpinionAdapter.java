@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.OpinionViewHolder> {
@@ -32,6 +34,9 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.OpinionV
         holder.nombreUsuarioTextView.setText(opinion.getNombreUsuario());
         holder.comentarioTextView.setText(opinion.getComentario());
         holder.calificacionRatingBar.setRating(opinion.getCalificacion());
+        DateFormat formatoFecha = new SimpleDateFormat("dd/mm/yyyy");
+        String fecha = formatoFecha.format(opinion.getFecha());
+        holder.fechaComentario.setText(fecha);
     }
 
     @Override
@@ -43,12 +48,14 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.OpinionV
         TextView nombreUsuarioTextView;
         TextView comentarioTextView;
         RatingBar calificacionRatingBar;
+        TextView fechaComentario;
 
         public OpinionViewHolder(@NonNull View itemView) {
             super(itemView);
             nombreUsuarioTextView = itemView.findViewById(R.id.nombreUsuarioTextView);
             comentarioTextView = itemView.findViewById(R.id.comentarioTextView);
             calificacionRatingBar = itemView.findViewById(R.id.calificacionRatingBar);
+            fechaComentario = itemView.findViewById(R.id.fechaComentario);
         }
     }
 }
