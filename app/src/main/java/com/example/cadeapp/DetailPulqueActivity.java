@@ -10,12 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,19 +26,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DetailPulqueActivity extends AppCompatActivity {
-    private TextView titleText, addressText, textDescription, horarioTextView, comentariosText;
-    private ImageView vinedoImg;
-    private int contador;
-    private Button boton01, boton02;
-    private TextView cajaDeTexto;
+    private TextView titleText, addressText, textDescription, horarioTextView;
+    private TextView calificacionScore, calificacionTotal;
+    private RatingBar calificacionBar;
     private FirebaseFirestore mFirestore;
     private String idPulque;
 
@@ -48,12 +50,17 @@ public class DetailPulqueActivity extends AppCompatActivity {
     private RecyclerView imagesRecycler1;
     private ItemsAdapterHistoria itemsAdapterHistoria;
     private List<String> items;
+    private int totalCalificaciones;
+    private float promedioCalificaciones;
     //////
+    LinearLayout ubicacionD1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailpulque);
+
+        ubicacionD1 = findViewById(R.id.ubicacionD);
 
         // Inicializamos Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -65,11 +72,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
             textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
         addressText = findViewById(R.id.addressText);
-        //vinedoImg = findViewById(R.id.vinedoImg);
-        //boton01 = findViewById(R.id.botonRestar);
-        //boton02 = findViewById(R.id.botonSumar);
-        //cajaDeTexto = findViewById(R.id.textcont);
-        comentariosText = findViewById(R.id.comentariosText);
+
         horarioTextView = findViewById(R.id.horarioTextView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             textDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
@@ -81,6 +84,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
         EditText editTextComentario = findViewById(R.id.editTextComentario);
         RatingBar ratingBarOpinion = findViewById(R.id.ratingBarOpinion);
         Button botonEnviarOpinion = findViewById(R.id.botonEnviarOpinion);
+        Button botonMostrarComentarios = findViewById(R.id.verMasComentariosButton);
 
 
         //Para cargar las imagenes en el recycler view(Kevan)
@@ -96,6 +100,11 @@ public class DetailPulqueActivity extends AppCompatActivity {
         opinionesList = new ArrayList<>();
         comentarioAdapter = new OpinionAdapter(opinionesList);
         recyclerViewComentarios.setAdapter(comentarioAdapter);
+
+        // Calificación general
+        calificacionScore = findViewById(R.id.calificacionLugarScore);
+        calificacionTotal = findViewById(R.id.calificacionLugarTotal);
+        calificacionBar = findViewById(R.id.calificacionLugarBar);
 
         // Obtenemos el ID del pulque actual
         idPulque = obtenerIdPulque();
@@ -118,10 +127,35 @@ public class DetailPulqueActivity extends AppCompatActivity {
         });
         // Obtenemos el nombre del pulque
         obtenerInformacionPulque();
+      
+        botonMostrarComentarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCommentsActivity();
+            }
+        });
 
-        // Configuramos los listeners para los botones de incremento y decremento
-        // configurarListenersBotones();
+        // Mostrar el botón para regresar y eliminar title
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      
+
+        ubicacionD1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailPulqueActivity.this, MainActivity.class);
+                intent.putExtra("selectedItemId", 5); // Selecciona el ítem con el ID 5
+                //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
+
     // Cargar las imagenes en el recyclerview desde firestore
     private void cargarImagenesDesdeFirestore(String lugarId) {
         mFirestore.collection("imagesall")
@@ -136,8 +170,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                         }
                         // Notificar al adaptador sobre el cambio en los datos
                         itemsAdapterHistoria.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                     }
                 });
     }
@@ -149,8 +182,11 @@ public class DetailPulqueActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Usamos una lista para almacenar objetos Opinion
-                        List<Opinion> listaOpiniones = new ArrayList<>();
+                        // Reiniciamos la lista de opiniones
+                        opinionesList.clear();
+                        // Reiniciamos los valores del total y promedio de opiniones
+                        totalCalificaciones = 0;
+                        promedioCalificaciones = 0;
 
                         // Iteramos sobre los documentos de la consulta
                         for (QueryDocumentSnapshot document : task.getResult()) {
@@ -158,22 +194,41 @@ public class DetailPulqueActivity extends AppCompatActivity {
                             String nombreUsuario = document.getString("nombreUsuario");
                             String comentario = document.getString("comentario");
                             float calificacion = document.getDouble("calificacion").floatValue();
+                            Date fecha = document.getDate("timestamp");
 
-                            // Crea un nuevo objeto Opinion con los datos del documento
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idPulque, null);
+                            totalCalificaciones += 1;
+                            promedioCalificaciones += calificacion;
 
-                            // Agrega la nueva opinión a la lista
-                            listaOpiniones.add(nuevaOpinion);
+                            // Condición para solo mostrar primeros 3 comentarios
+                            if(totalCalificaciones <= 3) {
+                                // Crea un nuevo objeto Opinion con los datos del documento
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, null, idPulque, fecha);
+
+                                // Agrega la nueva opinión a la lista
+                                opinionesList.add(nuevaOpinion);
+
+                            }
                         }
+
+                        // Obtener y mostrar promedio general
+                        promedioCalificaciones = promedioCalificaciones / totalCalificaciones;
+                        String promedio = String.format("%.1f", promedioCalificaciones);
+                        calificacionScore.setText(promedio);
+                        calificacionBar.setRating(promedioCalificaciones);
+                        calificacionTotal.setText(totalCalificaciones + "");
+
+                        // Verificar si la caja de comentarios está vacía
+                        verificarComentariosVacios();
 
                         // Notifica al adaptador que los datos han cambiado
                         comentarioAdapter.notifyDataSetChanged();
                     } else {
                         // Manejo de error en caso de fallo en la consulta
-                        Log.e("DetailPulqueActivity", "Error al obtener las opiniones", task.getException());
+                        Log.e("DetailFreixenetActivity", "Error al obtener las opiniones", task.getException());
                     }
                 });
     }
+
     // Método para enviar una opinión
     private void enviarOpinion(EditText editTextComentario, RatingBar ratingBarOpinion, String userId, String idPulque) {
         try {
@@ -199,7 +254,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                                 String nombreUsuario = documentSnapshot.getString("nombre");
 
                                 // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idPulque, null);
+                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, null, idPulque);
 
                                 // Agregamos la nueva opinión a la colección de opiniones en Firestore
                                 mFirestore.collection("opiniones")
@@ -232,110 +287,68 @@ public class DetailPulqueActivity extends AppCompatActivity {
             Toast.makeText(DetailPulqueActivity.this, "Error inesperado: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-    // Método para obtener la información del Pulque ?
+
+    // Método para obtener la información del pulque
     private void obtenerInformacionPulque() {
-        // Obtenemos el nombre del pulque desde la intención
-        Intent intent = getIntent();
-        String name = (intent != null) ? intent.getExtras().getString("titleTxt") : null;
-
-        // Verificamos la existencia del nombre
-        if (name != null) {
-            // Consultamos en Firestore para obtener información del Pulque
-            mFirestore.collection("pulques").whereEqualTo("nombre_pulque", name).limit(1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        // Verificamos la existencia del id
+        if (idPulque != null) {
+            // Consultamos en Firestore para obtener información del pulque
+            mFirestore.collection("pulques").document(idPulque).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
-                        // Iteramos sobre los resultados de la consulta
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Extraemos los campos del documento
-                            String nombre = document.getString("nombre_pulque");
-                            String info = document.getString("info_pulque");
-                            String ubicacion = document.getString("ubicacion_pulque");
-                            String horario = document.getString("horario_pulque");
-                            String imageUrl = document.getString("url");
+                        DocumentSnapshot document = task.getResult();
+                        // Extraemos los campos del documento
+                        String nombre = document.getString("nombre_pulque");
+                        String info = document.getString("info_pulque");
+                        String ubicacion = document.getString("ubicacion_pulque");
+                        String horario = document.getString("horario_pulque");
+                        String imageUrl = document.getString("url");
 
-                            // Configuramos los elementos de la interfaz de usuario con la información obtenida
-                            titleText.setText(nombre);
-                            textDescription.setText(info);
-                            addressText.setText(ubicacion);
-                            horarioTextView.setText(horario);
+                        // Configuramos los elementos de la interfaz de usuario con la información obtenida
+                        titleText.setText(nombre);
+                        textDescription.setText(info);
+                        addressText.setText(ubicacion);
+                        horarioTextView.setText(horario);
 
-                            // Cargamos la imagen utilizando Glide
-                            //Glide.with(DetailPulqueActivity.this).load(imageUrl).into(vinedoImg);
-
-                            // Mostramos los comentarios del pulque en la que estamos comentando
-                            mostrarComentariosPulque();
-                        }
                     } else {
                         // Manejo de errores
-                        Log.e("DetailPulqueActivity", "Error al obtener la información del pulque", task.getException());
+                        Log.e("DetailFreixenetActivity", "Error al obtener la información del pulque", task.getException());
                     }
                 }
             });
         } else {
             // Manejo de errores
-            Log.e("DetailPulqueActivity", "El nombre del pulque es nulo en la intención.");
+            Log.e("DetailFreixenetActivity", "El nombre del pulque es nulo en la intención.");
         }
     }
-/*
-    // Método para configurar los listeners de los botones de incrementar y decrementar
-    private void configurarListenersBotones() {
-        // Listener para el botón de restar
-        boton01.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contador--;
-                cajaDeTexto.setText(Integer.toString(contador));
-            }
-        });
 
-        // Listener para el botón de sumar
-        boton02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contador++;
-                cajaDeTexto.setText(Integer.toString(contador));
-            }
-        });
+    // Método para verificar si la caja de comentarios está vacía
+    private void verificarComentariosVacios() {
 
-        // Muestra el valor inicial en el TextView
-        cajaDeTexto.setText(Integer.toString(contador));
-    }*/
+        // Verificamos si la lista de opiniones está vacía
+        if (opinionesList.isEmpty()) {
+            // Si la lista está vacía, mostramos el mensaje de ninguna opinión
+            findViewById(R.id.noOpinionMessage).setVisibility(View.VISIBLE);
 
-    // Método para mostrar los comentarios del respectivo pulque
-    private void mostrarComentariosPulque() {
-        // Consultamos en Firestore para obtener comentarios relacionados con el pulque actual
-        mFirestore.collection("opiniones")
-                .whereEqualTo("idPulque", idPulque)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Limpiamos la lista antes de añadir las nuevas opiniones
-                        opinionesList.clear();
+            // Ocultar vistas que muestran puntaje
+            findViewById(R.id.calificacionLugarScore).setVisibility(View.GONE);
+            findViewById(R.id.calificacionLugarBar).setVisibility(View.GONE);
+            findViewById(R.id.calificacionLugarTotal).setVisibility(View.GONE);
+            findViewById(R.id.verMasComentariosButton).setVisibility(View.GONE);
+        } else {
+            // Si hay opiniones, ocultamos el mensaje
+            findViewById(R.id.noOpinionMessage).setVisibility(View.GONE);
 
-                        // Iteramos sobre los documentos obtenidos en la consulta
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Extraemos los campos del documento
-                            String comentario = document.getString("comentario");
-                            String nombreUsuario = document.getString("nombreUsuario");
-                            float calificacion = document.getDouble("calificacion").floatValue();
-
-                            // Creamos un nuevo objeto Opinion
-                            Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idPulque, null);
-
-                            // Agregamos la nueva opinión a la lista
-                            opinionesList.add(nuevaOpinion);
-                        }
-
-                        // Notificamos al adaptador sobre los cambios en la lista
-                        comentarioAdapter.notifyDataSetChanged();
-                    } else {
-                        // Manejo de errores
-                        Log.e("DetailPulqueActivity", "Error al obtener comentarios", task.getException());
-                    }
-                });
+            // Mostrar Score
+            findViewById(R.id.calificacionLugarScore).setVisibility(View.VISIBLE);
+            findViewById(R.id.calificacionLugarBar).setVisibility(View.VISIBLE);
+            findViewById(R.id.calificacionLugarTotal).setVisibility(View.VISIBLE);
+            findViewById(R.id.verMasComentariosButton).setVisibility(View.VISIBLE);
+        }
     }
-    // Método para obtener el ID del Pulque actual
+
+    // Método para obtener el ID del pulque actual
     private String obtenerIdPulque() {
         Intent intent = getIntent();
         if (intent != null) {
@@ -345,8 +358,18 @@ public class DetailPulqueActivity extends AppCompatActivity {
                 return idPulque;
             }
         }
-        Toast.makeText(this, "Error: ID del Pulque no válido", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Error: ID de pulque no válido", Toast.LENGTH_SHORT).show();
         return "";
     }
-}
+  
+    private void showCommentsActivity() {
 
+        Intent intent = new Intent(this, Reviews.class);
+        intent.putExtra("tipoReferencia", Reviews.PULQUE);
+        intent.putExtra("idPulque", idPulque);
+        intent.putExtra("titleTxt", titleText.getText());
+        intent.putExtra("totalCalificaciones", totalCalificaciones);
+        intent.putExtra("promedioCalificaciones", promedioCalificaciones);
+        this.startActivity(intent);
+    }
+}

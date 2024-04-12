@@ -2,26 +2,41 @@ package com.example.cadeapp;
 
 import com.google.firebase.firestore.FieldValue;
 
+import java.util.Date;
+
 public class Opinion {
     private String nombreUsuario;
     private String comentario;
     private float calificacion;
     private Object timestamp;
-    private String idBarbacoa;
-    private String idEvento;
+    private String idBarbacoa, idEvento, idPulque;
+    private Date fecha;
 
     // Constructor vacío requerido para Firestore
     public Opinion() {
     }
 
     // Constructor para comentarios de barbacoas o eventos
-    public Opinion(String nombreUsuario, String comentario, float calificacion, String idBarbacoa, String idEvento) {
+    public Opinion(String nombreUsuario, String comentario, float calificacion, String idBarbacoa, String idEvento, String idPulque) {
         this.nombreUsuario = nombreUsuario;
         this.comentario = comentario;
         this.calificacion = calificacion;
         this.idBarbacoa = idBarbacoa;
         this.idEvento = idEvento;
+        this.idPulque = idPulque;
         this.timestamp = FieldValue.serverTimestamp();
+    }
+
+    // Constructor para comentarios de barbacoas o eventos
+    public Opinion(String nombreUsuario, String comentario, float calificacion, String idBarbacoa, String idEvento,  String idPulque, Date fecha) {
+        this.nombreUsuario = nombreUsuario;
+        this.comentario = comentario;
+        this.calificacion = calificacion;
+        this.idBarbacoa = idBarbacoa;
+        this.idEvento = idEvento;
+        this.idPulque = idPulque;
+        this.timestamp = FieldValue.serverTimestamp();
+        this.fecha = fecha;
     }
 
     // Getter and setter methods for the fields
@@ -72,5 +87,21 @@ public class Opinion {
 
     public void setTimestamp(Object timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getIdPulque() {
+        return idPulque;
+    }
+
+    public void setIdPulque(String idPulque) {
+        this.idPulque = idPulque;
     }
 }

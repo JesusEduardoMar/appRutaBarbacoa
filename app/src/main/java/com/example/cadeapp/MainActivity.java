@@ -10,11 +10,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -579,9 +583,33 @@ public class MainActivity extends AppCompatActivity {
         datePicker.setDecorators(Collections.singletonList(new EventDecorator()));
 
         ////FIN CALENDARIO//////
+      
+        // Lee el extra del Intent para ver si se debe mostrar un ID específico
+        int selectedItemId = getIntent().getIntExtra("selectedItemId", -1);
+        String markerTitle = null;
+        if (selectedItemId != -1) {
+            // Extraer datos del markerTitle
+            markerTitle = getIntent().getStringExtra("markerTitle");
+
+            // Se cambió el estado debido al extra del Intent
+            bottomNavigation.show(selectedItemId, true);
+
+            // Limpiar el extra del Intent
+            getIntent().removeExtra("selectedItemId");
+            getIntent().removeExtra("markerTitle");
+        } else {
+            // Estado predeterminado
+            bottomNavigation.show(3, true);
+        }
 
             // --> Muestra el fragmento del mapa
             Fragment fragment = new Map_Fragment();
+
+            // Bundle para mandar argumentos al Map_Fragment
+            Bundle bundle = new Bundle();
+            bundle.putString("markerTitle", markerTitle);
+            fragment.setArguments(bundle);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
 
             // --> Configuración de listener para el botón de cerrar sesión
@@ -631,6 +659,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
     // --> EventDecorator: Aquí cambiamos el color del una fecha del CALENDARIO para ver si hay un evento
     private class EventDecorator implements CalendarCellDecorator {
@@ -794,5 +823,42 @@ public class MainActivity extends AppCompatActivity {
                 map.setVisibility(View.GONE);
             }
         }
+
+/*
+        @Override
+        public void onBackPressed(){
+        new AlertDialog.Builder(this)
+                .setMessage("Pulsa de nuevo para salir")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("NO", null)
+                .show();
+        }*/
+
+
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Pulse de nuevo para salir", Toast.LENGTH_SHORT).show();
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 
 }

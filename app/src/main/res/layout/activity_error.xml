@@ -18,10 +18,8 @@
     <ImageView
         android:id="@+id/errorIcon"
         android:layout_width="match_parent"
-        android:layout_height="146dp"
-        android:layout_marginTop="148dp"
-        app:srcCompat="@drawable/baseline_error_24"
-        app:tint="@color/dark_orange"/>
+        android:layout_height="300dp"
+        android:src="@drawable/borrego_error"/>
 
     <TextView
         android:id="@+id/errorTitle"
