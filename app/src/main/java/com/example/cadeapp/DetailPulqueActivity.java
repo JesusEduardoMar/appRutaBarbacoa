@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,11 +50,14 @@ public class DetailPulqueActivity extends AppCompatActivity {
     private ItemsAdapterHistoria itemsAdapterHistoria;
     private List<String> items;
     //////
+    LinearLayout ubicacionD1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailpulque);
+
+        ubicacionD1 = findViewById(R.id.ubicacionD);
 
         // Inicializamos Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -121,7 +125,21 @@ public class DetailPulqueActivity extends AppCompatActivity {
 
         // Configuramos los listeners para los botones de incremento y decremento
         // configurarListenersBotones();
+
+        ubicacionD1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailPulqueActivity.this, MainActivity.class);
+                intent.putExtra("selectedItemId", 5); // Selecciona el ítem con el ID 5
+                //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
+
     // Cargar las imagenes en el recyclerview desde firestore
     private void cargarImagenesDesdeFirestore(String lugarId) {
         mFirestore.collection("imagesall")
@@ -136,8 +154,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                         }
                         // Notificar al adaptador sobre el cambio en los datos
                         itemsAdapterHistoria.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                     }
                 });
     }
@@ -349,4 +366,3 @@ public class DetailPulqueActivity extends AppCompatActivity {
         return "";
     }
 }
-

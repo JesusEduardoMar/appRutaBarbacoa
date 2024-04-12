@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,11 +51,14 @@ public class DetailEventosActivity extends AppCompatActivity {
     private ItemsAdapterHistoria itemsAdapterHistoria;
     private List<String> items;
     //////
+    LinearLayout ubicacionD3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detaileventos);
+
+        ubicacionD3 = findViewById(R.id.ubicacionD);
 
         // Inicializamos Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -123,6 +127,20 @@ public class DetailEventosActivity extends AppCompatActivity {
 
         // Configuramos los listeners para los botones de incremento y decremento
         //configurarListenersBotones();
+
+
+        ubicacionD3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailEventosActivity.this, MainActivity.class);
+                intent.putExtra("selectedItemId", 5); // Selecciona el ítem con el ID 5
+                //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
     // Cargar las imagenes en el recyclerview desde firestore
     private void cargarImagenesDesdeFirestore(String lugarId) {

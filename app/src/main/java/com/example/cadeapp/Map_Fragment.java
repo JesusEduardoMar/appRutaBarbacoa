@@ -1,6 +1,7 @@
 package com.example.cadeapp;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Intent.getIntent;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -59,10 +60,15 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     //mantenemos una lista de los marcadores creados y buscamos el marcador correspondiente en esa lista.
     private List<Marker> markerpList = new ArrayList<>();
 
+    private String targetStr = null;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map_, container, false);
+
+        // Verificar si existe un marker al cual enfocar
+        targetStr = this.getArguments().getString("markerTitle");
 
         // Inicializar FirebaseFirestore
         db = FirebaseFirestore.getInstance();
@@ -293,6 +299,13 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                             .snippet("¿Cómo llegar?")
                                             .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.oveja)));
                                     markerList.add(marker); // Agregar el marcador a la lista
+
+                                    // Si el título coincide con el targetStr enfocar
+                                    if(targetStr != null){
+                                        if(title.equals(targetStr)){
+                                            onMarkerClick(marker);
+                                        }
+                                    }
                                 } else {
                                     Log.e(TAG, "El campo 'ubicacion' es nulo para el documento: " + document.getId());
                                 }
@@ -324,6 +337,13 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                             .snippet("¿Cómo llegar?")
                                             .icon(bitmapDescriptor(getActivity().getApplicationContext(), R.drawable.pulque1)));
                                     markerpList.add(marker); // Agregar el marcador a la lista
+
+                                    // Si el título coincide con el targetStr enfocar
+                                    if(targetStr != null){
+                                        if(title.equals(targetStr)){
+                                            onMarkerClick(marker);
+                                        }
+                                    }
                                 } else {
                                     Log.e(TAG, "El campo 'ubicacion' es nulo para el documento: " + document.getId());
                                 }
@@ -397,4 +417,35 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
+
+
+//
+//    public void hola(String title){
+//        if(title == null){
+//            return;
+//        }
+//
+//        Log.d("saluu Canti", "s" + markerList.size());
+//        for (Marker marker : markerList) {
+//
+//            Log.d("saluuC", marker.getTitle());
+//
+//            if (marker.getTitle().trim().equalsIgnoreCase(title.trim())) {
+//                //onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
+//
+//
+//                Log.d("saluuu", "encontrao");
+//                marker.showInfoWindow();
+//
+//                if (mMap.getCameraPosition().zoom < DEFAULT_ZOOM) {
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), DEFAULT_ZOOM));
+//                } else {
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+//                }
+//                break;
+//            }
+//        }
+//        Log.d("saluu", "hola: "+title);
+//    }
+
 }
