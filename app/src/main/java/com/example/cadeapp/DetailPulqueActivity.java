@@ -372,4 +372,10 @@ public class DetailPulqueActivity extends AppCompatActivity {
         intent.putExtra("promedioCalificaciones", promedioCalificaciones);
         this.startActivity(intent);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

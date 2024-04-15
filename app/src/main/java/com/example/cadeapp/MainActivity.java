@@ -583,7 +583,11 @@ public class MainActivity extends AppCompatActivity {
         datePicker.setDecorators(Collections.singletonList(new EventDecorator()));
 
         ////FIN CALENDARIO//////
-      
+
+
+
+        //EXTRAS EN INTENTS PARA CALENDARIO---------------------------------------------------------------------------------------------
+
         // Lee el extra del Intent para ver si se debe mostrar un ID específico
         int selectedItemId = getIntent().getIntExtra("selectedItemId", -1);
         String markerTitle = null;
