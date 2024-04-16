@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -179,6 +180,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
     private void obtenerYMostrarOpiniones() {
         mFirestore.collection("opiniones")
                 .whereEqualTo("idPulque", idPulque)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -191,7 +193,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                         // Iteramos sobre los documentos de la consulta
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Extrae campos del documento
-                            String nombreUsuario = document.getString("nombreUsuario");
+                            String idUsuario = document.getString("idUsuario");
                             String comentario = document.getString("comentario");
                             float calificacion = document.getDouble("calificacion").floatValue();
                             Date fecha = document.getDate("timestamp");
@@ -202,7 +204,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                             // Condición para solo mostrar primeros 3 comentarios
                             if(totalCalificaciones <= 3) {
                                 // Crea un nuevo objeto Opinion con los datos del documento
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, null, idPulque, fecha);
+                                Opinion nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, null, null, idPulque, fecha);
 
                                 // Agrega la nueva opinión a la lista
                                 opinionesList.add(nuevaOpinion);
@@ -239,6 +241,12 @@ public class DetailPulqueActivity extends AppCompatActivity {
             // Validamos los campos
             if (comentario.isEmpty()) {
                 Toast.makeText(DetailPulqueActivity.this, "Por favor, ingrese su comentario", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validamos los campos
+            if (calificacion < 1.0) {
+                Toast.makeText(DetailPulqueActivity.this, "Por favor, establezca un puntaje", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -371,5 +379,12 @@ public class DetailPulqueActivity extends AppCompatActivity {
         intent.putExtra("totalCalificaciones", totalCalificaciones);
         intent.putExtra("promedioCalificaciones", promedioCalificaciones);
         this.startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

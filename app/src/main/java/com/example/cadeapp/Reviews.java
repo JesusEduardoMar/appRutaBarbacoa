@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -137,6 +138,7 @@ public class Reviews extends AppCompatActivity {
         // Consulta en Firestore para obtener comentarios relacionados con la referencia actual
         mFirestore.collection("opiniones")
                 .whereEqualTo(tipoReferencia, idReferencia)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Limpiamos la lista antes de añadir las nuevas opiniones
