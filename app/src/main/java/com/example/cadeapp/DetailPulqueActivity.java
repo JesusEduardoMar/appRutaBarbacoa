@@ -147,6 +147,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetailPulqueActivity.this, MainActivity.class);
                 intent.putExtra("selectedItemId", 5); // Selecciona el ítem con el ID 5
+                intent.putExtra("markerTitle", titleText.getText());
                 //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -371,5 +372,11 @@ public class DetailPulqueActivity extends AppCompatActivity {
         intent.putExtra("totalCalificaciones", totalCalificaciones);
         intent.putExtra("promedioCalificaciones", promedioCalificaciones);
         this.startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

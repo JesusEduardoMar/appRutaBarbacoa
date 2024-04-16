@@ -386,4 +386,10 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }
