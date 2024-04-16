@@ -5,20 +5,20 @@ import com.google.firebase.firestore.FieldValue;
 import java.util.Date;
 
 public class Opinion {
-    private String nombreUsuario;
+    private String idUsuario;
     private String comentario;
     private float calificacion;
     private Object timestamp;
     private String idBarbacoa, idEvento, idPulque;
-    private Date fecha;
+    public Date fecha;
 
     // Constructor vacío requerido para Firestore
     public Opinion() {
     }
 
     // Constructor para comentarios de barbacoas o eventos
-    public Opinion(String nombreUsuario, String comentario, float calificacion, String idBarbacoa, String idEvento, String idPulque) {
-        this.nombreUsuario = nombreUsuario;
+    public Opinion(String idUsuario, String comentario, float calificacion, String idBarbacoa, String idEvento, String idPulque) {
+        this.idUsuario = idUsuario;
         this.comentario = comentario;
         this.calificacion = calificacion;
         this.idBarbacoa = idBarbacoa;
@@ -28,8 +28,8 @@ public class Opinion {
     }
 
     // Constructor para comentarios de barbacoas o eventos
-    public Opinion(String nombreUsuario, String comentario, float calificacion, String idBarbacoa, String idEvento,  String idPulque, Date fecha) {
-        this.nombreUsuario = nombreUsuario;
+    public Opinion(String idUsuario, String comentario, float calificacion, String idBarbacoa, String idEvento,  String idPulque, Date fecha) {
+        this.idUsuario = idUsuario;
         this.comentario = comentario;
         this.calificacion = calificacion;
         this.idBarbacoa = idBarbacoa;
@@ -41,12 +41,12 @@ public class Opinion {
 
     // Getter and setter methods for the fields
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getComentario() {
@@ -87,14 +87,6 @@ public class Opinion {
 
     public void setTimestamp(Object timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public String getIdPulque() {

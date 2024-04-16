@@ -29,10 +29,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.AggregateQuery;
 import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -186,6 +188,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
     private void obtenerYMostrarOpiniones() {
         mFirestore.collection("opiniones")
                 .whereEqualTo("idBarbacoa", idBarbacoa)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -198,10 +201,12 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                         // Iteramos sobre los documentos de la consulta
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Extrae campos del documento
-                            String nombreUsuario = document.getString("nombreUsuario");
+                            String idUsuario = document.getString("idUsuario");
                             String comentario = document.getString("comentario");
                             float calificacion = document.getDouble("calificacion").floatValue();
+                            //Timestamp fecha = (Timestamp) document.getData().get("timestamp");
                             Date fecha = document.getDate("timestamp");
+
 
                             totalCalificaciones += 1;
                             promedioCalificaciones += calificacion;
@@ -209,7 +214,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                             // Condición para solo mostrar primeros 3 comentarios
                             if(totalCalificaciones <= 3) {
                                 // Crea un nuevo objeto Opinion con los datos del documento
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null, null, fecha);
+                                Opinion nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, idBarbacoa, null, null, fecha);
 
                                 // Agrega la nueva opinión a la lista
                                 opinionesList.add(nuevaOpinion);
@@ -249,6 +254,12 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                 return;
             }
 
+            // Validamos los campos
+            if (calificacion < 1.0) {
+                Toast.makeText(DetailFreixenetActivity.this, "Por favor, establezca un puntaje", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // Verificamos el ID de usuario antes de enviar la opinión
             if (userId != null) {
                 // Consultamso en Firestore para obtener el nombre del usuario
@@ -258,10 +269,10 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                         .addOnSuccessListener(documentSnapshot -> {
                             if (documentSnapshot.exists()) {
                                 // Extraemos el nombre de usuario
-                                String nombreUsuario = documentSnapshot.getString("nombre");
+                                String idUsuario = documentSnapshot.getString("id");
 
                                 // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idBarbacoa, null, null);
+                                Opinion nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, idBarbacoa, null, null);
 
                                 // Agregamos la nueva opinión a la colección de opiniones en Firestore
                                 mFirestore.collection("opiniones")
