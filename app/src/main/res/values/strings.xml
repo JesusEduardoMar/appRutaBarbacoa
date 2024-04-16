@@ -32,5 +32,42 @@
     <string name="escribe_tu_direccion">Escribe la dirección de correo electrónico asociada a tu cuenta.</string>
     <string name="recuperar_contrase_a">Recuperar contraseña</string>
 
+    <string name="texto_de_privacidad">
+        <![CDATA[
+            Fecha última actualización: / /
+            De conformidad con el Reglamento (UE) 2016/679, del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de estos datos (Reglamento General de Protección de Datos - RGPD), XXXEMPRESAXXX, informa a los usuarios de la aplicación CADE B&P, acerca del tratamiento de los datos personales, que ellos voluntariamente hayan facilitado durante el proceso de registro, acceso y utilización del servicio.
+
+            1. IDENTIFICACIÓN DEL RESPONSABLE DEL TRATAMIENTO.
+            XXXEMPRESAXXX, con CIF/NIF nº: ________________ y domicilio a efectos de notificaciones en: ________________________________________ e inscrita en el Registro Mercantil de_________________ Tomo _________, Folio ___________, Sección ª, Hoja _______, inscripción ª (en adelante, el Responsable del Tratamiento), es la entidad responsable del tratamiento de los datos facilitados por los clientes de la Aplicación (en adelante, el/los Usuario/s).
+
+            2. FINALIDAD DEL TRATAMIENTO DE DATOS.
+            Para proceder al registro, acceso y posterior uso de la Aplicación, el Usuario deberá facilitar -de forma voluntaria-, datos de carácter personal (esencialmente, identificativos y de contacto), los cuales serán incorporados a soportes automatizados titularidad de XXXEMPRESAXXX. La recogida, almacenamiento, modificación, estructuración y en su caso, eliminación, de los datos proporcionados por los Usuarios, constituirán operaciones de tratamiento llevadas a cabo por el Responsable, con la finalidad de garantizar el correcto funcionamiento de la Aplicación, mantener la relación de prestación de servicios y/o comercial con el Usuario, y para la gestión, administración, información, prestación y mejora del servicio. Los datos personales facilitados por el Usuario -especialmente, el correo electrónico o e-mail- podrán emplearse también para remitir boletines (newsletters), así como comunicaciones comerciales de promociones y/o publicidad de la Aplicación, siempre y cuando, el Usuario haya prestado previamente su consentimiento expreso para la recepción de estas comunicaciones vía electrónica.
+
+            3. LEGITIMACIÓN.
+            El tratamiento de los datos del Usuario, se realiza con las siguientes bases jurídicas que legitiman el mismo:
+            - La solicitud de información y/o la contratación de los servicios de la Aplicación, cuyos términos y condiciones se pondrán a disposición del Usuario en todo caso, con carácter previo, para su expresa aceptación.
+            - El consentimiento libre, específico, informado e inequívoco del Usuario, poniendo a su disposición la presente política de privacidad, que deberá aceptar mediante una declaración o una clara acción afirmativa, como el marcado de una casilla dispuesta al efecto.
+            En caso de que el Usuario no facilite a XXXEMPRESAXXX sus datos, o lo haga de forma errónea o incompleta, no será posible proceder al uso de la Aplicación.
+
+            4. CONSERVACIÓN DE LOS DATOS PERSONALES.
+            Los datos personales proporcionados por el Usuario, se conservarán en los sistemas y bases de datos del Responsable del Tratamiento, mientras aquél continúe haciendo uso de la Aplicación, y siempre que no solicite su supresión. Con el objetivo de depurar las posibles responsabilidades derivadas del tratamiento, los datos se conservarán por un período mínimo de cinco años.
+
+            5. DESTINATARIOS.
+            Los datos no se comunicarán a ningún tercero ajeno a XXXEMPRESAXXX, salvo obligación legal o en cualquier caso, previa solicitud del consentimiento del Usuario. De otra parte, XXXEMPRESAXXX podrá dar acceso o transmitir los datos personales facilitados por el Usuario, a terceros proveedores de servicios, con los que haya suscrito acuerdos de encargo de tratamiento de datos, y que únicamente accedan a dicha información para prestar un servicio en favor y por cuenta del Responsable.
+
+            6. RETENCIÓN DE DATOS.
+            XXXEMPRESAXXX, informa al Usuario de que, como prestador de servicio de alojamiento de datos y en virtud de lo establecido en la Ley 34/2002 de 11 de julio de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI), retiene por un período máximo de 12 meses la información imprescindible para identificar el origen de los datos alojados y el momento en que se inició la prestación del servicio. La retención de estos datos no afecta al secreto de las comunicaciones y sólo podrán ser utilizados en el marco de una investigación criminal o para la salvaguardia de la seguridad pública, poniéndose a disposición de los jueces y/o tribunales o del Ministerio que así los requiera. La comunicación de datos a las Fuerzas y Cuerpos de Seguridad del Estado, se hará en virtud de lo dispuesto por la normativa sobre protección de datos personales, y bajo el máximo respeto a la misma.
+
+            7. PROTECCIÓN DE LA INFORMACIÓN ALOJADA.
+            El Responsable del Tratamiento, adopta las medidas necesarias para garantizar la seguridad, integridad y confidencialidad de los datos conforme a lo dispuesto en el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de los mismos. Si bien el Responsable realiza copias de seguridad periódicas, no se responsabiliza de la pérdida o el borrado accidental de los datos por parte de los Usuarios. Los datos facilitados por el Usuario, serán almacenados en un servidor seguro, con certificado SSL (Secure Socket Layer), de tal forma que se garantice la seguridad de los mismos en todo momento.
+
+            8. DERECHOS DEL USUARIO.
+            De acuerdo con lo establecido en el Reglamento General de Protección de Datos, el Usuario podrá ejercitar los derechos de acceso, rectificación, cancelación y oposición, así como el de limitación del tratamiento y el de portabilidad de los datos. También tiene derecho a retirar el consentimiento prestado en cualquier momento, sin que ello afecte a la licitud del tratamiento basado en el consentimiento previo a su retirada. Para ello, el Usuario podrá dirigir un correo electrónico a: _____________________________. Deberá especificar cuál de estos derechos solicita sea satisfecho y, a su vez, deberá acompañarse de la fotocopia del DNI o documento identificativo equivalente. En caso de que actúe mediante representante, legal o voluntario, deberá aportar también documento que acredite la representación y documento identificativo del mismo. Asimismo, el Usuario tiene derecho a presentar una reclamación ante la autoridad de control competente (AEPD), si considera que el tratamiento no se ajusta a la normativa vigente.
+
+            9. CAMBIOS EN LA POLÍTICA DE PRIVACIDAD.
+            El Responsable del Tratamiento se reserva el derecho a modificar la presente política para adaptarla a novedades legislativas o jurisprudenciales, así como a prácticas de la industria. En tales casos, el Responsable anunciará en esta página los cambios introducidos con razonable antelación a su puesta en práctica.
+        ]]>
+    </string>
+
 
 </resources>

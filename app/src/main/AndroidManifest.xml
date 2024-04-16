@@ -74,6 +74,20 @@
             android:resizeableActivity="false"
             />
         <activity
+            android:name=".informacion"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:resizeableActivity="false"
+            />
+        <activity
+            android:name=".privacidad"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:resizeableActivity="false"
+            />
+        <activity
             android:name=".DetailFreixenetActivity"
             android:exported="false"
             android:screenOrientation="portrait"

@@ -89,7 +89,13 @@ public class MainActivity extends AppCompatActivity {
     private Task<QuerySnapshot> eventosTask;
     RelativeLayout relativeContact1;
     RelativeLayout relativeFAQ1;
+    RelativeLayout relativeInfo1;
+    RelativeLayout relativePrivacity1;
     private static final int REQUEST_CODE_CONTACT = 101; //Constante utilizada para regresar a menu desde contact
+
+    private final Date today = new Date(); //fecha actual
+
+    private final Calendar nextYear = Calendar.getInstance();
 
     // Método llamado a la hora de crear la actividad
     @Override
@@ -335,6 +341,8 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.show(3,true);
         relativeContact1 = findViewById(R.id.relativeContact);
         relativeFAQ1 = findViewById(R.id.relativeFAQ);
+        relativeInfo1= findViewById(R.id.relativeInfo);
+        relativePrivacity1 = findViewById(R.id.relativePrivacity);
 
         //-------------Servicios Google----------------
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -480,8 +488,8 @@ public class MainActivity extends AppCompatActivity {
                     ////CALENDARIO//////
 
         // Inicializamos el selector de fechas
-        Date today = new Date(); //fecha actual
-        Calendar nextYear = Calendar.getInstance();
+        final Date today = new Date(); //fecha actual
+        final Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 30);
 
         CalendarPickerView datePicker = findViewById(R.id.calendarView);
@@ -509,10 +517,13 @@ public class MainActivity extends AppCompatActivity {
                                 // Convertimos el string de la fecha del evento a Date utilizando el formato especificado
                                 Date fechaEvento = dateFormat.parse(fechaEventoString);
                                 if (fechaEvento != null) {
-                                    // Marcamos la fecha del evento en el calendario
-                                    Calendar cal = Calendar.getInstance();
-                                    cal.setTime(fechaEvento);
-                                    datePicker.selectDate(cal.getTime());
+                                    //Estamos verificando si la fecha del evento está en el día actual o en el futuro
+                                    if (!fechaEvento.before(today)) {
+                                        // Marcamos la fecha del evento en el calendario
+                                        Calendar cal = Calendar.getInstance();
+                                        cal.setTime(fechaEvento);
+                                        datePicker.selectDate(cal.getTime());
+                                    }
                                 }
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -555,18 +566,21 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if (fechaEvento != null) {
-                            // Convertimos la fecha del evento a un objeto Calendar
-                            Calendar calEvento = Calendar.getInstance();
-                            calEvento.setTime(fechaEvento);
-                            Calendar calSeleccionada = Calendar.getInstance();
-                            calSeleccionada.setTime(date);
+                            //Estamos verificando si la fecha del evento está en el día actual o en el futuro
+                            if (!fechaEvento.before(today)) {
+                                // Convertimos la fecha del evento a un objeto Calendar
+                                Calendar calEvento = Calendar.getInstance();
+                                calEvento.setTime(fechaEvento);
+                                Calendar calSeleccionada = Calendar.getInstance();
+                                calSeleccionada.setTime(date);
 
-                            if (calEvento.get(Calendar.YEAR) == calSeleccionada.get(Calendar.YEAR) &&
-                                    calEvento.get(Calendar.MONTH) == calSeleccionada.get(Calendar.MONTH) &&
-                                    calEvento.get(Calendar.DAY_OF_MONTH) == calSeleccionada.get(Calendar.DAY_OF_MONTH)) {
-                                // Se encontró un evento en la fecha seleccionada
-                                informacionEvento = nombreEvento;
-                                break; // No es necesario continuar buscando más eventos
+                                if (calEvento.get(Calendar.YEAR) == calSeleccionada.get(Calendar.YEAR) &&
+                                        calEvento.get(Calendar.MONTH) == calSeleccionada.get(Calendar.MONTH) &&
+                                        calEvento.get(Calendar.DAY_OF_MONTH) == calSeleccionada.get(Calendar.DAY_OF_MONTH)) {
+                                    // Se encontró un evento en la fecha seleccionada
+                                    informacionEvento = nombreEvento;
+                                    break; // No es necesario continuar buscando más eventos
+                                }
                             }
                         }
                     }
@@ -638,6 +652,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE_CONTACT);
             }
         });
+
+        relativeInfo1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Iniciar la actividad "FAQ" con startActivityForResult
+                Intent intent = new Intent(MainActivity.this, informacion.class);
+                startActivityForResult(intent, REQUEST_CODE_CONTACT);
+            }
+        });
+
+        relativePrivacity1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Iniciar la actividad "FAQ" con startActivityForResult
+                Intent intent = new Intent(MainActivity.this, privacidad.class);
+                startActivityForResult(intent, REQUEST_CODE_CONTACT);
+            }
+        });
       
            // --> Configuración de listeners para los botones de tarjetas de información (hasta arriba)
 
@@ -692,17 +724,20 @@ public class MainActivity extends AppCompatActivity {
                             // Convertimos el string de la fecha del evento a Date utilizando el formato especificado
                             Date fechaEvento = dateFormat.parse(fechaEventoString);
 
-                            // Convertimos la fecha del evento a un objeto Calendar
-                            Calendar cal2 = Calendar.getInstance();
-                            cal2.setTime(fechaEvento);
+                            //Estamos verificando si la fecha del evento está en el día actual o en el futuro
+                            if (!fechaEvento.before(today) ) {
+                                // Convertimos la fecha del evento a un objeto Calendar
+                                Calendar cal2 = Calendar.getInstance();
+                                cal2.setTime(fechaEvento);
 
-                            // Comparamos los campos de año, mes y día de cal1 (fecha de la celda del calendario) con los campos correspondientes de cal2 (fecha del evento)
-                            // Si son iguales, significa que hay un evento asociado a la fecha dada
-                            if (cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                                    cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
-                                    cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH)) {
-                                // Si hay un evento en la fecha, devuelve verdadero
-                                return true;
+                                // Comparamos los campos de año, mes y día de cal1 (fecha de la celda del calendario) con los campos correspondientes de cal2 (fecha del evento)
+                                // Si son iguales, significa que hay un evento asociado a la fecha dada
+                                if (cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                                        cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
+                                        cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH)) {
+                                    // Si hay un evento en la fecha, devuelve verdadero
+                                    return true;
+                                }
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
