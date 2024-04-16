@@ -42,7 +42,7 @@
                     app:layout_constraintStart_toEndOf="@+id/preparacionBtext"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/preparacionbarba" />
+                    app:srcCompat="@drawable/preparapulque" />
 
                 <TextView
                     android:id="@+id/preparacionBtext"
@@ -75,14 +75,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/historyofbarba" />
+                    app:srcCompat="@drawable/historiapulque" />
 
                 <TextView
                     android:id="@+id/historiaBtext"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Historia de la barbacoa"
+                    android:text="Historia del pulque"
                     android:textColor="#000000"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
