@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/fondobarratop"
+        android:layout_width="0dp"
+        android:height="90dp"
+        />
+    <item
+        android:width="60dp"
+        android:height="60dp"
+        android:top="10dp"
+        android:right="20dp"
+        android:gravity="right">
+        <bitmap android:src="@drawable/escudo_cadereyta" />
+    </item>
+    <item
+        android:width="60dp"
+        android:height="60dp"
+        android:top="10dp"
+        android:left="20dp"
+        android:gravity="left">
+        <bitmap android:src="@drawable/logo_definitivo" />
+    </item>
+</layer-list>
