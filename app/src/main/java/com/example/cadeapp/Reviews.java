@@ -148,20 +148,20 @@ public class Reviews extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Extraemos los campos del documento
                             String comentario = document.getString("comentario");
-                            String nombreUsuario = document.getString("nombreUsuario");
+                            String idUsuario = document.getString("idUsuario");
                             float calificacion = document.getDouble("calificacion").floatValue();
                             Date fecha = document.getDate("timestamp");
 
                             // Creamos un nuevo objeto Opinion para la referencia adecuada
                             Opinion nuevaOpinion = null;
                             if(tipoReferencia.equals(BARBACOA)) {
-                                nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, idReferencia, null, null, fecha);
+                                nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, idReferencia, null, null, fecha);
                             }
                             else if(tipoReferencia.equals(EVENTO)) {
-                                nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idReferencia, null, fecha);
+                                nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, null, idReferencia, null, fecha);
                             }
                             else if(tipoReferencia.equals(PULQUE)) {
-                                nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, null, idReferencia, fecha);
+                                nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, null, null, idReferencia, fecha);
                             }
                             else{
                                 // Manejo de errores
