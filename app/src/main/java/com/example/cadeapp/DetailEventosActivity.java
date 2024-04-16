@@ -383,7 +383,6 @@ public class DetailEventosActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

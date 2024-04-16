@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.util.TypedValue;
@@ -301,10 +302,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                     markerList.add(marker); // Agregar el marcador a la lista
 
                                     // Si el título coincide con el targetStr enfocar
-                                    if(targetStr != null){
-                                        if(title.equals(targetStr)){
-                                            onMarkerClick(marker);
-                                        }
+                                    if (targetStr != null && title.trim().equals(targetStr.trim())) {
+                                        onMarkerClick(marker);
                                     }
                                 } else {
                                     Log.e(TAG, "El campo 'ubicacion' es nulo para el documento: " + document.getId());
@@ -339,10 +338,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                                     markerpList.add(marker); // Agregar el marcador a la lista
 
                                     // Si el título coincide con el targetStr enfocar
-                                    if(targetStr != null){
-                                        if(title.equals(targetStr)){
-                                            onMarkerClick(marker);
-                                        }
+                                    if (targetStr != null && title.trim().equals(targetStr.trim())) {
+                                        onMarkerClick(marker);
                                     }
                                 } else {
                                     Log.e(TAG, "El campo 'ubicacion' es nulo para el documento: " + document.getId());
@@ -365,7 +362,18 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        marker.showInfoWindow();
+
+        // se crea objeto handler que se utiliza para retrasar la ejecucion de la accion de mostrar el infowindow
+        // postDelayed se utiliza para ejecutar despues de cierto periodo, aqui son 500 milisegundos
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // como ya no mostramos en onMarkerClick siempre entra en esta condicion
+                if (!marker.isInfoWindowShown()) {
+                    marker.showInfoWindow();
+                }
+            }
+        }, 500); // Retraso de 500 milisegundos
 
         if (mMap.getCameraPosition().zoom < DEFAULT_ZOOM) {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), DEFAULT_ZOOM));

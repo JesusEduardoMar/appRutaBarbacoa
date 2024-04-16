@@ -125,7 +125,7 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
         card1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VerTodosLosPulquesActivity.this, cardPreparacionbarba.class);
+                Intent intent = new Intent(VerTodosLosPulquesActivity.this, historiaPulque.class);
                 startActivity(intent);
                 finish();
             }
@@ -134,7 +134,7 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
         card2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VerTodosLosPulquesActivity.this, cardHistoriabarbacoa.class);
+                Intent intent = new Intent(VerTodosLosPulquesActivity.this, historiaPulque.class);
                 startActivity(intent);
                 finish();
             }
