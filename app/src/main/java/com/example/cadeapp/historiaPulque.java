@@ -32,6 +32,11 @@ public class historiaPulque extends ScrollingActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_historia_pulque);
 
+        // Change Icon of top_background
+        toolbar_icon = findViewById(R.id.toolbar_icon);
+        toolbar_icon.setImageResource(R.drawable.preparapulque);
+        toolbar_icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         //incrustar activity contact
         NestedScrollView nscrollv;
         nscrollv = findViewById(R.id.nestedScrollView);

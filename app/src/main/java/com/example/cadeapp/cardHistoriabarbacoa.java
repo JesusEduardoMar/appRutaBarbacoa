@@ -32,12 +32,18 @@ public class cardHistoriabarbacoa extends ScrollingActivity {
 
     protected RecyclerView recyclerView;
     protected NestedScrollView nscrollv;
+    private ImageView toolbar_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         title = "Historia de la barbacoa";
         lastActivity = VerTodosLosLugaresActivity.class;
         super.onCreate(savedInstanceState);
+
+        // Change Icon of top_background
+        toolbar_icon = findViewById(R.id.toolbar_icon);
+        toolbar_icon.setImageResource(R.drawable.historyofbarba);
+        toolbar_icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         recyclerView = findViewById(R.id.recyclerView);
         nscrollv = findViewById(R.id.nestedScrollView);
