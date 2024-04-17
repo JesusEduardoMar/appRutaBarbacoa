@@ -10,7 +10,7 @@ public class Opinion {
     private float calificacion;
     private Object timestamp;
     private String idBarbacoa, idEvento, idPulque;
-    public Date fecha;
+    private Date fecha;
 
     // Constructor vacío requerido para Firestore
     public Opinion() {
@@ -95,5 +95,9 @@ public class Opinion {
 
     public void setIdPulque(String idPulque) {
         this.idPulque = idPulque;
+    }
+
+    public Date obtenerFecha(){
+        return fecha;
     }
 }

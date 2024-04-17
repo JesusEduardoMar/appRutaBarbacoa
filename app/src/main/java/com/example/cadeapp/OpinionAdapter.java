@@ -64,7 +64,7 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.OpinionV
         holder.comentarioTextView.setText(opinion.getComentario());
         holder.calificacionRatingBar.setRating(opinion.getCalificacion());
         DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        String fecha = formatoFecha.format(opinion.fecha);
+        String fecha = formatoFecha.format(opinion.obtenerFecha());
         holder.fechaComentario.setText(fecha);
     }
 
