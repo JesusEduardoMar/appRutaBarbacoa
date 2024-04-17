@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class VerTodosLosLugaresActivity extends AppCompatActivity {
@@ -165,19 +166,27 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
         {
             return;
         }
-        // Filtrar los lugares por nombre basado en el texto de búsqueda
+        // Convertir el texto de búsqueda y el nombre de los lugares a minúsculas para una comparación sin distinción de mayúsculas y minúsculas
+        String lowerCaseQuery = query.toLowerCase();
+        // Filtrar los lugares por nombre basado en el texto de búsqueda sin distinción de mayúsculas y minúsculas ni acentos
         ArrayList<ItemsDomainVinedos> filteredList = new ArrayList<>();
         for (ItemsDomainVinedos item : items) {
-            if (item.getNombre_barbacoa() != null &&item.getNombre_barbacoa().toLowerCase().contains(query.toLowerCase())) {
+            if (item.getNombre_barbacoa() != null && removeAccents(item.getNombre_barbacoa()).toLowerCase().contains(removeAccents(lowerCaseQuery))) {
                 filteredList.add(item);
             }
         }
 
-        // Actualizamos el RecyclerView con los resultados  obtenidos
+        // Actualizar el RecyclerView con los resultados obtenidos
         itemsAdapterVinedos.setFilter(filteredList);
     }
 
-    // Aquí mostramos todos los lugares de nuevo
+    // Método para eliminar los acentos de una cadena
+    private String removeAccents(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
+    // Método para mostrar todos los lugares nuevamente
     private void showAllPlaces() {
         itemsAdapterVinedos.setFilter(items);
     }
