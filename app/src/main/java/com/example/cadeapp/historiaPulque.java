@@ -32,6 +32,11 @@ public class historiaPulque extends ScrollingActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_historia_pulque);
 
+        // Change Icon of top_background
+        toolbar_icon = findViewById(R.id.toolbar_icon);
+        toolbar_icon.setImageResource(R.drawable.preparapulque);
+        toolbar_icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         //incrustar activity contact
         NestedScrollView nscrollv;
         nscrollv = findViewById(R.id.nestedScrollView);
@@ -59,6 +64,8 @@ public class historiaPulque extends ScrollingActivity {
         super.onBackPressed();
         // Volvemos a la MainActivity
         Intent intent = new Intent(historiaPulque.this, VerTodosLosPulquesActivity.class);
+        //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }

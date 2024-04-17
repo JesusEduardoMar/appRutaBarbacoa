@@ -2,6 +2,7 @@ package com.example.cadeapp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +37,7 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
     private ConstraintLayout card2;
     //private ScrollView scrollView;
     private NestedScrollView scrollView;
+    protected Class lastActivity = MainActivity.class;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +128,8 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VerTodosLosPulquesActivity.this, historiaPulque.class);
+                //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
@@ -135,6 +139,8 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VerTodosLosPulquesActivity.this, historiaPulque.class);
+                //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
@@ -157,6 +163,12 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Mostrar el botón para regresar y eliminar title
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     // Aquí realixzamos un método para la búsqueda por texto ingresado
@@ -183,12 +195,18 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed(){
         super.onBackPressed();
-        // Volvemos a la MainActivity
-        Intent intent = new Intent(VerTodosLosPulquesActivity.this, MainActivity.class);
+
+        Intent intent = new Intent(this, lastActivity);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
 

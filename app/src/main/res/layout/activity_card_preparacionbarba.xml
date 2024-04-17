@@ -54,6 +54,7 @@ Sirve:\n\nUna vez que la barbacoa esté lista, retira cuidadosamente la tierra y
                 android:text="Imágenes"
                 android:textColor="@color/yellow"
                 android:textSize="16sp"
+                android:layout_marginStart="24dp"
                 app:layout_constraintStart_toStartOf="@+id/summary"
                 app:layout_constraintTop_toBottomOf="@+id/summary" />
 
