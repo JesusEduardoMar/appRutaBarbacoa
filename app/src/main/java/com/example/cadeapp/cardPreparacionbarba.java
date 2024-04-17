@@ -91,6 +91,8 @@ public class cardPreparacionbarba extends ScrollingActivity {
         super.onBackPressed();
 
         Intent intent = new Intent(cardPreparacionbarba.this, VerTodosLosLugaresActivity.class);
+        //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
