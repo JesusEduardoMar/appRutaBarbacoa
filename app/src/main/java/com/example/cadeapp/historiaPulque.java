@@ -1,5 +1,6 @@
 package com.example.cadeapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,10 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -19,18 +26,24 @@ import java.util.List;
 
 public class historiaPulque extends ScrollingActivity {
 
+    private TextView textDescription;
     private RecyclerView imagesRecycler1;
     private ImageView toolbar_icon;
     private List<String> items;
     private FirebaseFirestore mFirestore;
 
     private ItemsAdapterHistoria itemsAdapterHistoria;
+    private String idDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         title = "Preparación del Pulque";
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_historia_pulque);
+
+
+        textDescription = findViewById(R.id.textDescription);
+        obtenerInformacionDesc();
 
         // Change Icon of top_background
         toolbar_icon = findViewById(R.id.toolbar_icon);
@@ -56,6 +69,9 @@ public class historiaPulque extends ScrollingActivity {
 
         cargarImagenesDesdeFirestore("https://www.elfinanciero.com.mx/resizer/VRIHCZLbd3-OHxa9hPDSz1T_AUI=/800x0/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/elfinanciero/NHH3F5SOLZGDJNGBVJQRU7ZRBE.jpeg");
         cargarImagenesDesdeFirestore("https://i.blogs.es/b4889c/1/1366_2000.jpg");
+
+        // Obtenemos el ID del pulque actual
+        idDesc = obtenerdesc();
 
     }
 
@@ -88,4 +104,48 @@ public class historiaPulque extends ScrollingActivity {
                     }
                 });
     }
+
+
+    // Método para obtener la información de la descripcion
+    private void obtenerInformacionDesc() {
+        // Verificamos la existencia del id
+        if (idDesc != null) {
+            // Consultamos en Firestore para obtener información de la descripcion
+            mFirestore.collection("infocardviews").document(idDesc).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        // Extraemos los campos del documento
+                        String info = document.getString("id_descripcion");
+
+                        // Configuramos los elementos de la interfaz de usuario con la información obtenida
+                        textDescription.setText(info);
+
+                    } else {
+                        // Manejo de errores
+                        Log.e("historiaPulque", "Error al obtener la información de la descripcion", task.getException());
+                    }
+                }
+            });
+        } else {
+            // Manejo de errores
+            Log.e("historiaPulque", "El nombre de la descripcion es nulo en la intención.");
+        }
+    }
+
+    // Método para obtener el ID de la descripcion actual
+    private String obtenerdesc() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            // Obtenemos el ID de la descripcion desde la intención
+            String idDesc = intent.getStringExtra("idDesc");
+            if (idDesc != null && !idDesc.isEmpty()) {
+                return idDesc;
+            }
+        }
+        Toast.makeText(this, "Error: ID de descripcion no válido", Toast.LENGTH_SHORT).show();
+        return "";
+    }
+
 }
