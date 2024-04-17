@@ -32,13 +32,37 @@
 
             <!-- Contenido de la política de privacidad -->
             <TextView
-                android:id="@+id/privTextView"
+                android:id="@+id/priv1TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/texto_de_privacidad"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
-                android:lineSpacingMultiplier="1.5"/>
+                android:lineSpacingMultiplier="1.5"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Sección de Política de Privacidad -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="POLÍTICA DE PRIVACIDAD"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Sección de Política de Privacidad -->
+
+            <TextView
+                android:id="@+id/privTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/politica_de_privacidad"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:lineSpacingMultiplier="1.2"
+                android:paddingBottom="16dp"/>
 
             <!-- Botón para cerrar -->
             <Button

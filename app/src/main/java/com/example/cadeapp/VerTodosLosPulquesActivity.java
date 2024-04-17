@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class VerTodosLosPulquesActivity extends AppCompatActivity {
@@ -177,16 +178,23 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
         {
             return;
         }
+        // Convertir el texto de búsqueda y el nombre de los lugares a minúsculas para una comparación sin distinción de mayúsculas y minúsculas
+        String lowerCaseQuery = query.toLowerCase();
         // Filtrar los lugares por nombre basado en el texto de búsqueda
         ArrayList<ItemsDomainPulques> filteredList = new ArrayList<>();
         for (ItemsDomainPulques item : items) {
-            if (item.getNombre_pulque() != null &&item.getNombre_pulque().toLowerCase().contains(query.toLowerCase())) {
+            if (item.getNombre_pulque() != null && removeAccents(item.getNombre_pulque()).toLowerCase().contains(removeAccents(lowerCaseQuery))) {
                 filteredList.add(item);
             }
         }
 
         // Actualizamos el RecyclerView con los resultados  obtenidos
         itemsAdapterPulques.setFilter(filteredList);
+    }
+    // Método para eliminar los acentos de una cadena
+    private String removeAccents(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
 
     // Aquí mostramos todos los lugares de nuevo

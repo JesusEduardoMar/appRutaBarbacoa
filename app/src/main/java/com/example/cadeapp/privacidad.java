@@ -12,15 +12,12 @@ import android.widget.TextView;
 import androidx.core.widget.NestedScrollView;
 
 public class privacidad extends ScrollingActivity {
-
     private TextView privTextView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         title = "Política de Privacidad";
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_privacidad);
-
 
         //incrustar activity contact
         NestedScrollView nscrollv;
@@ -33,6 +30,11 @@ public class privacidad extends ScrollingActivity {
         TextView privTextView = findViewById(R.id.privTextView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             privTextView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+        }
+
+        TextView priv1TextView = findViewById(R.id.priv1TextView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            priv1TextView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
 
         // Cambiar el color de la barra de estado
@@ -48,7 +50,6 @@ public class privacidad extends ScrollingActivity {
             window.setStatusBarColor(color);
         }
     }
-
     @Override
     public void onBackPressed() {
         // Establecer el resultado como RESULT_OK

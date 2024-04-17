@@ -203,7 +203,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/informacion"
-                        android:text="Información"
+                        android:text="Términos y Condiciones"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 

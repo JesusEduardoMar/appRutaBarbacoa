@@ -16,41 +16,23 @@
             android:padding="20dp"
             android:background="@drawable/cat_background">
 
-            <!-- Sección de Condiciones Generales de Uso -->
+            <!-- Sección de TErminos y Condiciones -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CONDICIONES GENERALES DE USO"
+                android:text="TÉRMINOS Y CONDICIONES"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:paddingBottom="8dp"/>
+                android:paddingBottom="8dp"
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/usoTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/texto_de_privacidad"
+                android:text="@string/terminos_y_condiciones"
                 android:textSize="16sp"
-                android:lineSpacingMultiplier="1.2"
-                android:paddingBottom="16dp"/>
-
-            <!-- Sección de Política de Privacidad -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="POLÍTICA DE PRIVACIDAD"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingBottom="8dp"/>
-
-            <!-- Sección de Política de Privacidad -->
-
-            <TextView
-                android:id="@+id/privTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/texto_de_privacidad"
-                android:textSize="16sp"
+                android:textColor="@android:color/black"
                 android:lineSpacingMultiplier="1.2"
                 android:paddingBottom="16dp"/>
 
