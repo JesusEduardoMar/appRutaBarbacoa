@@ -50,6 +50,7 @@
                 android:layout_width="match_parent"
                 app:layout_collapseMode="pin"
                 android:backgroundTint="?attr/colorPrimary"
+                app:navigationIcon="@drawable/back_arrow_rounded"
                 app:popupTheme="@style/PopupOverlay" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
