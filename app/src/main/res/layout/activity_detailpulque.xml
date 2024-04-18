@@ -189,9 +189,6 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"/>
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
             <!-- RecyclerView para los comentarios -->
             <androidx.recyclerview.widget.RecyclerView
@@ -200,11 +197,8 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 android:layout_marginHorizontal="20dp"
-                android:minHeight="400dp"
-                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />
-            </androidx.core.widget.NestedScrollView>
 
             <TextView
                 android:id="@+id/noOpinionMessage"

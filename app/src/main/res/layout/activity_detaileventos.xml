@@ -198,23 +198,6 @@
                 android:layout_marginBottom="20dp"/>
 
 
-            <TextView
-                android:id="@+id/noOpinionMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No hay ninguna opinión todavía sobre este evento. Sé el primero en escribir una."
-                android:visibility="gone"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
-
-
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
 
             <!-- RecyclerView para los comentarios -->
             <androidx.recyclerview.widget.RecyclerView
@@ -223,12 +206,18 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 android:layout_marginHorizontal="20dp"
-                android:minHeight="400dp"
-                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />
 
-            </androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/noOpinionMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No hay ninguna opinión todavía sobre este evento. Sé el primero en escribir una."
+                android:visibility="gone"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginBottom="20dp"
+                android:layout_marginHorizontal="20dp"/>
 
             <Button
                 android:id="@+id/verMasComentariosButton"
