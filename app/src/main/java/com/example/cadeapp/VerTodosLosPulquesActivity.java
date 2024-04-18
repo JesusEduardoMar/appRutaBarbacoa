@@ -129,6 +129,8 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VerTodosLosPulquesActivity.this, historiaPulque.class);
+                intent.putExtra("idDesc", "preparacion_pulque");
+                intent.putExtra("toolbar_icon", historiaPulque.PREPARACION_PULQUE);
                 //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -140,6 +142,8 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VerTodosLosPulquesActivity.this, historiaPulque.class);
+                intent.putExtra("idDesc", "historia_pulque");
+                intent.putExtra("toolbar_icon", historiaPulque.HISTORIA_PULQUE);
                 //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

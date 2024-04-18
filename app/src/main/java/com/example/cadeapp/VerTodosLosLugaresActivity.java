@@ -128,7 +128,15 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
         card1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardPreparacionbarba.class);
+                /*Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardPreparacionbarba.class);
+                startActivity(intent);
+                finish();*/
+
+                Intent intent = new Intent(VerTodosLosLugaresActivity.this, historiaPulque.class);
+                intent.putExtra("idDesc", "preparacion_barbacoa");
+                intent.putExtra("toolbar_icon", historiaPulque.PREPARACION_BARBACOA);
+                //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
@@ -137,7 +145,15 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
         card2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardHistoriabarbacoa.class);
+                /*Intent intent = new Intent(VerTodosLosLugaresActivity.this, cardHistoriabarbacoa.class);
+                startActivity(intent);
+                finish();
+                */
+                Intent intent = new Intent(VerTodosLosLugaresActivity.this, historiaPulque.class);
+                intent.putExtra("idDesc", "historia_barbacoa");
+                intent.putExtra("toolbar_icon", historiaPulque.HISTORIA_BARBACOA);
+                //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
