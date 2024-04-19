@@ -85,7 +85,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         supportMapFragment.getMapAsync(this);
         textViewPlaces = view.findViewById(R.id.barba); // TextView
         textViewPulques = view.findViewById(R.id.pulque); // TextView
-        textViewEventos= view.findViewById(R.id.eventos); // TextView
+        textViewEventos = view.findViewById(R.id.eventos); // TextView
 
         placesList = new ArrayList<>(); // Inicialización de la lista
         pulqueList = new ArrayList<>(); // Inicialización de la lista
@@ -114,6 +114,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         });
         return view;
     }
+
     // Mostramos un diálogo con los lugares que hay
     private void showPlacesListDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogBasicCustomStyle);
@@ -123,7 +124,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         title.setText("¿A dónde quieres ir?");
         title.setGravity(Gravity.CENTER); // Centrar el texto en el TextView
         title.setTextSize(20); // Tamaño del texto del título (ajusta según sea necesario)
-        title.setPadding(10,55,10,5);
+        title.setPadding(10, 55, 10, 5);
         title.setTextColor(Color.parseColor("#FFFFFF"));
 
         // Establecer el TextView personalizado como el título del AlertDialog
@@ -244,55 +245,55 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void showPlacesListDialogpulque() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogBasicCustomStyle);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogBasicCustomStyle);
 
-            // Crear un TextView personalizado para el título
-            TextView title = new TextView(getActivity());
-            title.setText("¿A dónde quieres ir?");
-            title.setGravity(Gravity.CENTER); // Centrar el texto en el TextView
-            title.setTextSize(20); // Tamaño del texto del título (ajusta según sea necesario)
-            title.setPadding(10,55,10,5);
-            title.setTextColor(Color.parseColor("#FFFFFF"));
+        // Crear un TextView personalizado para el título
+        TextView title = new TextView(getActivity());
+        title.setText("¿A dónde quieres ir?");
+        title.setGravity(Gravity.CENTER); // Centrar el texto en el TextView
+        title.setTextSize(20); // Tamaño del texto del título (ajusta según sea necesario)
+        title.setPadding(10, 55, 10, 5);
+        title.setTextColor(Color.parseColor("#FFFFFF"));
 
-            // Establecer el TextView personalizado como el título del AlertDialog
-            builder.setCustomTitle(title);
+        // Establecer el TextView personalizado como el título del AlertDialog
+        builder.setCustomTitle(title);
 
-            // Creamos un adaptador para la lista de lugares
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.simple_list_pulque, placesList);
-            builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-                // Método para cuando se hace clicki en un lugar de la lista
-                @Override
-                public void onClick(DialogInterface dialogInterface, int position) {
-                    // Obtenemos el lugar seleccionado en la lista
-                    String selectedPlace = placesList.get(position);
-                    // Obtener las coordenadas del lugar seleccionado desde la base de datos y luego mover la cámara a esa ubicación
-                    db.collection("pulques")
-                            .whereEqualTo("nombre_pulque", selectedPlace)
-                            .get()
-                            .addOnSuccessListener(queryDocumentSnapshots -> {
-                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                    GeoPoint location = documentSnapshot.getGeoPoint("marcador");
-                                    if (location != null) {
-                                        moveCameraToLocation(location.getLatitude(), location.getLongitude());
-                                        String title = documentSnapshot.getString("nombre_pulque");
+        // Creamos un adaptador para la lista de lugares
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.simple_list_pulque, placesList);
+        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+            // Método para cuando se hace clicki en un lugar de la lista
+            @Override
+            public void onClick(DialogInterface dialogInterface, int position) {
+                // Obtenemos el lugar seleccionado en la lista
+                String selectedPlace = placesList.get(position);
+                // Obtener las coordenadas del lugar seleccionado desde la base de datos y luego mover la cámara a esa ubicación
+                db.collection("pulques")
+                        .whereEqualTo("nombre_pulque", selectedPlace)
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                GeoPoint location = documentSnapshot.getGeoPoint("marcador");
+                                if (location != null) {
+                                    moveCameraToLocation(location.getLatitude(), location.getLongitude());
+                                    String title = documentSnapshot.getString("nombre_pulque");
 
-                                        // Buscar el marcador correspondiente en la lista
-                                        // Cuando seleccionamos un elemento, iteramos sobre markerlist para encontrar el marcador con el mismo titulo
-                                        // al llamar a onMarkerClick simula el comportamiento de hacer click en el marcador
-                                        for (Marker marker : markerpList) {
-                                            if (marker.getTitle().trim().equalsIgnoreCase(title.trim())) {
-                                                onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
-                                                break;
-                                            }
+                                    // Buscar el marcador correspondiente en la lista
+                                    // Cuando seleccionamos un elemento, iteramos sobre markerlist para encontrar el marcador con el mismo titulo
+                                    // al llamar a onMarkerClick simula el comportamiento de hacer click en el marcador
+                                    for (Marker marker : markerpList) {
+                                        if (marker.getTitle().trim().equalsIgnoreCase(title.trim())) {
+                                            onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
+                                            break;
                                         }
                                     }
                                 }
-                            })
-                            .addOnFailureListener(e -> {
-                                //Por si existe algún error
-                            });
-                }
-            });
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            //Por si existe algún error
+                        });
+            }
+        });
         // Mostramos el diálogo con los lugares
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -307,7 +308,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                 content.setLayoutParams(params);
             }
         }
-        }
+    }
 
     private void showPlacesListDialogevento() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogBasicCustomStyle);
@@ -317,7 +318,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         title.setText("¿A dónde quieres ir?");
         title.setGravity(Gravity.CENTER); // Centrar el texto en el TextView
         title.setTextSize(20); // Tamaño del texto del título (ajusta según sea necesario)
-        title.setPadding(10,55,10,5);
+        title.setPadding(10, 55, 10, 5);
         title.setTextColor(Color.parseColor("#FFFFFF"));
 
         // Establecer el TextView personalizado como el título del AlertDialog
@@ -379,7 +380,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     public void onMapReady(GoogleMap googleMap) {
         LatLng jardin = new LatLng(20.694695, -99.814685);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(jardin));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin,13));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin, 13));
         mMap = googleMap;
 
         // Obtenemos la latitud y la longitud desde Firestore y agregamos marcadores al mapa
@@ -554,14 +555,29 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                 AlertDialog alert = builder.create();
                 alert.show();
             } else {
-                // Ubicación disponible, obtener la ubicación del marcador y abrir la actividad de mapas
-                LatLng location = marker.getPosition();
-                Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?&daddr=" + location.latitude + ',' + location.longitude);
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(mapIntent);
-                }
+                // Ubicación desactivada, mostrar un diálogo para permitir al usuario activarla
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Será redirigído a la aplicación de Google Maps.")
+                        .setCancelable(false)
+                        .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Ubicación disponible, obtener la ubicación del marcador y abrir la actividad de mapas
+                                LatLng location = marker.getPosition();
+                                Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?&daddr=" + location.latitude + ',' + location.longitude);
+                                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                                mapIntent.setPackage("com.google.android.apps.maps");
+                                if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                                    startActivity(mapIntent);
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         }
     }
@@ -598,35 +614,4 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
-
-
-//
-//    public void hola(String title){
-//        if(title == null){
-//            return;
-//        }
-//
-//        Log.d("saluu Canti", "s" + markerList.size());
-//        for (Marker marker : markerList) {
-//
-//            Log.d("saluuC", marker.getTitle());
-//
-//            if (marker.getTitle().trim().equalsIgnoreCase(title.trim())) {
-//                //onMarkerClick(marker); // Llamar al método onMarkerClick con el marcador correspondiente
-//
-//
-//                Log.d("saluuu", "encontrao");
-//                marker.showInfoWindow();
-//
-//                if (mMap.getCameraPosition().zoom < DEFAULT_ZOOM) {
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), DEFAULT_ZOOM));
-//                } else {
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-//                }
-//                break;
-//            }
-//        }
-//        Log.d("saluu", "hola: "+title);
-//    }
-
 }
