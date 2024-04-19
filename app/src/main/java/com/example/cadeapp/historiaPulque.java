@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class historiaPulque extends ScrollingActivity {
 
     private ItemsAdapterHistoria itemsAdapterHistoria;
     private String idDesc;
+    private int idIcon = 0;
 
     // Id de iconos para Toolbar
     public static int PREPARACION_BARBACOA = R.drawable.preparacionbarba;
@@ -102,7 +104,12 @@ public class historiaPulque extends ScrollingActivity {
     public void onBackPressed() {
         super.onBackPressed();
         // Volvemos a la MainActivity
-        Intent intent = new Intent(historiaPulque.this, VerTodosLosPulquesActivity.class);
+        if(idIcon == PREPARACION_BARBACOA || idIcon == HISTORIA_BARBACOA){
+            lastActivity = VerTodosLosLugaresActivity.class;
+        } else if (idIcon == PREPARACION_PULQUE || idIcon == HISTORIA_PULQUE) {
+            lastActivity = VerTodosLosPulquesActivity.class;
+        }
+        Intent intent = new Intent(historiaPulque.this, lastActivity);
         //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -147,7 +154,7 @@ public class historiaPulque extends ScrollingActivity {
                                 List<String> url_imagenes = (List<String>) document.get("imagenes");
 
                                 // Configuramos los elementos de la interfaz de usuario con la información obtenida
-                                textDescription.setText(info);
+                                textDescription.setText(Html.fromHtml(info));
                                 // Actualizar el titulo en la barra
                                 binding.toolbarLayout.setTitle(title);
 
@@ -185,12 +192,12 @@ public class historiaPulque extends ScrollingActivity {
         Intent intent = getIntent();
         if (intent != null) {
             // Obtenemos el nombre del drawable desde la intención
-            int icon = intent.getIntExtra("toolbar_icon", 0);
+            idIcon = intent.getIntExtra("toolbar_icon", 0);
 
-            if (icon != 0) {
+            if (idIcon != 0) {
                 // Change Icon of top_background
                 toolbar_icon = findViewById(R.id.toolbar_icon);
-                toolbar_icon.setImageResource(icon);
+                toolbar_icon.setImageResource(idIcon);
                 toolbar_icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
             }
         }
@@ -198,5 +205,6 @@ public class historiaPulque extends ScrollingActivity {
             Toast.makeText(this, "Error: ID de icono no válido", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }
