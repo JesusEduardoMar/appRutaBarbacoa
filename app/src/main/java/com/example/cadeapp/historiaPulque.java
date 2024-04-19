@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -35,20 +36,37 @@ public class historiaPulque extends ScrollingActivity {
     private ItemsAdapterHistoria itemsAdapterHistoria;
     private String idDesc;
 
+    // Id de iconos para Toolbar
+    public static int PREPARACION_BARBACOA = R.drawable.preparacionbarba;
+    public static int PREPARACION_PULQUE = R.drawable.preparapulque;
+    public static int HISTORIA_BARBACOA = R.drawable.historyofbarba;
+    public static int HISTORIA_PULQUE = R.drawable.historiapulque;
+
+    public enum ToolbarIcon{
+        PREPARACION_BARBACOA(R.drawable.preparacionbarba),
+        PREPARACION_PULQUE(R.drawable.preparapulque),
+        HISTORIA_BARBACOA(R.drawable.historyofbarba),
+        HISTORIA_PULQUE(R.drawable.historiapulque);
+
+        private final int toolbarIcon;
+
+        ToolbarIcon(int toolbarIcon){
+            this.toolbarIcon = toolbarIcon;
+        }
+
+        public int getToolbarIcon(){
+            return  toolbarIcon;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        title = "Preparación del Pulque";
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_historia_pulque);
 
+        // Obtenemos el ID del pulque actual
+        idDesc = obtenerdesc();
 
-        textDescription = findViewById(R.id.textDescription);
-        obtenerInformacionDesc();
-
-        // Change Icon of top_background
-        toolbar_icon = findViewById(R.id.toolbar_icon);
-        toolbar_icon.setImageResource(R.drawable.preparapulque);
-        toolbar_icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         //incrustar activity contact
         NestedScrollView nscrollv;
@@ -57,6 +75,8 @@ public class historiaPulque extends ScrollingActivity {
         View myLayout = inflater.inflate(R.layout.activity_historia_pulque, nscrollv, false);
         nscrollv.removeAllViews();
         nscrollv.addView(myLayout);
+
+        cambiarToolbarIcon();
 
         imagesRecycler1 = findViewById(R.id.imagesRecycler);
         imagesRecycler1.setHasFixedSize(true);
@@ -67,11 +87,14 @@ public class historiaPulque extends ScrollingActivity {
         itemsAdapterHistoria = new ItemsAdapterHistoria(items, this);
         imagesRecycler1.setAdapter(itemsAdapterHistoria);
 
+        /*
         cargarImagenesDesdeFirestore("https://www.elfinanciero.com.mx/resizer/VRIHCZLbd3-OHxa9hPDSz1T_AUI=/800x0/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/elfinanciero/NHH3F5SOLZGDJNGBVJQRU7ZRBE.jpeg");
-        cargarImagenesDesdeFirestore("https://i.blogs.es/b4889c/1/1366_2000.jpg");
+        cargarImagenesDesdeFirestore("https://i.blogs.es/b4889c/1/1366_2000.jpg");*/
 
-        // Obtenemos el ID del pulque actual
-        idDesc = obtenerdesc();
+        // Obtener el widget después del inflater
+        textDescription = findViewById(R.id.textDescription);
+        // Cambiar la información con el
+        obtenerInformacionDesc();
 
     }
 
@@ -111,22 +134,31 @@ public class historiaPulque extends ScrollingActivity {
         // Verificamos la existencia del id
         if (idDesc != null) {
             // Consultamos en Firestore para obtener información de la descripcion
-            mFirestore.collection("infocardviews").document(idDesc).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        // Extraemos los campos del documento
-                        String info = document.getString("id_descripcion");
+            mFirestore.collection("infocardviews")
+                    .document(idDesc).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                // Extraemos los campos del documento
+                                String info = document.getString("descripcion");
+                                title = document.getString("titulo");
+                                List<String> url_imagenes = (List<String>) document.get("imagenes");
 
-                        // Configuramos los elementos de la interfaz de usuario con la información obtenida
-                        textDescription.setText(info);
+                                // Configuramos los elementos de la interfaz de usuario con la información obtenida
+                                textDescription.setText(info);
+                                // Actualizar el titulo en la barra
+                                binding.toolbarLayout.setTitle(title);
 
-                    } else {
-                        // Manejo de errores
-                        Log.e("historiaPulque", "Error al obtener la información de la descripcion", task.getException());
-                    }
-                }
+                                // Cargar las imagenes desde la lista
+                                items.addAll(url_imagenes);
+                                itemsAdapterHistoria.notifyDataSetChanged();
+                            } else {
+                                // Manejo de errores
+                                Log.e("historiaPulque", "Error al obtener la información de la descripcion", task.getException());
+                            }
+                        }
             });
         } else {
             // Manejo de errores
@@ -146,6 +178,25 @@ public class historiaPulque extends ScrollingActivity {
         }
         Toast.makeText(this, "Error: ID de descripcion no válido", Toast.LENGTH_SHORT).show();
         return "";
+    }
+
+    // Configurar toolbar
+    private void cambiarToolbarIcon() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            // Obtenemos el nombre del drawable desde la intención
+            int icon = intent.getIntExtra("toolbar_icon", 0);
+
+            if (icon != 0) {
+                // Change Icon of top_background
+                toolbar_icon = findViewById(R.id.toolbar_icon);
+                toolbar_icon.setImageResource(icon);
+                toolbar_icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
+        }
+        else {
+            Toast.makeText(this, "Error: ID de icono no válido", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
