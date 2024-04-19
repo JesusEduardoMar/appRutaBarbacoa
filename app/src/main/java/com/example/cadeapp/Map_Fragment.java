@@ -3,10 +3,12 @@ package com.example.cadeapp;
 import static android.content.ContentValues.TAG;
 import static android.content.Intent.getIntent;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -25,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.core.content.ContextCompat;
@@ -520,34 +523,44 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        boolean isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        // Verificar si se tiene el permiso necesario para acceder a la ubicación
+        int permiso = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        if (!isLocationEnabled) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Para obtener direcciones, necesitamos tu ubicación para mejorar la precisión de los resultados.")
-                    .setCancelable(false)
-                    .setPositiveButton("Activar ubicación", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivity(intent);
-                        }
-                    })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
+        if (permiso == PackageManager.PERMISSION_DENIED) {
+            // Permiso denegado, mostrar un mensaje al usuario informándole sobre la necesidad de conceder el permiso
+            Toast.makeText(getActivity(), "Para obtener direcciones, necesitamos tu ubicación para mejorar la precisión de los resultados.", Toast.LENGTH_SHORT).show();
         } else {
-            LatLng location = marker.getPosition();
-            String title = marker.getTitle();
-            Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?&daddr=" + location.latitude + ','+location.longitude);
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                startActivity(mapIntent);
+            // Permiso concedido, continuar con la lógica para verificar la disponibilidad de la ubicación
+            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            boolean isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (!isLocationEnabled) {
+                // Ubicación desactivada, mostrar un diálogo para permitir al usuario activarla
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Para obtener direcciones, necesitamos tu ubicación para mejorar la precisión de los resultados.")
+                        .setCancelable(false)
+                        .setPositiveButton("Activar ubicación", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            } else {
+                // Ubicación disponible, obtener la ubicación del marcador y abrir la actividad de mapas
+                LatLng location = marker.getPosition();
+                Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?&daddr=" + location.latitude + ',' + location.longitude);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                }
             }
         }
     }
