@@ -585,7 +585,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     // Método para mostrar un mensaje cuando los permisos de ubicación están denegados
     private void mostrarMensajeDePermisoDenegado() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Para obtener direcciones, necesitamos tu ubicación para mejorar la precisión de los resultados.\n\nPermisos>Ubicación>Permitir")
+        builder.setMessage("Para acceder al mapa es necesario habilitar los permisos de ubicación.\n\nPermisos > Ubicación > Permitir")
                 .setCancelable(false)
                 .setPositiveButton("Configuración de permisos", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
