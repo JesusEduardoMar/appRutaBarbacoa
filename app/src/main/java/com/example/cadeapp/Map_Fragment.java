@@ -529,7 +529,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
         if (permiso == PackageManager.PERMISSION_DENIED) {
             // Permiso denegado, mostrar un mensaje al usuario informándole sobre la necesidad de conceder el permiso
-            Toast.makeText(getActivity(), "Para obtener direcciones, necesitamos tu ubicación para mejorar la precisión de los resultados.", Toast.LENGTH_SHORT).show();
+            mostrarMensajeDePermisoDenegado();
+            //Toast.makeText(getActivity(), "Para obtener direcciones, necesitamos tu ubicación para mejorar la precisión de los resultados.", Toast.LENGTH_SHORT).show();
         } else {
             // Permiso concedido, continuar con la lógica para verificar la disponibilidad de la ubicación
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -579,6 +580,29 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                 alert.show();
             }
         }
+    }
+
+    // Método para mostrar un mensaje cuando los permisos de ubicación están denegados
+    private void mostrarMensajeDePermisoDenegado() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Para obtener direcciones, necesitamos tu ubicación para mejorar la precisión de los resultados.\n\nPermisos>Ubicación>Permitir")
+                .setCancelable(false)
+                .setPositiveButton("Configuración de permisos", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Abrir la pantalla de configuración de la aplicación en el dispositivo
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private BitmapDescriptor bitmapDescriptor(Context context, int vectorResId) {
