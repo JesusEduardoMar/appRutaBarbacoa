@@ -551,20 +551,21 @@
                         <com.squareup.timessquare.CalendarPickerView
                             android:id="@+id/calendarView"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="400dp"
                             android:layout_marginTop="0dp"
                             android:nestedScrollingEnabled="true" />
 
                         <Button
                             android:id="@+id/button3"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="100dp"
                             android:layout_marginStart="24dp"
-                            android:layout_marginTop="24dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="10dp"
                             android:background="@drawable/white_background1"
                             android:backgroundTint="@color/light_orange"
-                            android:text="Aquí irá info del evento"
+                            android:text="Seleccione una fecha:"
                             android:textColor="#FFFF" />
 
                     </LinearLayout>
