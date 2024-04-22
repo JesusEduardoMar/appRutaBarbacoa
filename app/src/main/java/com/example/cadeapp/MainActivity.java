@@ -510,31 +510,18 @@ public class MainActivity extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // Obtenemos la información del evento (nombre y fecha)
                         String nombreEvento = document.getString("nombre_evento");
-                        String fechaEventoString = document.getString("fecha_evento");
+                        Date fecha = document.getDate("fecha_eventoo");
 
                         // Verificamos si la fecha del evento es nula
-                        if (fechaEventoString != null) {
-                            // Convertimos la fecha del evento de un tipo String a Date
-                            try {
-                                // Creamos un SimpleDateFormat con el patrón de fecha --> ejemplo: Sábado, 18 de mayo de 2024, 12:00 PM
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd 'de' MMMMM 'de' yyyy, hh:mm", Locale.getDefault());
-                                // Convertimos el string de la fecha del evento a Date utilizando el formato especificado
-                                Date fechaEvento = dateFormat.parse(fechaEventoString);
-                                if (fechaEvento != null) {
-                                    //Estamos verificando si la fecha del evento está en el día actual o en el futuro
-                                    if (!fechaEvento.before(today)) {
-                                        // Marcamos la fecha del evento en el calendario
-                                        Calendar cal = Calendar.getInstance();
-                                        cal.setTime(fechaEvento);
-                                        datePicker.selectDate(cal.getTime());
-                                    }
-                                }
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                                // Manejamos error de parseo si es necesario
+
+                        if (fecha != null) {
+                            //Estamos verificando si la fecha del evento está en el día actual o en el futuro
+                            if (!fecha.before(today)) {
+                                // Marcamos la fecha del evento en el calendario
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime(fecha);
+                                datePicker.selectDate(cal.getTime());
                             }
-                        } else {
-                            // Manejamos el caso en el que fechaEventoString es vacío
                         }
                     }
                 } else {
@@ -555,26 +542,17 @@ public class MainActivity extends AppCompatActivity {
                 if (eventosTask != null && eventosTask.isSuccessful()) {
                     for (QueryDocumentSnapshot document : eventosTask.getResult()) {
                         String nombreEvento = document.getString("nombre_evento");
-                        String fechaEventoString = document.getString("fecha_evento");
+                        Date fecha = document.getDate("fecha_eventoo");
 
                         // Convertimos la fecha del evento de un tipo String a Date
                         Date fechaEvento = null;
-                        try {
-                            // Creamos un SimpleDateFormat con el patrón de fecha --> ejemplo: Sábado, 18 de mayo de 2024, 12:00 PM
-                            SimpleDateFormat dateFormat2 = new SimpleDateFormat("EEEE, dd 'de' MMMMM 'de' yyyy, hh:mm", Locale.getDefault());
-                            // Convertimos el string de la fecha del evento a Date utilizando el formato especificado
-                            fechaEvento = dateFormat2.parse(fechaEventoString);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                            // Manejamos el error de parseo por si las dudas
-                        }
 
-                        if (fechaEvento != null) {
+                        if (fecha != null) {
                             //Estamos verificando si la fecha del evento está en el día actual o en el futuro
-                            if (!fechaEvento.before(today)) {
+                            if (!fecha.before(today)) {
                                 // Convertimos la fecha del evento a un objeto Calendar
                                 Calendar calEvento = Calendar.getInstance();
-                                calEvento.setTime(fechaEvento);
+                                calEvento.setTime(fecha);
                                 Calendar calSeleccionada = Calendar.getInstance();
                                 calSeleccionada.setTime(date);
 
@@ -724,9 +702,6 @@ public class MainActivity extends AppCompatActivity {
             if (tieneEvento) {
                 // Cambiamos el color de fondo de la celda si tiene un evento
                 cellView.setBackgroundColor(Color.YELLOW); // Ponemos de color la celda
-            } else {
-                // Si no hay ningún evento asociado, establecemos el color de fondo como transparente
-                cellView.setBackgroundColor(Color.TRANSPARENT);
             }
         }
         // Checamos si hay un evento asociado a una fecha
@@ -738,19 +713,13 @@ public class MainActivity extends AppCompatActivity {
             if (eventosTask != null && eventosTask.isSuccessful()) {
                 // Iteramoa sobre los resultados de Firestore
                 for (QueryDocumentSnapshot document : eventosTask.getResult()) {
-                    String fechaEventoString = document.getString("fecha_evento");
-                    if (fechaEventoString != null) {
-                        try {
-                            // Creamos un SimpleDateFormat con el patrón de fecha --> ejemplo: Sábado, 18 de mayo de 2024, 12:00 PM
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd 'de' MMMMM 'de' yyyy, hh:mm", Locale.getDefault());
-                            // Convertimos el string de la fecha del evento a Date utilizando el formato especificado
-                            Date fechaEvento = dateFormat.parse(fechaEventoString);
-
+                    Date fecha = document.getDate("fecha_eventoo");
+                    if (fecha != null) {
                             //Estamos verificando si la fecha del evento está en el día actual o en el futuro
-                            if (!fechaEvento.before(today) ) {
+                            if (!fecha.before(today) ) {
                                 // Convertimos la fecha del evento a un objeto Calendar
                                 Calendar cal2 = Calendar.getInstance();
-                                cal2.setTime(fechaEvento);
+                                cal2.setTime(fecha);
 
                                 // Comparamos los campos de año, mes y día de cal1 (fecha de la celda del calendario) con los campos correspondientes de cal2 (fecha del evento)
                                 // Si son iguales, significa que hay un evento asociado a la fecha dada
@@ -761,10 +730,6 @@ public class MainActivity extends AppCompatActivity {
                                     return true;
                                 }
                             }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                            // Aquí manejamos el error de parseo si es necesario
-                        }
                     }
                 }
             }
