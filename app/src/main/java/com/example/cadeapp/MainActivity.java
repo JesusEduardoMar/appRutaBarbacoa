@@ -524,6 +524,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    datePicker.selectDate(today);
                 } else {
                     Log.d(TAG, "Error al obtener eventos: ", task.getException());
                 }
