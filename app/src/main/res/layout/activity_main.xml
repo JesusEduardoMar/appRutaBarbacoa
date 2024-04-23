@@ -551,7 +551,7 @@
                         <com.squareup.timessquare.CalendarPickerView
                             android:id="@+id/calendarView"
                             android:layout_width="match_parent"
-                            android:layout_height="400dp"
+                            android:layout_height="500dp"
                             android:layout_marginTop="0dp"
                             android:nestedScrollingEnabled="true" />
 
