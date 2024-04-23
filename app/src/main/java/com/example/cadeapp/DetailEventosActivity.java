@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -311,15 +313,19 @@ public class DetailEventosActivity extends AppCompatActivity {
                         String nombre = document.getString("nombre_evento");
                         String info = document.getString("info_evento");
                         String ubicacion = document.getString("ubicacion_evento");
-                        String horario = document.getString("fecha_evento");
+                        //String horario = document.getString("fecha_evento");
+                        Timestamp horario = document.getTimestamp("fecha_eventoo");
                         String imageUrl = document.getString("url");
-
 
                         // Configuramos los elementos de la interfaz de usuario con la información obtenida
                         titleText.setText(nombre);
                         textDescription.setText(info);
                         addressText.setText(ubicacion);
-                        horarioTextView.setText(horario);
+
+                        // Convertimos el Timestamp a un String con un formato de fecha específico para los Eventos
+                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy 'a las' HH:mm:ss");
+                        String horarioStr = sdf.format(horario.toDate());
+                        horarioTextView.setText(horarioStr);
 
                     } else {
                         // Manejo de errores
