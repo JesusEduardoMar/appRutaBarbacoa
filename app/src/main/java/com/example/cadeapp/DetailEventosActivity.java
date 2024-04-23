@@ -262,10 +262,10 @@ public class DetailEventosActivity extends AppCompatActivity {
                         .addOnSuccessListener(documentSnapshot -> {
                             if (documentSnapshot.exists()) {
                                 // Extraemos el nombre de usuario
-                                String nombreUsuario = documentSnapshot.getString("nombre");
+                                String idUsuario = documentSnapshot.getString("id");
 
                                 // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, idEvento, null);
+                                Opinion nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, null, idEvento, null);
 
                                 // Agregamos la nueva opinión a la colección de opiniones en Firestore
                                 mFirestore.collection("opiniones")
