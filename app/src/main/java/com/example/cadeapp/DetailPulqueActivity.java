@@ -259,11 +259,11 @@ public class DetailPulqueActivity extends AppCompatActivity {
                         .get()
                         .addOnSuccessListener(documentSnapshot -> {
                             if (documentSnapshot.exists()) {
-                                // Extraemos el nombre de usuario
-                                String nombreUsuario = documentSnapshot.getString("nombre");
+                                // Extraemos el id de usuario
+                                String idUsuario = documentSnapshot.getString("id");
 
                                 // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(nombreUsuario, comentario, calificacion, null, null, idPulque);
+                                Opinion nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, null, null, idPulque);
 
                                 // Agregamos la nueva opinión a la colección de opiniones en Firestore
                                 mFirestore.collection("opiniones")
