@@ -860,23 +860,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-/*
-        @Override
-        public void onBackPressed(){
-        new AlertDialog.Builder(this)
-                .setMessage("Pulsa de nuevo para salir")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.super.onBackPressed();
-                    }
-                })
-                .setNegativeButton("NO", null)
-                .show();
-        }*/
-
-
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
