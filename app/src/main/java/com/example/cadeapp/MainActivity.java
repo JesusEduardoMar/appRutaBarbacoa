@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.text.LineBreaker;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -699,7 +700,9 @@ public class MainActivity extends AppCompatActivity {
             boolean tieneEvento = tieneEventoEnFecha(date);
             if (tieneEvento) {
                 // Cambiamos el color de fondo de la celda si tiene un evento
-                cellView.setBackgroundColor(Color.YELLOW); // Ponemos de color la celda
+                cellView.setBackgroundColor(Color.rgb(255, 165, 0)); // Ponemos de color la celda
+            } else if (isToday(date)){
+                cellView.setBackgroundColor(Color.rgb(178, 218, 250)); // Ponemos de color la celda
             } else {
                 cellView.setBackgroundColor(getResources().getColor(R.color.white));
             }
@@ -735,6 +738,17 @@ public class MainActivity extends AppCompatActivity {
             }
             // Si no hay eventos en la fecha dada, devuelve false
             return false;
+        }
+
+        // Verifica si es la fecha de hoy
+        private boolean isToday(Date date){
+            Calendar cal1 = Calendar.getInstance();
+            Calendar cal2 = Calendar.getInstance();
+            cal1.setTime(date);
+            cal2.setTime(today);
+            return cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                    cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+
         }
     }
 
@@ -845,23 +859,6 @@ public class MainActivity extends AppCompatActivity {
                 map.setVisibility(View.GONE);
             }
         }
-
-/*
-        @Override
-        public void onBackPressed(){
-        new AlertDialog.Builder(this)
-                .setMessage("Pulsa de nuevo para salir")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.super.onBackPressed();
-                    }
-                })
-                .setNegativeButton("NO", null)
-                .show();
-        }*/
-
 
     boolean doubleBackToExitPressedOnce = false;
     @Override
