@@ -494,7 +494,7 @@ public class MainActivity extends AppCompatActivity {
         // Inicializamos el selector de fechas
         final Date today = new Date(); //fecha actual
         final Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 30);
+        nextYear.add(Calendar.YEAR, 5);
 
         CalendarPickerView datePicker = findViewById(R.id.calendarView);
         datePicker.init(today, nextYear.getTime()).withSelectedDate(today);
@@ -534,9 +534,6 @@ public class MainActivity extends AppCompatActivity {
         datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-                // Convertimos la fecha seleccionada a un formato que se pueda leer
-                DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-                String fechaSeleccionada = dateFormat.format(date);
 
                 // Verificamos si hay un evento en la fecha seleccionada
                 String informacionEvento = " ";
@@ -703,6 +700,8 @@ public class MainActivity extends AppCompatActivity {
             if (tieneEvento) {
                 // Cambiamos el color de fondo de la celda si tiene un evento
                 cellView.setBackgroundColor(Color.YELLOW); // Ponemos de color la celda
+            } else {
+                cellView.setBackgroundColor(getResources().getColor(R.color.white));
             }
         }
         // Checamos si hay un evento asociado a una fecha
