@@ -1,5 +1,7 @@
 package com.example.cadeapp;
 
+import com.google.firebase.Timestamp;
+
 import java.io.Serializable;
 
 public class ItemsDomainEventos implements Serializable {
@@ -8,7 +10,8 @@ public class ItemsDomainEventos implements Serializable {
     private String nombre_evento;
     private String ubicacion_evento;
     private String url;
-    private String fecha_evento; // Cambiado a tipo String para almacenar la fecha como texto
+   // private String fecha_evento; // Cambiado a tipo String para almacenar la fecha como texto
+   private Timestamp fecha_eventoo; // Cambiado a tipo Timestamp para almacenar la fecha como un objeto Timestamp
 
     public String getIdEvento() {
         return idEvento;
@@ -42,20 +45,19 @@ public class ItemsDomainEventos implements Serializable {
         this.url = url;
     }
 
-    public String getFecha_evento() {
-        return fecha_evento;
+    public Timestamp getFecha_eventoo() {
+        return fecha_eventoo;
     }
 
-    public void setFecha_evento(String fecha_evento) {
-        this.fecha_evento = fecha_evento;
+    public void setFecha_eventoo(Timestamp fecha_eventoo) {
+        this.fecha_eventoo = fecha_eventoo;
     }
-
-    public ItemsDomainEventos(String idEvento, String nombre_evento, String ubicacion_evento, String url, String fecha_evento) {
+    public ItemsDomainEventos(String idEvento, String nombre_evento, String ubicacion_evento, String url, Timestamp fecha_eventoo) {
         this.idEvento = idEvento;
         this.nombre_evento = nombre_evento;
         this.ubicacion_evento = ubicacion_evento;
         this.url = url;
-        this.fecha_evento = fecha_evento;
+        this.fecha_eventoo = fecha_eventoo;
     }
 
     public ItemsDomainEventos() {

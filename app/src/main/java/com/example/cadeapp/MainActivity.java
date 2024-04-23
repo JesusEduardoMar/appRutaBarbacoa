@@ -179,14 +179,17 @@ public class MainActivity extends AppCompatActivity {
 
                             ItemsDomainEventos evento = dc.getDocument().toObject(ItemsDomainEventos.class);
                             items2.add(evento);
+                            // Obtenemos la fecha del evento como un string que se pueda leer
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy 'a las' HH:mm:ss", Locale.getDefault());
+                            String fechaEvento = dateFormat.format(evento.getFecha_eventoo().toDate());
 
                             // Comparamos la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
                             if (notificationDate.after(todayStartTime)) {
-                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ evento.getFecha_evento(), notificationContainerNuevas, R.layout.layout_notificatione);
+                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ fechaEvento, notificationContainerNuevas, R.layout.layout_notificatione);
                             } else if (notificationDate.after(date7DaysAgo)) {
-                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ evento.getFecha_evento(), notificationContainerUltimos7Dias, R.layout.layout_notificatione);
+                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ fechaEvento, notificationContainerUltimos7Dias, R.layout.layout_notificatione);
                             } else if (notificationDate.after(date30DaysAgo)) {
-                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ evento.getFecha_evento(), notificationContainerUltimos30Dias, R.layout.layout_notificatione);
+                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ fechaEvento, notificationContainerUltimos30Dias, R.layout.layout_notificatione);
                             }
                         }
                     }
@@ -538,6 +541,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Verificamos si hay un evento en la fecha seleccionada
                 String informacionEvento = " ";
+                boolean eventoEncontrado = false;
                 if (eventosTask != null && eventosTask.isSuccessful()) {
                     for (QueryDocumentSnapshot document : eventosTask.getResult()) {
                         String nombreEvento = document.getString("nombre_evento");
@@ -560,14 +564,25 @@ public class MainActivity extends AppCompatActivity {
                                         calEvento.get(Calendar.DAY_OF_MONTH) == calSeleccionada.get(Calendar.DAY_OF_MONTH)) {
                                     // Se encontró un evento en la fecha seleccionada
                                     informacionEvento = nombreEvento;
+                                    eventoEncontrado = true;
                                     break; // No es necesario continuar buscando más eventos
                                 }
                             }
                         }
                     }
                 }
-                // Mostrar la información del evento en el área designada
-                button3.setText("Nombre del evento para la fecha seleccionada: " + informacionEvento);
+                // Mostramos la info del evento en el button3
+                if (eventoEncontrado) {
+                    button3.setText("Nombre del evento para la fecha seleccionada: " + informacionEvento);
+                } else {
+                    button3.setText("No hay eventos para la fecha seleccionada :(");
+                }
+                // Mostramos un Toast con el nombre del evento si hay uno en firestore
+                if (eventoEncontrado) {
+                    Toast.makeText(getApplicationContext(), "Evento seleccionado: " + informacionEvento, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No hay eventos para la fecha seleccionada ", Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void onDateUnselected(Date date) {
