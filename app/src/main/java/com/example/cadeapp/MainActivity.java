@@ -699,7 +699,7 @@ public class MainActivity extends AppCompatActivity {
             boolean tieneEvento = tieneEventoEnFecha(date);
             if (tieneEvento) {
                 // Cambiamos el color de fondo de la celda si tiene un evento
-                cellView.setBackgroundColor(Color.YELLOW); // Ponemos de color la celda
+                cellView.setBackgroundColor(Color.rgb(255, 165, 0)); // Ponemos de color la celda
             } else {
                 cellView.setBackgroundColor(getResources().getColor(R.color.white));
             }
