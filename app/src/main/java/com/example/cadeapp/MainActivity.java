@@ -165,7 +165,10 @@ public class MainActivity extends AppCompatActivity {
             itemsAdapterEventos = new ItemsAdapterEventos(items2, this);
             recyclerView.setAdapter(itemsAdapterEventos);
 
-            mFirestore.collection("eventos").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            mFirestore.collection("eventos")
+                    .orderBy("fecha_eventoo")
+                    .whereGreaterThanOrEqualTo("fecha_eventoo", today)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                     pbProgressMain.setVisibility(View.VISIBLE);
