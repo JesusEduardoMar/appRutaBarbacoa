@@ -251,7 +251,9 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             pbProgressLogin.setVisibility(View.GONE);
                             finish();
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                             mostrarMensaje("Bienvenido");
                         }else{
                             pbProgressLogin.setVisibility(View.GONE);
@@ -282,7 +284,9 @@ public class LoginActivity extends AppCompatActivity {
 
     //redireccionamiento a la activitymain
     private void redireccionarMain(){
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
         finish();
     }
 
