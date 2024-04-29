@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -106,10 +107,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
+        // Manejo excepciones
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 
-        setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
+
+        user = mAuth.getCurrentUser();
+        verifyUser();
+        boolean userVerified = user.isEmailVerified();
+        Log.d("Verified", "Verified "+userVerified);
+
+
         //notifications = findViewById(R.id.notifications);
         LinearLayout notificationContainer = findViewById(R.id.notificationContainerr);
         LinearLayout notificationContainerNuevas = findViewById(R.id.notificationContainerNuevas);
@@ -347,8 +357,6 @@ public class MainActivity extends AppCompatActivity {
         txt_correo2 = findViewById(R.id.correo2);
         txt_correo = findViewById(R.id.Mostrarcorreo);
         txt_telefono = findViewById(R.id.Mostrartelefono);
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
         bottomNavigation.show(3,true);
         relativeContact1 = findViewById(R.id.relativeContact);
         relativeFAQ1 = findViewById(R.id.relativeFAQ);
@@ -698,7 +706,43 @@ public class MainActivity extends AppCompatActivity {
         getLocalizacionn();
 
     }
-// METODO PARA PEDIR UBICACION AL USUARIO --------------------------------------
+
+    // Verifica si un usuario ha autenticado su correo
+    private void verifyUser() {
+        user.reload();
+        if(!user.isEmailVerified()){
+            // Ubicación desactivada, mostrar un diálogo para permitir al usuario activarla
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Para continuar con la aplicación es necesario verificar tu correo.\n\nPor favor, revisa tu correo incluso tu spam.")
+                    .setCancelable(false)
+                    .setNegativeButton("Enviar correo", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            user.sendEmailVerification();
+                            dialog.cancel();
+                        }
+                    })
+                    .setPositiveButton("Cerrar sesión", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logout();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+
+            AlertDialog.Builder confirmationBuilder = new AlertDialog.Builder(this);
+            confirmationBuilder.setMessage("Busca en tu correo electrónico el mensaje de verificación, da clic al enlace y vuelve a iniciar sesión.")
+                    .setCancelable(false)
+                    .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logout();
+                        }
+                    });
+            confirmationBuilder.create().show();
+        }
+    }
+
+    // METODO PARA PEDIR UBICACION AL USUARIO --------------------------------------
     private void getLocalizacionn(){
         int permiso = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
@@ -805,6 +849,7 @@ public class MainActivity extends AppCompatActivity {
         if(user == null){
             irLogin();
         }else{
+            verifyUser();
             cargardatos();
         }
     }
