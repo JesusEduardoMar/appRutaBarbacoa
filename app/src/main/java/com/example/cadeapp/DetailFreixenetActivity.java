@@ -262,42 +262,8 @@ public class DetailFreixenetActivity extends AppCompatActivity {
 
             // Verificamos el ID de usuario antes de enviar la opinión
             if (userId != null) {
-                // Consultamso en Firestore para obtener el nombre del usuario
-                mFirestore.collection("usuarios")
-                        .document(userId)
-                        .get()
-                        .addOnSuccessListener(documentSnapshot -> {
-                            if (documentSnapshot.exists()) {
-                                // Extraemos el nombre de usuario
-                                String idUsuario = documentSnapshot.getString("id");
-
-                                // Creamos un nuevo objeto Opinion
-                                Opinion nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, idBarbacoa, null, null);
-
-                                // Agregamos la nueva opinión a la colección de opiniones en Firestore
-                                mFirestore.collection("opiniones")
-                                        .add(nuevaOpinion)
-                                        .addOnSuccessListener(documentReference -> {
-                                            Toast.makeText(DetailFreixenetActivity.this, "Opinión enviada con éxito", Toast.LENGTH_SHORT).show();
-
-                                            // Limpiamos los campos de la interfaz de usuario después de enviar una nueva opinión
-                                            editTextComentario.setText("");
-                                            ratingBarOpinion.setRating(0.0f);
-
-                                            // Actualizamos y mostramos las opiniones después de enviar una nueva
-                                            obtenerYMostrarOpiniones();
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            // Mensaje de error en caso de fallo al enviar la opinión
-                                            Toast.makeText(DetailFreixenetActivity.this, "Error al enviar la opinión", Toast.LENGTH_SHORT).show();
-                                        });
-                            } else {
-                            }
-                        })
-                        .addOnFailureListener(e -> {
-                            // Manejo de errores
-                            Log.e("DetailFreixenetActivity", "Error al obtener el documento del usuario", e);
-                        });
+                // Consultamos en Firestore para verificar si el usuario ya ha dejado un comentario hoy en ese puesto
+                verificarComentarioHoyEnBarbacoa(editTextComentario, ratingBarOpinion, userId, idBarbacoa, comentario, calificacion);
             }
         } catch (Exception e) {
             // Manejo de errores
@@ -305,6 +271,71 @@ public class DetailFreixenetActivity extends AppCompatActivity {
             Toast.makeText(DetailFreixenetActivity.this, "Error inesperado: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    // Este Método es para verificar si el usuario ya ha dejado un comentario en un puesto el día de hoy
+    private void verificarComentarioHoyEnBarbacoa(EditText editTextComentario, RatingBar ratingBarOpinion, String userId, String idBarbacoa, String comentario, float calificacion) {
+        // Obtenemos la fecha actual
+        Date fechaActual = new Date();
+        // Convertimos la fecha actual a un formato que Firestore entienda
+        Timestamp fechaActualFirestore = new Timestamp(fechaActual);
+
+        // Consultamos en Firestore para ver si el usuario ya ha dejado un comentario hoy en ese puesto
+        mFirestore.collection("opiniones")
+                .whereEqualTo("idUsuario", userId)
+                .whereEqualTo("idBarbacoa", idBarbacoa)
+                .whereGreaterThanOrEqualTo("timestamp", fechaActualFirestore)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Si el usuario ya ha dejado un comentario hoy en ese puesto, muestra un mensaje
+                        if (!task.getResult().isEmpty()) {
+                            Toast.makeText(DetailFreixenetActivity.this, "Ya has dejado un comentario hoy en este puesto, vuelve mañana", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Si el usuario no ha dejado un comentario hoy en ese puesto, permite enviar el comentario
+                            // Consultamos en Firestore para obtener el nombre del usuario
+                            mFirestore.collection("usuarios")
+                                    .document(userId)
+                                    .get()
+                                    .addOnSuccessListener(documentSnapshot -> {
+                                        if (documentSnapshot.exists()) {
+                                            // Extraemos el nombre de usuario
+                                            String idUsuario = documentSnapshot.getString("id");
+
+                                            // Creamos un nuevo objeto Opinion
+                                            Opinion nuevaOpinion = new Opinion(idUsuario, comentario, calificacion, idBarbacoa, null, null);
+
+                                            // Agregamos la nueva opinión a la colección de opiniones en Firestore
+                                            mFirestore.collection("opiniones")
+                                                    .add(nuevaOpinion)
+                                                    .addOnSuccessListener(documentReference -> {
+                                                        Toast.makeText(DetailFreixenetActivity.this, "Opinión enviada con éxito", Toast.LENGTH_SHORT).show();
+
+                                                        // Limpiamos los campos de la interfaz de usuario después de enviar una nueva opinión
+                                                        editTextComentario.setText("");
+                                                        ratingBarOpinion.setRating(0.0f);
+
+                                                        // Actualizamos y mostramos las opiniones después de enviar una nueva
+                                                        obtenerYMostrarOpiniones();
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        // Mensaje de error en caso de fallo al enviar la opinión
+                                                        Toast.makeText(DetailFreixenetActivity.this, "Error al enviar la opinión", Toast.LENGTH_SHORT).show();
+                                                    });
+                                        } else {
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Manejo de errores
+                                        Log.e("DetailFreixenetActivity", "Error al obtener el documento del usuario", e);
+                                    });
+                        }
+                    } else {
+                        // Manejo de errores
+                        Log.e("DetailFreixenetActivity", "Error al verificar comentario en puesto", task.getException());
+                    }
+                });
+    }
+
 
     // Método para obtener la información de la barbacoa ?
     private void obtenerInformacionBarbacoa() {
