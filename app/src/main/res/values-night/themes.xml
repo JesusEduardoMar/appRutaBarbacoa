@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Orange"  parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="colorPrimaryDark">@color/light_orange</item>
+        <item name="colorPrimaryDark">@color/naranja5</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="colorPrimary">@color/light_orange</item>
+        <item name="colorPrimary">@color/naranja5</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="selectableItemBackground">@drawable/selector_backgroundnotifiy_dark</item>

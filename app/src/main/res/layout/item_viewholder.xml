@@ -49,7 +49,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Titulo"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/marcadorb"

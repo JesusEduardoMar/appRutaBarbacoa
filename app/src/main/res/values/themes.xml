@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Orange"  parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="colorPrimaryDark">@color/light_orange</item>
-        <item name="colorPrimary">@color/light_orange</item>
+        <item name="colorPrimaryDark">@color/naranja5</item>
+        <item name="colorPrimary">@color/naranja5</item>
         <item name="android:windowBackground">@color/light_orange_back</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
