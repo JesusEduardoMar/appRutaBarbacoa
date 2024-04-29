@@ -140,7 +140,7 @@ public class RegistrarActivity extends AppCompatActivity {
 
 
     //Metodo para registrar los usuarios dentro de firebase
-    //El metodo debe resibir los parametros nameuser, correouser, telefonouser y passworduser del onclicklistener del boton registrar usuarios
+    //El metodo debe recibir los parametros nameuser, correouser, telefonouser y passworduser del onclicklistener del boton registrar usuarios
     private void realizarConsulta(String correouser, String telefonouser) {
 
         //Realizamos una consulta a firebase para saber si el telefono no esta ligado con algun usuario
@@ -179,6 +179,7 @@ public class RegistrarActivity extends AppCompatActivity {
                     mFirestore.collection("usuarios").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                         public void onSuccess(Void unused) {
                             // Redirige solo cuando la creación de la cuenta sea exitosa
+                            mAuth.getCurrentUser().sendEmailVerification();
                             mostrarMensaje("Usuario registrado con éxito");
                             redireccionarMain(); // Mover aquí la redirección
                         }
