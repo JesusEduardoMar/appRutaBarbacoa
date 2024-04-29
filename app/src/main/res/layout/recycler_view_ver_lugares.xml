@@ -43,32 +43,19 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="0.5"
-                    android:background="@drawable/cat_background">
+                    android:background="@drawable/tittle_background">
 
                     <ImageView
                         android:id="@+id/preparacionB"
                         android:layout_width="80dp"
                         android:layout_height="70dp"
-                        android:layout_marginEnd="8dp"
                         android:padding="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/preparacionBtext"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0"
-                        app:srcCompat="@drawable/preparacionbarba" />
-
-                    <TextView
-                        android:id="@+id/preparacionBtext"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="Preparación"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:srcCompat="@drawable/cazuela2" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +65,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="32dp"
                     android:layout_weight="0.5"
-                    android:background="@drawable/cat_background">
+                    android:background="@drawable/tittle_background">
 
                     <ImageView
                         android:id="@+id/historiaB"
@@ -87,21 +74,11 @@
                         android:padding="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0"
-                        app:srcCompat="@drawable/historyofbarba" />
+                        app:srcCompat="@drawable/history2" />
 
-                    <TextView
-                        android:id="@+id/historiaBtext"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="Historia de la barbacoa"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 

@@ -37,8 +37,6 @@ public class privacidad extends ScrollingActivity {
             priv1TextView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
 
-        // Cambiar el color de la barra de estado
-        cambiarColorBarraEstado(getResources().getColor(R.color.black));
     }
 
     private void cambiarColorBarraEstado(int color) {
