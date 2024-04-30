@@ -287,12 +287,17 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Si el usuario ya ha dejado un comentario hoy en ese puesto, muestra un mensaje
-                        if (!task.getResult().isEmpty()) {
-                            Toast.makeText(DetailFreixenetActivity.this, "Ya has dejado un comentario hoy en este puesto, vuelve mañana", Toast.LENGTH_SHORT).show();
+                        // Contador de comentarios del usuario (hoy)
+                        // Obtenemos el número de elementos en el resultado de la consulta a Firestore
+                        int comentariosHoy = task.getResult().size();
+
+                        // Verificamos si el usuario ha dejado el máximo de comentarios permitidos por hoy
+                        if (comentariosHoy >= 1) {
+                            // Mostramos un mensaje de límite de comentarios
+                            Toast.makeText(DetailFreixenetActivity.this, "Has alcanzado el límite de comentarios por hoy", Toast.LENGTH_SHORT).show();
                         } else {
-                            // Si el usuario no ha dejado un comentario hoy en ese puesto, permite enviar el comentario
-                            // Consultamos en Firestore para obtener el nombre del usuario
+                            // Si no ha alacanzado el limite de comentarios le permitimos al usuario enviar un nuevo comentario
+                            // Consultamos en Firestore para obtener el id del usuario
                             mFirestore.collection("usuarios")
                                     .document(userId)
                                     .get()
