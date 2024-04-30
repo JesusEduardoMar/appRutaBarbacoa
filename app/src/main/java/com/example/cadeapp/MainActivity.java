@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import kotlin.Unit;
@@ -273,6 +274,17 @@ public class MainActivity extends AppCompatActivity {
                                         break;
                                 }
                             }
+                            // Mostrar solo 5 lugares al azar
+                            // esto es una prueba
+
+                            List<ItemsDomainVinedos> randomItems = new ArrayList<>(items);
+                            Collections.shuffle(randomItems);
+                            items.clear();
+                            items.addAll(randomItems.subList(0, Math.min(5, randomItems.size())));
+                            itemsAdapterVinedos.notifyDataSetChanged();
+
+                            // aqui termina la prueba
+
                             pbProgressMain.setVisibility(View.GONE);
                         }
                     });
@@ -667,7 +679,7 @@ public class MainActivity extends AppCompatActivity {
         relativeInfo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Iniciar la actividad "FAQ" con startActivityForResult
+                // Iniciar la actividad "Informacion" con startActivityForResult
                 Intent intent = new Intent(MainActivity.this, informacion.class);
                 startActivityForResult(intent, REQUEST_CODE_CONTACT);
             }
@@ -676,7 +688,7 @@ public class MainActivity extends AppCompatActivity {
         relativePrivacity1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Iniciar la actividad "FAQ" con startActivityForResult
+                // Iniciar la actividad "privacidad" con startActivityForResult
                 Intent intent = new Intent(MainActivity.this, privacidad.class);
                 startActivityForResult(intent, REQUEST_CODE_CONTACT);
             }
