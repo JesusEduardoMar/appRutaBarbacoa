@@ -741,6 +741,16 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             user.sendEmailVerification();
                             dialog.cancel();
+
+                            AlertDialog.Builder confirmationBuilder = new AlertDialog.Builder(MainActivity.this);
+                            confirmationBuilder.setMessage("Busca en tu correo electrónico el mensaje de verificación, da clic al enlace y vuelve a iniciar sesión.")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            logout();
+                                        }
+                                    });
+                            confirmationBuilder.create().show();
                         }
                     })
                     .setPositiveButton("Cerrar sesión", new DialogInterface.OnClickListener() {
@@ -750,17 +760,6 @@ public class MainActivity extends AppCompatActivity {
                     });
             AlertDialog alert = builder.create();
             alert.show();
-
-
-            AlertDialog.Builder confirmationBuilder = new AlertDialog.Builder(this);
-            confirmationBuilder.setMessage("Busca en tu correo electrónico el mensaje de verificación, da clic al enlace y vuelve a iniciar sesión.")
-                    .setCancelable(false)
-                    .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            logout();
-                        }
-                    });
-            confirmationBuilder.create().show();
         }
     }
 
