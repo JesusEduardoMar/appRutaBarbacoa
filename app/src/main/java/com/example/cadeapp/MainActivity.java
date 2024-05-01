@@ -320,14 +320,21 @@ public class MainActivity extends AppCompatActivity {
                         for (DocumentChange dc : value.getDocumentChanges()) {
                             switch (dc.getType()) {
                                 case ADDED:
-                                    // Agregamos el elemento al RecyclerView
-                                    items3.add(dc.getNewIndex(), dc.getDocument().toObject(ItemsDomainPulques.class));
-                                    itemsAdapterPulques.notifyItemInserted(dc.getNewIndex());// Notificar al adaptador que hemos insertado datos
-
+                                    // Obtenemos el índice o index en el que se insertó el nuevo elemento
+                                    int addedIndex = dc.getNewIndex();
+                                    //es menor o igual que el tamaño actual de la lista
+                                    if (addedIndex >= 0 && addedIndex <= items3.size()) {
+                                        // El índice es válido, podemos agregar el elemento a la lista (insertamos el nuevo elemento a items)
+                                        items3.add(addedIndex, dc.getDocument().toObject(ItemsDomainPulques.class));
+                                        itemsAdapterPulques.notifyItemInserted(addedIndex);
+                                    } else {
+                                        // El índice no es válido
+                                        Log.e("IndexOutOfBounds", "El índice está fuera de los límites válidos: " + addedIndex);
+                                    }
                                     // Procesamos las notificaciones
                                     Date notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
-                                    ItemsDomainPulques pulque = dc.getDocument().toObject(ItemsDomainPulques.class);
-                                    //items3.add(pulque);
+                                    ItemsDomainPulques pulques = dc.getDocument().toObject(ItemsDomainPulques.class);
+                                    //items.add(evento);
 
                                     // Comparamos la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
                                     if (notificationDate.after(todayStartTime)) {
@@ -340,27 +347,40 @@ public class MainActivity extends AppCompatActivity {
                                     break;
 
                                 case MODIFIED:
-                                    items3.set(dc.getOldIndex(), dc.getDocument().toObject(ItemsDomainPulques.class));
-                                    itemsAdapterPulques.notifyItemChanged(dc.getOldIndex());// Notificar al adaptador que los datos han cambiado
-                                    break;
-                                case REMOVED:
-                                    items3.remove(dc.getOldIndex());
-                                    itemsAdapterPulques.notifyItemRemoved(dc.getOldIndex());// Notificar al adaptador que los datos han sido eliminados
+                                int modifiedIndex = dc.getOldIndex();
+                                if (modifiedIndex >= 0 && modifiedIndex < items3.size()) {
+                                    items3.set(modifiedIndex, dc.getDocument().toObject(ItemsDomainPulques.class));
+                                    itemsAdapterPulques.notifyItemChanged(modifiedIndex);
+                                }
+                                break;
 
+                                case REMOVED:
+                                int removedIndex = dc.getOldIndex();
+                                if (removedIndex >= 0 && removedIndex < items3.size()) {
+                                    // Remover el elemento de la lista y notificar al adaptador
+                                    items3.remove(removedIndex);
+                                    itemsAdapterPulques.notifyItemRemoved(removedIndex);
                                     // Procesar notificaciones
                                     notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
 
                                     // Comparar la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
                                     if (notificationDate.after(todayStartTime)) {
                                         addNotification(dc.getDocument().getString("nombre_pulque")+ " ya no está disponible en Cadereyta :(", notificationContainerNuevas, R.layout.layout_notificationp);
-                                    } else if (notificationDate.after(date7DaysAgo)) {
-                                        addNotification(dc.getDocument().getString("nombre_pulque")+ " ya no está disponible en Cadereyta :(", notificationContainerUltimos7Dias, R.layout.layout_notificationp);
-                                    } else if (notificationDate.after(date30DaysAgo)) {
-                                        addNotification(dc.getDocument().getString("nombre_pulque")+ " ya no está disponible en Cadereyta :(", notificationContainerUltimos30Dias, R.layout.layout_notificationp);
                                     }
-                                    break;
+                                }
+                                break;
                             }
                         }
+                        // Mostrar solo 5 lugares al azar
+                        List<ItemsDomainPulques> randomItemsP = new ArrayList<>(items3);
+                        Collections.shuffle(randomItemsP);
+                        // Alteramos la lista para que tenga un máximo de 5 elementos
+                        if (randomItemsP.size() > 5) {
+                            randomItemsP = randomItemsP.subList(0, 5);
+                        }
+                        items3.clear();
+                        items3.addAll(randomItemsP);
+                        itemsAdapterPulques.notifyDataSetChanged();
                         pbProgressMain.setVisibility(View.GONE);
                     }
                 });
