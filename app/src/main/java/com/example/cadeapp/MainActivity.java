@@ -288,8 +288,8 @@ public class MainActivity extends AppCompatActivity {
                             List<ItemsDomainVinedos> randomItems = new ArrayList<>(items);
                             Collections.shuffle(randomItems);
                             // Alteramos la lista para que tenga un máximo de 5 elementos
-                            if (randomItems.size() > 6) {
-                                randomItems = randomItems.subList(0, 6);
+                            if (randomItems.size() > 5) {
+                                randomItems = randomItems.subList(0, 5);
                             }
                             items.clear();
                             items.addAll(randomItems);
@@ -346,12 +346,24 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     break;
 
+                                    // por el momento se agrego una comparacion par verificar si existe y evitar duplicados, getIdPulque por el momento
                                 case MODIFIED:
                                 int modifiedIndex = dc.getOldIndex();
-                                if (modifiedIndex >= 0 && modifiedIndex < items3.size()) {
-                                    items3.set(modifiedIndex, dc.getDocument().toObject(ItemsDomainPulques.class));
-                                    itemsAdapterPulques.notifyItemChanged(modifiedIndex);
-                                }
+                                    if (modifiedIndex >= 0 && modifiedIndex < items3.size()) {
+                                        ItemsDomainPulques modifiedItem = dc.getDocument().toObject(ItemsDomainPulques.class);
+                                        // Check if the item already exists in the list to avoid duplicates
+                                        boolean itemExists = false;
+                                        for (ItemsDomainPulques item : items3) {
+                                            if (item.getIdPulque().equals(modifiedItem.getIdPulque())) {
+                                                itemExists = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!itemExists) {
+                                            items3.set(modifiedIndex, modifiedItem);
+                                            itemsAdapterPulques.notifyItemChanged(modifiedIndex);
+                                        }
+                                    }
                                 break;
 
                                 case REMOVED:
