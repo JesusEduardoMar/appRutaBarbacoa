@@ -763,7 +763,7 @@
                         android:layout_marginBottom="1dp"
                         android:gravity="center_horizontal"
                         android:singleLine="false"
-                        android:text="Descubre el Top 10 de los Mejores Lugares de Barbacoa en Cadereyta"
+                        android:text="Descubre algunos de los Mejores Lugares de Barbacoa en Cadereyta"
                         android:textColor="@color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />

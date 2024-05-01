@@ -303,7 +303,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                                     .get()
                                     .addOnSuccessListener(documentSnapshot -> {
                                         if (documentSnapshot.exists()) {
-                                            // Extraemos el nombre de usuario
+                                            // Extraemos el id de usuario
                                             String idUsuario = documentSnapshot.getString("id");
 
                                             // Creamos un nuevo objeto Opinion

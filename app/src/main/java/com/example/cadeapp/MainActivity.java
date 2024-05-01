@@ -234,10 +234,17 @@ public class MainActivity extends AppCompatActivity {
                             for (DocumentChange dc : value.getDocumentChanges()) {
                                 switch (dc.getType()) {
                                     case ADDED:
-                                        // Agregar el elemento al RecyclerView
-                                        items.add(dc.getNewIndex(), dc.getDocument().toObject(ItemsDomainVinedos.class));
-                                        itemsAdapterVinedos.notifyItemInserted(dc.getNewIndex());// Notificar al adaptador que hemos insertado datos
-
+                                        // Obtenemos el índice o index en el que se insertó el nuevo elemento
+                                        int addedIndex = dc.getNewIndex();
+                                        //es menor o igual que el tamaño actual de la lista
+                                        if (addedIndex >= 0 && addedIndex <= items.size()) {
+                                            // El índice es válido, podemos agregar el elemento a la lista (insertamos el nuevo elemento a items)
+                                            items.add(addedIndex, dc.getDocument().toObject(ItemsDomainVinedos.class));
+                                            itemsAdapterVinedos.notifyItemInserted(addedIndex);
+                                        } else {
+                                            // El índice no es válido
+                                            Log.e("IndexOutOfBounds", "El índice está fuera de los límites válidos: " + addedIndex);
+                                        }
                                         // Procesamos las notificaciones
                                         Date notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
                                         ItemsDomainVinedos evento = dc.getDocument().toObject(ItemsDomainVinedos.class);
@@ -254,36 +261,39 @@ public class MainActivity extends AppCompatActivity {
                                         break;
 
                                     case MODIFIED:
-                                        items.set(dc.getOldIndex(), dc.getDocument().toObject(ItemsDomainVinedos.class));
-                                        itemsAdapterVinedos.notifyItemChanged(dc.getOldIndex());// Notificar al adaptador que los datos han cambiado
+                                        int modifiedIndex = dc.getOldIndex();
+                                        if (modifiedIndex >= 0 && modifiedIndex < items.size()) {
+                                            items.set(modifiedIndex, dc.getDocument().toObject(ItemsDomainVinedos.class));
+                                            itemsAdapterVinedos.notifyItemChanged(modifiedIndex);
+                                        }
                                         break;
                                     case REMOVED:
-                                        items.remove(dc.getOldIndex());
-                                        itemsAdapterVinedos.notifyItemRemoved(dc.getOldIndex());// Notificar al adaptador que los datos han sido eliminados
-                                        // Procesar notificaciones
-                                        notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
+                                        int removedIndex = dc.getOldIndex();
+                                        if (removedIndex >= 0 && removedIndex < items.size()) {
+                                            // Remover el elemento de la lista y notificar al adaptador
+                                            items.remove(removedIndex);
+                                            itemsAdapterVinedos.notifyItemRemoved(removedIndex);
+                                            // Procesar notificaciones
+                                            notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
 
-                                        // Comparar la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
-                                        if (notificationDate.after(todayStartTime)) {
-                                            addNotification(dc.getDocument().getString("nombre_barbacoa")+ " ya no está disponible en Cadereyta :(", notificationContainerNuevas, R.layout.layout_notification);
-                                        } else if (notificationDate.after(date7DaysAgo)) {
-                                            addNotification(dc.getDocument().getString("nombre_barbacoa")+ " ya no está disponible en Cadereyta :(", notificationContainerUltimos7Dias, R.layout.layout_notification);
-                                        } else if (notificationDate.after(date30DaysAgo)) {
-                                            addNotification(dc.getDocument().getString("nombre_barbacoa")+ " ya no está disponible en Cadereyta :(", notificationContainerUltimos30Dias, R.layout.layout_notification);
+                                            // Comparar la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
+                                            if (notificationDate.after(todayStartTime)) {
+                                                addNotification(dc.getDocument().getString("nombre_barbacoa")+ " ya no está disponible en Cadereyta :(", notificationContainerNuevas, R.layout.layout_notification);
+                                            }
                                         }
                                         break;
                                 }
                             }
-                            // Mostrar solo 5 lugares al azar
-                            // esto es una prueba
-
+                            // Mostrar solo 6 lugares al azar
                             List<ItemsDomainVinedos> randomItems = new ArrayList<>(items);
                             Collections.shuffle(randomItems);
+                            // Alteramos la lista para que tenga un máximo de 5 elementos
+                            if (randomItems.size() > 6) {
+                                randomItems = randomItems.subList(0, 6);
+                            }
                             items.clear();
-                            items.addAll(randomItems.subList(0, Math.min(5, randomItems.size())));
+                            items.addAll(randomItems);
                             itemsAdapterVinedos.notifyDataSetChanged();
-
-                            // aqui termina la prueba
 
                             pbProgressMain.setVisibility(View.GONE);
                         }
