@@ -603,54 +603,52 @@ public class MainActivity extends AppCompatActivity {
         datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-
                 // Verificamos si hay un evento en la fecha seleccionada
-                String informacionEvento = " ";
-                boolean eventoEncontrado = false;
+                // Creamos una lista para almacenar la información de los eventos encontrados para la fecha seleccionada
+                List<String> informacionEventos = new ArrayList<>();
                 if (eventosTask != null && eventosTask.isSuccessful()) {
                     for (QueryDocumentSnapshot document : eventosTask.getResult()) {
                         String nombreEvento = document.getString("nombre_evento");
                         Date fecha = document.getDate("fecha_eventoo");
 
-                        // Convertimos la fecha del evento de un tipo String a Date
-                        Date fechaEvento = null;
-
-                        if (fecha != null) {
-                            //Estamos verificando si la fecha del evento está en el día actual o en el futuro
-                            if (!fecha.before(today)) {
-                                // Convertimos la fecha del evento a un objeto Calendar
-                                Calendar calEvento = Calendar.getInstance();
-                                calEvento.setTime(fecha);
-                                Calendar calSeleccionada = Calendar.getInstance();
-                                calSeleccionada.setTime(date);
-
-                                if (calEvento.get(Calendar.YEAR) == calSeleccionada.get(Calendar.YEAR) &&
-                                        calEvento.get(Calendar.MONTH) == calSeleccionada.get(Calendar.MONTH) &&
-                                        calEvento.get(Calendar.DAY_OF_MONTH) == calSeleccionada.get(Calendar.DAY_OF_MONTH)) {
-                                    // Se encontró un evento en la fecha seleccionada
-                                    informacionEvento = nombreEvento;
-                                    eventoEncontrado = true;
-                                    break; // No es necesario continuar buscando más eventos
-                                }
-                            }
+                        // Verificamos si la fecha del evento coincide con la fecha seleccionada
+                        if (fecha != null && mismoDia(fecha, date)) {
+                            informacionEventos.add(nombreEvento);
                         }
                     }
                 }
-                // Mostramos la info del evento en el button3
-                if (eventoEncontrado) {
-                    button3.setText("Nombre del evento para la fecha seleccionada: " + informacionEvento);
+                // Mostramos la info de los eventos en el botón
+                if (!informacionEventos.isEmpty()) {
+                    StringBuilder eventosTexto = new StringBuilder("Eventos para la fecha seleccionada:\n");
+                    for (String evento : informacionEventos) {
+                        eventosTexto.append(evento).append("\n");
+                    }
+                    button3.setText(eventosTexto.toString());
                 } else {
                     button3.setText("No hay eventos para la fecha seleccionada :(");
                 }
-                // Mostramos un Toast con el nombre del evento si hay uno en firestore
-                if (eventoEncontrado) {
-                    Toast.makeText(getApplicationContext(), "Evento seleccionado: " + informacionEvento, Toast.LENGTH_SHORT).show();
+
+                // Mostramos un Toast con los nombres de los eventos si los hay en Firestore
+                if (!informacionEventos.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Eventos seleccionados: " + informacionEventos, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "No hay eventos para la fecha seleccionada ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "No hay eventos para la fecha seleccionada", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onDateUnselected(Date date) {
+            }
+
+            // Aquí estamos verificando si dos fechas son el mismo día
+            private boolean mismoDia(Date date1, Date date2) {
+                Calendar cal1 = Calendar.getInstance();
+                cal1.setTime(date1);
+                Calendar cal2 = Calendar.getInstance();
+                cal2.setTime(date2);
+                return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                        cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
+                        cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
             }
         });
 
