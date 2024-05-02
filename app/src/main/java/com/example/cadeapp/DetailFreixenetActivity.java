@@ -42,6 +42,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -275,9 +276,15 @@ public class DetailFreixenetActivity extends AppCompatActivity {
     // Este Método es para verificar si el usuario ya ha dejado un comentario en un puesto el día de hoy
     private void verificarComentarioHoyEnBarbacoa(EditText editTextComentario, RatingBar ratingBarOpinion, String userId, String idBarbacoa, String comentario, float calificacion) {
         // Obtenemos la fecha actual
-        Date fechaActual = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date truncatedDate = calendar.getTime();
         // Convertimos la fecha actual a un formato que Firestore entienda
-        Timestamp fechaActualFirestore = new Timestamp(fechaActual);
+        Timestamp fechaActualFirestore = new Timestamp(truncatedDate);
 
         // Consultamos en Firestore para ver si el usuario ya ha dejado un comentario hoy en ese puesto
         mFirestore.collection("opiniones")
@@ -290,6 +297,9 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                         // Contador de comentarios del usuario (hoy)
                         // Obtenemos el número de elementos en el resultado de la consulta a Firestore
                         int comentariosHoy = task.getResult().size();
+
+                        // Impresión para verificar el número de comentarios hoy
+                        Log.d("DetailFreixenetActivity", "Número de comentarios hoy: " + comentariosHoy);
 
                         // Verificamos si el usuario ha dejado el máximo de comentarios permitidos por hoy
                         if (comentariosHoy >= 1) {
