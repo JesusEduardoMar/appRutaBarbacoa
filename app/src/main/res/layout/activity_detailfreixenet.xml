@@ -80,7 +80,7 @@
                     android:id="@+id/addressText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Carretera San Juan del Río - Cadereyta Km. 40.5"
+                    android:text="CARGANDO......"
                     android:textColor="@color/flexible_text_color"
                     android:textSize="16sp"/>
             </LinearLayout>
@@ -140,7 +140,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="25dp"
-                    android:text="Freixenet en Querétaro ofrece un encanto vinícola único. Descubre el arte de elaborar cavas de calidad internacional en un entorno pintoresco. Experiencia inolvidable de catas y belleza natural."
+                    android:text="CARGANDO......"
                     android:textColor="@color/flexible_text_color"
                     android:textSize="16sp"
                     android:gravity="start|top|end" />
