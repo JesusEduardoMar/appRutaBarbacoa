@@ -34,6 +34,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -266,9 +267,15 @@ public class DetailPulqueActivity extends AppCompatActivity {
     // Este Método es para verificar si el usuario ya ha dejado un comentario en un pulque el día de hoy
     private void verificarComentarioHoyEnPulque(EditText editTextComentario, RatingBar ratingBarOpinion, String userId, String idPulque, String comentario, float calificacion) {
         // Obtenemos la fecha actual
-        Date fechaActual = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date truncatedDate = calendar.getTime();
         // Convertimos la fecha actual a un formato que Firestore entienda
-        Timestamp fechaActualFirestore = new Timestamp(fechaActual);
+        Timestamp fechaActualFirestore = new Timestamp(truncatedDate);
 
         // Consultamos en Firestore para ver si el usuario ya ha dejado un comentario hoy en ese puesto
         mFirestore.collection("opiniones")
@@ -278,18 +285,26 @@ public class DetailPulqueActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Si el usuario ya ha dejado un comentario hoy en ese pulque, muestra un mensaje
-                        if (!task.getResult().isEmpty()) {
-                            Toast.makeText(DetailPulqueActivity.this, "Ya has dejado un comentario hoy en este puesto, vuelve mañana", Toast.LENGTH_SHORT).show();
+                        // Contador de comentarios del usuario (hoy)
+                        // Obtenemos el número de elementos en el resultado de la consulta a Firestore
+                        int comentariosHoy = task.getResult().size();
+
+                        // Impresión para verificar el número de comentarios hoy
+                        Log.d("DetailPulqueActivity", "Número de comentarios hoy: " + comentariosHoy);
+
+                        // Verificamos si el usuario ha dejado el máximo de comentarios permitidos por hoy
+                        if (comentariosHoy >= 1) {
+                            // Mostramos un mensaje de límite de comentarios
+                            Toast.makeText(DetailPulqueActivity.this, "Has alcanzado el límite de comentarios por hoy", Toast.LENGTH_SHORT).show();
                         } else {
-                            // Si el usuario no ha dejado un comentario hoy en ese puesto, permite enviar el comentario
-                            // Consultamos en Firestore para obtener el nombre del usuario
+                            // Si no ha alacanzado el limite de comentarios le permitimos al usuario enviar un nuevo comentario
+                            // Consultamos en Firestore para obtener el id del usuario
                             mFirestore.collection("usuarios")
                                     .document(userId)
                                     .get()
                                     .addOnSuccessListener(documentSnapshot -> {
                                         if (documentSnapshot.exists()) {
-                                            // Extraemos el nombre de usuario
+                                            // Extraemos el id de usuario
                                             String idUsuario = documentSnapshot.getString("id");
 
                                             // Creamos un nuevo objeto Opinion
@@ -317,12 +332,12 @@ public class DetailPulqueActivity extends AppCompatActivity {
                                     })
                                     .addOnFailureListener(e -> {
                                         // Manejo de errores
-                                        Log.e("DetailFreixenetActivity", "Error al obtener el documento del usuario", e);
+                                        Log.e("DetailPulqueActivity", "Error al obtener el documento del usuario", e);
                                     });
                         }
                     } else {
                         // Manejo de errores
-                        Log.e("DetailFreixenetActivity", "Error al verificar comentario en puesto", task.getException());
+                        Log.e("DetailPulqueActivity", "Error al verificar comentario en puesto", task.getException());
                     }
                 });
     }
@@ -344,6 +359,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                         String imageUrl = document.getString("url");
 
                         // Configuramos los elementos de la interfaz de usuario con la información obtenida
+                        Log.d("MyExceptionHandler -> nombre", nombre);
                         titleText.setText(nombre);
                         textDescription.setText(info);
                         addressText.setText(ubicacion);
