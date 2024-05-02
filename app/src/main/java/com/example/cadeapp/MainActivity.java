@@ -619,9 +619,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // Mostramos la info de los eventos en el botón
                 if (!informacionEventos.isEmpty()) {
-                    StringBuilder eventosTexto = new StringBuilder("Eventos para la fecha seleccionada:\n");
+                    StringBuilder eventosTexto = new StringBuilder("Eventos para la fecha seleccionada:\n\n");
                     for (String evento : informacionEventos) {
-                        eventosTexto.append(evento).append("\n");
+                        eventosTexto.append(evento).append("\n\n");
                     }
                     button3.setText(eventosTexto.toString());
                 } else {
