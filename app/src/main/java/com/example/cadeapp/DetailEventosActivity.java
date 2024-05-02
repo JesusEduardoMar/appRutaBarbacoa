@@ -35,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -267,9 +268,15 @@ public class DetailEventosActivity extends AppCompatActivity {
 
     private void verificarComentarioHoyEnEvento(EditText editTextComentario, RatingBar ratingBarOpinion, String userId, String idEvento, String comentario, float calificacion) {
         // Obtenemos la fecha actual
-        Date fechaActual = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date truncatedDate = calendar.getTime();
         // Convertimos la fecha actual a un formato que Firestore entienda
-        Timestamp fechaActualFirestore = new Timestamp(fechaActual);
+        Timestamp fechaActualFirestore = new Timestamp(truncatedDate);
 
         // Consultamos en Firestore para ver si el usuario ya ha dejado un comentario hoy en ese puesto
         mFirestore.collection("opiniones")
@@ -279,12 +286,20 @@ public class DetailEventosActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Si el usuario ya ha dejado un comentario hoy en ese puesto, muestra un mensaje
-                        if (!task.getResult().isEmpty()) {
-                            Toast.makeText(DetailEventosActivity.this, "Ya has dejado un comentario hoy en este Evento", Toast.LENGTH_SHORT).show();
+                        // Contador de comentarios del usuario (hoy)
+                        // Obtenemos el número de elementos en el resultado de la consulta a Firestore
+                        int comentariosHoy = task.getResult().size();
+
+                        // Impresión para verificar el número de comentarios hoy
+                        Log.d("DetailEventosActivity", "Número de comentarios hoy: " + comentariosHoy);
+
+                        // Verificamos si el usuario ha dejado el máximo de comentarios permitidos por hoy
+                        if (comentariosHoy >= 1) {
+                            // Mostramos un mensaje de límite de comentarios
+                            Toast.makeText(DetailEventosActivity.this, "Has alcanzado el límite de comentarios por hoy", Toast.LENGTH_SHORT).show();
                         } else {
-                            // Si el usuario no ha dejado un comentario hoy en ese puesto, permite enviar el comentario
-                            // Consultamos en Firestore para obtener el nombre del usuario
+                            // Si no ha alacanzado el limite de comentarios le permitimos al usuario enviar un nuevo comentario
+                            // Consultamos en Firestore para obtener el id del usuario
                             mFirestore.collection("usuarios")
                                     .document(userId)
                                     .get()
@@ -318,12 +333,12 @@ public class DetailEventosActivity extends AppCompatActivity {
                                     })
                                     .addOnFailureListener(e -> {
                                         // Manejo de errores
-                                        Log.e("DetailFreixenetActivity", "Error al obtener el documento del usuario", e);
+                                        Log.e("DetailEventosActivity", "Error al obtener el documento del usuario", e);
                                     });
                         }
                     } else {
                         // Manejo de errores
-                        Log.e("DetailFreixenetActivity", "Error al verificar comentario en puesto", task.getException());
+                        Log.e("DetailEventosActivity", "Error al verificar comentario en puesto", task.getException());
                     }
                 });
     }
@@ -344,6 +359,9 @@ public class DetailEventosActivity extends AppCompatActivity {
                         //String horario = document.getString("fecha_evento");
                         Timestamp horario = document.getTimestamp("fecha_eventoo");
                         String imageUrl = document.getString("url");
+
+                        // Configuramos los elementos de la interfaz de usuario con la información obtenida
+                        Log.d("MyExceptionHandler -> nombre", nombre);
 
                         // Configuramos los elementos de la interfaz de usuario con la información obtenida
                         titleText.setText(nombre);
