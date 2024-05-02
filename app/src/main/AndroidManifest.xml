@@ -119,18 +119,6 @@
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".cardHistoriabarbacoa"
-            android:exported="false"
-            android:resizeableActivity="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".cardPreparacionbarba"
-            android:exported="false"
-            android:resizeableActivity="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
