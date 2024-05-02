@@ -42,12 +42,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Map_Fragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
@@ -226,8 +229,11 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void getAndShowAllEventos() {
+        // Obtener la fecha actual
+        Date currentDate = Calendar.getInstance().getTime();
         // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
         db.collection("eventos")
+                .whereGreaterThanOrEqualTo("fecha_eventoo", new Timestamp(currentDate))
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -383,6 +389,9 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin, 13));
         mMap = googleMap;
 
+        // Obtener la fecha actual
+        Date currentDate = Calendar.getInstance().getTime();
+
         // Obtenemos la latitud y la longitud desde Firestore y agregamos marcadores al mapa
         db.collection("barbacoas")
                 .get()
@@ -457,6 +466,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
         // Obtenemos la latitud y la longitud desde Firestore y agregamos marcadores al mapa
         db.collection("eventos")
+                .whereGreaterThanOrEqualTo("fecha_eventoo", new Timestamp(currentDate))
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
