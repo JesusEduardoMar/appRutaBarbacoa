@@ -3,6 +3,8 @@ package com.example.cadeapp;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.cadeapp.databinding.ActivityScrollingBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,6 +59,7 @@ public class Reviews extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviews);
+        configSwipe();
 
         // Inicializamos Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -90,6 +94,18 @@ public class Reviews extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    private void configSwipe() {
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            // Simula una actualización de 2 segundos
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                // Detiene la animación de actualización
+                swipeRefreshLayout.setRefreshing(false);
+
+                recreate();
+            }, 2000);
+        });
     }
 
     // Método para obtener la información de la barbacoa ?

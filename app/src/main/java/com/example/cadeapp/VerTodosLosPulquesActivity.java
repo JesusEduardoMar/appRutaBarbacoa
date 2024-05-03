@@ -7,10 +7,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -44,6 +47,7 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view_ver_pulques);
+        configSwipe();
 
         // Inicialización de Firebase y otros elementos de la interfaz de usuario
         mFirestore = FirebaseFirestore.getInstance();
@@ -174,6 +178,18 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    private void configSwipe() {
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            // Simula una actualización de 2 segundos
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                // Detiene la animación de actualización
+                swipeRefreshLayout.setRefreshing(false);
+
+                recreate();
+            }, 2000);
+        });
     }
 
     // Aquí realixzamos un método para la búsqueda por texto ingresado
