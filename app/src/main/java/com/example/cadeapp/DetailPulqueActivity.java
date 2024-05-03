@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -121,6 +124,8 @@ public class DetailPulqueActivity extends AppCompatActivity {
         // Obtenemos y mostramos las opiniones que hay
         obtenerYMostrarOpiniones();
 
+        configSwipe();
+
         // Botón de enviar opinión
         botonEnviarOpinion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +163,24 @@ public class DetailPulqueActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void configSwipe() {
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Simulamos una actualización de 2 segundos
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        // Refrescar la actividad actual
+                        recreate();
+                    }
+                }, 2000);
+            }
+        });
     }
 
     // Cargar las imagenes en el recyclerview desde firestore
