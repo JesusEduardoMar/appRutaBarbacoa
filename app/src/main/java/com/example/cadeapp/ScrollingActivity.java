@@ -38,6 +38,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         binding.swipe.setRefreshing(false);
+                        recreate();
                     }
                 }, 2000);
             }
