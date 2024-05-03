@@ -2,10 +2,14 @@ package com.example.cadeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.cadeapp.databinding.ActivityScrollingBinding;
 
@@ -19,7 +23,25 @@ public class ScrollingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        binding = ActivityScrollingBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setupActionBar();
+        configSwipe();
+    }
+
+    private void configSwipe() {
+        binding.swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Simulamos una actualización de 2 segundos
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.swipe.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     public void onBackPressed(){
