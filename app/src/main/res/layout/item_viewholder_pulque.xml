@@ -50,6 +50,8 @@
                 android:text="Titulo"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
+                android:ellipsize="end"
+                android:lines="1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/marcadorb"
                 app:layout_constraintEnd_toEndOf="parent"
