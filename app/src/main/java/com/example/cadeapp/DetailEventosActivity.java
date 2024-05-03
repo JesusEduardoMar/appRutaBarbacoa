@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -123,6 +126,8 @@ public class DetailEventosActivity extends AppCompatActivity {
         // Obtenemos y mostramos las opiniones que hay
         obtenerYMostrarOpiniones();
 
+        configSwipe();
+
         // Botón de enviar opinión
         botonEnviarOpinion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +162,24 @@ public class DetailEventosActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
+            }
+        });
+    }
+
+    private void configSwipe() {
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Simulamos una actualización de 2 segundos
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        // Refrescar la actividad actual
+                        recreate();
+                    }
+                }, 2000);
             }
         });
     }
