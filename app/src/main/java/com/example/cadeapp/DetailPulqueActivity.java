@@ -58,6 +58,8 @@ public class DetailPulqueActivity extends AppCompatActivity {
     private List<String> items;
     private int totalCalificaciones;
     private float promedioCalificaciones;
+
+    private boolean enviandoComentario = false;
     //////
     LinearLayout ubicacionD1;
 
@@ -289,6 +291,11 @@ public class DetailPulqueActivity extends AppCompatActivity {
     }
     // Este Método es para verificar si el usuario ya ha dejado un comentario en un pulque el día de hoy
     private void verificarComentarioHoyEnPulque(EditText editTextComentario, RatingBar ratingBarOpinion, String userId, String idPulque, String comentario, float calificacion) {
+        if (enviandoComentario) {
+            // Si ya se está enviando un comentario, no hagas nada
+            return;
+        }
+        enviandoComentario = true;
         // Obtenemos la fecha actual
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -337,6 +344,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                                             mFirestore.collection("opiniones")
                                                     .add(nuevaOpinion)
                                                     .addOnSuccessListener(documentReference -> {
+                                                        enviandoComentario = false;
                                                         Toast.makeText(DetailPulqueActivity.this, "Opinión enviada con éxito", Toast.LENGTH_SHORT).show();
 
                                                         // Limpiamos los campos de la interfaz de usuario después de enviar una nueva opinión
@@ -348,6 +356,7 @@ public class DetailPulqueActivity extends AppCompatActivity {
                                                     })
                                                     .addOnFailureListener(e -> {
                                                         // Mensaje de error en caso de fallo al enviar la opinión
+                                                        enviandoComentario = false;
                                                         Toast.makeText(DetailPulqueActivity.this, "Error al enviar la opinión", Toast.LENGTH_SHORT).show();
                                                     });
                                         } else {
