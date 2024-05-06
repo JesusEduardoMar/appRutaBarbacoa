@@ -59,7 +59,6 @@ public class Reviews extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviews);
-        configSwipe();
 
         // Inicializamos Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -94,18 +93,6 @@ public class Reviews extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-    private void configSwipe() {
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            // Simula una actualización de 2 segundos
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                // Detiene la animación de actualización
-                swipeRefreshLayout.setRefreshing(false);
-
-                recreate();
-            }, 2000);
-        });
     }
 
     // Método para obtener la información de la barbacoa ?
