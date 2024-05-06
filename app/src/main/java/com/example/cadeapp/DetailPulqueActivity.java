@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -93,6 +94,18 @@ public class DetailPulqueActivity extends AppCompatActivity {
         RatingBar ratingBarOpinion = findViewById(R.id.ratingBarOpinion);
         Button botonEnviarOpinion = findViewById(R.id.botonEnviarOpinion);
         Button botonMostrarComentarios = findViewById(R.id.verMasComentariosButton);
+
+        // Obtener el ScrollView
+        ScrollView scrollView = findViewById(R.id.scrollView);
+
+        // Desplazar el ScrollView hacia abajo
+        int y = 10; // Ajusta la posición vertical según tus necesidades
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.scrollTo(0, y);
+            }
+        });
 
 
         //Para cargar las imagenes en el recycler view(Kevan)
@@ -181,6 +194,22 @@ public class DetailPulqueActivity extends AppCompatActivity {
                         recreate();
                     }
                 }, 2000);
+            }
+        });
+
+        // Agrega un listener al RecyclerView para desactivar el SwipeRefreshLayout
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewComentarios);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                // Si el RecyclerView está desplazándose, deshabilita el SwipeRefreshLayout
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    swipeRefreshLayout.setEnabled(false);
+                } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // Cuando se detiene el desplazamiento, habilita el SwipeRefreshLayout nuevamente
+                    swipeRefreshLayout.setEnabled(true);
+                }
             }
         });
     }
