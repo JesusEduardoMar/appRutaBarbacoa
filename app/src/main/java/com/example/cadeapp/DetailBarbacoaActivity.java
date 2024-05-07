@@ -280,7 +280,7 @@ public class DetailBarbacoaActivity extends AppCompatActivity {
                         comentarioAdapter.notifyDataSetChanged();
                     } else {
                         // Manejo de error en caso de fallo en la consulta
-                        Log.e("DetailFreixenetActivity", "Error al obtener las opiniones", task.getException());
+                        Log.e("DetailBarbacoaActivity", "Error al obtener las opiniones", task.getException());
                     }
                 });
     }
@@ -348,7 +348,7 @@ public class DetailBarbacoaActivity extends AppCompatActivity {
                         int comentariosHoy = task.getResult().size();
 
                         // Impresión para verificar el número de comentarios hoy
-                        Log.d("DetailFreixenetActivity", "Número de comentarios hoy: " + comentariosHoy);
+                        Log.d("DetailBarbacoaActivity", "Número de comentarios hoy: " + comentariosHoy);
 
                         // Verificamos si el usuario ha dejado el máximo de comentarios permitidos por hoy
                         if (comentariosHoy >= 1) {
@@ -392,12 +392,12 @@ public class DetailBarbacoaActivity extends AppCompatActivity {
                                     })
                                     .addOnFailureListener(e -> {
                                         // Manejo de errores
-                                        Log.e("DetailFreixenetActivity", "Error al obtener el documento del usuario", e);
+                                        Log.e("DetailBarbacoaActivity", "Error al obtener el documento del usuario", e);
                                     });
                         }
                     } else {
                         // Manejo de errores
-                        Log.e("DetailFreixenetActivity", "Error al verificar comentario en puesto", task.getException());
+                        Log.e("DetailBarbacoaActivity", "Error al verificar comentario en puesto", task.getException());
                     }
                 });
     }
@@ -433,13 +433,13 @@ public class DetailBarbacoaActivity extends AppCompatActivity {
                         horarioTextView.setText(horario);
                     } else {
                         // Manejo de errores
-                        Log.e("DetailFreixenetActivity", "Error al obtener la información de la barbacoa", task.getException());
+                        Log.e("DetailBarbacoaActivity", "Error al obtener la información de la barbacoa", task.getException());
                     }
                 }
             });
         } else {
             // Manejo de errores
-            Log.e("DetailFreixenetActivity", "El nombre de la barbacoa es nulo en la intención.");
+            Log.e("DetailBarbacoaActivity", "El nombre de la barbacoa es nulo en la intención.");
         }
     }
 
