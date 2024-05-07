@@ -90,7 +90,7 @@
             android:resizeableActivity="false"
             />
         <activity
-            android:name=".DetailFreixenetActivity"
+            android:name=".DetailBarbacoaActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"

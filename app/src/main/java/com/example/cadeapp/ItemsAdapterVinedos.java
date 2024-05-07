@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.cadeapp.R;
 
 import java.util.ArrayList;
 
@@ -48,7 +47,7 @@ public class ItemsAdapterVinedos extends  RecyclerView.Adapter<ItemsAdapterVined
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, itemsDomainVinedos.getNombre_barbacoa(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, DetailFreixenetActivity.class);
+                Intent intent = new Intent(context, DetailBarbacoaActivity.class);
                 intent.putExtra("idBarbacoa", itemsDomainVinedos.getIdBarbacoa());  // Asegúrate de tener un método getIdBarbacoa() en tu modelo
                 intent.putExtra("titleTxt", itemsDomainVinedos.getNombre_barbacoa());
                 intent.putExtra("addressTxt", itemsDomainVinedos.getUbicacion_barbacoa());
