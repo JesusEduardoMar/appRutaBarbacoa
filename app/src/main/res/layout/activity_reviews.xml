@@ -103,19 +103,12 @@
             android:background="#7E9A9A9A" />
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-
             <!-- RecyclerView para los comentarios -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewComentarios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp" />
-        </ScrollView>
 
     </LinearLayout>
 
