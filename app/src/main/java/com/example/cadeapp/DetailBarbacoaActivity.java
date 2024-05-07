@@ -1,22 +1,17 @@
 package com.example.cadeapp;
 
 import static com.google.firebase.firestore.AggregateField.average;
-import static com.google.firebase.firestore.AggregateField.count;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
@@ -30,27 +25,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.AggregateQuery;
-import com.google.firebase.firestore.AggregateQuerySnapshot;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class DetailFreixenetActivity extends AppCompatActivity {
+public class DetailBarbacoaActivity extends AppCompatActivity {
     private TextView titleText, addressText, textDescription, horarioTextView;
     private TextView calificacionScore, calificacionTotal;
     private RatingBar calificacionBar;
@@ -74,7 +64,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detailfreixenet);
+        setContentView(R.layout.activity_detailbarbacoa);
 
         ubicacionD2 = findViewById(R.id.ubicacionD);
 
@@ -168,7 +158,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         ubicacionD2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailFreixenetActivity.this, MainActivity.class);
+                Intent intent = new Intent(DetailBarbacoaActivity.this, MainActivity.class);
                 intent.putExtra("selectedItemId", 5); // Selecciona el ítem con el ID 5
                 intent.putExtra("markerTitle", titleText.getText());
                 //con esta linea limpiamos las actividades para que no se muestren mas que una sola en lugar de cada que abramos un lugar
@@ -290,7 +280,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                         comentarioAdapter.notifyDataSetChanged();
                     } else {
                         // Manejo de error en caso de fallo en la consulta
-                        Log.e("DetailFreixenetActivity", "Error al obtener las opiniones", task.getException());
+                        Log.e("DetailBarbacoaActivity", "Error al obtener las opiniones", task.getException());
                     }
                 });
     }
@@ -304,13 +294,13 @@ public class DetailFreixenetActivity extends AppCompatActivity {
 
             // Validamos los campos
             if (comentario.isEmpty()) {
-                Toast.makeText(DetailFreixenetActivity.this, "Por favor, ingrese su comentario", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailBarbacoaActivity.this, "Por favor, ingrese su comentario", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // Validamos los campos
             if (calificacion < 1.0) {
-                Toast.makeText(DetailFreixenetActivity.this, "Por favor, establezca un puntaje", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailBarbacoaActivity.this, "Por favor, establezca un puntaje", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -322,7 +312,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
         } catch (Exception e) {
             // Manejo de errores
             e.printStackTrace();
-            Toast.makeText(DetailFreixenetActivity.this, "Error inesperado: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(DetailBarbacoaActivity.this, "Error inesperado: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -358,12 +348,12 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                         int comentariosHoy = task.getResult().size();
 
                         // Impresión para verificar el número de comentarios hoy
-                        Log.d("DetailFreixenetActivity", "Número de comentarios hoy: " + comentariosHoy);
+                        Log.d("DetailBarbacoaActivity", "Número de comentarios hoy: " + comentariosHoy);
 
                         // Verificamos si el usuario ha dejado el máximo de comentarios permitidos por hoy
                         if (comentariosHoy >= 1) {
                             // Mostramos un mensaje de límite de comentarios
-                            Toast.makeText(DetailFreixenetActivity.this, "Has alcanzado el límite de comentarios por hoy", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DetailBarbacoaActivity.this, "Has alcanzado el límite de comentarios por hoy", Toast.LENGTH_SHORT).show();
                         } else {
                             // Si no ha alacanzado el limite de comentarios le permitimos al usuario enviar un nuevo comentario
                             // Consultamos en Firestore para obtener el id del usuario
@@ -383,7 +373,7 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                                                     .add(nuevaOpinion)
                                                     .addOnSuccessListener(documentReference -> {
                                                         enviandoComentario = false;
-                                                        Toast.makeText(DetailFreixenetActivity.this, "Opinión enviada con éxito", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(DetailBarbacoaActivity.this, "Opinión enviada con éxito", Toast.LENGTH_SHORT).show();
 
                                                         // Limpiamos los campos de la interfaz de usuario después de enviar una nueva opinión
                                                         editTextComentario.setText("");
@@ -395,19 +385,19 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                                                     .addOnFailureListener(e -> {
                                                         // Mensaje de error en caso de fallo al enviar la opinión
                                                         enviandoComentario = false;
-                                                        Toast.makeText(DetailFreixenetActivity.this, "Error al enviar la opinión", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(DetailBarbacoaActivity.this, "Error al enviar la opinión", Toast.LENGTH_SHORT).show();
                                                     });
                                         } else {
                                         }
                                     })
                                     .addOnFailureListener(e -> {
                                         // Manejo de errores
-                                        Log.e("DetailFreixenetActivity", "Error al obtener el documento del usuario", e);
+                                        Log.e("DetailBarbacoaActivity", "Error al obtener el documento del usuario", e);
                                     });
                         }
                     } else {
                         // Manejo de errores
-                        Log.e("DetailFreixenetActivity", "Error al verificar comentario en puesto", task.getException());
+                        Log.e("DetailBarbacoaActivity", "Error al verificar comentario en puesto", task.getException());
                     }
                 });
     }
@@ -443,13 +433,13 @@ public class DetailFreixenetActivity extends AppCompatActivity {
                         horarioTextView.setText(horario);
                     } else {
                         // Manejo de errores
-                        Log.e("DetailFreixenetActivity", "Error al obtener la información de la barbacoa", task.getException());
+                        Log.e("DetailBarbacoaActivity", "Error al obtener la información de la barbacoa", task.getException());
                     }
                 }
             });
         } else {
             // Manejo de errores
-            Log.e("DetailFreixenetActivity", "El nombre de la barbacoa es nulo en la intención.");
+            Log.e("DetailBarbacoaActivity", "El nombre de la barbacoa es nulo en la intención.");
         }
     }
 
