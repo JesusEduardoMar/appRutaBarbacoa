@@ -5,6 +5,7 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="colorPrimary">@color/naranja5</item>
         <item name="windowActionBar">false</item>
+        <item name="colorSecondary">@color/azulubi</item>
         <item name="windowNoTitle">true</item>
         <item name="selectableItemBackground">@drawable/selector_backgroundnotifiy_dark</item>
     </style>
