@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundlogin"
-    tools:context=".LoginActivity">
+    tools:context="com.Cadereyta.BarbacoayPulque.LoginActivity">
 
     <ProgressBar
         android:id="@+id/progress_login"

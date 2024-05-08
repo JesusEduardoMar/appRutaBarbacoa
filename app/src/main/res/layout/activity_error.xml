@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/light_orange_back"
     android:orientation="vertical"
-    tools:context=".ErrorActivity">
+    tools:context="com.Cadereyta.BarbacoayPulque.ErrorActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

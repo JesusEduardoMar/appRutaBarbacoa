@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Map_Fragment">
+    tools:context="com.Cadereyta.BarbacoayPulque.Map_Fragment">
 
     <fragment
         android:layout_width="match_parent"
