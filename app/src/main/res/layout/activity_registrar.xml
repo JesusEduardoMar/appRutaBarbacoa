@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:windowSoftInputMode="adjustResize"
     android:background="@drawable/backgroundlogin"
-    tools:context=".RegistrarActivity">
+    tools:context="com.Cadereyta.BarbacoayPulque.RegistrarActivity">
 
     <ImageView
         android:id="@+id/imageView2"

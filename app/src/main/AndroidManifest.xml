@@ -22,99 +22,99 @@
         android:windowSoftInputMode="adjustNothing"
         tools:targetApi="31">
         <activity
-            android:name=".historiaPulque"
+            android:name="com.Cadereyta.BarbacoayPulque.historiaPulque"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".Reviews"
+            android:name="com.Cadereyta.BarbacoayPulque.Reviews"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ScrollingActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.ScrollingActivity"
             android:exported="false"
             android:label="@string/title_activity_scrolling"
             android:resizeableActivity="false"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".RecuperarActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.RecuperarActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".RegistrarActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.RegistrarActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.LoginActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ErrorActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.ErrorActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".FaqActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.FaqActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".contact"
+            android:name="com.Cadereyta.BarbacoayPulque.contact"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".informacion"
+            android:name="com.Cadereyta.BarbacoayPulque.informacion"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:resizeableActivity="false"
             />
         <activity
-            android:name=".privacidad"
+            android:name="com.Cadereyta.BarbacoayPulque.privacidad"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:resizeableActivity="false"
             />
         <activity
-            android:name=".DetailBarbacoaActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.DetailBarbacoaActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".DetailEventosActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.DetailEventosActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".DetailPulqueActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.DetailPulqueActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".VerTodosLosLugaresActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.VerTodosLosLugaresActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".VerTodosLosPulquesActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.VerTodosLosPulquesActivity"
             android:exported="false"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
@@ -125,16 +125,16 @@
             android:value="AIzaSyArwdNx5xA2mAwdQA14dZSLeGnCKyBt-_I" />
 
         <activity
-            android:name=".Boletos"
+            android:name="com.Cadereyta.BarbacoayPulque.Boletos"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.MainActivity"
             android:exported="true"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".SplashScreen"
+            android:name="com.Cadereyta.BarbacoayPulque.SplashScreen"
             android:exported="true"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"

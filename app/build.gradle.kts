@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.cadeapp"
+    namespace = "com.Cadereyta.BarbacoayPulque"
 
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.cadeapp"
+        applicationId = "com.Cadereyta.BarbacoayPulque"
         minSdk = 26
         targetSdk = 33
         versionCode = 1
