@@ -196,7 +196,7 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
 
                 recreate();
-            }, 2000);
+            }, 600);
         });
     }
 
