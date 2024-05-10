@@ -3,6 +3,7 @@ package com.Cadereyta.BarbacoayPulque;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +30,13 @@ public class informacion extends ScrollingActivity{
         TextView usoTextView = findViewById(R.id.usoTextView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             usoTextView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+        }
+        // Obtener el texto de los recursos y mostrarlo en el TextView con formato HTML
+        String privacidadText = getString(R.string.terminos_y_condiciones);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            usoTextView.setText(Html.fromHtml(privacidadText, Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            usoTextView.setText(Html.fromHtml(privacidadText));
         }
 
     }
