@@ -187,7 +187,7 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
 
                 recreate();
-            }, 2000);
+            }, 600);
         });
     }
 

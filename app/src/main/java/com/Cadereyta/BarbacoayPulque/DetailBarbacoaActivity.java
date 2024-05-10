@@ -188,7 +188,7 @@ public class DetailBarbacoaActivity extends AppCompatActivity {
                         // Refrescar la actividad actual
                         recreate();
                     }
-                }, 2000);
+                }, 600);
             }
         });
 
