@@ -3,6 +3,7 @@ package com.Cadereyta.BarbacoayPulque;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -27,15 +28,13 @@ public class privacidad extends ScrollingActivity {
         nscrollv.removeAllViews();
         nscrollv.addView(myLayout);
 
-        TextView privTextView = findViewById(R.id.privTextView);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            privTextView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
-        }
-
         TextView priv1TextView = findViewById(R.id.priv1TextView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             priv1TextView.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
         }
+        // Obtener el texto de privacidad del archivo de recursos y aplicar formato HTML
+        String privacidadText = getString(R.string.texto_de_privacidad);
+        priv1TextView.setText(Html.fromHtml(privacidadText));
 
     }
 
