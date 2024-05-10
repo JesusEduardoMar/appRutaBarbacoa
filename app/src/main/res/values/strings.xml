@@ -118,54 +118,131 @@
 
     <string name="texto_de_privacidad">
         <![CDATA[
-            Fecha última actualización: / /
-            De conformidad con el Reglamento (UE) 2016/679, del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de estos datos (Reglamento General de Protección de Datos - RGPD), XXXEMPRESAXXX, informa a los usuarios de la aplicación CADE B&P, acerca del tratamiento de los datos personales, que ellos voluntariamente hayan facilitado durante el proceso de registro, acceso y utilización del servicio.
+<p><b>Última actualización: 09 de mayo de 2024</b></p>
+Esta Política de privacidad describe nuestras políticas y procedimientos sobre la recopilación, uso y divulgación de su información cuando utiliza el Servicio y le informa sobre sus derechos de privacidad y cómo la ley lo protege.
+Utilizamos sus datos personales para proporcionar y mejorar el Servicio. Al utilizar el Servicio, usted acepta la recopilación y el uso de información de acuerdo con esta Política de privacidad.<br/><br/>
 
-            1. IDENTIFICACIÓN DEL RESPONSABLE DEL TRATAMIENTO.
-            XXXEMPRESAXXX, con CIF/NIF nº: ________________ y domicilio a efectos de notificaciones en: ________________________________________ e inscrita en el Registro Mercantil de_________________ Tomo _________, Folio ___________, Sección ª, Hoja _______, inscripción ª (en adelante, el Responsable del Tratamiento), es la entidad responsable del tratamiento de los datos facilitados por los clientes de la Aplicación (en adelante, el/los Usuario/s).
+<h2><b>Interpretación y Definiciones</b></h2>
+<b>Interpretación</b><br/><br/>
+Las palabras cuya letra inicial está en mayúscula tienen significados definidos en las siguientes condiciones. Las siguientes definiciones tendrán el mismo significado independientemente de si aparecen en singular o en plural.<br/><br/>
+<b>Definiciones</b><br/><br/>
+A los efectos de esta Política de privacidad:<br/>
+•<b>Cuenta</b> significa una cuenta única creada para que usted acceda a nuestro Servicio o partes de nuestro Servicio.<br/>
+•<b>Afiliado</b> significa una entidad que controla, es controlada por o está bajo control común con una parte, donde "control" significa la propiedad del 50% o más de las acciones, intereses de capital o otros valores con derecho a voto para la elección de directores u otra autoridad de gestión.<br/>
+•<b>Aplicación</b> se refiere a Barbacoa y Pulque Cadereyta, el programa de software proporcionado por la Empresa.<br/>
+•<b>Empresa</b> (referida como "la Empresa", "Nosotros", "Nos" o "Nuestro" en este Acuerdo) se refiere a Barbacoa y Pulque Cadereyta.<br/>
+•<b>País</b> se refiere a: México<br/>
+•<b>Dispositivo</b> significa cualquier dispositivo que pueda acceder al Servicio, como una computadora, un teléfono celular o una tableta digital.<br/>
+•<b>Datos personales</b> es cualquier información que se relacione con una persona física identificada o identificable.<br/>
+•<b>Servicio</b> se refiere a la Aplicación.<br/>
+•<b>Proveedor de servicios</b> se refiere a cualquier persona natural o jurídica que procesa los datos en nombre de la Empresa. Se refiere a empresas o individuos de terceros empleados por la Empresa para facilitar el Servicio, para proporcionar el Servicio en nombre de la Empresa, para realizar servicios relacionados con el Servicio o para ayudar a la Empresa en el análisis de cómo se utiliza el Servicio.<br/>
+•<b>Datos de uso </b> se refiere a datos recopilados automáticamente, generados ya sea por el uso del Servicio o desde la infraestructura del Servicio misma (por ejemplo, la duración de una visita a la página).<br/>
+•<b>Usted</b> significa la persona que accede o utiliza el Servicio, o la empresa u otra entidad legal en nombre de la cual dicha persona accede o utiliza el Servicio, según corresponda.<br/><br/>
 
-            2. FINALIDAD DEL TRATAMIENTO DE DATOS.
-            Para proceder al registro, acceso y posterior uso de la Aplicación, el Usuario deberá facilitar -de forma voluntaria-, datos de carácter personal (esencialmente, identificativos y de contacto), los cuales serán incorporados a soportes automatizados titularidad de XXXEMPRESAXXX. La recogida, almacenamiento, modificación, estructuración y en su caso, eliminación, de los datos proporcionados por los Usuarios, constituirán operaciones de tratamiento llevadas a cabo por el Responsable, con la finalidad de garantizar el correcto funcionamiento de la Aplicación, mantener la relación de prestación de servicios y/o comercial con el Usuario, y para la gestión, administración, información, prestación y mejora del servicio. Los datos personales facilitados por el Usuario -especialmente, el correo electrónico o e-mail- podrán emplearse también para remitir boletines (newsletters), así como comunicaciones comerciales de promociones y/o publicidad de la Aplicación, siempre y cuando, el Usuario haya prestado previamente su consentimiento expreso para la recepción de estas comunicaciones vía electrónica.
+<h2><b>Recopilación y Uso de sus Datos Personales</b></h2>
 
-            3. LEGITIMACIÓN.
-            El tratamiento de los datos del Usuario, se realiza con las siguientes bases jurídicas que legitiman el mismo:
-            - La solicitud de información y/o la contratación de los servicios de la Aplicación, cuyos términos y condiciones se pondrán a disposición del Usuario en todo caso, con carácter previo, para su expresa aceptación.
-            - El consentimiento libre, específico, informado e inequívoco del Usuario, poniendo a su disposición la presente política de privacidad, que deberá aceptar mediante una declaración o una clara acción afirmativa, como el marcado de una casilla dispuesta al efecto.
-            En caso de que el Usuario no facilite a XXXEMPRESAXXX sus datos, o lo haga de forma errónea o incompleta, no será posible proceder al uso de la Aplicación.
+<h3><b>Tipos de Datos Recopilados</b></h3>
 
-            4. CONSERVACIÓN DE LOS DATOS PERSONALES.
-            Los datos personales proporcionados por el Usuario, se conservarán en los sistemas y bases de datos del Responsable del Tratamiento, mientras aquél continúe haciendo uso de la Aplicación, y siempre que no solicite su supresión. Con el objetivo de depurar las posibles responsabilidades derivadas del tratamiento, los datos se conservarán por un período mínimo de cinco años.
+<b>Datos personales</b><br/>
+Mientras utiliza nuestro Servicio, podemos solicitarle que nos proporcione cierta información personal identificable que se puede usar para contactarlo o identificarlo. La información personal identificable puede incluir, entre otros, lo siguiente:<br/><br/>
+•	Dirección de correo electrónico<br/>
+•	Nombre y apellido<br/>
+•	Número de teléfono<br/>
+•	Datos de uso<br/><br/>
 
-            5. DESTINATARIOS.
-            Los datos no se comunicarán a ningún tercero ajeno a XXXEMPRESAXXX, salvo obligación legal o en cualquier caso, previa solicitud del consentimiento del Usuario. De otra parte, XXXEMPRESAXXX podrá dar acceso o transmitir los datos personales facilitados por el Usuario, a terceros proveedores de servicios, con los que haya suscrito acuerdos de encargo de tratamiento de datos, y que únicamente accedan a dicha información para prestar un servicio en favor y por cuenta del Responsable.
+<b>Datos de uso</b><br/><br/>
 
-            6. RETENCIÓN DE DATOS.
-            XXXEMPRESAXXX, informa al Usuario de que, como prestador de servicio de alojamiento de datos y en virtud de lo establecido en la Ley 34/2002 de 11 de julio de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI), retiene por un período máximo de 12 meses la información imprescindible para identificar el origen de los datos alojados y el momento en que se inició la prestación del servicio. La retención de estos datos no afecta al secreto de las comunicaciones y sólo podrán ser utilizados en el marco de una investigación criminal o para la salvaguardia de la seguridad pública, poniéndose a disposición de los jueces y/o tribunales o del Ministerio que así los requiera. La comunicación de datos a las Fuerzas y Cuerpos de Seguridad del Estado, se hará en virtud de lo dispuesto por la normativa sobre protección de datos personales, y bajo el máximo respeto a la misma.
+Los datos de uso se recopilan automáticamente al usar el Servicio.<br/><br/>
+Los datos de uso pueden incluir información como la dirección de Protocolo de Internet de su dispositivo (por ejemplo, dirección IP), tipo de navegador, versión del navegador, las páginas de nuestro Servicio que visita, la hora y fecha de su visita, el tiempo que pasa en esas páginas, identificadores de dispositivos únicos y otros datos de diagnóstico.<br/><br/>
+Cuando accede al Servicio a través de un dispositivo móvil, podemos recopilar cierta información automáticamente, incluido, entre otros, el tipo de dispositivo móvil que utiliza, su identificación única de dispositivo móvil, la dirección IP de su dispositivo móvil, su sistema operativo móvil, el tipo de navegador de Internet móvil que utiliza, identificadores de dispositivos únicos y otros datos de diagnóstico.<br/><br/>
+También podemos recopilar información que su navegador envía cada vez que visita nuestro Servicio o cuando accede al Servicio a través de un dispositivo móvil.<br/><br/>
 
-            7. PROTECCIÓN DE LA INFORMACIÓN ALOJADA.
-            El Responsable del Tratamiento, adopta las medidas necesarias para garantizar la seguridad, integridad y confidencialidad de los datos conforme a lo dispuesto en el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de los mismos. Si bien el Responsable realiza copias de seguridad periódicas, no se responsabiliza de la pérdida o el borrado accidental de los datos por parte de los Usuarios. Los datos facilitados por el Usuario, serán almacenados en un servidor seguro, con certificado SSL (Secure Socket Layer), de tal forma que se garantice la seguridad de los mismos en todo momento.
+<b>Información Recopilada al Utilizar la Aplicación</b><br/><br/>
 
-            8. DERECHOS DEL USUARIO.
-            De acuerdo con lo establecido en el Reglamento General de Protección de Datos, el Usuario podrá ejercitar los derechos de acceso, rectificación, cancelación y oposición, así como el de limitación del tratamiento y el de portabilidad de los datos. También tiene derecho a retirar el consentimiento prestado en cualquier momento, sin que ello afecte a la licitud del tratamiento basado en el consentimiento previo a su retirada. Para ello, el Usuario podrá dirigir un correo electrónico a: _____________________________. Deberá especificar cuál de estos derechos solicita sea satisfecho y, a su vez, deberá acompañarse de la fotocopia del DNI o documento identificativo equivalente. En caso de que actúe mediante representante, legal o voluntario, deberá aportar también documento que acredite la representación y documento identificativo del mismo. Asimismo, el Usuario tiene derecho a presentar una reclamación ante la autoridad de control competente (AEPD), si considera que el tratamiento no se ajusta a la normativa vigente.
+Mientras utiliza nuestra Aplicación, con el fin de proporcionar funciones de nuestra Aplicación, podemos recopilar, con su permiso previo:<br/><br/>
+• Información sobre su ubicación<br/><br/>
+Utilizamos esta información para proporcionar funciones de nuestro Servicio, para mejorar y personalizar nuestro Servicio. La información puede ser cargada en los servidores de la Empresa y/o en los servidores de un Proveedor de Servicios o simplemente puede almacenarse en su dispositivo.<br/><br/>
+Puede habilitar o deshabilitar el acceso a esta información en cualquier momento a través de la configuración de su dispositivo.<br/><br/>
 
-            9. CAMBIOS EN LA POLÍTICA DE PRIVACIDAD.
-            El Responsable del Tratamiento se reserva el derecho a modificar la presente política para adaptarla a novedades legislativas o jurisprudenciales, así como a prácticas de la industria. En tales casos, el Responsable anunciará en esta página los cambios introducidos con razonable antelación a su puesta en práctica.
-        ]]>
-    </string>
+<b>Uso de sus Datos Personales</b><br/><br/>
 
-    <string name="politica_de_privacidad">
-        <![CDATA[
-        Todos los datos que se solicitan a los usuarios y clientes a través de la aplicación para dispositivos móviles serán necesarios para prestar el servicio objeto del servicio en virtud del cual se ha procedido a la descarga e instalación de la/s aplicación/es en los correspondientes dispositivos.
-        CONSENTIMIENTO
-        La utilización de la aplicación dará lugar al tratamiento de datos de carácter personal que WOW Emotions, en su caso, llevará a cabo de acuerdo con las normas y procedimientos internos establecidos al efecto, que son conocidos por los clientes y usuarios y autorizados por éstos.
-        GARANTÍA Y PROTECCIÓN DE DATOS
-        En el tratamiento de los datos de carácter personal, WOW EMotions se compromete a garantizar y proteger las libertades públicas y los derechos fundamentales de las personas físicas de los ficheros y, especialmente, su honor y su intimidad familiar y personal, obligándose en este sentido, a efectuar el correspondiente tratamiento de datos de acuerdo con la normativa vigente en cada momento y a guardar el más absoluto secreto en relación con la información entregada por los clientes y usuarios. Los datos de carácter personal objeto de tratamiento no se utilizarán para otras finalidades que no se encuentren aquí recogidas o, en su caso, por otro documento o contrato que vinculase a ambas partes con condiciones particulares.
-        3. VARIOS
-        MODIFICACIONES WOW Emotions se reserva el derecho a efectuar las modificaciones que estime oportunas, pudiendo modificar, suprimir e incluir nuevos contenidos y/o servicios, así como la forma en que éstos aparezcan presentados y localizados.
-        MENORES DE EDAD
-        Con carácter general, para hacer uso de los Servicios de la presente aplicación móvil los menores de edad deben haber obtenido previamente la autorización de sus padres, tutores o representantes legales, quienes serán responsables de todos los actos realizados a través de la presente aplicación móvil por los menores a su cargo. En aquellos Servicios en los que expresamente se señale, el acceso quedará restringido única y exclusivamente a mayores de 18 años.
-        DURACIÓN Y TERMINACIÓN
-        La prestación de los servicios y/o contenidos de la presente aplicación móvil tiene una duración indefinida. Sin perjuicio de lo anterior, WOW Emotions está facultada para dar por terminada, suspender o interrumpir unilateralmente, en cualquier momento y sin necesidad de preaviso, la prestación del servicio y de la presente aplicación móvil y/o de cualquiera de los servicios, sin perjuicio de lo que se hubiera dispuesto al respecto en las correspondientes condiciones particulares.
+La Empresa puede utilizar Datos Personales para los siguientes fines:<br/><br/>
+<b>•Para proporcionar y mantener nuestro Servicio,</b> incluido el monitoreo del uso de nuestro Servicio.<br/>
+<b>•Para gestionar su cuenta:</b> para gestionar su registro como usuario del Servicio. Los Datos Personales que proporciona pueden darle acceso a diferentes funcionalidades del Servicio que están disponibles para usted como usuario registrado.<br/>
+<b>•Para la ejecución de un contrato:</b> el desarrollo, cumplimiento y ejecución del contrato de compra de los productos, artículos o servicios que ha adquirido o de cualquier otro contrato con nosotros a través del Servicio.<br/>
+<b>•Para contactarlo:</b> para contactarlo por correo electrónico, llamadas telefónicas, mensajes de texto (SMS) u otras formas equivalentes de comunicación electrónica, como notificaciones push de aplicaciones móviles sobre actualizaciones o comunicaciones informativas relacionadas con las funcionalidades, productos o servicios contratados, incluidas las actualizaciones de seguridad, cuando sea necesario o razonable para su implementación.<br/>
+<b>•Para proporcionarle noticias,</b> ofertas especiales e información general sobre otros bienes, servicios y eventos que ofrecemos y que son similares a los que ya ha adquirido o consultado, a menos que haya optado por no recibir dicha información.<br/>
+<b>•Para gestionar sus solicitudes:</b> para atender y gestionar sus solicitudes hacia nosotros.<br/>
+<b>•Para transferencias comerciales:</b> podemos utilizar su información para evaluar o llevar a cabo una fusión, venta de activos, reestructuración, reorganización, disolución u otra venta o transferencia de la totalidad o parte de nuestros activos, ya sea como empresa en funcionamiento o como parte de una quiebra, liquidación o procedimiento similar, en el que los Datos Personales en posesión de nosotros acerca de nuestros usuarios del Servicio se encuentren entre los activos transferidos.<br/>
+<b>•Para otros fines:</b> podemos utilizar su información para otros fines, como análisis de datos, identificación de tendencias de uso, determinación de la efectividad de nuestras campañas promocionales y para evaluar y mejorar nuestro Servicio, productos, servicios, marketing y su experiencia.<br/><br/>
+Podemos compartir su información personal en las siguientes situaciones:<br/><br/>
+<b>•Con Proveedores de Servicios:</b> podemos compartir su información personal con Proveedores de Servicios para monitorear y analizar el uso de nuestro Servicio, para contactarlo.<br/>
+<b>•Para transferencias comerciales:</b> podemos compartir o transferir su información personal en relación con, o durante negociaciones de, cualquier fusión, venta de activos de la Empresa, financiamiento o adquisición de la totalidad o una parte de nuestro negocio a otra empresa.<br/>
+<b>•Con Afiliados:</b> podemos compartir su información con nuestras filiales, en cuyo caso requeriremos que esas filiales respeten esta Política de privacidad. Las filiales incluyen nuestra empresa matriz y cualquier otra subsidiaria, socios de empresas conjuntas u otras empresas que controlemos o que estén bajo control común con nosotros.<br/>
+<b>•Con socios comerciales:</b> podemos compartir su información con nuestros socios comerciales para ofrecerle ciertos productos, servicios o promociones.<br/>
+<b>•Con otros usuarios:</b> cuando comparta información personal o interactúe de otra manera en las áreas públicas con otros usuarios, dicha información puede ser vista por todos los usuarios y puede ser distribuida públicamente fuera.<br/>
+<b>•Con su consentimiento:</b> podemos divulgar su información personal para cualquier otro propósito con su consentimiento.<br/><br/>
+
+<b>Retención de sus Datos Personales</b><br/><br/>
+
+La Empresa retendrá sus Datos Personales solo durante el tiempo que sea necesario para los fines establecidos en esta Política de privacidad. Retendremos y utilizaremos sus Datos Personales en la medida necesaria para cumplir con nuestras obligaciones legales (por ejemplo, si estamos obligados a retener sus datos para cumplir con las leyes aplicables), resolver disputas y hacer cumplir nuestros acuerdos legales y políticas.<br/><br/>
+La Empresa también retendrá los Datos de Uso con fines de análisis interno. Los Datos de Uso generalmente se retienen por un período de tiempo más corto, excepto cuando estos datos se utilizan para fortalecer la seguridad o mejorar la funcionalidad de nuestro Servicio, o cuando estamos legalmente obligados a retener estos datos por períodos de tiempo más largos.<br/><br/>
+
+<b>Transferencia de sus Datos Personales</b><br/><br/>
+Su información, incluidos los Datos Personales, se procesa en las oficinas operativas de la Empresa y en cualquier otro lugar donde se encuentren las partes involucradas en el procesamiento. Esto significa que esta información puede ser transferida a — y mantenida en — computadoras ubicadas fuera de su estado, provincia, país u otra jurisdicción gubernamental donde las leyes de protección de datos pueden ser diferentes a las de su jurisdicción.<br/><br/>
+Su consentimiento a esta Política de privacidad seguido de su envío de dicha información representa su acuerdo con esa transferencia.<br/><br/>
+La Empresa tomará todas las medidas razonablemente necesarias para garantizar que sus datos sean tratados de manera segura y de acuerdo con esta Política de privacidad, y ninguna transferencia de sus Datos Personales tendrá lugar a una organización o país a menos que existan controles adecuados, incluida la seguridad de sus datos e información personal.<br/><br/>
+
+<b>Eliminar sus Datos Personales</b><br/><br/>
+
+Usted tiene derecho a eliminar o solicitar que le ayudemos a eliminar los Datos Personales que hemos recopilado sobre usted.<br/>
+Nuestro Servicio puede brindarle la capacidad de eliminar cierta información sobre usted desde dentro del Servicio.<br/><br/>
+Puede actualizar, modificar o eliminar su información en cualquier momento iniciando sesión en su Cuenta, si la tiene, y visitando la sección de configuración de la cuenta que le permite administrar su información personal. También puede contactarnos para solicitar acceso, corrección o eliminación de cualquier información personal que nos haya proporcionado.<br/><br/>
+Sin embargo, tenga en cuenta que es posible que necesitemos retener cierta información cuando tengamos una obligación legal o una base legal para hacerlo.<br/><br/>
+
+<h2><b>Divulgación de sus Datos Personales</b></h2>
+
+<b>Transacciones Comerciales</b><br/><br/>
+Si la Empresa está involucrada en una fusión, adquisición o venta de activos, sus Datos Personales pueden ser transferidos. Proporcionaremos aviso antes de que sus Datos Personales sean transferidos y estén sujetos a una Política de privacidad diferente.<br/><br/>
+<b>Cumplimiento de la ley</b><br/><br/>
+En determinadas circunstancias, la Empresa puede estar obligada a divulgar sus Datos Personales si así lo exige la ley o en respuesta a solicitudes válidas de las autoridades públicas (por ejemplo, un tribunal o una agencia gubernamental).<br/><br/>
+
+<b>Otros requisitos legales</b><br/><br/>
+La Empresa puede divulgar sus Datos Personales de buena fe cuando considere que dicha acción es necesaria para:<br/><br/>
+•Cumplir con una obligación legal<br/>
+•Proteger y defender los derechos o la propiedad de la Empresa<br/>
+•Prevenir o investigar posibles irregularidades en relación con el Servicio<br/>
+•Proteger la seguridad personal de los usuarios del Servicio o del público<br/>
+•Protegerse contra la responsabilidad legal<br/><br/>
+
+
+<b>Seguridad de sus Datos Personales</b><br/><br/>
+La seguridad de sus Datos Personales es importante para nosotros, pero recuerde que ningún método de transmisión a través de Internet o método de almacenamiento electrónico es 100% seguro. Si bien nos esforzamos por utilizar medios comercialmente aceptables para proteger sus Datos Personales, no podemos garantizar su seguridad absoluta.<br/><br/>
+
+<h2><b>Privacidad de los Niños</b></h2>
+
+Nuestro Servicio no está dirigido a ninguna persona menor de 13 años. No recopilamos conscientemente información personal identificable de ninguna persona menor de 13 años. Si usted es padre/madre o tutor y sabe que su hijo nos ha proporcionado Datos Personales, contáctenos. Si nos enteramos de que hemos recopilado Datos Personales de cualquier persona menor de 13 años sin verificación del consentimiento de los padres, tomamos medidas para eliminar esa información de nuestros servidores.<br/><br/>
+Si necesitamos depender del consentimiento como base legal para procesar su información y su país requiere el consentimiento de un padre, es posible que necesitemos el consentimiento de sus padres antes de recopilar y usar esa información.<br/><br/>
+
+<h2><b>Enlaces a otros sitios web</b></h2>
+
+Nuestro Servicio puede contener enlaces a otros sitios web que no son operados por nosotros. Si hace clic en un enlace de un tercero, será dirigido al sitio de ese tercero. Le recomendamos encarecidamente que revise la Política de privacidad de cada sitio que visite.<br/><br/>
+No tenemos control sobre y no asumimos ninguna responsabilidad por el contenido, políticas de privacidad o prácticas de sitios web o servicios de terceros.<br/><br/>
+
+<h2><b>Cambios a esta Política de privacidad</b></h2>
+
+Podemos actualizar nuestra Política de privacidad de vez en cuando. Le notificaremos cualquier cambio publicando la nueva Política de privacidad en esta página.<br/><br/>
+Le informaremos por correo electrónico y/o mediante un aviso destacado en nuestro Servicio, antes de que el cambio entre en vigencia y actualizaremos la "Última actualización" en la parte superior de esta Política de privacidad.<br/><br/>
+Se le aconseja que revise esta Política de privacidad periódicamente para ver si hay cambios. Los cambios a esta Política de privacidad son efectivos cuando se publican en esta página.<br/><br/>
+
+<h2><b>Contáctenos</b></h2>
+
+Si tiene alguna pregunta sobre esta Política de privacidad, puede contactarnos:<br/><br/>
+<li><p>Mediante correo electrónico: deconomicokd@gmail.com</p></li>
+<li><p>Por número de teléfono: 441 283 2707</p></li>
+
+
+
 
         ]]>
     </string>
