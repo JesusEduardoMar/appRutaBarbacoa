@@ -3,6 +3,7 @@ package com.Cadereyta.BarbacoayPulque;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -210,6 +212,22 @@ public class RegistrarActivity extends AppCompatActivity {
         Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void limpiarCacheGlide() {
+        Glide.get(getApplicationContext()).trimMemory(ComponentCallbacks2.TRIM_MEMORY_COMPLETE); // Limpiar la memoria caché
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(getApplicationContext()).clearDiskCache(); // Limpiar la caché de disco en un hilo separado
+            }
+        }).start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        limpiarCacheGlide(); // Limpiar la memoria caché de Glide al pausar la actividad
     }
 
 }

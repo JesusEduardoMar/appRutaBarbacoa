@@ -3,6 +3,7 @@ package com.Cadereyta.BarbacoayPulque;
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 
+import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -158,6 +160,22 @@ public class contact extends ScrollingActivity {
 
     public void call(View view){
 
+    }
+
+    private void limpiarCacheGlide() {
+        Glide.get(getApplicationContext()).trimMemory(ComponentCallbacks2.TRIM_MEMORY_COMPLETE); // Limpiar la memoria caché
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(getApplicationContext()).clearDiskCache(); // Limpiar la caché de disco en un hilo separado
+            }
+        }).start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        limpiarCacheGlide(); // Limpiar la memoria caché de Glide al pausar la actividad
     }
 
 }
