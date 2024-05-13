@@ -125,9 +125,6 @@
             android:value="AIzaSyArwdNx5xA2mAwdQA14dZSLeGnCKyBt-_I" />
 
         <activity
-            android:name="com.Cadereyta.BarbacoayPulque.Boletos"
-            android:exported="false" />
-        <activity
             android:name="com.Cadereyta.BarbacoayPulque.MainActivity"
             android:exported="true"
             android:resizeableActivity="false"
