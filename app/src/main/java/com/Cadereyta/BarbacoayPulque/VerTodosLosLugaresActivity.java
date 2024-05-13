@@ -1,5 +1,6 @@
 package com.Cadereyta.BarbacoayPulque;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VerTodosLosLugaresActivity extends AppCompatActivity {
     // Variables
@@ -41,6 +44,10 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
     //private ScrollView scrollView;
     private NestedScrollView scrollView;
     protected Class lastActivity = MainActivity.class;
+    private DocumentSnapshot lastVisible; // Último documento visible en la lista
+
+    // Constantes
+    private static final int PAGE_SIZE = 5; // Tamaño de la página
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,9 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
         items = new ArrayList<>();
         itemsAdapterVinedos = new ItemsAdapterVinedos(items, this);
         recyclerView.setAdapter(itemsAdapterVinedos);
+
+        // Cargar los primeros elementos
+        loadFirstPage();
 
         // Inicializar los ConstraintLayouts y el ScrollView
         card1 = findViewById(R.id.cardInicio1);
@@ -87,6 +97,23 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
                 ObjectAnimator animator2 = ObjectAnimator.ofFloat(card2, "alpha", alpha);
                 animator2.setDuration(0); // Duración cero para que la animación sea instantánea
                 animator2.start();
+            }
+        });
+
+        // Listener para el scroll del RecyclerView
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                // Si hemos llegado al final de la lista y hay más elementos por cargar
+                if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    loadMoreItems();
+                }
             }
         });
 
@@ -162,7 +189,7 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
             }
         });
 
-        mFirestore.collection("barbacoas").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        /*mFirestore.collection("barbacoas").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 pbProgressMain.setVisibility(View.VISIBLE);
@@ -178,13 +205,62 @@ public class VerTodosLosLugaresActivity extends AppCompatActivity {
                     pbProgressMain.setVisibility(View.GONE);
                 }
             }
-        });
+        });*/
 
         // Mostrar el botón para regresar y eliminar title
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    // Método para cargar la primera página de elementos
+    private void loadFirstPage() {
+        pbProgressMain.setVisibility(View.VISIBLE);
+        mFirestore.collection("barbacoas")
+                .limit(PAGE_SIZE)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            items.add(document.toObject(ItemsDomainVinedos.class));
+                        }
+                        itemsAdapterVinedos.notifyDataSetChanged();
+                        // Guardar la referencia al último documento visible
+                        lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
+                    } else {
+                        Log.e("Firestore error", "Error getting documents: ", task.getException());
+                    }
+                    pbProgressMain.setVisibility(View.GONE);
+                });
+    }
+
+    // Método para cargar más elementos cuando el usuario se desplaza hacia abajo
+    private void loadMoreItems() {
+        pbProgressMain.setVisibility(View.VISIBLE);
+        mFirestore.collection("barbacoas")
+                .startAfter(lastVisible)
+                .limit(PAGE_SIZE)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                        if (!documents.isEmpty()) {
+                            for (DocumentSnapshot document : documents) {
+                                items.add(document.toObject(ItemsDomainVinedos.class));
+                            }
+                            itemsAdapterVinedos.notifyDataSetChanged();
+                            // Actualizar la referencia al último documento visible
+                            lastVisible = documents.get(documents.size() - 1);
+                            Log.d("Paginación", "Se cargaron " + documents.size() + " elementos más.");
+                        }else {
+                            Log.d("Paginación", "Se alcanzó el final de la lista.");
+                        }
+                    } else {
+                        Log.e("Firestore error", "Error getting documents: ", task.getException());
+                    }
+                    pbProgressMain.setVisibility(View.GONE);
+                });
     }
 
     private void configSwipe() {
