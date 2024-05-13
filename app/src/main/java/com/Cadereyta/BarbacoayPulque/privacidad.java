@@ -1,5 +1,6 @@
 package com.Cadereyta.BarbacoayPulque;
 
+import android.content.ComponentCallbacks2;
 import android.graphics.text.LineBreaker;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.core.widget.NestedScrollView;
+
+import com.bumptech.glide.Glide;
 
 public class privacidad extends ScrollingActivity {
     private TextView privTextView;
@@ -52,5 +55,21 @@ public class privacidad extends ScrollingActivity {
         // Establecer el resultado como RESULT_OK
         setResult(RESULT_OK);
         finish();
+    }
+
+    private void limpiarCacheGlide() {
+        Glide.get(getApplicationContext()).trimMemory(ComponentCallbacks2.TRIM_MEMORY_COMPLETE); // Limpiar la memoria caché
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(getApplicationContext()).clearDiskCache(); // Limpiar la caché de disco en un hilo separado
+            }
+        }).start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        limpiarCacheGlide(); // Limpiar la memoria caché de Glide al pausar la actividad
     }
 }

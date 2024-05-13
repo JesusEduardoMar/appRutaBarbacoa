@@ -5,6 +5,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -202,6 +204,22 @@ public class historiaPulque extends ScrollingActivity {
         else {
             Toast.makeText(this, "Error: ID de icono no válido", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void limpiarCacheGlide() {
+        Glide.get(getApplicationContext()).trimMemory(ComponentCallbacks2.TRIM_MEMORY_COMPLETE); // Limpiar la memoria caché
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(getApplicationContext()).clearDiskCache(); // Limpiar la caché de disco en un hilo separado
+            }
+        }).start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        limpiarCacheGlide(); // Limpiar la memoria caché de Glide al pausar la actividad
     }
 
 
