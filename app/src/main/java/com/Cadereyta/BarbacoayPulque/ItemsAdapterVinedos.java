@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -45,16 +47,20 @@ public class ItemsAdapterVinedos extends  RecyclerView.Adapter<ItemsAdapterVined
         holder.addressTxt.setText(itemsDomainVinedos.getUbicacion_barbacoa());
         //holder.horarioTxt.setText(itemsDomainVinedos.getHorario_barbacoa());
 
-        /*Configuración de cache para Glide
+      
+        // Configuración de resolucion para Glide
         RequestOptions requestOptions = new RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.ALL); // Guardar imágenes originales y en formato decodificado en el cache*/
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(400,400);
 
         Glide.with(context)
+                .asBitmap() // Cargar como un bitmap para la carga progresiva
                 .load(itemsDomainVinedos.getUrl())
                 .thumbnail(0.20f)
-                .override(480, 320)
                 .placeholder(R.drawable.cargando) // Cargamos una imagen de baja resolución inicialmente
                 .error(R.drawable.borrego_error) //Imagen en caso de error al cargar
+                .apply(requestOptions) // Aplicar opciones de cache
+                .transition(BitmapTransitionOptions.withCrossFade()) // Agregar transición al cargar la imagen
                 .into(holder.pic);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

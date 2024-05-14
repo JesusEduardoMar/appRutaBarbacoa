@@ -41,14 +41,15 @@ public class ItemsAdapterEventos extends RecyclerView.Adapter<ItemsAdapterEvento
         holder.addressTxt.setText(item.getUbicacion_evento());
         //holder.dateTxt.setText(item.getFecha_evento());
 
+        Glide.with(context).load(item.getUrl()).into(holder.pic);
         // Configuración de cache para Glide
-        RequestOptions requestOptions = new RequestOptions()
+        /*RequestOptions requestOptions = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL); // Guardar imágenes originales y en formato decodificado en el cache
 
         Glide.with(context)
                 .load(item.getUrl())
                 .apply(requestOptions) // Aplicar opciones de cache
-                .into(holder.pic);
+                .into(holder.pic);*/
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
