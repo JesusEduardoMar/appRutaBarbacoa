@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -33,7 +36,20 @@ public class ItemsAdapterHistoria extends RecyclerView.Adapter<ItemsAdapterHisto
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //ItemsDomainHistoria itemsDomainHistoria = items.get(position);
-        Glide.with(context).load(items.get(position)).into(holder.pic);
+        // Configuración de resolucion para Glide
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(500,500);
+
+        Glide.with(context)
+                .asBitmap() // Cargar como un bitmap para la carga progresiva
+                .load(items.get(position))
+                .thumbnail(0.20f)
+                .placeholder(R.drawable.cargando) // Cargamos una imagen de baja resolución inicialmente
+                .error(R.drawable.borrego_error) //Imagen en caso de error al cargar
+                .apply(requestOptions) // Aplicar opciones de cache
+                .transition(BitmapTransitionOptions.withCrossFade()) // Agregar transición al cargar la imagen
+                .into(holder.pic);
 
     }
 
