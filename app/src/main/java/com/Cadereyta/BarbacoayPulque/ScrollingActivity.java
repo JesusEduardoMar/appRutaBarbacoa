@@ -78,20 +78,4 @@ public class ScrollingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
     }
-
-    private void limpiarCacheGlide() {
-        Glide.get(getApplicationContext()).trimMemory(ComponentCallbacks2.TRIM_MEMORY_COMPLETE); // Limpiar la memoria caché
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Glide.get(getApplicationContext()).clearDiskCache(); // Limpiar la caché de disco en un hilo separado
-            }
-        }).start();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        limpiarCacheGlide(); // Limpiar la memoria caché de Glide al pausar la actividad
-    }
 }

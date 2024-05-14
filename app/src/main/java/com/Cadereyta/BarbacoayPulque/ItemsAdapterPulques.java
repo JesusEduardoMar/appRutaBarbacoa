@@ -44,14 +44,15 @@ public class ItemsAdapterPulques extends  RecyclerView.Adapter<ItemsAdapterPulqu
         holder.addressTxt.setText(itemsDomainPulques.getUbicacion_pulque());
         //holder.horarioTxt.setText(itemsDomainPulques.getHorario_pulque());
 
+        Glide.with(context).load(itemsDomainPulques.getUrl()).into(holder.pic);
         // Configuración de cache para Glide
-        RequestOptions requestOptions = new RequestOptions()
+        /*RequestOptions requestOptions = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL); // Guardar imágenes originales y en formato decodificado en el cache
 
         Glide.with(context)
                 .load(itemsDomainPulques.getUrl())
                 .apply(requestOptions) // Aplicar opciones de cache
-                .into(holder.pic);
+                .into(holder.pic);*/
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
