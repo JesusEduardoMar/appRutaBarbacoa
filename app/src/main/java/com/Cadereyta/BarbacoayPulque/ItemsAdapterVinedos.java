@@ -57,10 +57,11 @@ public class ItemsAdapterVinedos extends  RecyclerView.Adapter<ItemsAdapterVined
                 .asBitmap() // Cargar como un bitmap para la carga progresiva
                 .load(itemsDomainVinedos.getUrl())
                 .thumbnail(0.20f)
-                .placeholder(R.drawable.cargando) // Cargamos una imagen de baja resolución inicialmente
+                .placeholder(R.drawable.cargandooo) // Cargamos una imagen de baja resolución inicialmente
                 .error(R.drawable.borrego_error) //Imagen en caso de error al cargar
                 .apply(requestOptions) // Aplicar opciones de cache
                 .transition(BitmapTransitionOptions.withCrossFade()) // Agregar transición al cargar la imagen
+                .fitCenter()
                 .into(holder.pic);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
