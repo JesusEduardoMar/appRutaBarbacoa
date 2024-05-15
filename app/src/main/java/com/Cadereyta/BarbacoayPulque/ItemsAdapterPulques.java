@@ -54,7 +54,7 @@ public class ItemsAdapterPulques extends  RecyclerView.Adapter<ItemsAdapterPulqu
                 .asBitmap() // Cargar como un bitmap para la carga progresiva
                 .load(itemsDomainPulques.getUrl())
                 .thumbnail(0.20f)
-                .placeholder(R.drawable.cargando) // Cargamos una imagen de baja resolución inicialmente
+                .placeholder(R.drawable.cargandooo) // Cargamos una imagen de baja resolución inicialmente
                 .error(R.drawable.borrego_error) //Imagen en caso de error al cargar
                 .apply(requestOptions) // Aplicar opciones de cache
                 .transition(BitmapTransitionOptions.withCrossFade()) // Agregar transición al cargar la imagen
