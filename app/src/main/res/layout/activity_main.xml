@@ -623,7 +623,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center_horizontal"
-                        android:text="Un paseo por la ruta más deliciosa de Querétaro"
+                        android:text="Un paseo por una de las rutas más deliciosas de Querétaro"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -761,7 +761,7 @@
                         android:layout_marginBottom="1dp"
                         android:gravity="center_horizontal"
                         android:singleLine="false"
-                        android:text="Descubre algunos de los Mejores Lugares de Barbacoa en Cadereyta"
+                        android:text="Descubre algunos de los Lugares de Barbacoa en Cadereyta"
                         android:textColor="@color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
@@ -794,7 +794,7 @@
                         android:layout_marginBottom="8dp"
                         android:gravity="center_horizontal"
                         android:singleLine="false"
-                        android:text="Descubre algunos de los Mejores Lugares de Pulque en Cadereyta"
+                        android:text="Descubre algunos de los Lugares de Pulque en Cadereyta"
                         android:textColor="@color/white"
                         android:textSize="20dp"
                         android:textStyle="bold" />
