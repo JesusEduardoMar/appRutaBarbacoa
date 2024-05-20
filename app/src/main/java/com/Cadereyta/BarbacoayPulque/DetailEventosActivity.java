@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DetailEventosActivity extends AppCompatActivity {
 
@@ -427,7 +428,7 @@ public class DetailEventosActivity extends AppCompatActivity {
                         addressText.setText(ubicacion);
 
                         // Convertimos el Timestamp a un String con un formato de fecha específico para los Eventos
-                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy 'a las' HH:mm:ss");
+                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy 'a las' HH:mm:ss a");
                         String horarioStr = sdf.format(horario.toDate());
                         horarioTextView.setText(horarioStr);
 

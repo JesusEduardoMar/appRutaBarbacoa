@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                             ItemsDomainEventos evento = dc.getDocument().toObject(ItemsDomainEventos.class);
                             items2.add(evento);
                             // Obtenemos la fecha del evento como un string que se pueda leer
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy 'a las' HH:mm:ss", Locale.getDefault());
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy 'a las' HH:mm:ss a", Locale.getDefault());
                             String fechaEvento = dateFormat.format(evento.getFecha_eventoo().toDate());
 
                             // Comparamos la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
