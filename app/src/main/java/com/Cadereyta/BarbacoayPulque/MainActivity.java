@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
             mFirestore.collection("eventos")
                     .orderBy("fecha_eventoo")
-                    .whereGreaterThanOrEqualTo("fecha_eventoo", today)
+                    .whereGreaterThanOrEqualTo("fecha_eventoo", todayStartTime)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -187,6 +187,14 @@ public class MainActivity extends AppCompatActivity {
                     for (DocumentChange dc : value.getDocumentChanges()) {
                         if (dc.getType() == DocumentChange.Type.ADDED) {
                             Date notificationDate = dc.getDocument().getTimestamp("fecha").toDate();
+                            // Comparar solo el año, mes y día de la fecha del evento
+                            Calendar eventCalendar = Calendar.getInstance();
+                            eventCalendar.setTime(notificationDate);
+                            eventCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                            eventCalendar.set(Calendar.MINUTE, 0);
+                            eventCalendar.set(Calendar.SECOND, 0);
+                            eventCalendar.set(Calendar.MILLISECOND, 0);
+                            Date eventDateOnly = eventCalendar.getTime();
 
                             ItemsDomainEventos evento = dc.getDocument().toObject(ItemsDomainEventos.class);
                             items2.add(evento);
@@ -195,12 +203,12 @@ public class MainActivity extends AppCompatActivity {
                             String fechaEvento = dateFormat.format(evento.getFecha_eventoo().toDate());
 
                             // Comparamos la fecha de la notificación con la fecha actual y las fechas de hace 7 y 30 días
-                            if (notificationDate.after(todayStartTime)) {
-                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ fechaEvento, notificationContainerNuevas, R.layout.layout_notificatione);
-                            } else if (notificationDate.after(date7DaysAgo)) {
-                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ fechaEvento, notificationContainerUltimos7Dias, R.layout.layout_notificatione);
-                            } else if (notificationDate.after(date30DaysAgo)) {
-                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el "+ fechaEvento, notificationContainerUltimos30Dias, R.layout.layout_notificatione);
+                            if (eventDateOnly.equals(todayStartTime) || eventDateOnly.after(todayStartTime)) {
+                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el " + fechaEvento, notificationContainerNuevas, R.layout.layout_notificatione);
+                            } else if (eventDateOnly.after(date7DaysAgo)) {
+                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el " + fechaEvento, notificationContainerUltimos7Dias, R.layout.layout_notificatione);
+                            } else if (eventDateOnly.after(date30DaysAgo)) {
+                                addNotification("¡Nuevo Evento Disponible! " + evento.getNombre_evento() + ". ¡No te lo pierdas! el " + fechaEvento, notificationContainerUltimos30Dias, R.layout.layout_notificatione);
                             }
                         }
                     }
