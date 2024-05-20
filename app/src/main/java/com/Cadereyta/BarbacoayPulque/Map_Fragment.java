@@ -225,11 +225,12 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void getAndShowAllEventos() {
-        // Obtener la fecha actual
-        Date currentDate = Calendar.getInstance().getTime();
+        // Obtener la fecha de inicio del día actual
+        Date startOfDay = getStartOfDay(new Date());
+
         // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
         db.collection("eventos")
-                .whereGreaterThanOrEqualTo("fecha_eventoo", new Timestamp(currentDate))
+                .whereGreaterThanOrEqualTo("fecha_eventoo", new Timestamp(startOfDay))
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -244,6 +245,16 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
                         Log.e(TAG, "Error al obtener lugares desde Firestore", task.getException());
                     }
                 });
+    }
+
+    private Date getStartOfDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
     }
 
     private void showPlacesListDialogpulque() {
@@ -385,8 +396,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jardin, 13));
         mMap = googleMap;
 
-        // Obtener la fecha actual
-        Date currentDate = Calendar.getInstance().getTime();
+        // Obtener la fecha de inicio del día actual
+        Date startOfDay = getStartOfDay(new Date());
 
         // Obtenemos la latitud y la longitud desde Firestore y agregamos marcadores al mapa
         db.collection("barbacoas")
@@ -462,7 +473,7 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
         // Obtenemos la latitud y la longitud desde Firestore y agregamos marcadores al mapa
         db.collection("eventos")
-                .whereGreaterThanOrEqualTo("fecha_eventoo", new Timestamp(currentDate))
+                .whereGreaterThanOrEqualTo("fecha_eventoo", new Timestamp(startOfDay))
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
