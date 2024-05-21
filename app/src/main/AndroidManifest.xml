@@ -122,7 +122,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyArwdNx5xA2mAwdQA14dZSLeGnCKyBt-_I" />
+            android:value="AIzaSyArj1VSEB3RawJVxSGoDUws8a1BlY3AD-Q" />
 
         <activity
             android:name="com.Cadereyta.BarbacoayPulque.MainActivity"
