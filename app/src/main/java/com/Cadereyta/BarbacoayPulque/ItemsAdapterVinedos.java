@@ -23,11 +23,12 @@ import java.util.ArrayList;
 
 public class ItemsAdapterVinedos extends  RecyclerView.Adapter<ItemsAdapterVinedos.ViewHolder> {
     ArrayList<ItemsDomainVinedos> items;
-
+    private ArrayList<ItemsDomainVinedos> itemsFull; // Lista original sin filtrar nada
     Context context;
 
     public ItemsAdapterVinedos(ArrayList<ItemsDomainVinedos> items, Context context) {
         this.items = items;
+        this.itemsFull = new ArrayList<>(items); // Copia de la lista original
         this.context = context;
 
     }
@@ -46,7 +47,7 @@ public class ItemsAdapterVinedos extends  RecyclerView.Adapter<ItemsAdapterVined
         holder.addressTxt.setText(itemsDomainVinedos.getUbicacion_barbacoa());
         //holder.horarioTxt.setText(itemsDomainVinedos.getHorario_barbacoa());
 
-      
+
         // Configuración de resolucion para Glide
         RequestOptions requestOptions = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -83,6 +84,11 @@ public class ItemsAdapterVinedos extends  RecyclerView.Adapter<ItemsAdapterVined
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void setFilter(ArrayList<ItemsDomainVinedos> filteredList) {
+        items = filteredList;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
