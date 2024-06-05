@@ -36,10 +36,10 @@ public class ErrorActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onBackPressed(View view) {
+    public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
-        finish();
         startActivity(intent);
+        finish();
     }
 }
