@@ -2,8 +2,12 @@
     <string name="app_name">Barbacoa y Pulque Cadereyta</string>
     <string name="default_web_client_id">639190160106-1hr4mfsk2gcnuhssknjcp3m0fpsj60ua.apps.googleusercontent.com</string>
     <string name="error_title">Ha ocurrido un error</string>
-    <string name="error_description">Ha ocurrido un evento inesperado, se ha notificado a los administradores.</string>
-    <string name="return_home">Regresar al menú de inicio</string>
+    <string name="error_description">
+        <![CDATA[
+        <p>Ha ocurrido un evento inesperado, inténtelo más tarde. </p>
+        <p>Si el error persiste, comuníquese a <a href="mailto:deconomicokd@gmail.com">deconomicokd@gmail.com</a>.<p>
+        ]]>
+    </string> <string name="return_home">Regresar al menú de inicio</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">Texto largo</string>
 
