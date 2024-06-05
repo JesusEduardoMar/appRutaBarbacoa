@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white2">#60FFFFFF</color>
     <color name="wine">#853455</color>
     <color name="yellow">#E49B0F</color>
     <color name="blue">#bcc5e4</color>
-    <color name="blue1">#4682b4</color>
-    <color name="blue2">#1e0080</color>
+    <color name="blue1">#8db4ad</color>
+    <color name="backgroundazul">#F21E0080</color>
+    <color name="blue2">#CE1C0D4C</color>
     <color name="grey">#D3D3D3</color>
+    <color name="darkgrey">#7C7C7C</color>
+    <color name="darkblue">#21233d</color>
     <color name="backopcion">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="verde1">#BFFFC2</color>
+    <color name="verde2">#007A05</color>
+    <color name="verde3">#669C53</color>
+    <color name="naranja2">#FF5722</color>
+    <color name="pink">#FF5992</color>
+    <color name="naranja">#F49270</color>
+    <color name="naranja3">#2CF49270</color>
+    <color name="naranja4">#FF7700</color>
+    <color name="naranja5">#fb8c00</color>
+    <color name="dark_orange">#ff9800</color>
+    <color name="light_orange">#ffac33</color>
+    <color name="light_orange_back">#FFEFD8</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="flexible_text_color">@color/black</color>
+    <color name="flexible_text_color_inv">@color/white</color>
+    <color name="text_color">@color/black</color>
+    <color name="verdelogin">#204809</color>
+    <color name="negroclaro">#3E3D3A</color>
+    <color name="amarillopalido">#F3F0CD</color>
+    <color name="azulubi">#E6556175</color>
+
+
 </resources>

@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="3dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="1dp"
     app:cardUseCompatPadding="true"
     >
 
@@ -12,20 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linear_layout"
-        android:orientation="vertical"
-        android:background="@drawable/grey_background"
-        >
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/code_name"
-            android:text="Code name"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:padding="16dp"
-            android:textColor="@color/white"
-            />
+            android:id="@+id/expandable_layout0">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/code_name"
+                android:text="Code name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="8dp"
+
+                android:textColor="@color/dark_orange"
+                />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -40,8 +45,7 @@
                 android:text="Description TextView"
                 android:padding="16dp"
                 android:textSize="16sp"
-                android:textStyle="italic"
-                android:textColor="@color/white"
+                android:textColor="@color/flexible_text_color"
                 />
 
         </RelativeLayout>

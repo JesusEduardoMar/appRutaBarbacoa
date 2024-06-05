@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_orange_back"
+    android:orientation="vertical"
+    tools:context="com.Cadereyta.BarbacoayPulque.ErrorActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="90dp"
+        android:layout_width="match_parent"
+        app:layout_collapseMode="pin"
+        android:background="@drawable/orange_background"/>
+
+    <ImageView
+        android:id="@+id/errorIcon"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:src="@drawable/borrego_error"/>
+
+    <TextView
+        android:id="@+id/errorTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/error_title"
+        android:textColor="@color/flexible_text_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/errorDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:paddingHorizontal="30dp"
+        android:text="@string/error_description"
+        android:textColor="@color/flexible_text_color"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/returnHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="28dp"
+        android:background="@drawable/btn_background"
+        android:backgroundTint="@color/naranja5"
+        android:text="@string/return_home"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="80dp"/>
+</LinearLayout>

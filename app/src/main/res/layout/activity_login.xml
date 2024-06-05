@@ -4,99 +4,216 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    android:background="@drawable/backgroundlogin"
+    tools:context="com.Cadereyta.BarbacoayPulque.LoginActivity">
 
-
-    <ImageView
-        android:id="@+id/imageView"
+    <ProgressBar
+        android:id="@+id/progress_login"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/backgroundloggg"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".27"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/view_bg"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".78"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1">
+        app:layout_constraintVertical_bias="0">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_marginTop="16dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/logo_definitivo" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView2"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout"
-            app:layout_constraintVertical_bias="0" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/blue"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/logo_appp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.9"
-        android:scaleType="centerInside"/>
-
-    <!--
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintVertical_bias=".3"
-        android:text="Un paseo por la ruta más deliciosa de Querétaro"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-    -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14dp"
-        android:text="UN PASEO POR LA RUTA MÁS DELICIOSA DE QUERÉTARO"
-        android:textColor="@color/black"
-        android:textStyle="italic"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.93"/>
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="TextSizeCheck">
 
 
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/iniciar"
+                    android:textColor="@color/text_color"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="@color/text_color"
+                    android:hint="@string/correoUsuario"
+                    android:textColorHint="@color/text_color"
+                    app:boxStrokeColor="@color/blue2"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/text_color"
+                    app:hintTextColor="@color/text_color"
+                    app:startIconDrawable="@drawable/emailicon"
+                    app:startIconTint="@color/text_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/lblcorreo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:textColor="@color/text_color"
+                    android:hint="@string/passwordUsuario"
+                    android:textColorHint="@color/text_color"
+                    app:startIconTint="@color/text_color"
+                    app:boxStrokeColor="@color/blue2"
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="@color/text_color"
+                    app:hintTextColor="@color/text_color"
+                    app:helperTextEnabled="true"
+                    app:startIconDrawable="@drawable/passwordicon">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/lblpassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color"
+                        android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+
+                    <TextView
+                        android:id="@+id/txtrecuperar"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:text="@string/Olvidarpassword"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view8"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <Button
+                    android:id="@+id/btniniciar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/btn_background"
+                    android:text="@string/iniciar"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view11"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <Button
+                    android:id="@+id/btn_registro"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_background"
+                    android:text="@string/crear_cuenta"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view9"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/iniciarwith"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:id="@+id/view10"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/login_gmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/verdelogin"
+                    android:clickable="true"
+                    android:contentDescription="@string/gmail"
+                    android:src="@drawable/logo_gmail" />
+
+                <View
+                    android:id="@+id/view12"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

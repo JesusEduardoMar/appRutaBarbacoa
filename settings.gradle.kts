@@ -13,6 +13,6 @@ dependencyResolutionManagement {
         jcenter()
     }
 }
-rootProject.name = "CadeApp"
+rootProject.name = "Barbacoa y Pulque Cadereyta"
 include(":app")
  

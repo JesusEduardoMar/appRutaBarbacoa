@@ -1,8 +1,47 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Winestastic" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="colorPrimaryDark">#853455</item>
+    <style name="Theme.Orange"  parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <item name="colorPrimaryDark">@color/naranja5</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="colorPrimary">@color/naranja5</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorSecondary">@color/azulubi</item>
+        <item name="windowNoTitle">true</item>
+        <item name="selectableItemBackground">@drawable/selector_backgroundnotifiy_dark</item>
     </style>
+    <style name="NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
+
+
+    </style>
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+    </style>
+
+    <style name="DialogBasicCustomStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="android:windowBackground">@drawable/background_map</item>
+        <item name="android:textColor">@color/white</item>
+
+        <item name="android:windowMinWidthMajor">200dp</item>
+        <item name="android:windowMinWidthMinor">350dp</item>
+
+
+
+
+    </style>
+
 </resources>

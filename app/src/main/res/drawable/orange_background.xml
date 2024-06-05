@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/naranja5"/>
+        </shape>
+    </item>
+    <item
+        android:width="50dp"
+        android:height="50dp"
+        android:top="20dp"
+        android:left="40dp"
+        android:gravity="left">
+        <bitmap android:src="@drawable/escudo_cadereyta" />
+    </item>
+    <item
+        android:width="50dp"
+        android:height="50dp"
+        android:top="20dp"
+        android:right="40dp"
+        android:gravity="right">
+        <bitmap android:src="@drawable/logo_definitivo" />
+    </item>
+</layer-list>

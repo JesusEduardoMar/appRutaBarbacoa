@@ -14,83 +14,128 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/icono_app"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Winestastic"
-        tools:targetApi="31"
-        android:windowSoftInputMode="adjustNothing">
+        android:theme="@style/Theme.Orange"
+        android:windowSoftInputMode="adjustNothing"
+        tools:targetApi="31">
         <activity
-            android:name=".DetailCoteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DetailLoboActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DetailFreixenetActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DetailEventosActivity"
-            android:exported="false"/>
-        <activity android:name=".VerTodosLosLugaresActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".cardDemasEntradas"
+            android:name="com.Cadereyta.BarbacoayPulque.historiaPulque"
             android:exported="false"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.Reviews"
+            android:exported="false"
+            android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".cardVinos"
+            android:name="com.Cadereyta.BarbacoayPulque.ScrollingActivity"
             android:exported="false"
+            android:label="@string/title_activity_scrolling"
+            android:resizeableActivity="false"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.RecuperarActivity"
+            android:exported="false"
+            android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".cardVinedos"
+            android:name="com.Cadereyta.BarbacoayPulque.RegistrarActivity"
             android:exported="false"
+            android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".cardCatadeVinos"
+            android:name="com.Cadereyta.BarbacoayPulque.LoginActivity"
             android:exported="false"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.ErrorActivity"
+            android:exported="false"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.FaqActivity"
+            android:exported="false"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.contact"
+            android:exported="false"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.informacion"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:resizeableActivity="false"
+            />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.privacidad"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:resizeableActivity="false"
+            />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.DetailBarbacoaActivity"
+            android:exported="false"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.DetailEventosActivity"
+            android:exported="false"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.DetailPulqueActivity"
+            android:exported="false"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.VerTodosLosLugaresActivity"
+            android:exported="false"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.Cadereyta.BarbacoayPulque.VerTodosLosPulquesActivity"
+            android:exported="false"
+            android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyArwdNx5xA2mAwdQA14dZSLeGnCKyBt-_I" />
+            android:value="AIzaSyArj1VSEB3RawJVxSGoDUws8a1BlY3AD-Q" />
 
         <activity
-            android:name=".DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Boletos"
-            android:exported="false" />
-        <activity
-            android:name=".chatbot"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".RecuperarActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".MainActivity"
+            android:name="com.Cadereyta.BarbacoayPulque.MainActivity"
             android:exported="true"
+            android:resizeableActivity="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".SplashWinestastic"
+            android:name="com.Cadereyta.BarbacoayPulque.SplashScreen"
             android:exported="true"
+            android:resizeableActivity="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.NoActionBar"
+            android:theme="@style/Theme.Orange"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

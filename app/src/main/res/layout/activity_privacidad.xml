@@ -1,0 +1,48 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:background="@drawable/cat_background">
+
+            <!--Título-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="POLÍTICA DE PRIVACIDAD"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Contenido de la política de privacidad -->
+            <TextView
+                android:id="@+id/priv1TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/texto_de_privacidad"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:lineSpacingMultiplier="1.5"
+                android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

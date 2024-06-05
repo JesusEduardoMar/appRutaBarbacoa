@@ -1,46 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@id/bottomNavigation"
-    android:visibility="visible"
-    tools:context=".VerTodosLosLugaresActivity">
+    android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/progress_main"
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_ver_lugares"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="70dp"
-        android:clipToPadding="false"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:layout_centerInParent="true"/>
-
-    <Button
-        android:id="@+id/ver_todos_lugares_button"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recycler_view_ver_lugares"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/boton_redondeado"
-        android:gravity="center"
-        android:paddingStart="24dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="12dp"
-        android:text="Ver todos los lugares"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:background="@drawable/vistalugares_topbackground"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_below="@id/toolbar"
+        android:contentDescription="Contenido desplazable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- LinearLayout con las dos ConstraintLayouts -->
+            <LinearLayout
+                android:id="@+id/linearrr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cardInicio1"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/tittle_background">
+
+                    <ImageView
+                        android:id="@+id/preparacionB"
+                        android:layout_width="120dp"
+                        android:layout_height="90dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/preparabarba" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cardInicio2"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/tittle_background">
+
+                    <ImageView
+                        android:id="@+id/historiaB"
+                        android:layout_width="150dp"
+                        android:layout_height="90dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/history2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/carrrrd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/linearrr"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/grey_background"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Conoce todos los lugares de Barbacoa en Cadereyta"
+                    android:textColor="@color/white"
+                    android:gravity="center_horizontal"
+                    android:singleLine="false"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/carrrrd"
+                android:queryHint="Buscar lugares de barbacoa por nombre"
+                android:iconifiedByDefault="false"
+                android:textColor="#000000"
+                android:queryBackground="@null"/>
+
+            <ProgressBar
+                android:id="@+id/progress_main"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_view"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_ver_lugares"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/progress_main"
+                android:layout_centerInParent="true"
+                android:clipToPadding="false"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

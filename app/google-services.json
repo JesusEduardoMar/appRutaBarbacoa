@@ -7,17 +7,85 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:639190160106:android:2dd6814539673a09c93d93",
+        "mobilesdk_app_id": "1:639190160106:android:02921b38b8f2b436c93d93",
         "android_client_info": {
-          "package_name": "com.example.cadeapp"
+          "package_name": "com.Cadereyta.BarbacoayPulque"
         }
       },
       "oauth_client": [
         {
+          "client_id": "639190160106-ng56hnkijvu65t47gtse2ojopfe74b7n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Cadereyta.BarbacoayPulque",
+            "certificate_hash": "f8a94e4cb2d41caba092e366188bd6dd7b74cb0c"
+          }
+        },
+        {
           "client_id": "639190160106-1hr4mfsk2gcnuhssknjcp3m0fpsj60ua.apps.googleusercontent.com",
           "client_type": 3
         }
-
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAHUl7EUxcEN3gkgSbAvStUWFcxYWMcuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639190160106-1hr4mfsk2gcnuhssknjcp3m0fpsj60ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639190160106:android:2dd6814539673a09c93d93",
+        "android_client_info": {
+          "package_name": "com.Cadereyta.BarbacoayPulque"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639190160106-jng8d6gaa2kenbtn8mbbb8prc47sb1bl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Cadereyta.BarbacoayPulque",
+            "certificate_hash": "994b1b19a4a0213c39feb8136ad2868a1f626a4f"
+          }
+        },
+        {
+          "client_id": "639190160106-kk5avcmsp1ivrgbqraj0lkrh1ke9nf0t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Cadereyta.BarbacoayPulque",
+            "certificate_hash": "2c5bf11fe9576c73ae405981b2c07f20ca2a0cca"
+          }
+        },
+        {
+          "client_id": "639190160106-kqi4nv7qjbelrruog5b7n90bv2h4ft8k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Cadereyta.BarbacoayPulque",
+            "certificate_hash": "9c11c35227c63005b74e5a13ddb6eba7f5e40db6"
+          }
+        },
+        {
+          "client_id": "639190160106-vcaokhng0ja8heknd8080spm2n2hf060.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Cadereyta.BarbacoayPulque",
+            "certificate_hash": "f8a94e4cb2d41caba092e366188bd6dd7b74cb0c"
+          }
+        },
+        {
+          "client_id": "639190160106-1hr4mfsk2gcnuhssknjcp3m0fpsj60ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
       ],
       "api_key": [
         {

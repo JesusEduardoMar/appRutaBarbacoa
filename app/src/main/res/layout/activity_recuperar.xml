@@ -5,82 +5,136 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecuperarActivity">
+    android:background="@drawable/backgroundlogin"
+    tools:context="com.Cadereyta.BarbacoayPulque.RecuperarActivity">
+
+      <LinearLayout
+          android:id="@+id/linearLayout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:orientation="vertical"
+          android:padding="15dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.0">
 
 
-  <ImageView
-      android:id="@+id/imageView"
-      android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      android:scaleType="centerCrop"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHeight_percent=".25"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/logo_definitivo" />
 
-  <TextView
-      android:id="@+id/text_titulo"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:textSize="30dp"
-      android:textStyle="bold"
-      app:layout_constraintVertical_bias=".3"
-      app:layout_constraintHorizontal_bias=".5"
-      android:text="Ayuda con la contraseña"
-      app:layout_constraintWidth_percent=".8"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-  <TextView
-      android:id="@+id/text_instr"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:textStyle="bold"
-      android:text="Escribe tu dirección de correo electrónico asociado a tu cuenta de Delicio."
-      app:layout_constraintVertical_bias=".1"
-      app:layout_constraintHorizontal_bias=".5"
-      app:layout_constraintWidth_percent=".8"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/text_titulo" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
-  <EditText
-      android:id="@+id/correo_recup"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:background="@drawable/edittext_bg"
-      android:hint="Correo"
-      android:paddingLeft="20dp"
-      android:paddingTop="15dp"
-      android:paddingBottom="15dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias=".5"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/text_instr"
-      app:layout_constraintVertical_bias="0.03"
-      app:layout_constraintWidth_percent=".8" />
+            <View
+                android:id="@+id/view13"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
 
-  <Button
-      android:id="@+id/recup_password"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:background="@drawable/btn_background"
-      android:text="Recuperar contraseña"
-      android:textColor="@color/white"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      app:layout_constraintVertical_bias="0.3"
-      app:layout_constraintWidth_percent=".8"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/correo_recup" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:text="@string/ayuda_con_la_contrase_a"
+                android:textColor="@color/text_color"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/escribe_tu_direccion"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtlayoutCorreo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/text_color"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/correoUsuario"
+                android:textColorHint="@color/text_color"
+                app:boxStrokeColor="@color/blue2"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/text_color"
+                app:hintTextColor="@color/text_color"
+                app:startIconDrawable="@drawable/emailicon"
+                app:startIconTint="@color/text_color">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/correo_recup"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/text_color"
+                  android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <Button
+                android:id="@+id/recup_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/btn_background"
+                android:text="@string/recuperar_contrase_a"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view12"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+          </LinearLayout>
+
+        </ScrollView>
+
+
+      </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

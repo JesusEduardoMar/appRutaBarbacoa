@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="wine">#853455</color>
     <color name="grey">#D3D3D3</color>
     <color name="backopcion">#000000</color>
+    <color name="blue2">#F21E0080</color>
+    <color name="text_color">@color/black</color>
+    <color name="flexible_text_color">@color/white</color>
+    <color name="flexible_text_color_inv">@color/black</color>
+    <color name="verde1">#BFFFC2</color>
+    <color name="verde2">#007A05</color>
+    <color name="verde3">#669C53</color>
+    <color name="light_orange_back">#303030</color>
+    <color name="card_background">#424242</color>
+    <color name="light_orange">#ffac33</color>
+    <color name="amarillopalido">#B0AD7F</color>
+    <color name="azulubi">#E6556175</color>
 </resources>
