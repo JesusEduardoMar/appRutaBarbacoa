@@ -6,18 +6,18 @@
         </shape>
     </item>
     <item
-        android:width="40dp"
-        android:height="40dp"
-        android:top="10dp"
-        android:left="20dp"
+        android:width="50dp"
+        android:height="50dp"
+        android:top="20dp"
+        android:left="40dp"
         android:gravity="left">
         <bitmap android:src="@drawable/escudo_cadereyta" />
     </item>
     <item
-        android:width="40dp"
-        android:height="40dp"
-        android:top="10dp"
-        android:right="20dp"
+        android:width="50dp"
+        android:height="50dp"
+        android:top="20dp"
+        android:right="40dp"
         android:gravity="right">
         <bitmap android:src="@drawable/logo_definitivo" />
     </item>
