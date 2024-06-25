@@ -193,12 +193,10 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void getAndShowAllPlaces() {
-        // Verificamos si el diálogo ya está abierto
-        if (isAlertDialogVisible) return;
-        isAlertDialogVisible = true;
         // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
         if (isAlertDialogVisible) return; // Si ya hay un diálogo visible
         isAlertDialogVisible = true;
+
         db.collection("barbacoas")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -217,12 +215,11 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void getAndShowAllPulques() {
-        // Verificamos si el diálogo ya está abierto
-        if (isAlertDialogVisible) return;
-        isAlertDialogVisible = true;
         // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
+
         if (isAlertDialogVisible) return; // Si ya hay un diálogo visible, no hacer nada
         isAlertDialogVisible = true;
+
         db.collection("pulques")
                 .get()
                 .addOnCompleteListener(task -> {
