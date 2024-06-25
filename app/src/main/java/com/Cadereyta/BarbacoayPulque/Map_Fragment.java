@@ -69,6 +69,9 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
     private String targetStr = null;
 
+    // Variable para controlar si el diálogo ya está abierto
+    private boolean isDialogOpen = false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -167,6 +170,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         });
         // Mostramos el diálogo con los lugares
         AlertDialog alertDialog = builder.create();
+        // Restablecer la variable isDialogOpen cuando el diálogo se cierre
+        alertDialog.setOnDismissListener(dialog -> isDialogOpen = false);
         alertDialog.show();
         // Agregar margen inferior al contenido del AlertDialog
         Window window = alertDialog.getWindow();
@@ -187,6 +192,9 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void getAndShowAllPlaces() {
+        // Verificamos si el diálogo ya está abierto
+        if (isDialogOpen) return;
+        isDialogOpen = true;
         // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
         db.collection("barbacoas")
                 .get()
@@ -206,6 +214,9 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void getAndShowAllPulques() {
+        // Verificamos si el diálogo ya está abierto
+        if (isDialogOpen) return;
+        isDialogOpen = true;
         // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
         db.collection("pulques")
                 .get()
@@ -225,6 +236,9 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void getAndShowAllEventos() {
+        // Verificamos si el diálogo ya está abierto
+        if (isDialogOpen) return;
+        isDialogOpen = true;
         // Obtener la fecha de inicio del día actual
         Date startOfDay = getStartOfDay(new Date());
 
@@ -309,6 +323,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         });
         // Mostramos el diálogo con los lugares
         AlertDialog alertDialog = builder.create();
+        // Restablecer la variable isDialogOpen cuando el diálogo se cierre
+        alertDialog.setOnDismissListener(dialog -> isDialogOpen = false);
         alertDialog.show();
         // Agregar margen inferior al contenido del AlertDialog
         Window window = alertDialog.getWindow();
@@ -375,6 +391,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         });
         // Mostramos el diálogo con los lugares
         AlertDialog alertDialog = builder.create();
+        // Restablecer la variable isDialogOpen cuando el diálogo se cierre
+        alertDialog.setOnDismissListener(dialog -> isDialogOpen = false);
         alertDialog.show();
         // Agregar margen inferior al contenido del AlertDialog
         Window window = alertDialog.getWindow();
