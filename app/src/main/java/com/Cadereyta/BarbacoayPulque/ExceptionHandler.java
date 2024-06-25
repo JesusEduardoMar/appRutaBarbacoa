@@ -42,8 +42,7 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     }
 
     private void handleCriticalError(Throwable ex) {
-        // Perform necessary actions for critical errors (e.g., data recovery, user notification)
-        Log.d("Chris", "Cachao", ex);
+
     }
 }
 

@@ -69,6 +69,8 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
     private String targetStr = null;
 
+// Variable para controlar si el diálogo ya está abierto
+    private boolean isAlertDialogVisible = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -167,6 +169,10 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         });
         // Mostramos el diálogo con los lugares
         AlertDialog alertDialog = builder.create();
+              // Restablecer la variable isDialogOpen cuando el diálogo se cierre
+        alertDialog.setOnDismissListener(dialog -> {
+            isAlertDialogVisible = false; //no visible
+        });
         alertDialog.show();
         // Agregar margen inferior al contenido del AlertDialog
         Window window = alertDialog.getWindow();
@@ -188,6 +194,9 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
     private void getAndShowAllPlaces() {
         // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
+        if (isAlertDialogVisible) return; // Si ya hay un diálogo visible
+        isAlertDialogVisible = true;
+
         db.collection("barbacoas")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -207,6 +216,10 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
 
     private void getAndShowAllPulques() {
         // Obtenemos la lista completa de lugares de barbacoa en Firestore y actualizamos el TextView
+
+        if (isAlertDialogVisible) return; // Si ya hay un diálogo visible, no hacer nada
+        isAlertDialogVisible = true;
+
         db.collection("pulques")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -225,6 +238,10 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void getAndShowAllEventos() {
+ // Verificamos si el diálogo ya está abierto
+        if (isAlertDialogVisible) return;
+        isAlertDialogVisible = true;
+    
         // Obtener la fecha de inicio del día actual
         Date startOfDay = getStartOfDay(new Date());
 
@@ -309,6 +326,11 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         });
         // Mostramos el diálogo con los lugares
         AlertDialog alertDialog = builder.create();
+// Restablecer la variable isDialogOpen cuando el diálogo se cierre
+        alertDialog.setOnDismissListener(dialog -> {
+            isAlertDialogVisible = false;
+        });
+
         alertDialog.show();
         // Agregar margen inferior al contenido del AlertDialog
         Window window = alertDialog.getWindow();
@@ -375,6 +397,11 @@ public class Map_Fragment extends Fragment implements OnMapReadyCallback, Google
         });
         // Mostramos el diálogo con los lugares
         AlertDialog alertDialog = builder.create();
+      // Restablecer la variable isDialogOpen cuando el diálogo se cierre
+        alertDialog.setOnDismissListener(dialog -> {
+            isAlertDialogVisible = false;
+        });
+
         alertDialog.show();
         // Agregar margen inferior al contenido del AlertDialog
         Window window = alertDialog.getWindow();
