@@ -347,9 +347,6 @@ public class DetailEventosActivity extends AppCompatActivity {
                         // Obtenemos el número de elementos en el resultado de la consulta a Firestore
                         int comentariosHoy = task.getResult().size();
 
-                        // Impresión para verificar el número de comentarios hoy
-                        Log.d("DetailEventosActivity", "Número de comentarios hoy: " + comentariosHoy);
-
                         // Verificamos si el usuario ha dejado el máximo de comentarios permitidos por hoy
                         if (comentariosHoy >= 1) {
                             // Mostramos un mensaje de límite de comentarios

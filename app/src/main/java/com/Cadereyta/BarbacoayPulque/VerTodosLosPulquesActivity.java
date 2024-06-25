@@ -183,24 +183,6 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
             }
         });
 
-       /* mFirestore.collection("pulques").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                pbProgressMain.setVisibility(View.VISIBLE);
-                if(error != null){
-                    Log.e("Firestore error", error.getMessage());
-                    return;
-                }
-                for(DocumentChange dc : value.getDocumentChanges()){
-                    if(dc.getType() == DocumentChange.Type.ADDED){
-                        items.add(dc.getDocument().toObject(ItemsDomainPulques.class));
-                    }
-                    itemsAdapterPulques.notifyDataSetChanged();
-                    pbProgressMain.setVisibility(View.GONE);
-                }
-            }
-        });*/
-
         // Mostrar el botón para regresar y eliminar title
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -247,7 +229,6 @@ public class VerTodosLosPulquesActivity extends AppCompatActivity {
                             itemsAdapterPulques.notifyDataSetChanged();
                             // Actualizar la referencia al último documento visible
                             lastVisible = documents.get(documents.size() - 1);
-                            Log.d("Paginación", "Se cargaron " + documents.size() + " elementos más.");
                         }else {
                             Log.d("Paginación", "Se alcanzó el final de la lista.");
                         }

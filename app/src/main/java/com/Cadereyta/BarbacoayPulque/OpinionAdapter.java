@@ -52,12 +52,10 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.OpinionV
                             String nombreUsuario = document.getString("nombre");
                             holder.nombreUsuarioTextView.setText(nombreUsuario);
                         } else {
-                            // Handle the case where the document doesn't exist
-                            Log.d("TAG", "Usuario no encontrado");  // Or use a more appropriate logging method
+                            Log.d("TAG", "Usuario no encontrado");
                         }
                     } else {
-                        // Handle errors during document retrieval
-                        Log.w("TAG", "No se puede obtener el nombre del usuario:", task.getException());  // Or use a more appropriate logging method
+                        Log.w("TAG", "No se puede obtener el nombre del usuario:", task.getException());
                     }
                 });
 
