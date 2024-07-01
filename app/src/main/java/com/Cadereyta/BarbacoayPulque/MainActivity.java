@@ -997,6 +997,6 @@ public class MainActivity extends AppCompatActivity {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
-    }
+    } //funcion para forzar al usuario a pulsar el boton de salir dos veces
 
 }
