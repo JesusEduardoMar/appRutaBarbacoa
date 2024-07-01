@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                //finish();
                 Intent intent = new Intent(LoginActivity.this, RegistrarActivity.class);
                 startActivity(intent);
             }
@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
         recuperarpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                //finish();
                 Intent intent = new Intent(LoginActivity.this, RecuperarActivity.class);
                 startActivity(intent);
             }
