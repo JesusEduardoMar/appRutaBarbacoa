@@ -208,7 +208,6 @@ public class RegistrarActivity extends AppCompatActivity {
     }
 
     public void onBackPressed(){
-        super.onBackPressed();
         Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
