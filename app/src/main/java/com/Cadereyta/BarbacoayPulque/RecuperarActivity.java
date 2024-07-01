@@ -48,7 +48,6 @@ public class RecuperarActivity extends AppCompatActivity {
     }
 
     public void onBackPressed(){
-        super.onBackPressed();
 
         Intent intent = new Intent(RecuperarActivity.this, LoginActivity.class);
         startActivity(intent);
