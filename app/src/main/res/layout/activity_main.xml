@@ -148,16 +148,18 @@
 
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
+                        android:layout_toStartOf="@+id/right_arrow2"
                         android:layout_toEndOf="@+id/faq"
                         android:text="Preguntas Frecuentes"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:id="@+id/right_arrow2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -198,16 +200,18 @@
 
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
+                        android:layout_toStartOf="@+id/right_arrow"
                         android:layout_toEndOf="@+id/informacion"
                         android:text="Términos y Condiciones"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:id="@+id/right_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -288,7 +292,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomNavigation"
         android:background="@color/light_orange_back"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -398,10 +403,16 @@
                             android:layout_marginTop="10dp"
                             android:drawableLeft="@drawable/baseline_person_24"
                             android:drawablePadding="8dp"
+                            android:layout_toStartOf="@+id/Mostrarnombre"
                             android:gravity="center_vertical"
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
                             android:text="Usuario:"
+                            android:autoSizeTextType="uniform"
+                            android:autoSizeMinTextSize="16sp"
+                            android:autoSizeMaxTextSize="18sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:maxLines="1"
                             android:textColor="@color/flexible_text_color"
                             android:textSize="18sp" />
 
@@ -413,6 +424,11 @@
                             android:layout_marginBottom="5dp"
                             android:gravity="end"
                             android:text="Usuario sin nombre"
+                            android:autoSizeTextType="uniform"
+                            android:autoSizeMinTextSize="13sp"
+                            android:autoSizeMaxTextSize="14sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:maxLines="2"
                             android:textAlignment="textEnd"
                             android:textSize="16sp" />
 
@@ -429,15 +445,21 @@
 
                         <TextView
                             android:id="@+id/textView71"
-                            android:layout_width="120dp"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:drawableLeft="@drawable/baseline_local_post_office_24"
                             android:drawablePadding="8dp"
+                            android:layout_toStartOf="@+id/Mostrarcorreo"
                             android:gravity="center_vertical"
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
-                            android:text="Correo :"
+                            android:text="Correo: "
+                            android:autoSizeTextType="uniform"
+                            android:autoSizeMinTextSize="16sp"
+                            android:autoSizeMaxTextSize="18sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:maxLines="1"
                             android:textColor="@color/flexible_text_color"
                             android:textSize="18sp" />
 
@@ -447,11 +469,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="5dp"
+                            android:autoSizeTextType="uniform"
+                            android:autoSizeMinTextSize="13sp"
+                            android:autoSizeMaxTextSize="14sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:maxLines="2"
                             android:gravity="end"
                             android:text="Usuariosinnombre@gmail.com"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/flexible_text_color"
-                            android:textSize="16sp" />
+                            android:textAlignment="textEnd"/>
                     </LinearLayout>
 
                     <!-- Campo de Teléfono -->
@@ -464,7 +489,7 @@
 
                         <TextView
                             android:id="@+id/textView72"
-                            android:layout_width="140dp"
+                            android:layout_width="150dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:drawableLeft="@drawable/baseline_call_24"
@@ -472,7 +497,12 @@
                             android:gravity="center_vertical"
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
-                            android:text="Teléfono :"
+                            android:text="Teléfono: "
+                            android:autoSizeTextType="uniform"
+                            android:autoSizeMinTextSize="16sp"
+                            android:autoSizeMaxTextSize="18sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:maxLines="1"
                             android:textColor="@color/flexible_text_color"
                             android:textSize="18sp" />
 
@@ -484,9 +514,13 @@
                             android:layout_marginBottom="5dp"
                             android:gravity="end"
                             android:text="+52 442 3291 145"
+                            android:autoSizeTextType="uniform"
+                            android:autoSizeMinTextSize="13sp"
+                            android:autoSizeMaxTextSize="14sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:maxLines="1"
                             android:textAlignment="textEnd"
-                            android:textColor="@color/flexible_text_color"
-                            android:textSize="16sp" />
+                             />
                     </LinearLayout>
 
                     <LinearLayout
@@ -588,7 +622,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
-        android:visibility="visible">
+        android:visibility="visible"
+        tools:visibility="gone">
 
 
         <ProgressBar
@@ -692,9 +727,10 @@
                                 android:id="@+id/barril"
                                 android:layout_width="80dp"
                                 android:layout_height="70dp"
-                                android:layout_marginEnd="4dp"
+                                android:layout_marginEnd="8dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/barriltext"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/barbacoa_nuevo" />
 
@@ -728,6 +764,7 @@
                                 android:layout_marginEnd="8dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/vinoquesotext"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/pulque_nuevo" />
 

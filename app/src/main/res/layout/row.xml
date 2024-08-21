@@ -45,6 +45,7 @@
                 android:text="Description TextView"
                 android:padding="16dp"
                 android:textSize="16sp"
+                android:justificationMode="inter_word"
                 android:textColor="@color/flexible_text_color"
                 />
 
