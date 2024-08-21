@@ -26,7 +26,7 @@ public class FaqActivity extends ScrollingActivity {
         super.onCreate(savedInstanceState);
 
         recyclerView = findViewById(R.id.recyclerView);
-
+// inicializamos initData
         initData();
     }
 
