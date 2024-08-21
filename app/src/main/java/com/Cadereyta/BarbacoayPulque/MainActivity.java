@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     Button cerrar;
     LinearLayout notificationContainer;
 
-
+    //ESTO ES UNA PRUEBA :)
     RelativeLayout  menu, profile, home, notifications, map;
     FirebaseAuth mAuth;
     FirebaseUser user;
