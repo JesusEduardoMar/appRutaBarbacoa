@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/iniciar"
                     android:textColor="@color/text_color"
-                    android:textSize="100px"
+                    android:textSize="80px"
                     android:textStyle="bold" />
 
                 <View
@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
-                        android:textSize="50px"
+                        android:textSize="30px"
                         android:text="@string/Olvidarpassword"
                         android:textAlignment="textEnd"
                         android:textColor="@color/text_color" />
@@ -157,7 +157,7 @@
                     android:background="@drawable/btn_background"
                     android:text="@string/iniciar"
                     android:textColor="@color/white"
-                    android:textSize="50px"
+                    android:textSize="30px"
                     android:textStyle="bold" />
 
                 <View
@@ -174,7 +174,7 @@
                     android:textColor="@color/white"
                     android:background="@drawable/btn_background"
                     android:text="@string/crear_cuenta"
-                    android:textSize="50px"
+                    android:textSize="30px"
                     android:textStyle="bold" />
 
                 <View
@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/iniciarwith"
                     android:textAlignment="center"
-                    android:textSize="50px"
+                    android:textSize="30px"
                     android:textColor="@color/black" />
 
                 <View
