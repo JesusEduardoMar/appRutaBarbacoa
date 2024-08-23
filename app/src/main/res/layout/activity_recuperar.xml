@@ -121,7 +121,7 @@
                 android:background="@drawable/btn_background"
                 android:text="@string/recuperar_contrase_a"
                 android:textColor="@color/white"
-                android:textSize="30px"
+                android:textSize="40px"
                 android:textStyle="bold" />
 
             <View
