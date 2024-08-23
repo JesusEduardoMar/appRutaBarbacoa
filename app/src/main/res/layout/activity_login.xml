@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/iniciarwith"
                     android:textAlignment="center"
-                    android:textSize="30px"
+                    android:textSize="35px"
                     android:textColor="@color/black" />
 
                 <View
