@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/iniciar"
                     android:textColor="@color/text_color"
-                    android:textSize="40sp"
+                    android:textSize="100px"
                     android:textStyle="bold" />
 
                 <View
@@ -133,10 +133,11 @@
 
                     <TextView
                         android:id="@+id/txtrecuperar"
-                        android:layout_width="150dp"
+                        android:layout_width="190dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
+                        android:textSize="50px"
                         android:text="@string/Olvidarpassword"
                         android:textAlignment="textEnd"
                         android:textColor="@color/text_color" />
@@ -156,7 +157,7 @@
                     android:background="@drawable/btn_background"
                     android:text="@string/iniciar"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="50px"
                     android:textStyle="bold" />
 
                 <View
@@ -173,7 +174,7 @@
                     android:textColor="@color/white"
                     android:background="@drawable/btn_background"
                     android:text="@string/crear_cuenta"
-                    android:textSize="20sp"
+                    android:textSize="50px"
                     android:textStyle="bold" />
 
                 <View
@@ -187,12 +188,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/iniciarwith"
                     android:textAlignment="center"
+                    android:textSize="50px"
                     android:textColor="@color/black" />
 
                 <View
                     android:id="@+id/view10"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp" />
+                    android:layout_height="20dp" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/login_gmail"
