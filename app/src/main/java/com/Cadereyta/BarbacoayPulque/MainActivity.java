@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     Button cerrar;
     LinearLayout notificationContainer;
 
-
+    //ESTO ES UNA PRUEBA :)
     RelativeLayout  menu, profile, home, notifications, map;
     FirebaseAuth mAuth;
     FirebaseUser user;
@@ -300,6 +300,14 @@ public class MainActivity extends AppCompatActivity {
                             items.addAll(randomItems);
                             itemsAdapterVinedos.notifyDataSetChanged();
 
+                            // Update again recyclerView
+                            recyclerView.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    itemsAdapterVinedos.notifyDataSetChanged();
+                                }
+                            });
+
                             pbProgressMain.setVisibility(View.GONE);
                         }
                     });
@@ -398,6 +406,15 @@ public class MainActivity extends AppCompatActivity {
                         items3.clear();
                         items3.addAll(randomItemsP);
                         itemsAdapterPulques.notifyDataSetChanged();
+
+                        // Update again recyclerView
+                        recyclerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                itemsAdapterVinedos.notifyDataSetChanged();
+                            }
+                        });
+
                         pbProgressMain.setVisibility(View.GONE);
                     }
                 });

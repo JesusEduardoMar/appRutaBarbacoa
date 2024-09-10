@@ -148,16 +148,18 @@
 
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
+                        android:layout_toStartOf="@+id/right_arrow2"
                         android:layout_toEndOf="@+id/faq"
                         android:text="Preguntas Frecuentes"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:id="@+id/right_arrow2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -198,16 +200,18 @@
 
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
+                        android:layout_toStartOf="@+id/right_arrow"
                         android:layout_toEndOf="@+id/informacion"
                         android:text="Términos y Condiciones"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:id="@+id/right_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -396,9 +400,15 @@
                             android:layout_width="140dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
+                            android:layout_toStartOf="@+id/Mostrarnombre"
+                            android:autoSizeMaxTextSize="18sp"
+                            android:autoSizeMinTextSize="16sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:autoSizeTextType="uniform"
                             android:drawableLeft="@drawable/baseline_person_24"
                             android:drawablePadding="8dp"
                             android:gravity="center_vertical"
+                            android:maxLines="1"
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
                             android:text="Usuario:"
@@ -411,7 +421,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
+                            android:autoSizeMaxTextSize="14sp"
+                            android:autoSizeMinTextSize="13sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:autoSizeTextType="uniform"
                             android:gravity="end"
+                            android:maxLines="2"
                             android:text="Usuario sin nombre"
                             android:textAlignment="textEnd"
                             android:textSize="16sp" />
@@ -429,15 +444,21 @@
 
                         <TextView
                             android:id="@+id/textView71"
-                            android:layout_width="120dp"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:layout_toStartOf="@+id/Mostrarcorreo"
+                            android:autoSizeMaxTextSize="18sp"
+                            android:autoSizeMinTextSize="16sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:autoSizeTextType="uniform"
                             android:drawableLeft="@drawable/baseline_local_post_office_24"
                             android:drawablePadding="8dp"
                             android:gravity="center_vertical"
+                            android:maxLines="1"
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
-                            android:text="Correo :"
+                            android:text="Correo: "
                             android:textColor="@color/flexible_text_color"
                             android:textSize="18sp" />
 
@@ -447,11 +468,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="5dp"
+                            android:autoSizeMaxTextSize="14sp"
+                            android:autoSizeMinTextSize="13sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:autoSizeTextType="uniform"
                             android:gravity="end"
+                            android:maxLines="2"
                             android:text="Usuariosinnombre@gmail.com"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/flexible_text_color"
-                            android:textSize="16sp" />
+                            android:textAlignment="textEnd" />
                     </LinearLayout>
 
                     <!-- Campo de Teléfono -->
@@ -464,15 +488,20 @@
 
                         <TextView
                             android:id="@+id/textView72"
-                            android:layout_width="140dp"
+                            android:layout_width="150dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:autoSizeMaxTextSize="18sp"
+                            android:autoSizeMinTextSize="16sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:autoSizeTextType="uniform"
                             android:drawableLeft="@drawable/baseline_call_24"
                             android:drawablePadding="8dp"
                             android:gravity="center_vertical"
+                            android:maxLines="1"
                             android:paddingStart="8dp"
                             android:paddingLeft="8dp"
-                            android:text="Teléfono :"
+                            android:text="Teléfono: "
                             android:textColor="@color/flexible_text_color"
                             android:textSize="18sp" />
 
@@ -482,11 +511,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="5dp"
+                            android:autoSizeMaxTextSize="14sp"
+                            android:autoSizeMinTextSize="13sp"
+                            android:autoSizeStepGranularity="1sp"
+                            android:autoSizeTextType="uniform"
                             android:gravity="end"
+                            android:maxLines="1"
                             android:text="+52 442 3291 145"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/flexible_text_color"
-                            android:textSize="16sp" />
+                            android:textAlignment="textEnd" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -621,7 +653,11 @@
                         android:id="@+id/textView9"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
+                        android:minLines="1"
+                        android:maxLines="2"
+                        android:autoSizeStepGranularity="1sp"
+                        android:autoSizeTextType="uniform"
                         android:gravity="center_horizontal"
                         android:text="Un paseo por una de las rutas más deliciosas de Querétaro"
                         android:textColor="@color/white"
@@ -689,9 +725,10 @@
                                 android:id="@+id/barril"
                                 android:layout_width="80dp"
                                 android:layout_height="70dp"
-                                android:layout_marginEnd="4dp"
+                                android:layout_marginEnd="8dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/barriltext"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/barbacoa_nuevo" />
 
@@ -702,7 +739,7 @@
                                 android:layout_marginStart="16dp"
                                 android:text="Barbacoa"
                                 android:textColor="#000000"
-                                android:textSize="15sp"
+                                android:textSize="35px"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -725,18 +762,19 @@
                                 android:layout_marginEnd="8dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/vinoquesotext"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/pulque_nuevo" />
 
                             <TextView
                                 android:id="@+id/vinoquesotext"
-                                android:layout_width="65dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:text="Pulque"
                                 android:textAlignment="center"
                                 android:textColor="#000000"
-                                android:textSize="15sp"
+                                android:textSize="35px"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -856,12 +894,16 @@
                         android:id="@+id/textView91"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:gravity="center_horizontal"
                         android:text="¡No te pierdas de las Últimas Actualizaciones!"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        android:autoSizeTextType="uniform"
+                        android:minLines="1"
+                        android:maxLines="2"
+                        android:autoSizeStepGranularity="1sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

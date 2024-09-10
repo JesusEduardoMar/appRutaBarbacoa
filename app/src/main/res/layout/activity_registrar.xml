@@ -229,7 +229,7 @@
                     android:minHeight="48dp"
                     android:text="@string/registrar_datos"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="40px"
                     android:textStyle="bold" />
 
 
