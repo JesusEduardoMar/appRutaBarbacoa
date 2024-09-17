@@ -11,7 +11,7 @@ android {
         applicationId = "com.Cadereyta.BarbacoayPulque"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
+        versionCode = 2
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -41,7 +41,6 @@ dependencies {
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-firestore:24.10.2")
-    implementation("com.google.firebase:firebase-analytics:21.5.1")
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.android.volley:volley:1.2.1")
