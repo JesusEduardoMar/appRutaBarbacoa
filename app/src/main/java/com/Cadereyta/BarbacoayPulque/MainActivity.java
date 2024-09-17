@@ -411,7 +411,7 @@ public class MainActivity extends AppCompatActivity {
                         recyclerView.post(new Runnable() {
                             @Override
                             public void run() {
-                                itemsAdapterVinedos.notifyDataSetChanged();
+                                itemsAdapterPulques.notifyDataSetChanged();
                             }
                         });
 
