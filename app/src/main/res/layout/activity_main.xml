@@ -620,7 +620,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
-        android:visibility="visible">
+        android:visibility="visible"
+        tools:visibility="gone">
 
 
         <ProgressBar
@@ -654,11 +655,11 @@
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:minLines="1"
-                        android:maxLines="2"
                         android:autoSizeStepGranularity="1sp"
                         android:autoSizeTextType="uniform"
                         android:gravity="center_horizontal"
+                        android:maxLines="2"
+                        android:minLines="1"
                         android:text="Un paseo por una de las rutas más deliciosas de Querétaro"
                         android:textColor="@color/white"
                         android:textSize="18sp"
@@ -1007,7 +1008,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"

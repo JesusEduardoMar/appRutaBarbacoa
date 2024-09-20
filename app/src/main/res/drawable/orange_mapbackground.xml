@@ -10,11 +10,12 @@
         </shape>
     </item>
     <item
-        android:width="60dp"
-        android:height="60dp"
+        android:width="50dp"
+        android:height="50dp"
+        android:top="3dp"
         android:left="20dp"
         android:gravity="left">
-        <bitmap android:src="@drawable/estademoda" />
+        <bitmap android:src="@drawable/logo_definitivo" />
     </item>
     <item
         android:width="50dp"
